@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({
@@ -12,13 +13,16 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
-    return  const Scaffold(
+    return Scaffold(
       body: Center(
         child: Stack(
           children: <Widget>[
             Text(
               "StudyReady",
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400),
+              style: TextStyle(
+                fontSize: 25.sp,
+                fontWeight: FontWeight.w400,
+              ),
             ),
           ],
         ),
