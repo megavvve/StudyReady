@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../main_screen/main_screen.dart';
 
@@ -38,11 +39,11 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color.fromRGBO(237, 240, 255, 1),
-      body: Center(
-        child: Image.asset('lib/utils/logo.png', width: 359, height: 359,),
-        ),
-      );
+    return Container(
+      color: const Color.fromRGBO(237, 240, 255, 1),
+      child: Center(
+        child: SvgPicture.asset('assets/images/splash/logo.svg'),
+      ),
+    );
   }
 }
