@@ -6,13 +6,24 @@ version: 1.0.0+1
 environment:
   sdk: '>=3.1.0 <4.0.0'
 
-
 dependencies:
-  
   flutter:
     sdk: flutter
   flutter_screenutil: ^5.9.0
   cupertino_icons: ^1.0.2
+  flutter_native_splash: ^2.3.5
+
+flutter_native_splash:
+  android: true
+  ios: false
+  web: false
+  color: '#EDF0FF'
+  image: assets/images/splash/logo.png
+  fullscreen: true
+  android_12:
+    color: '#EDF0FF'
+    image: assets/images/splash/logo.png
+    fullscreen: true
 
 dev_dependencies:
   flutter_test:
