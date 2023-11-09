@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:study_ready/presentation/pages/home_screen/widgets/letter_s.dart';
-import 'package:study_ready/presentation/pages/home_screen/widgets/trainer.dart';
-import 'package:study_ready/presentation/pages/home_screen/widgets/tudy.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:study_ready/utils/app_svg_assets.dart';
+
 
 final trainerButton = IconButton(
   onPressed: () {},
   padding: const EdgeInsets.all(0),
-  icon: Container(
-    width: 375,
+  icon: SizedBox(
+    width: 375.w,
     child: Stack(
       children: [
         Positioned(
@@ -17,13 +17,13 @@ final trainerButton = IconButton(
           child: sLetterFront,
         ),
         Positioned(
-          left: 121.72,
-          bottom: 187.91,
+          left: 121.72.w,
+          bottom: 187.91.h,
           child: trainerText,
         ),
         Positioned(
-          left: 165.87,
-          bottom: 143.2,
+          left: 165.87.w,
+          bottom: 143.2.h,
           child: tudyText,
         ),
       ],

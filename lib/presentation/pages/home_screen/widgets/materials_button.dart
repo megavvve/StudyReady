@@ -1,38 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:study_ready/presentation/pages/home_screen/widgets/eady.dart';
-import 'package:study_ready/presentation/pages/home_screen/widgets/letter_r.dart';
-import 'package:study_ready/presentation/pages/home_screen/widgets/materials.dart';
-import 'package:study_ready/presentation/pages/home_screen/widgets/rectangle.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:study_ready/utils/app_svg_assets.dart';
 
 final materialsButton = IconButton(
   onPressed: () {},
   padding: const EdgeInsets.all(0),
-  icon: Container(
-    width: 375,
-    child: Stack(
-      children: [
-        rectangle,
-        Positioned(
-          left: 29,
-          bottom: 60,
-          child: rLetterBack,
-        ),
-        Positioned(
-          left: 49,
-          bottom: 50,
-          child: rLetterFront,
-        ),
-        Positioned(
-          left: 138.38,
-          bottom: 192.25,
-          child: materialsText,
-        ),
-        Positioned(
-          left: 161.23,
-          bottom: 148.41,
-          child: eadyText,
-        ),
-      ],
-    ),
+  splashRadius: 40,
+  icon: Stack(
+    children: [
+      rectangle,
+      Positioned(
+        left: 39.w,
+        bottom: 50.h,
+        child: rLetterBack,
+      ),
+      Positioned(
+        left: 49.w,
+        bottom: 50.h,
+        child: rLetterFront,
+      ),
+      Positioned(
+        left: 150.w,
+        bottom: 192.25.h,
+        child: materialsText,
+      ),
+      Positioned(
+        left: 161.23.w,
+        bottom: 148.41.h,
+        child: eadyText,
+      ),
+    ],
   ),
 );
