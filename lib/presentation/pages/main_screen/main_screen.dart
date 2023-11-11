@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:study_ready/presentation/pages/burger_menu/burger_menu.dart';
+import 'package:study_ready/presentation/pages/navigator_bar/navigation_bar.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({
@@ -12,6 +12,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +29,7 @@ class _MainScreenState extends State<MainScreen> {
           );
         }),
       ),
-      drawer: const BurgerMenu(),
+      drawer: const NavigatorDrawer(),
       body: Center(
         child: Stack(
           children: <Widget>[
