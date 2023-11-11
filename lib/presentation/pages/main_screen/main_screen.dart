@@ -12,18 +12,23 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(leading: Builder(
-        builder: (BuildContext context) {
+      appBar: AppBar(
+        leading: Builder(builder: (BuildContext context) {
           return SizedBox(
-            width: 34,
-            height: 26,
+            width: 34.w,
+            height: 26.h,
             child: IconButton(
-              icon: const Icon(Icons.menu, size: 40, weight: 10,),
-              onPressed: () { Scaffold.of(context).openDrawer();},
+              icon: Icon(
+                Icons.menu,
+                size: 40.sp,
+                weight: 10.w,
+              ),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
               tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
             ),
           );
