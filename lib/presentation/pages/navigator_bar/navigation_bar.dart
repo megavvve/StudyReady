@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:study_ready/presentation/pages/main_screen/main_screen.dart';
+import 'package:study_ready/presentation/pages/home_screen/home_screen.dart';
 
 class NavigatorDrawer extends StatelessWidget {
   const NavigatorDrawer({super.key});
@@ -33,8 +33,15 @@ class NavigatorDrawer extends StatelessWidget {
                 color: Colors.black,
               ),
               onTap: () => Navigator.of(context).pushReplacement(
-                MaterialPageRoute(
-                  builder: (context) => const MainScreen(),
+                PageRouteBuilder(
+                  transitionDuration: Duration.zero,
+                  pageBuilder: (context, animation, secondaryAnimation) {
+                    return const HomeScreen();
+                  },
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) {
+                    return child;
+                  },
                 ),
               ),
             ),
