@@ -4,16 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/presentation/pages/home_screen/home_screen.dart';
 import 'package:study_ready/utils/app_themes.dart';
 
- void main()  {
- WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+void main() {
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  runApp(
-    const MyApp()
-  );
-   //FlutterNativeSplash.remove();
+  runApp(const MyApp());
+  FlutterNativeSplash.remove();
 }
-
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

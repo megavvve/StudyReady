@@ -12,6 +12,7 @@ dependencies:
   flutter_screenutil: ^5.9.0
   cupertino_icons: ^1.0.2
   flutter_native_splash: ^2.3.5
+  flutter_svg: ^2.0.9
 
 
 
@@ -25,7 +26,8 @@ flutter:
   assets:
     - assets/images/splash/logo.png
     - assets/images/splash/logo_for_android_12+.png
-    - assets/images/splash/example.png
+    - assets/icons/
+    - assets/icons/home_screen/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

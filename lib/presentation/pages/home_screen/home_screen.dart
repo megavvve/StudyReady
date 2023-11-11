@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:study_ready/presentation/navigation/navigation_bar.dart';
 import 'package:study_ready/presentation/pages/home_screen/widgets/materials_button.dart';
 import 'package:study_ready/presentation/pages/home_screen/widgets/trainer_button.dart';
-import 'package:study_ready/presentation/pages/navigator_bar/navigation_bar.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
