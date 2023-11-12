@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/presentation/pages/main_screen/main_screen.dart';
+import 'package:study_ready/presentation/pages/db_test_screen/db_test_screen.dart';
 import 'package:study_ready/utils/app_themes.dart';
 
 void main() {
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'StudyReady',
         theme: lightTheme,
-        home: const MainScreen(),
+        home: const DataBaseScreen(),
       ),
     );
   }

@@ -8,11 +8,31 @@ environment:
 
 
 dependencies:
-  
   flutter:
     sdk: flutter
   flutter_screenutil: ^5.9.0
   cupertino_icons: ^1.0.2
+
+  # local drift database dependencies
+
+  drift: ^2.13.0
+  sqlite3_flutter_libs: ^0.5.0
+  path_provider: ^2.0.0
+  path: ^1.8.3
+
+  #
+
+  # json converter
+
+  json_annotation: ^4.8.1
+
+  #
+
+  # analyzer for pab get work
+
+  analyzer: ^6.2.0
+
+  #
 
 dev_dependencies:
   flutter_test:
@@ -20,7 +40,12 @@ dev_dependencies:
 
   flutter_lints: ^2.0.0
 
+  # local drift database dependencies
 
+  drift_dev: ^2.13.0
+  build_runner: ^2.4.6
+
+  #
 
 flutter:
   uses-material-design: true
