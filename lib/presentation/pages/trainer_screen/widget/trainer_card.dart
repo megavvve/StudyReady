@@ -17,6 +17,31 @@ class TrainerCard extends StatelessWidget {
         left: 20.w,
         right: 20.w,
       ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          SizedBox(height: 40.h,
+            child: Text('0/30', style: TextStyle(fontSize: 16.sp)),
+          ),
+
+
+          SizedBox(height: 60.h,
+            child: Text('Непрерывная математика', style: TextStyle(fontSize: 25.sp)),
+          ),
+
+
+          SizedBox(height: 20.h),
+          TextButton(
+            style: TextButton.styleFrom(
+              textStyle: TextStyle(fontSize: 22.sp),
+            ),
+            onPressed: () {},
+            child: const Text('Начнем'),
+          ),
+
+
+        ],
+      ),
     );
   }
 }
