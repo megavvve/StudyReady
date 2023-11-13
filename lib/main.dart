@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-<<<<<<< Updated upstream
 import 'package:study_ready/presentation/pages/home_screen/home_screen.dart';
-=======
-import 'package:study_ready/presentation/pages/main_screen/main_screen.dart';
-import 'package:study_ready/presentation/pages/db_test_screen/db_test_screen.dart';
->>>>>>> Stashed changes
 import 'package:study_ready/utils/app_themes.dart';
 
 void main() {
