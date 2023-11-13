@@ -43,7 +43,7 @@ class HomeScreen extends StatelessWidget {
           ),
           Positioned(
             bottom: 400.h,
-            child: trainerButton,
+            child: const TrainerButtonWidget(),
           ),
         ],
       ),
