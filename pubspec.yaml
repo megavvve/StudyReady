@@ -56,6 +56,8 @@ flutter:
     - assets/images/splash/logo_for_android_12+.png
     - assets/icons/
     - assets/icons/home_screen/
+    - assets/images/trainer/backgroung_for_trainer.svg
+    - assets/images/trainer/picture_for_trainer.svg
 
   # To add assets to your application, add an assets section, like this:
   # assets:

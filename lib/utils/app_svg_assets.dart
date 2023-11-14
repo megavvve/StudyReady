@@ -36,4 +36,9 @@ final rectangle = SvgPicture.asset(
   rectanglePath,
   width: 375.w,
 );
-
+final backgrondForTrainerCard = SvgPicture.asset(
+  'assets/images/trainer/backgroung_for_trainer.svg',
+);
+final pictureForTrainer = SvgPicture.asset(
+  'assets/images/trainer/picture_for_trainer.svg',
+);
