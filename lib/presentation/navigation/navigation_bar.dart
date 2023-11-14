@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/presentation/pages/home_screen/home_screen.dart';
+import 'package:study_ready/utils/app_colors.dart';
+import 'package:study_ready/utils/navigation_bar/drawer_utils.dart';
 
 class NavigatorDrawer extends StatelessWidget {
   const NavigatorDrawer({super.key});
@@ -9,7 +11,7 @@ class NavigatorDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       width: 222.w,
-      backgroundColor: const Color.fromRGBO(189, 214, 255, 1),
+      backgroundColor: backgroundColor,
       child: Container(
         padding: EdgeInsets.only(
           top: 50.sp,
@@ -17,21 +19,9 @@ class NavigatorDrawer extends StatelessWidget {
         child: Wrap(
           children: [
             ListTile(
-              leading: Icon(
-                Icons.home_outlined,
-                size: 35.sp,
-                color: Colors.black,
-              ),
-              title: Text(
-                'Главная',
-                style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w900),
-                textAlign: TextAlign.center,
-              ),
-              trailing: Icon(
-                Icons.chevron_right_sharp,
-                size: 35.sp,
-                color: Colors.black,
-              ),
+              leading: mainIcon,
+              title: mainTitle,
+              trailing: trailingIcon,
               onTap: () => Navigator.of(context).pushReplacement(
                 PageRouteBuilder(
                   transitionDuration: Duration.zero,
@@ -49,7 +39,7 @@ class NavigatorDrawer extends StatelessWidget {
               color: Colors.black,
               indent: 20,
               endIndent: 30,
-            )
+            ),
           ],
         ),
       ),
