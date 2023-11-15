@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 //leading icons
-const mainIcon = Icon(
+final mainIcon = Icon(
   Icons.home_outlined,
-  size: 35,
+  size: 35.sp,
   color: Colors.black,
 );
 
@@ -16,8 +16,8 @@ final mainTitle = Text(
 );
 
 //trailing icon
-const trailingIcon = Icon(
+final trailingIcon = Icon(
   Icons.chevron_right_sharp,
-  size: 35,
+  size: 35.sp,
   color: Colors.black,
 );
