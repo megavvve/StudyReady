@@ -1,7 +1,10 @@
 // Table Question
 
 import 'package:drift/drift.dart';
-import 'incorrect_answers.dart';
+import 'package:study_ready/data/local/db/entity/subject_entity.dart';
+import 'package:study_ready/data/local/db/entity/themes_entity.dart';
+import 'chapter_entity.dart';
+import 'strings_list_json_converter.dart';
 
 
 class Question extends Table {
@@ -10,11 +13,11 @@ class Question extends Table {
 
   IntColumn get courseNumber => integer().named('course_number')();
 
-  IntColumn get subjectId => integer().named('course_id')();
+  IntColumn get subjectId => integer().named('course_id').references(Subjects, #id)();
 
-  IntColumn get chapterId => integer().named('chapter_id')();
+  IntColumn get chapterId => integer().named('chapter_id').references(Chapters, #id)();
 
-  IntColumn get themeId => integer().named('theme_id')();
+  IntColumn get themeId => integer().named('theme_id').references(Themes, #id)();
 
   TextColumn get difficultly => text().named('difficultly')();
 

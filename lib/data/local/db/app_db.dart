@@ -5,8 +5,12 @@ import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
+import 'package:study_ready/data/local/db/entity/chapter_entity.dart';
 import 'package:study_ready/data/local/db/entity/question_entity.dart';
-import 'entity/incorrect_answers.dart';
+import 'package:study_ready/data/local/db/entity/subject_entity.dart';
+import 'package:study_ready/data/local/db/entity/themes_entity.dart';
+import 'package:study_ready/data/local/db/entity/trainer_entity.dart';
+import 'entity/strings_list_json_converter.dart';
 part 'app_db.g.dart';
 
 LazyDatabase _openConnection(){
@@ -19,7 +23,7 @@ LazyDatabase _openConnection(){
   });
 }
 
-@DriftDatabase(tables: [Question])
+@DriftDatabase(tables: [Subjects, Chapters, Themes, Question, Trainers])
 class AppDB extends _$AppDB {
 
   AppDB() : super(_openConnection());
