@@ -7,8 +7,9 @@ class OptionsButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OutlinedButton(
+    return TextButton(
       style: ButtonStyle(
+        shape: MaterialStatePropertyAll(RoundedRectangleBorder(side: const BorderSide(color: Colors.white), borderRadius: BorderRadius.circular(16))),
           fixedSize: MaterialStatePropertyAll(Size(304.w, 57.h)),
           backgroundColor: const MaterialStatePropertyAll(Colors.white)),
       onPressed: () {
