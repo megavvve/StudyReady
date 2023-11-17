@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:study_ready/presentation/pages/add_answer/answer_parametrs_sreen.dart';
 
 class OptionsButton extends StatelessWidget {
   const OptionsButton({super.key});
@@ -10,7 +11,10 @@ class OptionsButton extends StatelessWidget {
       style: ButtonStyle(
           fixedSize: MaterialStatePropertyAll(Size(304.w, 57.h)),
           backgroundColor: const MaterialStatePropertyAll(Colors.white)),
-      onPressed: () {},
+      onPressed: () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const AnsParsScreen()));
+      },
       clipBehavior: Clip.none,
       child: Row(
         children: [
