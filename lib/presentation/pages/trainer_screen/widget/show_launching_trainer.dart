@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../trainprocess_screen/trainprocess_screen.dart';
+
 void showLaunchingTrainer(BuildContext context) {
   showModalBottomSheet<void>(
     context: context,
@@ -67,9 +69,20 @@ void showLaunchingTrainer(BuildContext context) {
                     fontSize: 24.sp,
                   ),
                 ),
-                onPressed: () => Navigator.pop(
-                  context,
-                ),
+                onPressed: () {
+                  Navigator.of(context).pushReplacement(
+                    PageRouteBuilder(
+                      transitionDuration: Duration.zero,
+                      pageBuilder: (context, animation, secondaryAnimation) {
+                        return const TrainProcessScreen();
+                      },
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) {
+                        return child;
+                      },
+                    ),
+                  );
+                },
               ),
             ),
             SizedBox(
