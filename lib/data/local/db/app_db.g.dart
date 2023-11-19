@@ -190,7 +190,7 @@ class $ChaptersTable extends Chapters with TableInfo<$ChaptersTable, Chapter> {
       const VerificationMeta('subjectId');
   @override
   late final GeneratedColumn<int> subjectId = GeneratedColumn<int>(
-      'subject_id', aliasedName, false,
+      'subjectId', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
       defaultConstraints:
@@ -215,9 +215,9 @@ class $ChaptersTable extends Chapters with TableInfo<$ChaptersTable, Chapter> {
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
-    if (data.containsKey('subject_id')) {
+    if (data.containsKey('subjectId')) {
       context.handle(_subjectIdMeta,
-          subjectId.isAcceptableOrUnknown(data['subject_id']!, _subjectIdMeta));
+          subjectId.isAcceptableOrUnknown(data['subjectId']!, _subjectIdMeta));
     } else if (isInserting) {
       context.missing(_subjectIdMeta);
     }
@@ -239,7 +239,7 @@ class $ChaptersTable extends Chapters with TableInfo<$ChaptersTable, Chapter> {
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       subjectId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}subject_id'])!,
+          .read(DriftSqlType.int, data['${effectivePrefix}subjectId'])!,
       name: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}chapter_name'])!,
     );
@@ -261,7 +261,7 @@ class Chapter extends DataClass implements Insertable<Chapter> {
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
-    map['subject_id'] = Variable<int>(subjectId);
+    map['subjectId'] = Variable<int>(subjectId);
     map['chapter_name'] = Variable<String>(name);
     return map;
   }
@@ -341,7 +341,7 @@ class ChaptersCompanion extends UpdateCompanion<Chapter> {
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
-      if (subjectId != null) 'subject_id': subjectId,
+      if (subjectId != null) 'subjectId': subjectId,
       if (name != null) 'chapter_name': name,
     });
   }
@@ -362,7 +362,7 @@ class ChaptersCompanion extends UpdateCompanion<Chapter> {
       map['id'] = Variable<int>(id.value);
     }
     if (subjectId.present) {
-      map['subject_id'] = Variable<int>(subjectId.value);
+      map['subjectId'] = Variable<int>(subjectId.value);
     }
     if (name.present) {
       map['chapter_name'] = Variable<String>(name.value);
@@ -399,7 +399,7 @@ class $ThemesTable extends Themes with TableInfo<$ThemesTable, Theme> {
       const VerificationMeta('subjectId');
   @override
   late final GeneratedColumn<int> subjectId = GeneratedColumn<int>(
-      'subject_id', aliasedName, false,
+      'subjectId', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
       defaultConstraints:
@@ -408,7 +408,7 @@ class $ThemesTable extends Themes with TableInfo<$ThemesTable, Theme> {
       const VerificationMeta('chapterId');
   @override
   late final GeneratedColumn<int> chapterId = GeneratedColumn<int>(
-      'chapter_id', aliasedName, false,
+      'chapterId', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
       defaultConstraints:
@@ -433,15 +433,15 @@ class $ThemesTable extends Themes with TableInfo<$ThemesTable, Theme> {
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
-    if (data.containsKey('subject_id')) {
+    if (data.containsKey('subjectId')) {
       context.handle(_subjectIdMeta,
-          subjectId.isAcceptableOrUnknown(data['subject_id']!, _subjectIdMeta));
+          subjectId.isAcceptableOrUnknown(data['subjectId']!, _subjectIdMeta));
     } else if (isInserting) {
       context.missing(_subjectIdMeta);
     }
-    if (data.containsKey('chapter_id')) {
+    if (data.containsKey('chapterId')) {
       context.handle(_chapterIdMeta,
-          chapterId.isAcceptableOrUnknown(data['chapter_id']!, _chapterIdMeta));
+          chapterId.isAcceptableOrUnknown(data['chapterId']!, _chapterIdMeta));
     } else if (isInserting) {
       context.missing(_chapterIdMeta);
     }
@@ -463,9 +463,9 @@ class $ThemesTable extends Themes with TableInfo<$ThemesTable, Theme> {
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       subjectId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}subject_id'])!,
+          .read(DriftSqlType.int, data['${effectivePrefix}subjectId'])!,
       chapterId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}chapter_id'])!,
+          .read(DriftSqlType.int, data['${effectivePrefix}chapterId'])!,
       name: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}theme_name'])!,
     );
@@ -491,8 +491,8 @@ class Theme extends DataClass implements Insertable<Theme> {
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
-    map['subject_id'] = Variable<int>(subjectId);
-    map['chapter_id'] = Variable<int>(chapterId);
+    map['subjectId'] = Variable<int>(subjectId);
+    map['chapterId'] = Variable<int>(chapterId);
     map['theme_name'] = Variable<String>(name);
     return map;
   }
@@ -584,8 +584,8 @@ class ThemesCompanion extends UpdateCompanion<Theme> {
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
-      if (subjectId != null) 'subject_id': subjectId,
-      if (chapterId != null) 'chapter_id': chapterId,
+      if (subjectId != null) 'subjectId': subjectId,
+      if (chapterId != null) 'chapterId': chapterId,
       if (name != null) 'theme_name': name,
     });
   }
@@ -610,10 +610,10 @@ class ThemesCompanion extends UpdateCompanion<Theme> {
       map['id'] = Variable<int>(id.value);
     }
     if (subjectId.present) {
-      map['subject_id'] = Variable<int>(subjectId.value);
+      map['subjectId'] = Variable<int>(subjectId.value);
     }
     if (chapterId.present) {
-      map['chapter_id'] = Variable<int>(chapterId.value);
+      map['chapterId'] = Variable<int>(chapterId.value);
     }
     if (name.present) {
       map['theme_name'] = Variable<String>(name.value);

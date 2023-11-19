@@ -7,7 +7,7 @@ import 'strings_list_json_converter.dart';
 
 class Trainers extends Table {
 
-  IntColumn get id => integer().autoIncrement()();
+  IntColumn get id => integer().autoIncrement().named('id')();
 
   TextColumn get name => text().named('name')();
 

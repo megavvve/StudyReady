@@ -9,7 +9,7 @@ import 'strings_list_json_converter.dart';
 
 class Question extends Table {
 
-  IntColumn get id => integer().autoIncrement()();
+  IntColumn get id => integer().autoIncrement().named('id')();
 
   IntColumn get courseNumber => integer().named('course_number')();
 

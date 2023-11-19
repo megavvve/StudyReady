@@ -1,14 +1,20 @@
+import 'package:drift/drift.dart' as drift;
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:study_ready/data/local/db/app_db.dart';
 import 'package:study_ready/presentation/pages/home_screen/home_screen.dart';
 import 'package:study_ready/utils/app_themes.dart';
+
+import 'domain/database/initialize/first_launch.dart';
 
 void main() {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(const MyApp());
   FlutterNativeSplash.remove();
+  FillTables ft = FillTables(); // launch basic data filling in tables
+  ft.firstAppLaunch();
 }
 
 class MyApp extends StatelessWidget {
