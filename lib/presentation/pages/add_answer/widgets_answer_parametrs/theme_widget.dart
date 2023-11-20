@@ -44,14 +44,15 @@ class _FirstWidgetState extends State<ThemeWidget> {
               child: const Padding(
                 padding: EdgeInsets.only(left: 8.0),
                 child: TextField(
-                    decoration: InputDecoration(
-                      isCollapsed: true,
-                      border: UnderlineInputBorder(borderSide: BorderSide.none),
-                      hintText: 'Введите тему...',
-                      hintStyle: TextStyle(fontSize: 18),
-                    ),
-                    style: TextStyle(fontSize: 18),
+                  textCapitalization: TextCapitalization.sentences,
+                  decoration: InputDecoration(
+                    isCollapsed: true,
+                    border: UnderlineInputBorder(borderSide: BorderSide.none),
+                    hintText: 'Введите тему...',
+                    hintStyle: TextStyle(fontSize: 18),
                   ),
+                  style: TextStyle(fontSize: 18),
+                ),
               ),
             ),
           ),

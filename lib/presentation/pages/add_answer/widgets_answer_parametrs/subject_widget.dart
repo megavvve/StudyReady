@@ -44,6 +44,7 @@ class _FirstWidgetState extends State<SubjectWidget> {
               child: const Padding(
                 padding: EdgeInsets.only(left: 8.0),
                 child: TextField(
+                  textCapitalization: TextCapitalization.sentences,
                   decoration: InputDecoration(
                     isCollapsed: true,
                     border: UnderlineInputBorder(borderSide: BorderSide.none),

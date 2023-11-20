@@ -36,6 +36,7 @@ class _ThirdWidgetState extends State<ThirdWidget> {
             width: 241.w,
             height: 27.h,
             child: const TextField(
+              textCapitalization: TextCapitalization.sentences,
               decoration: InputDecoration(
                 isCollapsed: true,
                 border: UnderlineInputBorder(borderSide: BorderSide.none),

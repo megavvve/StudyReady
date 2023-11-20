@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CourseNumberWidget extends StatefulWidget {
@@ -44,14 +45,17 @@ class _FirstWidgetState extends State<CourseNumberWidget> {
               child: const Padding(
                 padding: EdgeInsets.only(left: 8.0),
                 child: TextField(
-                    decoration: InputDecoration(
-                      isCollapsed: true,
-                      border: UnderlineInputBorder(borderSide: BorderSide.none),
-                      hintText: 'Введите номер курса...',
-                      hintStyle: TextStyle(fontSize: 18),
-                    ),
-                    style: TextStyle(fontSize: 18),
+                  maxLength: 1,
+                  maxLengthEnforcement: MaxLengthEnforcement.enforced,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    isCollapsed: true,
+                    border: UnderlineInputBorder(borderSide: BorderSide.none),
+                    hintText: 'Введите номер курса...',
+                    hintStyle: TextStyle(fontSize: 18),
                   ),
+                  style: TextStyle(fontSize: 18),
+                ),
               ),
             ),
           ),

@@ -36,6 +36,7 @@ class _FourthWidgetState extends State<FourthWidget> {
             width: 241.w,
             height: 27.h,
             child: const TextField(
+              textCapitalization: TextCapitalization.sentences,
               decoration: InputDecoration(
                 isCollapsed: true,
                 border: UnderlineInputBorder(borderSide: BorderSide.none),
