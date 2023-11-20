@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:study_ready/presentation/pages/add_answer/widgets_answer_parametrs/app_bar.dart';
+import 'package:study_ready/presentation/pages/add_answer/widgets_answer_parametrs/app_bar_2.dart';
 import 'package:study_ready/presentation/pages/add_answer/widgets_answer_parametrs/complexity_widget.dart';
 import 'package:study_ready/presentation/pages/add_answer/widgets_answer_parametrs/module_widget.dart';
 import 'package:study_ready/presentation/pages/add_answer/widgets_answer_parametrs/number_of_course_widget.dart';

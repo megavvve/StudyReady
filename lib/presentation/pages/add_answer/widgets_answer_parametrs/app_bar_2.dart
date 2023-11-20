@@ -11,9 +11,6 @@ class AnsParsAppBarWidget extends StatelessWidget
     return AppBar(
       backgroundColor: backgroundColor,
       centerTitle: true,
-      leading: Padding(
-          padding: const EdgeInsets.only(left: 10),
-          child: IconButton(onPressed: () {Navigator.pop(context);}, icon: const Icon(Icons.arrow_back))),
       title: Container(
         alignment: Alignment.center,
         width: 278.w,

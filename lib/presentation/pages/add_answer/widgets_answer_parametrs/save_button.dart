@@ -11,7 +11,9 @@ class SaveButtonWidget extends StatelessWidget {
             backgroundColor: const MaterialStatePropertyAll(
                 Color.fromRGBO(119, 165, 245, 1)),
             fixedSize: MaterialStatePropertyAll(Size(305.w, 69.h))),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pop(context);
+        },
         child: Text(
           'Сохранить',
           style: TextStyle(color: Colors.black, fontSize: 20.sp),

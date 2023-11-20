@@ -17,17 +17,21 @@ class _FirstWidgetState extends State<FirstWidget> {
       children: [
         //белая карточка с названием вопроса
         Container(
-          padding: const EdgeInsets.all(16),
-          alignment: Alignment.topLeft,
-          width: 321.w,
-          height: 116.h,
-          decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(16)),
-          child: Text(
-            'Название вопроса',
-            style: TextStyle(fontSize: 20.sp),
-          ),
-        ),
+            padding: const EdgeInsets.all(16),
+            alignment: Alignment.topLeft,
+            width: 321.w,
+            height: 116.h,
+            decoration: BoxDecoration(
+                color: Colors.white, borderRadius: BorderRadius.circular(16)),
+            child: const TextField(
+              decoration: InputDecoration(
+                  border: UnderlineInputBorder(borderSide: BorderSide.none),
+                  hintText: 'Название вопроса...',
+                  hintStyle: TextStyle(
+                    fontSize: 20,
+                  )),
+              style: TextStyle(fontSize: 20),
+            )),
         //белая карточка с названием вопроса
 
         //зеленая карточка введите правильный ответ
@@ -52,16 +56,22 @@ class _FirstWidgetState extends State<FirstWidget> {
                       borderRadius: BorderRadius.circular(8)),
                   child: Text('1', style: TextStyle(fontSize: 18.sp)),
                 ),
-                Container(
-                  alignment: Alignment.centerLeft,
+                const SizedBox(
+                  width: 8,
+                ),
+                SizedBox(
                   width: 241.w,
                   height: 27.h,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
-                    child: Text('Введите правильный ответ...',
-                        style: TextStyle(fontSize: 18.sp)),
+                  child: const TextField(
+                    decoration: InputDecoration(
+                      isCollapsed: true,
+                      border: UnderlineInputBorder(borderSide: BorderSide.none),
+                      hintText: 'Введите правильный ответ...',
+                      hintStyle: TextStyle(fontSize: 18),
+                    ),
+                    style: TextStyle(fontSize: 18),
                   ),
-                ),
+                )
               ],
             ),
           ),

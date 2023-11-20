@@ -29,15 +29,22 @@ class _SecondWidgetState extends State<SecondWidget> {
                 color: Colors.white, borderRadius: BorderRadius.circular(8)),
             child: Text('2', style: TextStyle(fontSize: 18.sp)),
           ),
-          Container(
-            alignment: Alignment.centerLeft,
+          const SizedBox(
+            width: 8,
+          ),
+          SizedBox(
             width: 241.w,
             height: 27.h,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 8.0),
-              child: Text('Введите ответ...', style: TextStyle(fontSize: 18.sp)),
+            child: const TextField(
+              decoration: InputDecoration(
+                isCollapsed: true,
+                border: UnderlineInputBorder(borderSide: BorderSide.none),
+                hintText: 'Введите ответ...',
+                hintStyle: TextStyle(fontSize: 18),
+              ),
+              style: TextStyle(fontSize: 18),
             ),
-          ),
+          )
         ],
       ),
     );

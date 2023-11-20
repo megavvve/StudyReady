@@ -41,10 +41,17 @@ class _FirstWidgetState extends State<ComplexityWidget> {
               alignment: Alignment.centerLeft,
               width: 241.w,
               height: 27.h,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Text('Выберете уровень...',
-                    style: TextStyle(fontSize: 18.sp)),
+              child: const Padding(
+                padding: EdgeInsets.only(left: 8.0),
+                child: TextField(
+                    decoration: InputDecoration(
+                      isCollapsed: true,
+                      border: UnderlineInputBorder(borderSide: BorderSide.none),
+                      hintText: 'Введите сложность...',
+                      hintStyle: TextStyle(fontSize: 18),
+                    ),
+                    style: TextStyle(fontSize: 18),
+                  ),
               ),
             ),
           ),
