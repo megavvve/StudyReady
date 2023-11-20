@@ -24,6 +24,17 @@ LazyDatabase _openConnection(){
 }
 
 
+// Themes object with joined subject and chapter
+class ThemesComplete {
+  final int id;
+  final String subject;
+  final String chapter;
+  final String name;
+
+  ThemesComplete({required this.id, required this.subject, required this.chapter, required this.name});
+}
+
+
 @DriftDatabase(tables: [Subjects, Chapters, Themes, Question, Trainers])
 class AppDB extends _$AppDB {
 
@@ -121,27 +132,23 @@ class AppDB extends _$AppDB {
 
 
   // Whole info about theme (in dev)
-  // Future<Stream<List<dynamic>>> themeFullInfo() async {
-    // final query = select(themes).join([
-    //   // In joins, `useColumns: false` tells drift to not add columns of the
-    //   // joined table to the result set. This is useful here, since we only join
-    //   // the tables so that we can refer to them in the where clause.
-    //   leftOuterJoin(subjects, subjects.id.equalsExp(themes.subjectId),
-    //       useColumns: false),
-    //   leftOuterJoin(chapters, chapters.id.equalsExp(themes.chapterId),
-    //       useColumns: false)
-    // ]);
-    // return query.map((row) => row.readTable(themes)).get();
-  //   const query = "SELECT Themes.id, Subjects.subject_name, Chapters.chapter_name, Themes.theme_name from Themes inner join Subjects on Themes.subjectId = Subjects.id inner join Chapters on Themes.chapterId = Chapters.id";
-  //   return customSelect(query, readsFrom: {themes, subjects, chapters},).watch().map((rows) {
-  //     return rows
-  //         .map((row) => Theme(
-  //       category: categories.map(row.data),
-  //       count: row.read<int>('amount'),
-  //     ))
-  //         .toList();
-  //   });
-  //
-  //
-  // }
+  Future<List<ThemesComplete>> themeFullInfo() async {
+    // create aliases for the geoPoints table so that we can reference it twice
+    final subject = alias(subjects, 's');
+    final chapter = alias(chapters, 'c');
+
+    final rows = await select(themes).join([
+      innerJoin(subject, subject.id.equalsExp(themes.subjectId)),
+      innerJoin(chapter, chapter.id.equalsExp(themes.chapterId)),
+    ]).get();
+
+    return rows.map((resultRow) {
+      return ThemesComplete(
+        id: resultRow.readTable(themes).id,
+        subject: resultRow.readTable(subject).name,
+        chapter: resultRow.readTable(chapter).name,
+        name: resultRow.readTable(themes).name,
+      );
+    }).toList();
+  }
 }

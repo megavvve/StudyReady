@@ -14,7 +14,7 @@ class FillTables {
     fillSubjects();
     fillChapters();
     fillThemes();
-    //exampleJoinMethod(); // demo of leftJoin for tables (in dev)
+    exampleJoinMethod(); // demo of leftJoin for tables (in dev)
   }
 
   // creating test subjects
@@ -85,13 +85,13 @@ class FillTables {
 
     // here we go to print whole info about every THEME, getting names of SUBJECT and CHAPTER from other tables
 
-    //var listFullThemes = await db.themeFullInfo();
+    var listFullThemes = await  db.themeFullInfo();
 
-    //print(listFullThemes);
-
+    for (var i = 0; i < listFullThemes.length; i++) {
+      print((listFullThemes[i].id, listFullThemes[i].subject,
+      listFullThemes[i].chapter, listFullThemes[i].name));
+    }
 
   }
-
-
 
 }
