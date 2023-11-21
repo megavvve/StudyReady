@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:study_ready/presentation/pages/trainer_screen/trainer_screen.dart';
+import 'package:study_ready/presentation/navigation/custom_page_router.dart';
+import 'package:study_ready/presentation/pages/trainer/trainer_screen/trainer_screen.dart';
 import 'package:study_ready/utils/app_svg_assets.dart';
-
-
 
 class TrainerButtonWidget extends StatelessWidget {
   const TrainerButtonWidget({
@@ -12,27 +11,18 @@ class TrainerButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return     IconButton(
+    return IconButton(
       onPressed: () {
-        Navigator.of(context).pushReplacement(
-          PageRouteBuilder(
-            transitionDuration: Duration.zero,
-            pageBuilder: (context, animation, secondaryAnimation) {
-              return const TrainerScreen();
-            },
-            transitionsBuilder:
-                (context, animation, secondaryAnimation, child) {
-              return child;
-            },
+        Navigator.of(context).push(
+          customPageRoute(
+            const TrainerScreen(),
           ),
         );
       },
-    
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,
       padding: const EdgeInsets.all(0),
       icon: SizedBox(
-    
         width: 375.w,
         child: Stack(
           children: [

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:study_ready/presentation/navigation/custom_page_router.dart';
 import 'package:study_ready/presentation/navigation/navigation_bar.dart';
-import 'package:study_ready/presentation/pages/trainer_screen/widget/trainer_card.dart';
+import 'package:study_ready/presentation/pages/trainer/add_answer/add_answer_screen.dart';
+import 'package:study_ready/presentation/pages/trainer/trainer_screen/widget/trainer_card.dart';
 import 'package:study_ready/utils/app_colors.dart';
-import 'widget/app_bar_widget.dart'; // Импорт файла для AppBar
+import 'widget/app_bar_widget.dart'; 
 
 class TrainerScreen extends StatefulWidget {
   const TrainerScreen({
@@ -43,7 +45,9 @@ class _TrainerScreenState extends State<TrainerScreen> {
             height: 70.h,
             child: FittedBox(
               child: FloatingActionButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(customPageRoute(AddAnswerScreen()));
+                },
                 backgroundColor: Colors.white,
                 child: const Icon(
                   Icons.add,
