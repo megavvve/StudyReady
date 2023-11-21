@@ -45,8 +45,6 @@ class _FirstWidgetState extends State<CourseNumberWidget> {
               child: const Padding(
                 padding: EdgeInsets.only(left: 8.0),
                 child: TextField(
-                  maxLength: 1,
-                  maxLengthEnforcement: MaxLengthEnforcement.enforced,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                     isCollapsed: true,

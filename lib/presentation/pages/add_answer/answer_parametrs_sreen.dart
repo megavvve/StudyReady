@@ -20,50 +20,55 @@ class _AddAnswerScreenState extends State<AnsParsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AnsParsAppBarWidget(),
-      body: Container(
-        color: backgroundColor,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: CustomScrollView(
-            semanticChildCount: 1,
-            scrollDirection: Axis.vertical,
-            slivers: [
-              SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                    return Column(
-                      children: [
-                        const SubjectWidget(),
-                        SizedBox(
-                          height: 75.h,
-                        ),
-                        const CourseNumberWidget(),
-                        SizedBox(
-                          height: 75.h,
-                        ),
-                        const ModuleWidget(),
-                        SizedBox(
-                          height: 75.h,
-                        ),
-                        const ThemeWidget(),
-                        SizedBox(
-                          height: 75.h,
-                        ),
-                        const ComplexityWidget(),
-                        SizedBox(
-                          height: 75.h,
-                        ),
-                        const SaveButtonWidget(),
-                      ],
-                    );
-                  },
-                childCount: 1,
-                ),
-              ),
-            ],
+      body: CustomScrollView(
+        scrollDirection: Axis.vertical,
+        slivers: [
+          const AnsParsAppBarWidget(),
+          SliverToBoxAdapter(
+            child: Container(
+              height: 16.h,
+              color: backgroundColor,
+            ),
           ),
-        ),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                return Container(
+                  color: backgroundColor,
+                  child: Column(
+                    children: [
+                      const SubjectWidget(),
+                      SizedBox(
+                        height: 75.h,
+                      ),
+                      const CourseNumberWidget(),
+                      SizedBox(
+                        height: 75.h,
+                      ),
+                      const ModuleWidget(),
+                      SizedBox(
+                        height: 75.h,
+                      ),
+                      const ThemeWidget(),
+                      SizedBox(
+                        height: 75.h,
+                      ),
+                      const ComplexityWidget(),
+                      SizedBox(
+                        height: 75.h,
+                      ),
+                      const SaveButtonWidget(),
+                       SizedBox(
+                        height: 10.h,
+                      ),
+                    ],
+                  ),
+                );
+              },
+              childCount: 1,
+            ),
+          ),
+        ],
       ),
     );
   }

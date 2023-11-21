@@ -20,54 +20,50 @@ class _AddAnswerScreenState extends State<AddAnswerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarWidget(),
-      body: Container(
-        color: backgroundColor,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: CustomScrollView(
-            scrollDirection: Axis.vertical,
-            slivers: [
-              SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  return Column(
-                    children: [
-                      const FirstWidget(), // Два прямоугольника(Название вопроса и правильный ответ)
-                      SizedBox(
-                        height: 80.h,
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          const SecondWidget(), // Прямоугольник 2 (Введите ответ)
-                          SizedBox(
-                            height: 20.h,
-                          ),
-                          const ThirdWidget(), //Прямоугольник 3 (Введите ответ)
-                          SizedBox(
-                            height: 20.h,
-                          ),
-                          const FourthWidget(), //Прямоугольник 4 (Введите ответ)
-                          SizedBox(
-                            height: 50.h,
-                          ),
-                          const OptionsButton(), //кнопка параметры
-                          SizedBox(
-                            height: 20.h,
-                          ),
-                          const AddQuestionButton(), // кнопка добавить вопрос
-                        ],
-                      ),
-                    ],
-                  );
-                },
-                childCount: 1,
-              ))
-            ],
+        body: CustomScrollView(
+      slivers: [
+        const AppBarWidget(),
+        SliverToBoxAdapter(
+          child: Container(
+            height: 16.h,
+            color: backgroundColor,
           ),
         ),
-      ),
-    );
+        SliverList(
+            delegate: SliverChildBuilderDelegate(
+          (context, index) {
+            return Container(
+              color: backgroundColor,
+              child: Column(
+                children: [
+                  const FirstWidget(), // Два прямоугольника(Название вопроса и правильный ответ)
+                  SizedBox(
+                    height: 65.h,
+                  ),
+                  const SecondWidget(), // Прямоугольник 2 (Введите ответ)
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  const ThirdWidget(), //Прямоугольник 3 (Введите ответ)
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  const FourthWidget(), //Прямоугольник 4 (Введите ответ)
+                  SizedBox(
+                    height: 40.h,
+                  ),
+                  const OptionsButton(), //кнопка параметры
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  const AddQuestionButton(),
+                ],
+              ),
+            );
+          },
+          childCount: 1,
+        ))
+      ],
+    ));
   }
 }

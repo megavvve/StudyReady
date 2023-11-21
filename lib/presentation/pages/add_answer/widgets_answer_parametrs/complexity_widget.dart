@@ -45,8 +45,6 @@ class _FirstWidgetState extends State<ComplexityWidget> {
               child: const Padding(
                 padding: EdgeInsets.only(left: 8.0),
                 child: TextField(
-                  maxLength: 1,
-                  maxLengthEnforcement: MaxLengthEnforcement.enforced,
                   textCapitalization: TextCapitalization.sentences,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(

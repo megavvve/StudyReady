@@ -8,7 +8,7 @@ class AnsParsAppBarWidget extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
+    return SliverAppBar(
       backgroundColor: backgroundColor,
       centerTitle: true,
       title: Container(

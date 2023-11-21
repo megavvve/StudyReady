@@ -17,7 +17,7 @@ class _FirstWidgetState extends State<FirstWidget> {
       children: [
         //белая карточка с названием вопроса
         Container(
-            padding: const EdgeInsets.all(16),
+            padding: EdgeInsets.fromLTRB(16.w, 8.h, 16.w, 0.h),
             alignment: Alignment.topLeft,
             width: 321.w,
             height: 116.h,
@@ -36,9 +36,9 @@ class _FirstWidgetState extends State<FirstWidget> {
 
         //зеленая карточка введите правильный ответ
         Positioned(
-          top: 63,
+          top: 60.sp,
           child: Container(
-            padding: const EdgeInsets.all(8),
+            padding: EdgeInsets.all(8.sp),
             alignment: Alignment.centerLeft,
             width: 309.w,
             height: 113.h,
@@ -59,9 +59,10 @@ class _FirstWidgetState extends State<FirstWidget> {
                 const SizedBox(
                   width: 8,
                 ),
-                SizedBox(
+                Container(
+                  alignment: Alignment.center,
                   width: 241.w,
-                  height: 27.h,
+                  height: 97.h,
                   child: const TextField(
                     textCapitalization: TextCapitalization.sentences,
                     decoration: InputDecoration(
@@ -69,6 +70,7 @@ class _FirstWidgetState extends State<FirstWidget> {
                       border: UnderlineInputBorder(borderSide: BorderSide.none),
                       hintText: 'Введите правильный ответ...',
                       hintStyle: TextStyle(fontSize: 18),
+                      hintMaxLines: 2,
                     ),
                     style: TextStyle(fontSize: 18),
                   ),

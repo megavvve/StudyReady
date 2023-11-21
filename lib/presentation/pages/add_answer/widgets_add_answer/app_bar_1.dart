@@ -2,30 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/utils/app_colors.dart';
 
-class AppBarWidget extends StatelessWidget implements PreferredSizeWidget{
+class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   const AppBarWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
+    return SliverAppBar(
+      surfaceTintColor: Colors.transparent,
+      pinned: true,
       backgroundColor: backgroundColor,
-      centerTitle: true,
-      leading: Padding(
-        padding: const EdgeInsets.only(left: 10),
-        child: Icon(
+      leading: IconButton(
+        onPressed: () {},
+        icon: const Icon(
           Icons.menu,
-          size: 40.sp,
         ),
       ),
       title: Container(
-        alignment: Alignment.center,
         width: 278.w,
         height: 46.h,
-        padding: const EdgeInsets.all(10),
+        alignment: Alignment.center,
         decoration: BoxDecoration(
-            color: const Color.fromRGBO(119, 165, 245, 1),
-            borderRadius: BorderRadius.circular(50)),
-        child: const Text('Новый вопрос'),
+            color: const Color(0XFF77A5F5),
+            borderRadius: BorderRadius.circular(16.sp)),
+        child: Text(
+          'Новый вопрос',
+          style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w400),
+        ),
       ),
     );
   }
