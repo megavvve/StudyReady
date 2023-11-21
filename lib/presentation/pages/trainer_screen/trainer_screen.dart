@@ -25,9 +25,9 @@ class _TrainerScreenState extends State<TrainerScreen> {
           slivers: <Widget>[
             const AppBarWidget(),
             SliverList.builder(
-              itemCount: 10,
-              itemBuilder: (BuildContext context, int index) => const TrainerCard()
-            ),
+                itemCount: 10,
+                itemBuilder: (BuildContext context, int index) =>
+                    const TrainerCard()),
             SliverToBoxAdapter(
               child: SizedBox(
                 height: 22.h,
