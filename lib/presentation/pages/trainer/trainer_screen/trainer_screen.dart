@@ -5,7 +5,7 @@ import 'package:study_ready/presentation/navigation/navigation_bar.dart';
 import 'package:study_ready/presentation/pages/trainer/add_answer/add_answer_screen.dart';
 import 'package:study_ready/presentation/pages/trainer/trainer_screen/widget/trainer_card.dart';
 import 'package:study_ready/utils/app_colors.dart';
-import 'widget/app_bar_widget.dart'; 
+import 'widget/app_bar_widget.dart';
 
 class TrainerScreen extends StatefulWidget {
   const TrainerScreen({
@@ -46,7 +46,11 @@ class _TrainerScreenState extends State<TrainerScreen> {
             child: FittedBox(
               child: FloatingActionButton(
                 onPressed: () {
-                  Navigator.of(context).push(customPageRoute(AddAnswerScreen()));
+                  Navigator.of(context).push(
+                    customPageRoute(
+                      const AddAnswerScreen(),
+                    ),
+                  );
                 },
                 backgroundColor: Colors.white,
                 child: const Icon(
