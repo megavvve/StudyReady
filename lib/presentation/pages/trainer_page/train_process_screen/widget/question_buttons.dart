@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:study_ready/presentation/pages/trainprocess_screen/trainprocess_screen.dart';
-import 'package:study_ready/presentation/pages/trainprocess_screen/widget/process_widget.dart';
+import 'package:study_ready/presentation/pages/trainer_page/train_process_screen/widget/process_widget.dart';
+
 
 class QuestionButtons extends StatelessWidget {
   final String label;
   final int id;
 
-  QuestionButtons({super.key, required this.label, required this.id});
+  const QuestionButtons({super.key, required this.label, required this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +19,12 @@ class QuestionButtons extends StatelessWidget {
         height: 40.w,
         child: ElevatedButton(
           style: ButtonStyle(
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
-          ))),
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(14.0.sp),
+              ),
+            ),
+          ),
           onPressed: () {
             data.setMyMoney(label);
             //Navigator.of(context).push(MaterialPageRoute(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../trainprocess_screen/trainprocess_screen.dart';
+import 'package:study_ready/presentation/navigation/custom_page_router.dart';
+import 'package:study_ready/presentation/pages/trainer_page/train_process_screen/train_process_screen.dart';
 
 void showLaunchingTrainer(BuildContext context) {
   showModalBottomSheet<void>(
@@ -70,16 +70,9 @@ void showLaunchingTrainer(BuildContext context) {
                   ),
                 ),
                 onPressed: () {
-                  Navigator.of(context).pushReplacement(
-                    PageRouteBuilder(
-                      transitionDuration: Duration.zero,
-                      pageBuilder: (context, animation, secondaryAnimation) {
-                        return const TrainProcessScreen();
-                      },
-                      transitionsBuilder:
-                          (context, animation, secondaryAnimation, child) {
-                        return child;
-                      },
+                  Navigator.of(context).push(
+                    customPageRoute(
+                      const TrainProcessScreen(),
                     ),
                   );
                 },

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:study_ready/presentation/pages/trainprocess_screen/widget/process_widget.dart';
+import 'package:study_ready/presentation/pages/trainer_page/train_process_screen/widget/process_widget.dart';
 import 'widget/question_buttons.dart';
 
 class TrainProcessScreen extends StatefulWidget {
@@ -25,7 +25,9 @@ class _TrainProcessScreenState extends State<TrainProcessScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Непрерывная математика'),
+        title: const Text(
+          'Непрерывная математика',
+        ),
       ),
       body: ProcessWidget(
         child: Row(children: [
@@ -35,7 +37,7 @@ class _TrainProcessScreenState extends State<TrainProcessScreen> {
               child: getTextWidgets(['1', '2', '3', '4', '5', '6', '7', '8']),
             ),
           ),
-          ShowWidget(),
+          const ShowWidget(),
         ]),
       ),
     );

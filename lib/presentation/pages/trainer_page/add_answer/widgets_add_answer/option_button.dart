@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:study_ready/presentation/pages/trainer/add_answer/answer_parametrs_sreen.dart';
+import 'package:study_ready/presentation/pages/trainer_page/add_answer/answer_parametrs_sreen.dart';
 
 class OptionsButton extends StatelessWidget {
   const OptionsButton({super.key});

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/presentation/navigation/custom_page_router.dart';
 import 'package:study_ready/presentation/navigation/navigation_bar.dart';
-import 'package:study_ready/presentation/pages/trainer/add_answer/add_answer_screen.dart';
-import 'package:study_ready/presentation/pages/trainer/trainer_screen/widget/trainer_card.dart';
+import 'package:study_ready/presentation/pages/trainer_page/add_answer/add_answer_screen.dart';
+import 'package:study_ready/presentation/pages/trainer_page/trainer_screen/widget/trainer_card.dart';
 import 'package:study_ready/utils/app_colors.dart';
 import 'widget/app_bar_widget.dart';
 

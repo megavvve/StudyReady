@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:study_ready/presentation/pages/trainer/add_answer/widgets_answer_parametrs/app_bar_2.dart';
-import 'package:study_ready/presentation/pages/trainer/add_answer/widgets_answer_parametrs/complexity_widget.dart';
-import 'package:study_ready/presentation/pages/trainer/add_answer/widgets_answer_parametrs/module_widget.dart';
-import 'package:study_ready/presentation/pages/trainer/add_answer/widgets_answer_parametrs/number_of_course_widget.dart';
-import 'package:study_ready/presentation/pages/trainer/add_answer/widgets_answer_parametrs/save_button.dart';
-import 'package:study_ready/presentation/pages/trainer/add_answer/widgets_answer_parametrs/subject_widget.dart';
-import 'package:study_ready/presentation/pages/trainer/add_answer/widgets_answer_parametrs/theme_widget.dart';
+import 'package:study_ready/presentation/pages/trainer_page/add_answer/widgets_answer_parametrs/app_bar_2.dart';
+import 'package:study_ready/presentation/pages/trainer_page/add_answer/widgets_answer_parametrs/complexity_widget.dart';
+import 'package:study_ready/presentation/pages/trainer_page/add_answer/widgets_answer_parametrs/module_widget.dart';
+import 'package:study_ready/presentation/pages/trainer_page/add_answer/widgets_answer_parametrs/number_of_course_widget.dart';
+import 'package:study_ready/presentation/pages/trainer_page/add_answer/widgets_answer_parametrs/save_button.dart';
+import 'package:study_ready/presentation/pages/trainer_page/add_answer/widgets_answer_parametrs/subject_widget.dart';
+import 'package:study_ready/presentation/pages/trainer_page/add_answer/widgets_answer_parametrs/theme_widget.dart';
 import 'package:study_ready/utils/app_colors.dart';
 
 class AnsParsScreen extends StatefulWidget {
