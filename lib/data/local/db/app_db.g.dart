@@ -3,6 +3,636 @@
 part of 'app_db.dart';
 
 // ignore_for_file: type=lint
+class $SubjectsTable extends Subjects with TableInfo<$SubjectsTable, Subject> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $SubjectsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+      'subject_name', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [id, name];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'subjects';
+  @override
+  VerificationContext validateIntegrity(Insertable<Subject> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('subject_name')) {
+      context.handle(_nameMeta,
+          name.isAcceptableOrUnknown(data['subject_name']!, _nameMeta));
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Subject map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Subject(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      name: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}subject_name'])!,
+    );
+  }
+
+  @override
+  $SubjectsTable createAlias(String alias) {
+    return $SubjectsTable(attachedDatabase, alias);
+  }
+}
+
+class Subject extends DataClass implements Insertable<Subject> {
+  final int id;
+  final String name;
+  const Subject({required this.id, required this.name});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['subject_name'] = Variable<String>(name);
+    return map;
+  }
+
+  SubjectsCompanion toCompanion(bool nullToAbsent) {
+    return SubjectsCompanion(
+      id: Value(id),
+      name: Value(name),
+    );
+  }
+
+  factory Subject.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Subject(
+      id: serializer.fromJson<int>(json['id']),
+      name: serializer.fromJson<String>(json['name']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'name': serializer.toJson<String>(name),
+    };
+  }
+
+  Subject copyWith({int? id, String? name}) => Subject(
+        id: id ?? this.id,
+        name: name ?? this.name,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('Subject(')
+          ..write('id: $id, ')
+          ..write('name: $name')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, name);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Subject && other.id == this.id && other.name == this.name);
+}
+
+class SubjectsCompanion extends UpdateCompanion<Subject> {
+  final Value<int> id;
+  final Value<String> name;
+  const SubjectsCompanion({
+    this.id = const Value.absent(),
+    this.name = const Value.absent(),
+  });
+  SubjectsCompanion.insert({
+    this.id = const Value.absent(),
+    required String name,
+  }) : name = Value(name);
+  static Insertable<Subject> custom({
+    Expression<int>? id,
+    Expression<String>? name,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (name != null) 'subject_name': name,
+    });
+  }
+
+  SubjectsCompanion copyWith({Value<int>? id, Value<String>? name}) {
+    return SubjectsCompanion(
+      id: id ?? this.id,
+      name: name ?? this.name,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (name.present) {
+      map['subject_name'] = Variable<String>(name.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SubjectsCompanion(')
+          ..write('id: $id, ')
+          ..write('name: $name')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $ChaptersTable extends Chapters with TableInfo<$ChaptersTable, Chapter> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ChaptersTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _subjectIdMeta =
+      const VerificationMeta('subjectId');
+  @override
+  late final GeneratedColumn<int> subjectId = GeneratedColumn<int>(
+      'subjectId', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES subjects (id)'));
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+      'chapter_name', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [id, subjectId, name];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'chapters';
+  @override
+  VerificationContext validateIntegrity(Insertable<Chapter> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('subjectId')) {
+      context.handle(_subjectIdMeta,
+          subjectId.isAcceptableOrUnknown(data['subjectId']!, _subjectIdMeta));
+    } else if (isInserting) {
+      context.missing(_subjectIdMeta);
+    }
+    if (data.containsKey('chapter_name')) {
+      context.handle(_nameMeta,
+          name.isAcceptableOrUnknown(data['chapter_name']!, _nameMeta));
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Chapter map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Chapter(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      subjectId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}subjectId'])!,
+      name: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}chapter_name'])!,
+    );
+  }
+
+  @override
+  $ChaptersTable createAlias(String alias) {
+    return $ChaptersTable(attachedDatabase, alias);
+  }
+}
+
+class Chapter extends DataClass implements Insertable<Chapter> {
+  final int id;
+  final int subjectId;
+  final String name;
+  const Chapter(
+      {required this.id, required this.subjectId, required this.name});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['subjectId'] = Variable<int>(subjectId);
+    map['chapter_name'] = Variable<String>(name);
+    return map;
+  }
+
+  ChaptersCompanion toCompanion(bool nullToAbsent) {
+    return ChaptersCompanion(
+      id: Value(id),
+      subjectId: Value(subjectId),
+      name: Value(name),
+    );
+  }
+
+  factory Chapter.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Chapter(
+      id: serializer.fromJson<int>(json['id']),
+      subjectId: serializer.fromJson<int>(json['subjectId']),
+      name: serializer.fromJson<String>(json['name']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'subjectId': serializer.toJson<int>(subjectId),
+      'name': serializer.toJson<String>(name),
+    };
+  }
+
+  Chapter copyWith({int? id, int? subjectId, String? name}) => Chapter(
+        id: id ?? this.id,
+        subjectId: subjectId ?? this.subjectId,
+        name: name ?? this.name,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('Chapter(')
+          ..write('id: $id, ')
+          ..write('subjectId: $subjectId, ')
+          ..write('name: $name')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, subjectId, name);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Chapter &&
+          other.id == this.id &&
+          other.subjectId == this.subjectId &&
+          other.name == this.name);
+}
+
+class ChaptersCompanion extends UpdateCompanion<Chapter> {
+  final Value<int> id;
+  final Value<int> subjectId;
+  final Value<String> name;
+  const ChaptersCompanion({
+    this.id = const Value.absent(),
+    this.subjectId = const Value.absent(),
+    this.name = const Value.absent(),
+  });
+  ChaptersCompanion.insert({
+    this.id = const Value.absent(),
+    required int subjectId,
+    required String name,
+  })  : subjectId = Value(subjectId),
+        name = Value(name);
+  static Insertable<Chapter> custom({
+    Expression<int>? id,
+    Expression<int>? subjectId,
+    Expression<String>? name,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (subjectId != null) 'subjectId': subjectId,
+      if (name != null) 'chapter_name': name,
+    });
+  }
+
+  ChaptersCompanion copyWith(
+      {Value<int>? id, Value<int>? subjectId, Value<String>? name}) {
+    return ChaptersCompanion(
+      id: id ?? this.id,
+      subjectId: subjectId ?? this.subjectId,
+      name: name ?? this.name,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (subjectId.present) {
+      map['subjectId'] = Variable<int>(subjectId.value);
+    }
+    if (name.present) {
+      map['chapter_name'] = Variable<String>(name.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ChaptersCompanion(')
+          ..write('id: $id, ')
+          ..write('subjectId: $subjectId, ')
+          ..write('name: $name')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $ThemesTable extends Themes with TableInfo<$ThemesTable, Theme> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ThemesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _subjectIdMeta =
+      const VerificationMeta('subjectId');
+  @override
+  late final GeneratedColumn<int> subjectId = GeneratedColumn<int>(
+      'subjectId', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES subjects (id)'));
+  static const VerificationMeta _chapterIdMeta =
+      const VerificationMeta('chapterId');
+  @override
+  late final GeneratedColumn<int> chapterId = GeneratedColumn<int>(
+      'chapterId', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES chapters (id)'));
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+      'theme_name', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [id, subjectId, chapterId, name];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'themes';
+  @override
+  VerificationContext validateIntegrity(Insertable<Theme> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('subjectId')) {
+      context.handle(_subjectIdMeta,
+          subjectId.isAcceptableOrUnknown(data['subjectId']!, _subjectIdMeta));
+    } else if (isInserting) {
+      context.missing(_subjectIdMeta);
+    }
+    if (data.containsKey('chapterId')) {
+      context.handle(_chapterIdMeta,
+          chapterId.isAcceptableOrUnknown(data['chapterId']!, _chapterIdMeta));
+    } else if (isInserting) {
+      context.missing(_chapterIdMeta);
+    }
+    if (data.containsKey('theme_name')) {
+      context.handle(_nameMeta,
+          name.isAcceptableOrUnknown(data['theme_name']!, _nameMeta));
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Theme map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Theme(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      subjectId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}subjectId'])!,
+      chapterId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}chapterId'])!,
+      name: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}theme_name'])!,
+    );
+  }
+
+  @override
+  $ThemesTable createAlias(String alias) {
+    return $ThemesTable(attachedDatabase, alias);
+  }
+}
+
+class Theme extends DataClass implements Insertable<Theme> {
+  final int id;
+  final int subjectId;
+  final int chapterId;
+  final String name;
+  const Theme(
+      {required this.id,
+      required this.subjectId,
+      required this.chapterId,
+      required this.name});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['subjectId'] = Variable<int>(subjectId);
+    map['chapterId'] = Variable<int>(chapterId);
+    map['theme_name'] = Variable<String>(name);
+    return map;
+  }
+
+  ThemesCompanion toCompanion(bool nullToAbsent) {
+    return ThemesCompanion(
+      id: Value(id),
+      subjectId: Value(subjectId),
+      chapterId: Value(chapterId),
+      name: Value(name),
+    );
+  }
+
+  factory Theme.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Theme(
+      id: serializer.fromJson<int>(json['id']),
+      subjectId: serializer.fromJson<int>(json['subjectId']),
+      chapterId: serializer.fromJson<int>(json['chapterId']),
+      name: serializer.fromJson<String>(json['name']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'subjectId': serializer.toJson<int>(subjectId),
+      'chapterId': serializer.toJson<int>(chapterId),
+      'name': serializer.toJson<String>(name),
+    };
+  }
+
+  Theme copyWith({int? id, int? subjectId, int? chapterId, String? name}) =>
+      Theme(
+        id: id ?? this.id,
+        subjectId: subjectId ?? this.subjectId,
+        chapterId: chapterId ?? this.chapterId,
+        name: name ?? this.name,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('Theme(')
+          ..write('id: $id, ')
+          ..write('subjectId: $subjectId, ')
+          ..write('chapterId: $chapterId, ')
+          ..write('name: $name')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, subjectId, chapterId, name);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Theme &&
+          other.id == this.id &&
+          other.subjectId == this.subjectId &&
+          other.chapterId == this.chapterId &&
+          other.name == this.name);
+}
+
+class ThemesCompanion extends UpdateCompanion<Theme> {
+  final Value<int> id;
+  final Value<int> subjectId;
+  final Value<int> chapterId;
+  final Value<String> name;
+  const ThemesCompanion({
+    this.id = const Value.absent(),
+    this.subjectId = const Value.absent(),
+    this.chapterId = const Value.absent(),
+    this.name = const Value.absent(),
+  });
+  ThemesCompanion.insert({
+    this.id = const Value.absent(),
+    required int subjectId,
+    required int chapterId,
+    required String name,
+  })  : subjectId = Value(subjectId),
+        chapterId = Value(chapterId),
+        name = Value(name);
+  static Insertable<Theme> custom({
+    Expression<int>? id,
+    Expression<int>? subjectId,
+    Expression<int>? chapterId,
+    Expression<String>? name,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (subjectId != null) 'subjectId': subjectId,
+      if (chapterId != null) 'chapterId': chapterId,
+      if (name != null) 'theme_name': name,
+    });
+  }
+
+  ThemesCompanion copyWith(
+      {Value<int>? id,
+      Value<int>? subjectId,
+      Value<int>? chapterId,
+      Value<String>? name}) {
+    return ThemesCompanion(
+      id: id ?? this.id,
+      subjectId: subjectId ?? this.subjectId,
+      chapterId: chapterId ?? this.chapterId,
+      name: name ?? this.name,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (subjectId.present) {
+      map['subjectId'] = Variable<int>(subjectId.value);
+    }
+    if (chapterId.present) {
+      map['chapterId'] = Variable<int>(chapterId.value);
+    }
+    if (name.present) {
+      map['theme_name'] = Variable<String>(name.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ThemesCompanion(')
+          ..write('id: $id, ')
+          ..write('subjectId: $subjectId, ')
+          ..write('chapterId: $chapterId, ')
+          ..write('name: $name')
+          ..write(')'))
+        .toString();
+  }
+}
+
 class $QuestionTable extends Question
     with TableInfo<$QuestionTable, QuestionData> {
   @override
@@ -29,19 +659,28 @@ class $QuestionTable extends Question
   @override
   late final GeneratedColumn<int> subjectId = GeneratedColumn<int>(
       'course_id', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES subjects (id)'));
   static const VerificationMeta _chapterIdMeta =
       const VerificationMeta('chapterId');
   @override
   late final GeneratedColumn<int> chapterId = GeneratedColumn<int>(
       'chapter_id', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES chapters (id)'));
   static const VerificationMeta _themeIdMeta =
       const VerificationMeta('themeId');
   @override
   late final GeneratedColumn<int> themeId = GeneratedColumn<int>(
       'theme_id', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES themes (id)'));
   static const VerificationMeta _difficultlyMeta =
       const VerificationMeta('difficultly');
   @override
@@ -464,12 +1103,306 @@ class QuestionCompanion extends UpdateCompanion<QuestionData> {
   }
 }
 
+class $TrainersTable extends Trainers with TableInfo<$TrainersTable, Trainer> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $TrainersTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+      'name', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _colorMeta = const VerificationMeta('color');
+  @override
+  late final GeneratedColumn<String> color = GeneratedColumn<String>(
+      'color', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _imageMeta = const VerificationMeta('image');
+  @override
+  late final GeneratedColumn<String> image = GeneratedColumn<String>(
+      'image_link', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _questionsMeta =
+      const VerificationMeta('questions');
+  @override
+  late final GeneratedColumnWithTypeConverter<List<String>, String> questions =
+      GeneratedColumn<String>('questions_ids', aliasedName, false,
+              type: DriftSqlType.string, requiredDuringInsert: true)
+          .withConverter<List<String>>($TrainersTable.$converterquestions);
+  @override
+  List<GeneratedColumn> get $columns => [id, name, color, image, questions];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'trainers';
+  @override
+  VerificationContext validateIntegrity(Insertable<Trainer> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    if (data.containsKey('color')) {
+      context.handle(
+          _colorMeta, color.isAcceptableOrUnknown(data['color']!, _colorMeta));
+    } else if (isInserting) {
+      context.missing(_colorMeta);
+    }
+    if (data.containsKey('image_link')) {
+      context.handle(_imageMeta,
+          image.isAcceptableOrUnknown(data['image_link']!, _imageMeta));
+    } else if (isInserting) {
+      context.missing(_imageMeta);
+    }
+    context.handle(_questionsMeta, const VerificationResult.success());
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Trainer map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Trainer(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      name: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+      color: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}color'])!,
+      image: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}image_link'])!,
+      questions: $TrainersTable.$converterquestions.fromSql(attachedDatabase
+          .typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}questions_ids'])!),
+    );
+  }
+
+  @override
+  $TrainersTable createAlias(String alias) {
+    return $TrainersTable(attachedDatabase, alias);
+  }
+
+  static TypeConverter<List<String>, String> $converterquestions =
+      StringListTypeConverter();
+}
+
+class Trainer extends DataClass implements Insertable<Trainer> {
+  final int id;
+  final String name;
+  final String color;
+  final String image;
+  final List<String> questions;
+  const Trainer(
+      {required this.id,
+      required this.name,
+      required this.color,
+      required this.image,
+      required this.questions});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['name'] = Variable<String>(name);
+    map['color'] = Variable<String>(color);
+    map['image_link'] = Variable<String>(image);
+    {
+      final converter = $TrainersTable.$converterquestions;
+      map['questions_ids'] = Variable<String>(converter.toSql(questions));
+    }
+    return map;
+  }
+
+  TrainersCompanion toCompanion(bool nullToAbsent) {
+    return TrainersCompanion(
+      id: Value(id),
+      name: Value(name),
+      color: Value(color),
+      image: Value(image),
+      questions: Value(questions),
+    );
+  }
+
+  factory Trainer.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Trainer(
+      id: serializer.fromJson<int>(json['id']),
+      name: serializer.fromJson<String>(json['name']),
+      color: serializer.fromJson<String>(json['color']),
+      image: serializer.fromJson<String>(json['image']),
+      questions: serializer.fromJson<List<String>>(json['questions']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'name': serializer.toJson<String>(name),
+      'color': serializer.toJson<String>(color),
+      'image': serializer.toJson<String>(image),
+      'questions': serializer.toJson<List<String>>(questions),
+    };
+  }
+
+  Trainer copyWith(
+          {int? id,
+          String? name,
+          String? color,
+          String? image,
+          List<String>? questions}) =>
+      Trainer(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        color: color ?? this.color,
+        image: image ?? this.image,
+        questions: questions ?? this.questions,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('Trainer(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('color: $color, ')
+          ..write('image: $image, ')
+          ..write('questions: $questions')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, name, color, image, questions);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Trainer &&
+          other.id == this.id &&
+          other.name == this.name &&
+          other.color == this.color &&
+          other.image == this.image &&
+          other.questions == this.questions);
+}
+
+class TrainersCompanion extends UpdateCompanion<Trainer> {
+  final Value<int> id;
+  final Value<String> name;
+  final Value<String> color;
+  final Value<String> image;
+  final Value<List<String>> questions;
+  const TrainersCompanion({
+    this.id = const Value.absent(),
+    this.name = const Value.absent(),
+    this.color = const Value.absent(),
+    this.image = const Value.absent(),
+    this.questions = const Value.absent(),
+  });
+  TrainersCompanion.insert({
+    this.id = const Value.absent(),
+    required String name,
+    required String color,
+    required String image,
+    required List<String> questions,
+  })  : name = Value(name),
+        color = Value(color),
+        image = Value(image),
+        questions = Value(questions);
+  static Insertable<Trainer> custom({
+    Expression<int>? id,
+    Expression<String>? name,
+    Expression<String>? color,
+    Expression<String>? image,
+    Expression<String>? questions,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (name != null) 'name': name,
+      if (color != null) 'color': color,
+      if (image != null) 'image_link': image,
+      if (questions != null) 'questions_ids': questions,
+    });
+  }
+
+  TrainersCompanion copyWith(
+      {Value<int>? id,
+      Value<String>? name,
+      Value<String>? color,
+      Value<String>? image,
+      Value<List<String>>? questions}) {
+    return TrainersCompanion(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      color: color ?? this.color,
+      image: image ?? this.image,
+      questions: questions ?? this.questions,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    if (color.present) {
+      map['color'] = Variable<String>(color.value);
+    }
+    if (image.present) {
+      map['image_link'] = Variable<String>(image.value);
+    }
+    if (questions.present) {
+      final converter = $TrainersTable.$converterquestions;
+
+      map['questions_ids'] = Variable<String>(converter.toSql(questions.value));
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TrainersCompanion(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('color: $color, ')
+          ..write('image: $image, ')
+          ..write('questions: $questions')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDB extends GeneratedDatabase {
   _$AppDB(QueryExecutor e) : super(e);
+  late final $SubjectsTable subjects = $SubjectsTable(this);
+  late final $ChaptersTable chapters = $ChaptersTable(this);
+  late final $ThemesTable themes = $ThemesTable(this);
   late final $QuestionTable question = $QuestionTable(this);
+  late final $TrainersTable trainers = $TrainersTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [question];
+  List<DatabaseSchemaEntity> get allSchemaEntities =>
+      [subjects, chapters, themes, question, trainers];
 }

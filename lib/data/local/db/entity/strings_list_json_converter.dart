@@ -2,6 +2,7 @@
 // the class contains converter from List<String> to json and json to List<String>
 
 import 'dart:convert';
+
 import 'package:drift/drift.dart';
 
 class StringListTypeConverter extends TypeConverter<List<String>, String> {
