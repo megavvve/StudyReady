@@ -5,10 +5,12 @@ class ThemeWidget extends StatefulWidget {
   const ThemeWidget({super.key});
 
   @override
-  State<ThemeWidget> createState() => _FirstWidgetState();
+  State<ThemeWidget> createState() => _ThemeWidgetState();
 }
 
-class _FirstWidgetState extends State<ThemeWidget> {
+class _ThemeWidgetState extends State<ThemeWidget> {
+  final _themeController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -16,43 +18,45 @@ class _FirstWidgetState extends State<ThemeWidget> {
       alignment: Alignment.center,
       children: [
         Container(
-          padding: const EdgeInsets.all(16),
+          padding: EdgeInsets.all(16.sp),
           alignment: Alignment.topLeft,
           width: 321.w,
           height: 116.h,
           decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(16)),
+              color: Colors.white, borderRadius: BorderRadius.circular(16.sp)),
           child: Text(
             'Тема',
             style: TextStyle(fontSize: 20.sp),
           ),
         ),
         Positioned(
-          top: 63,
+          top: 63.sp,
           child: Container(
-            padding: const EdgeInsets.all(8),
+            padding: EdgeInsets.all(8.sp),
             alignment: Alignment.centerLeft,
             width: 309.w,
             height: 113.h,
             decoration: BoxDecoration(
                 color: const Color.fromRGBO(198, 216, 245, 1),
-                borderRadius: BorderRadius.circular(16)),
-            child: Container(
-              alignment: Alignment.centerLeft,
-              width: 241.w,
-              height: 27.h,
-              child: const Padding(
-                padding: EdgeInsets.only(left: 8.0),
-                child: TextField(
-                  textCapitalization: TextCapitalization.sentences,
-                  decoration: InputDecoration(
+                borderRadius: BorderRadius.circular(16.sp)),
+            child: Expanded(
+              child: TextField(
+                textInputAction: TextInputAction.done,
+                controller: _themeController,
+                minLines: 1,
+                maxLines: 2,
+                textCapitalization: TextCapitalization.sentences,
+                decoration: InputDecoration(
+                    contentPadding: EdgeInsetsDirectional.only(start: 8.w),
                     isCollapsed: true,
-                    border: UnderlineInputBorder(borderSide: BorderSide.none),
+                    border:
+                        const UnderlineInputBorder(borderSide: BorderSide.none),
                     hintText: 'Введите тему...',
-                    hintStyle: TextStyle(fontSize: 18),
-                  ),
-                  style: TextStyle(fontSize: 18),
-                ),
+                    hintMaxLines: 2,
+                    hintStyle: TextStyle(
+                      fontSize: 20.sp,
+                    )),
+                style: TextStyle(fontSize: 20.sp),
               ),
             ),
           ),

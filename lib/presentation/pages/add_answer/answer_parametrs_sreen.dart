@@ -9,14 +9,9 @@ import 'package:study_ready/presentation/pages/add_answer/widgets_answer_paramet
 import 'package:study_ready/presentation/pages/add_answer/widgets_answer_parametrs/theme_widget.dart';
 import 'package:study_ready/utils/app_colors.dart';
 
-class AnsParsScreen extends StatefulWidget {
+class AnsParsScreen extends StatelessWidget {
   const AnsParsScreen({super.key});
 
-  @override
-  State<AnsParsScreen> createState() => _AddAnswerScreenState();
-}
-
-class _AddAnswerScreenState extends State<AnsParsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

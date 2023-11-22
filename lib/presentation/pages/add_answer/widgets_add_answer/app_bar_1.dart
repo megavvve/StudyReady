@@ -13,8 +13,9 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: backgroundColor,
       leading: IconButton(
         onPressed: () {},
-        icon: const Icon(
+        icon: Icon(
           Icons.menu,
+          size: 40.sp,
         ),
       ),
       title: Container(

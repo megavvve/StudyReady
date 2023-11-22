@@ -9,14 +9,9 @@ import 'package:study_ready/presentation/pages/add_answer/widgets_add_answer/sec
 import 'package:study_ready/presentation/pages/add_answer/widgets_add_answer/third_widget.dart';
 import 'package:study_ready/utils/app_colors.dart';
 
-class AddAnswerScreen extends StatefulWidget {
+class AddAnswerScreen extends StatelessWidget {
   const AddAnswerScreen({super.key});
 
-  @override
-  State<AddAnswerScreen> createState() => _AddAnswerScreenState();
-}
-
-class _AddAnswerScreenState extends State<AddAnswerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,6 +52,9 @@ class _AddAnswerScreenState extends State<AddAnswerScreen> {
                     height: 10.h,
                   ),
                   const AddQuestionButton(),
+                  SizedBox(
+                    height: 10.h,
+                  ),
                 ],
               ),
             );
