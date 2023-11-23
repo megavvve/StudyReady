@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/presentation/navigation/navigation_bar.dart';
 import 'package:study_ready/presentation/pages/trainer_screen/widget/trainer_card.dart';
 import 'package:study_ready/utils/app_colors.dart';
-import '../trainprocess_screen/trainprocess_screen.dart';
 import 'widget/app_bar_widget.dart'; // Импорт файла для AppBar
 
 class TrainerScreen extends StatefulWidget {
