@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:study_ready/domain/models/trainer.dart';
 import 'package:study_ready/presentation/navigation/custom_page_router.dart';
 import 'package:study_ready/presentation/pages/trainer_page/train_process_screen/train_process_screen.dart';
 
-void showLaunchingTrainer(BuildContext context) {
+void showLaunchingTrainer(BuildContext context,Trainer trainer) {
   showModalBottomSheet<void>(
     context: context,
     isScrollControlled: true,
@@ -26,7 +27,7 @@ void showLaunchingTrainer(BuildContext context) {
               height: 54.h,
             ),
             Text(
-              'Непрерывная математика',
+              trainer.subject,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 22.sp,
@@ -37,7 +38,7 @@ void showLaunchingTrainer(BuildContext context) {
               height: 24.h,
             ),
             Text(
-              'Тема: последовательность',
+              trainer.name,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 18.sp, color: Colors.white),
             ),
@@ -51,7 +52,7 @@ void showLaunchingTrainer(BuildContext context) {
                 )),
             Text(
               textAlign: TextAlign.start,
-              ' Говорят, что задана числовая последовательность если каждому натуральному числу 𝑛 поставлено в соответствие ве-щественное число Числовая последовательность {𝑎𝑛}𝑛= ∞ называется схо-дящейся, если существует такое число 𝑎, что для любого ε > 0 найдется та-кое целоt',
+              trainer.description,
               style: TextStyle(
                 fontSize: 16.sp,
                 color: Colors.white,
@@ -72,7 +73,7 @@ void showLaunchingTrainer(BuildContext context) {
                 onPressed: () {
                   Navigator.of(context).push(
                     customPageRoute(
-                      const TrainProcessScreen(),
+                       TrainProcessScreen(trainer: trainer,),
                     ),
                   );
                 },

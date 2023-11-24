@@ -15,7 +15,7 @@ class Question {
 
   final String rightAnswer;
 
-  final String incorrectAnswers;
+  final List<String> incorrectAnswers;
 
   Question(
     this.id,

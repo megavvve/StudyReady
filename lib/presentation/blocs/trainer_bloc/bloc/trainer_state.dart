@@ -1,6 +1,10 @@
 part of 'trainer_bloc.dart';
 
-@immutable
-sealed class TrainerState {}
+class TrainersState extends Equatable {
+  final List<Trainer> trainerList;
 
-final class TrainerInitial extends TrainerState {}
+  const TrainersState({this.trainerList = const <Trainer>[]});
+
+  @override
+  List<Object> get props => [trainerList];
+}

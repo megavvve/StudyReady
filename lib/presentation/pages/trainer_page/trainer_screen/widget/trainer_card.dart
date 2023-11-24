@@ -1,11 +1,17 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'package:study_ready/domain/models/trainer.dart';
 import 'package:study_ready/presentation/pages/trainer_page/trainer_screen/widget/show_launching_trainer.dart';
 import 'package:study_ready/utils/app_colors.dart';
 import 'package:study_ready/utils/app_svg_assets.dart';
 
 class TrainerCard extends StatelessWidget {
-  const TrainerCard({super.key});
+  final Trainer trainer;
+   const TrainerCard({super.key, 
+    required this.trainer,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +22,7 @@ class TrainerCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(
           16.sp,
         ),
-        color: colorForCardTrainerBlue,
+        color: (trainer.color.isEmpty) ? colorForCardTrainerBlue:Color(trainer.color as int),
       ),
       padding: EdgeInsets.only(
         top: 20.h,
@@ -48,7 +54,7 @@ class TrainerCard extends StatelessWidget {
                   width: 69.45.w,
                 ),
                 Text(
-                  '0/30',
+                  trainer.questions.length as String,
                   style: TextStyle(
                     fontSize: 13.sp,
                     color: Colors.white,
@@ -62,7 +68,7 @@ class TrainerCard extends StatelessWidget {
             height: 2.h,
           ),
           Text(
-            'Непрерывная математика',
+            trainer.subject,
             style: TextStyle(
               fontSize: 18.sp,
               color: Colors.white,
@@ -72,7 +78,7 @@ class TrainerCard extends StatelessWidget {
             height: 8.h,
           ),
           Text(
-            'Базовые опредления',
+            trainer.name,
             style: TextStyle(
               fontSize: 12.sp,
               color: Colors.white,
@@ -93,7 +99,7 @@ class TrainerCard extends StatelessWidget {
                 ),
                 onPressed: () {
                   showLaunchingTrainer(
-                    context,
+                    context,trainer
                   );
                 },
                 child: Text(

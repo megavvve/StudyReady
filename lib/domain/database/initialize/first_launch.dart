@@ -2,11 +2,9 @@ import 'package:drift/drift.dart' as drift;
 import '../../../data/local/db/app_db.dart';
 
 class FillTables {
-
   AppDB db = AppDB();
 
   void firstAppLaunch() async {
-
     // functions for filling tables with default data
 
     // (!) for full database clean re-install app
@@ -48,8 +46,9 @@ class FillTables {
       var chaptersNames = ['Пределы', 'Предикаты и кванторы', 'Матрицы'];
 
       for (int i = 0; i < chaptersIds.length; i++) {
-        var chapter = ChaptersCompanion(subjectId: drift.Value(chaptersIds[i]),
-        name: drift.Value(chaptersNames[i]));
+        var chapter = ChaptersCompanion(
+            subjectId: drift.Value(chaptersIds[i]),
+            name: drift.Value(chaptersNames[i]));
 
         db.insertChapter(chapter);
       }
@@ -66,10 +65,15 @@ class FillTables {
     if (listOfThemes.isEmpty) {
       var subjectIds = [1, 2, 3];
       var chapterNames = [1, 2, 3];
-      var names = ['Предел последовательности', 'Свойства предикатов', 'Матричные выражения'];
+      var names = [
+        'Предел последовательности',
+        'Свойства предикатов',
+        'Матричные выражения'
+      ];
 
       for (int i = 0; i < subjectIds.length; i++) {
-        var theme = ThemesCompanion(subjectId: drift.Value(subjectIds[i]),
+        var theme = ThemesCompanion(
+            subjectId: drift.Value(subjectIds[i]),
             chapterId: drift.Value(chapterNames[i]),
             name: drift.Value(names[i]));
 
@@ -82,16 +86,18 @@ class FillTables {
   }
 
   void exampleJoinMethod() async {
-
     // here we go to print whole info about every THEME, getting names of SUBJECT and CHAPTER from other tables
 
-    var listFullThemes = await  db.themeFullInfo();
+    var listFullThemes = await db.themeFullInfo();
 
     for (var i = 0; i < listFullThemes.length; i++) {
-      print((listFullThemes[i].id, listFullThemes[i].subject,
-      listFullThemes[i].chapter, listFullThemes[i].name));
+      print(11111111111111);
+      print((
+        listFullThemes[i].id,
+        listFullThemes[i].subject,
+        listFullThemes[i].chapter,
+        listFullThemes[i].name
+      ));
     }
-
   }
-
 }

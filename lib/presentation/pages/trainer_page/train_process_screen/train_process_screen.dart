@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:study_ready/domain/models/trainer.dart';
 import 'package:study_ready/presentation/pages/trainer_page/train_process_screen/widget/process_widget.dart';
 import 'widget/question_buttons.dart';
 
 class TrainProcessScreen extends StatefulWidget {
-  const TrainProcessScreen({super.key});
+  final Trainer trainer;
+  const TrainProcessScreen({super.key, required this.trainer});
 
   @override
   State<TrainProcessScreen> createState() => _TrainProcessScreenState();
@@ -20,13 +22,13 @@ Widget getTextWidgets(List<String> strings) {
 
 class _TrainProcessScreenState extends State<TrainProcessScreen> {
   List<Widget> list = <Widget>[];
-
+  //Trainer tr = widget.trainer;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Непрерывная математика',
+          "Непрерывная математика",
         ),
       ),
       body: ProcessWidget(
