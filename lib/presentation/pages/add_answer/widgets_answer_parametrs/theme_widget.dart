@@ -43,12 +43,13 @@ class _ThemeWidgetState extends State<ThemeWidget> {
               child: TextField(
                 textInputAction: TextInputAction.done,
                 controller: _themeController,
+                keyboardType: TextInputType.text,
                 minLines: 1,
-                maxLines: 2,
+                maxLines: null,
                 textCapitalization: TextCapitalization.sentences,
                 decoration: InputDecoration(
+                    isDense: false,
                     contentPadding: EdgeInsetsDirectional.only(start: 8.w),
-                    isCollapsed: true,
                     border:
                         const UnderlineInputBorder(borderSide: BorderSide.none),
                     hintText: 'Введите тему...',

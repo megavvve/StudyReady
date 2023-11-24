@@ -36,7 +36,7 @@ class _SecondWidgetState extends State<SecondWidget> {
               textInputAction: TextInputAction.done,
               controller: _secondWidgetController,
               minLines: 1,
-              maxLines: 5,
+              maxLines: null,
               textCapitalization: TextCapitalization.sentences,
               decoration: InputDecoration(
                   contentPadding: EdgeInsetsDirectional.only(start: 8.w),

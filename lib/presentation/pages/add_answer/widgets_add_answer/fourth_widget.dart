@@ -36,7 +36,7 @@ class _FourthWidgetState extends State<FourthWidget> {
               textInputAction: TextInputAction.done,
               controller: _fourthWidgetController,
               minLines: 1,
-              maxLines: 5,
+              maxLines: null,
               textCapitalization: TextCapitalization.sentences,
               decoration: InputDecoration(
                   contentPadding: EdgeInsetsDirectional.only(start: 8.w),

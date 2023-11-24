@@ -63,24 +63,21 @@ class _FirstWidgetState extends State<FirstWidget> {
                   child: Text('1', style: TextStyle(fontSize: 18.sp)),
                 ),
                 Expanded(
-                  child: GestureDetector(
-                    onTap: () {},
-                    child: TextField(
-                      textInputAction: TextInputAction.done,
-                      controller: _firstWidgetController,
-                      minLines: 1,
-                      maxLines: 5,
-                      textCapitalization: TextCapitalization.sentences,
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsetsDirectional.only(start: 8.w),
-                        isCollapsed: true,
-                        border: const UnderlineInputBorder(borderSide: BorderSide.none),
-                        hintText: 'Введите правильный ответ...',
-                        hintMaxLines: 2,
-                        hintStyle: TextStyle(fontSize: 18.sp,)
-                      ),
-                      style: TextStyle(fontSize: 18.sp),
+                  child: TextField(
+                    textInputAction: TextInputAction.done,
+                    controller: _firstWidgetController,
+                    minLines: 2,
+                    maxLines: null,
+                    textCapitalization: TextCapitalization.sentences,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsetsDirectional.only(start: 8.w),
+                      isCollapsed: true,
+                      border: const UnderlineInputBorder(borderSide: BorderSide.none),
+                      hintText: 'Введите правильный ответ...',
+                      hintMaxLines: 2,
+                      hintStyle: TextStyle(fontSize: 18.sp,)
                     ),
+                    style: TextStyle(fontSize: 18.sp),
                   ),
                 )
               ],
