@@ -18,7 +18,7 @@ class AnsParsAppBarWidget extends StatelessWidget
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
             color: const Color.fromRGBO(119, 165, 245, 1),
-            borderRadius: BorderRadius.circular(50)),
+            borderRadius: BorderRadius.circular(50.sp)),
         child: const Text('Параметры'),
       ),
     );

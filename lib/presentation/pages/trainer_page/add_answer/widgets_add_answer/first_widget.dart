@@ -17,18 +17,18 @@ class _FirstWidgetState extends State<FirstWidget> {
       children: [
         //белая карточка с названием вопроса
         Container(
-            padding: const EdgeInsets.all(16),
+            padding: EdgeInsets.all(16.sp),
             alignment: Alignment.topLeft,
             width: 321.w,
             height: 116.h,
             decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(16)),
-            child: const TextField(
+                color: Colors.white, borderRadius: BorderRadius.circular(16.sp)),
+            child: TextField(
               decoration: InputDecoration(
                   border: UnderlineInputBorder(borderSide: BorderSide.none),
                   hintText: 'Название вопроса...',
                   hintStyle: TextStyle(
-                    fontSize: 20,
+                    fontSize: 20.sp,
                   )),
               style: TextStyle(fontSize: 20),
             )),

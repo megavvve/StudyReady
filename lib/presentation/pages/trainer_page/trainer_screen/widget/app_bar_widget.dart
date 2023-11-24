@@ -32,7 +32,9 @@ class AppBarWidget extends StatelessWidget {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(width:18.w,),
+            SizedBox(
+              width: 18.w,
+            ),
             PopupMenuButton<String>(
               itemBuilder: (BuildContext context) {
                 return {'непра', 'дискра', 'аиг'}.map((String choice) {
@@ -49,7 +51,6 @@ class AppBarWidget extends StatelessWidget {
                 onPressed: null,
                 child: const Row(
                   children: [
-                    
                     Text(
                       'Выбор Предмета',
                       style: TextStyle(color: Colors.black),

@@ -4,7 +4,7 @@ import 'package:study_ready/utils/app_svg_assets.dart';
 
 final materialsButton = IconButton(
   onPressed: () {},
-  padding: const EdgeInsets.all(0),
+  padding: EdgeInsets.all(0.sp),
   splashColor: Colors.transparent,
   highlightColor: Colors.transparent,
   icon: Stack(

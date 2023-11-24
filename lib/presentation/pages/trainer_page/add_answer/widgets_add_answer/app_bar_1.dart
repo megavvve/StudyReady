@@ -11,7 +11,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget{
       backgroundColor: backgroundColor,
       centerTitle: true,
       leading: Padding(
-        padding: const EdgeInsets.only(left: 10),
+        padding: EdgeInsets.only(left: 10.w),
         child: Icon(
           Icons.menu,
           size: 40.sp,
@@ -21,7 +21,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget{
         alignment: Alignment.center,
         width: 278.w,
         height: 46.h,
-        padding: const EdgeInsets.all(10),
+        padding: EdgeInsets.all(10.sp),
         decoration: BoxDecoration(
             color: const Color.fromRGBO(119, 165, 245, 1),
             borderRadius: BorderRadius.circular(50)),

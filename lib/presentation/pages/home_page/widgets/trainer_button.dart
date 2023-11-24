@@ -21,7 +21,7 @@ class TrainerButtonWidget extends StatelessWidget {
       },
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,
-      padding: const EdgeInsets.all(0),
+      padding: EdgeInsets.all(0.sp),
       icon: SizedBox(
         width: 375.w,
         child: Stack(

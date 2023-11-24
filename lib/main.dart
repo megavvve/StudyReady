@@ -1,4 +1,3 @@
-import 'package:drift/drift.dart' as drift;
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -29,8 +28,9 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'StudyReady',
         theme: lightTheme,
-        home: const HomeScreen(),
+        home: child,
       ),
+    child: const HomeScreen(),
     );
   }
 }
