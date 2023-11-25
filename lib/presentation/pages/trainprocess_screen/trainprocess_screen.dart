@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:study_ready/presentation/pages/trainprocess_screen/widget/OverflowBar_widget.dart';
+import 'package:study_ready/presentation/pages/trainprocess_screen/widget/InheritedWidgetCheck.dart';
 import 'package:study_ready/presentation/pages/trainprocess_screen/widget/answers_and_question.dart';
 import 'package:study_ready/presentation/pages/trainprocess_screen/widget/check_button.dart';
 import 'package:study_ready/presentation/pages/trainprocess_screen/widget/process_widget.dart';
@@ -43,61 +43,62 @@ class _TrainProcessScreenState extends State<TrainProcessScreen> {
       appBar: AppBar(
         backgroundColor: backgroundColor,
         title: const Stack(
-          children: [Text('Непрерывная математика'), ],
+          children: [
+            Text('Непрерывная математика'),
+          ],
         ),
       ),
-      body: Column(
-        children: [
-          SizedBox(
-            height: 15.h,
-          ),
-          Stack(
-            children: [
-              
-              ProcessWidget(
-                child: Column(
-                  
-                  children: [
-                    Row(children: [
-                      Expanded(
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: getTextWidgets(questions),
+      body: InheritedWidgetDemo(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 15.h,
+            ),
+            Stack(
+              children: [
+                ProcessWidget(
+                  child: Column(
+                    children: [
+                      Row(children: [
+                        Expanded(
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: getTextWidgets(questions),
+                          ),
                         ),
+                      ]),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: 20.h,
+                          ),
+                          // const SizedBox(
+                          //   width: double.infinity,
+                          //   child: ShowWidget(),
+                          // )
+                        ],
                       ),
-                    ]),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: 20.h,
-                        ),
-                        // const SizedBox(
-                        //   width: double.infinity,
-                        //   child: ShowWidget(),
-                        // )
-                      ],
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        //const OverflowBarAnswers(),
-                        const AnswersAndQuestion(),
-                        SizedBox(
-                          height: 8.h,
-                        ),
-                        SizedBox(height:60.h),
-                        const CheckButton(),
-                      ],
-                      
-                    ),
-                  ],
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          //const OverflowBarAnswers(),
+                          AnswersAndQuestion(),
+                          SizedBox(
+                            height: 8.h,
+                          ),
+                          SizedBox(height: 60.h),
+                          CheckButton(),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

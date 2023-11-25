@@ -16,7 +16,10 @@ class _CheckButtonState extends State<CheckButton> {
     return GestureDetector(
       onTap: () {
         setState(() {
-          isChecked = !isChecked;
+          if(!isChecked) {
+            isChecked = !isChecked;
+
+          }
         });
       },
       child: Container(
@@ -31,7 +34,7 @@ class _CheckButtonState extends State<CheckButton> {
           children: [
             SizedBox(width: 8.w),
             Text(
-              isChecked ? 'Проверка' : 'Продолжить',
+              !isChecked ? 'Проверка' : 'Продолжить',
               style: const TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,

@@ -11,7 +11,7 @@ class ProcessWidget extends StatefulWidget {
   const ProcessWidget({super.key, required this.child});
 
   static ProcessWidgetState of(BuildContext context, {bool rebuild = true}) {
-    //если нам нужно только получать данные и не перестраивать конкретный виджет, то ставим rebuild = false
+    // если нам нужно только получать данные и не перестраивать конкретный виджет, то ставим rebuild = false
     if (rebuild) {
       return context
           .dependOnInheritedWidgetOfExactType<MyInheritedWidget>()!
