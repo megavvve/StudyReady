@@ -20,9 +20,8 @@ class _AnswersState extends State<Answers> {
 
   @override
   Widget build(BuildContext context) {
-
-    return
-     Column(children: [
+    return Column(
+      children: [
         for (int i = 0; i < widget.list.length; i++)
           Column(
             children: [
@@ -47,7 +46,9 @@ class _AnswersState extends State<Answers> {
                     ),
                   ),
                   onPressed: () {
-                    _onButtonPressed(i);
+                    _onButtonPressed(
+                      i,
+                    );
                   },
                 ),
               ),
@@ -61,18 +62,14 @@ class _AnswersState extends State<Answers> {
   }
 
   Color _buttonStyle(int buttonIndex) {
-    var data = InheritedWidgetDemo.of(context);
-    return (buttonIndex == data?.selectedAnswer)
+    var data = SharedState.of(context);
+    return (buttonIndex == data.selectedIndex)
         ? Colors.grey // Цвет выделенной кнопки
         : Colors.white;
   }
 
   void _onButtonPressed(int buttonIndex) {
-    var data = InheritedWidgetDemo.of(context);
-    setState(() {
-      data?.selectedAnswer = buttonIndex;
-      //print(data?.selectedAnswer);
-      //selectedButtonIndex = buttonIndex;
-    });
+    SharedState.of(context).updateSelectedIndex(buttonIndex);
+  
   }
 }

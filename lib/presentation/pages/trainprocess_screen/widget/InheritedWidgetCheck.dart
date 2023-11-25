@@ -1,20 +1,21 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
-class InheritedWidgetDemo extends InheritedWidget {
-  int selectedAnswer;
+class SharedState extends InheritedWidget {
+  final int selectedIndex;
+  final Function(int) updateSelectedIndex;
 
-  InheritedWidgetDemo({
+  const SharedState({super.key, 
+    required this.selectedIndex,
+    required this.updateSelectedIndex,
     required Widget child,
-    this.selectedAnswer = -1,
   }) : super(child: child);
 
-  static InheritedWidgetDemo? of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<InheritedWidgetDemo>();
+  static SharedState of(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<SharedState>()!;
   }
 
   @override
-  bool updateShouldNotify(InheritedWidgetDemo oldWidget) {
-    //return selectedAnswer != oldWidget.selectedAnswer;
-    return true;
+  bool updateShouldNotify(SharedState oldWidget) {
+    return oldWidget.selectedIndex != selectedIndex;
   }
 }

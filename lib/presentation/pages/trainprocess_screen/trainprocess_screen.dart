@@ -29,7 +29,12 @@ Widget getTextWidgets(List<String> strings) {
 
 class _TrainProcessScreenState extends State<TrainProcessScreen> {
   List<Widget> list = <Widget>[];
-
+  int _selectedIndex = 0;
+void _updateSelectedIndex(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     var numberOfQuestions = 8; // Напиши сюда количество вопрсов
@@ -48,7 +53,9 @@ class _TrainProcessScreenState extends State<TrainProcessScreen> {
           ],
         ),
       ),
-      body: InheritedWidgetDemo(
+      body: SharedState(
+        selectedIndex: _selectedIndex,
+        updateSelectedIndex: _updateSelectedIndex,
         child: Column(
           children: [
             SizedBox(
@@ -74,22 +81,17 @@ class _TrainProcessScreenState extends State<TrainProcessScreen> {
                           SizedBox(
                             height: 20.h,
                           ),
-                          // const SizedBox(
-                          //   width: double.infinity,
-                          //   child: ShowWidget(),
-                          // )
                         ],
                       ),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          //const OverflowBarAnswers(),
-                          AnswersAndQuestion(),
+                          const AnswersAndQuestion(),
                           SizedBox(
                             height: 8.h,
                           ),
                           SizedBox(height: 60.h),
-                          CheckButton(),
+                          const CheckButton(),
                         ],
                       ),
                     ],
