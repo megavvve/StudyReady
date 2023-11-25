@@ -1,50 +1,55 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:study_ready/presentation/pages/add_answer/widgets_add_answer/inherit_for_question_and_answers.dart';
 
-class FirstWidget extends StatefulWidget {
+class FirstWidget extends StatelessWidget {
   const FirstWidget({super.key});
 
   @override
-  State<FirstWidget> createState() => _FirstWidgetState();
-}
-
-class _FirstWidgetState extends State<FirstWidget> {
-  @override
   Widget build(BuildContext context) {
+    QuestionControllers? controllers = QuestionControllers.of(context);
     return Stack(
       clipBehavior: Clip.none,
       alignment: Alignment.center,
       children: [
         //белая карточка с названием вопроса
         Container(
-            padding: const EdgeInsets.all(16),
+            padding: EdgeInsets.fromLTRB(16.w, 8.h, 16.w, 0.h),
             alignment: Alignment.topLeft,
             width: 321.w,
             height: 116.h,
             decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(16)),
-            child: const TextField(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(
+                16.sp,
+              ),
+            ),
+            child: TextField(
+              textInputAction: TextInputAction.done,
+              controller: controllers?.questionController,
+              minLines: 1,
               decoration: InputDecoration(
-                  border: UnderlineInputBorder(borderSide: BorderSide.none),
+                  border:
+                      const UnderlineInputBorder(borderSide: BorderSide.none),
                   hintText: 'Название вопроса...',
                   hintStyle: TextStyle(
-                    fontSize: 20,
+                    fontSize: 20.sp,
                   )),
-              style: TextStyle(fontSize: 20),
+              style: TextStyle(fontSize: 20.sp),
             )),
         //белая карточка с названием вопроса
 
         //зеленая карточка введите правильный ответ
         Positioned(
-          top: 63,
+          top: 60.sp,
           child: Container(
-            padding: const EdgeInsets.all(8),
-            alignment: Alignment.centerLeft,
+            padding: EdgeInsets.all(8.sp),
+            alignment: Alignment.center,
             width: 309.w,
             height: 113.h,
             decoration: BoxDecoration(
                 color: const Color.fromRGBO(204, 245, 203, 1),
-                borderRadius: BorderRadius.circular(16)),
+                borderRadius: BorderRadius.circular(16.sp)),
             child: Row(
               children: [
                 Container(
@@ -53,24 +58,27 @@ class _FirstWidgetState extends State<FirstWidget> {
                   height: 34.h,
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(8)),
+                      borderRadius: BorderRadius.circular(8.sp)),
                   child: Text('1', style: TextStyle(fontSize: 18.sp)),
                 ),
-                const SizedBox(
-                  width: 8,
-                ),
-                SizedBox(
-                  width: 241.w,
-                  height: 27.h,
-                  child: const TextField(
+                Expanded(
+                  child: TextField(
+                    textInputAction: TextInputAction.done,
+                    controller: controllers?.answerController1,
+                    minLines: 2,
+                    maxLines: null,
                     textCapitalization: TextCapitalization.sentences,
                     decoration: InputDecoration(
-                      isCollapsed: true,
-                      border: UnderlineInputBorder(borderSide: BorderSide.none),
-                      hintText: 'Введите правильный ответ...',
-                      hintStyle: TextStyle(fontSize: 18),
-                    ),
-                    style: TextStyle(fontSize: 18),
+                        contentPadding: EdgeInsetsDirectional.only(start: 8.w),
+                        isCollapsed: true,
+                        border: const UnderlineInputBorder(
+                            borderSide: BorderSide.none),
+                        hintText: 'Введите правильный ответ...',
+                        hintMaxLines: 2,
+                        hintStyle: TextStyle(
+                          fontSize: 18.sp,
+                        )),
+                    style: TextStyle(fontSize: 18.sp),
                   ),
                 )
               ],
