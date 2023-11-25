@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:study_ready/presentation/pages/add_answer/widgets_answer_parametrs/inherit_for_question_param.dart';
 
-class CourseNumberWidget extends StatefulWidget {
-  const CourseNumberWidget({super.key});
+class CourseNumberWidget extends StatelessWidget {
+   const CourseNumberWidget({super.key});
 
-  @override
-  State<CourseNumberWidget> createState() => _CourseNumberWidgetState();
-}
 
-class _CourseNumberWidgetState extends State<CourseNumberWidget> {
-  final _courseNumberController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    QuestionAndAnswersControllers? controllers =
+        QuestionAndAnswersControllers.of(context);
     return Stack(
       clipBehavior: Clip.none,
       alignment: Alignment.center,
@@ -23,7 +21,7 @@ class _CourseNumberWidgetState extends State<CourseNumberWidget> {
           width: 321.w,
           height: 116.h,
           decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(16.sp)),
+              color: Colors.white, borderRadius: BorderRadius.circular(16.sp,),),
           child: Text(
             'Номер курса',
             style: TextStyle(fontSize: 20.sp),
@@ -35,14 +33,14 @@ class _CourseNumberWidgetState extends State<CourseNumberWidget> {
             padding: EdgeInsets.all(8.sp),
             alignment: Alignment.centerLeft,
             width: 309.w,
-            height: 113.h,
+            height: 100.h,
             decoration: BoxDecoration(
                 color: const Color.fromRGBO(198, 216, 245, 1),
                 borderRadius: BorderRadius.circular(16.sp)),
             child: Expanded(
               child: TextField(
                 textInputAction: TextInputAction.done,
-                controller: _courseNumberController,
+                controller: controllers?.courseNumController,
                 keyboardType: TextInputType.number,
                 minLines: 1,
                 maxLines: null,
@@ -52,13 +50,13 @@ class _CourseNumberWidgetState extends State<CourseNumberWidget> {
                     isCollapsed: true,
                     contentPadding: EdgeInsetsDirectional.only(start: 8.w),
                     border:
-                        const UnderlineInputBorder(borderSide: BorderSide.none),
+                        const UnderlineInputBorder(borderSide: BorderSide.none,),
                     hintText: 'Введите номер курса...',
                     hintMaxLines: 2,
                     hintStyle: TextStyle(
                       fontSize: 20.sp,
                     )),
-                style: TextStyle(fontSize: 20.sp),
+                style: TextStyle(fontSize: 20.sp,),
               ),
             ),
           ),

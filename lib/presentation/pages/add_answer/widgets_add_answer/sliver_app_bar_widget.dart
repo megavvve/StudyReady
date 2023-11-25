@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/utils/app_colors.dart';
 
-class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
-  const AppBarWidget({super.key});
+class SliverAppBarWidget extends StatelessWidget implements PreferredSizeWidget {
+  const SliverAppBarWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:study_ready/presentation/pages/add_answer/widgets_add_answer/inherit_for_question_and_answers.dart';
 
-class ThirdWidget extends StatefulWidget {
+class ThirdWidget extends StatelessWidget {
   const ThirdWidget({super.key});
 
   @override
-  State<ThirdWidget> createState() => _ThirdWidgetState();
-}
-
-class _ThirdWidgetState extends State<ThirdWidget> {
-  final _thirdWidgetController = TextEditingController();
-
-  @override
   Widget build(BuildContext context) {
+     QuestionControllers? controllers = QuestionControllers.of(context);
     return Container(
       padding: EdgeInsets.all(8.sp),
       alignment: Alignment.centerLeft,
@@ -34,7 +29,7 @@ class _ThirdWidgetState extends State<ThirdWidget> {
           Expanded(
             child: TextField(
               textInputAction: TextInputAction.done,
-              controller: _thirdWidgetController,
+              controller: controllers?.answerController3,
               minLines: 1,
               maxLines: null,
               textCapitalization: TextCapitalization.sentences,
@@ -43,7 +38,7 @@ class _ThirdWidgetState extends State<ThirdWidget> {
                   isCollapsed: true,
                   border:
                       const UnderlineInputBorder(borderSide: BorderSide.none),
-                  hintText: 'Введите ответ...',
+                  hintText: 'Введите неправильный ответ...',
                   hintMaxLines: 2,
                   hintStyle: TextStyle(
                     fontSize: 18.sp,

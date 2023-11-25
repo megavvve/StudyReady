@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:study_ready/presentation/pages/add_answer/widgets_answer_parametrs/inherit_for_question_param.dart';
 
-class ThemeWidget extends StatefulWidget {
+class ThemeWidget extends StatelessWidget {
   const ThemeWidget({super.key});
 
   @override
-  State<ThemeWidget> createState() => _ThemeWidgetState();
-}
-
-class _ThemeWidgetState extends State<ThemeWidget> {
-  final _themeController = TextEditingController();
-
-  @override
   Widget build(BuildContext context) {
+     QuestionAndAnswersControllers? controllers =
+        QuestionAndAnswersControllers.of(context);
     return Stack(
       clipBehavior: Clip.none,
       alignment: Alignment.center,
@@ -23,7 +19,11 @@ class _ThemeWidgetState extends State<ThemeWidget> {
           width: 321.w,
           height: 116.h,
           decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(16.sp)),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(
+              16.sp,
+            ),
+          ),
           child: Text(
             'Тема',
             style: TextStyle(fontSize: 20.sp),
@@ -35,14 +35,17 @@ class _ThemeWidgetState extends State<ThemeWidget> {
             padding: EdgeInsets.all(8.sp),
             alignment: Alignment.centerLeft,
             width: 309.w,
-            height: 113.h,
+            height: 100.h,
             decoration: BoxDecoration(
-                color: const Color.fromRGBO(198, 216, 245, 1),
-                borderRadius: BorderRadius.circular(16.sp)),
+              color: const Color.fromRGBO(198, 216, 245, 1),
+              borderRadius: BorderRadius.circular(
+                16.sp,
+              ),
+            ),
             child: Expanded(
               child: TextField(
                 textInputAction: TextInputAction.done,
-                controller: _themeController,
+                controller: controllers?.themeController,
                 keyboardType: TextInputType.text,
                 minLines: 1,
                 maxLines: null,

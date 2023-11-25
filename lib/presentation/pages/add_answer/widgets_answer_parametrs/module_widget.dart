@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:study_ready/presentation/pages/add_answer/widgets_answer_parametrs/inherit_for_question_param.dart';
 
-class ModuleWidget extends StatefulWidget {
+class ModuleWidget extends StatelessWidget {
   const ModuleWidget({super.key});
 
   @override
-  State<ModuleWidget> createState() => _ModuleWidgetState();
-}
-
-class _ModuleWidgetState extends State<ModuleWidget> {
-  final _moduleController = TextEditingController();
-
-  @override
   Widget build(BuildContext context) {
+    QuestionAndAnswersControllers? controllers = QuestionAndAnswersControllers.of(context);
     return Stack(
       clipBehavior: Clip.none,
       alignment: Alignment.center,
@@ -35,19 +30,21 @@ class _ModuleWidgetState extends State<ModuleWidget> {
             padding: EdgeInsets.all(8.sp),
             alignment: Alignment.centerLeft,
             width: 309.w,
-            height: 113.h,
+            height: 100.h,
             decoration: BoxDecoration(
-                color: const Color.fromRGBO(198, 216, 245, 1),
-                borderRadius: BorderRadius.circular(16.sp)),
+              color: const Color.fromRGBO(198, 216, 245, 1),
+              borderRadius: BorderRadius.circular(16.sp),
+            ),
             child: Expanded(
               child: TextField(
                 textInputAction: TextInputAction.done,
-                controller: _moduleController,
+                controller: controllers?.moduleController,
                 keyboardType: TextInputType.text,
                 minLines: 1,
                 maxLines: null,
                 textCapitalization: TextCapitalization.sentences,
                 decoration: InputDecoration(
+                  
                     isDense: false,
                     isCollapsed: true,
                     contentPadding: EdgeInsetsDirectional.only(start: 8.w),

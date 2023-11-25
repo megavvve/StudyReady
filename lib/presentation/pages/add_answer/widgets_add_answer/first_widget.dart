@@ -1,19 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:study_ready/presentation/pages/add_answer/widgets_add_answer/inherit_for_question_and_answers.dart';
 
-class FirstWidget extends StatefulWidget {
+class FirstWidget extends StatelessWidget {
   const FirstWidget({super.key});
 
   @override
-  State<FirstWidget> createState() => _FirstWidgetState();
-}
-
-class _FirstWidgetState extends State<FirstWidget> {
-  final _firstWidgetController = TextEditingController();
-  final _questionNameContoller = TextEditingController();
-
-  @override
   Widget build(BuildContext context) {
+    QuestionControllers? controllers = QuestionControllers.of(context);
     return Stack(
       clipBehavior: Clip.none,
       alignment: Alignment.center,
@@ -25,13 +19,18 @@ class _FirstWidgetState extends State<FirstWidget> {
             width: 321.w,
             height: 116.h,
             decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(16.sp)),
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(
+                16.sp,
+              ),
+            ),
             child: TextField(
               textInputAction: TextInputAction.done,
-              controller: _questionNameContoller,
+              controller: controllers?.questionController,
               minLines: 1,
               decoration: InputDecoration(
-                  border: const UnderlineInputBorder(borderSide: BorderSide.none),
+                  border:
+                      const UnderlineInputBorder(borderSide: BorderSide.none),
                   hintText: 'Название вопроса...',
                   hintStyle: TextStyle(
                     fontSize: 20.sp,
@@ -43,7 +42,7 @@ class _FirstWidgetState extends State<FirstWidget> {
         //зеленая карточка введите правильный ответ
         Positioned(
           top: 60.sp,
-          child: Container(  
+          child: Container(
             padding: EdgeInsets.all(8.sp),
             alignment: Alignment.center,
             width: 309.w,
@@ -65,18 +64,20 @@ class _FirstWidgetState extends State<FirstWidget> {
                 Expanded(
                   child: TextField(
                     textInputAction: TextInputAction.done,
-                    controller: _firstWidgetController,
+                    controller: controllers?.answerController1,
                     minLines: 2,
                     maxLines: null,
                     textCapitalization: TextCapitalization.sentences,
                     decoration: InputDecoration(
-                      contentPadding: EdgeInsetsDirectional.only(start: 8.w),
-                      isCollapsed: true,
-                      border: const UnderlineInputBorder(borderSide: BorderSide.none),
-                      hintText: 'Введите правильный ответ...',
-                      hintMaxLines: 2,
-                      hintStyle: TextStyle(fontSize: 18.sp,)
-                    ),
+                        contentPadding: EdgeInsetsDirectional.only(start: 8.w),
+                        isCollapsed: true,
+                        border: const UnderlineInputBorder(
+                            borderSide: BorderSide.none),
+                        hintText: 'Введите правильный ответ...',
+                        hintMaxLines: 2,
+                        hintStyle: TextStyle(
+                          fontSize: 18.sp,
+                        )),
                     style: TextStyle(fontSize: 18.sp),
                   ),
                 )
