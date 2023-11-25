@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:study_ready/presentation/navigation/custom_page_router.dart';
 import 'package:study_ready/presentation/pages/trainer_page/add_answer/answer_parametrs_sreen.dart';
 
 class OptionsButton extends StatelessWidget {
@@ -15,8 +16,12 @@ class OptionsButton extends StatelessWidget {
           fixedSize: MaterialStatePropertyAll(Size(304.w, 57.h)),
           backgroundColor: const MaterialStatePropertyAll(Colors.white)),
       onPressed: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const AnsParsScreen()));
+        Navigator.push(
+          context,
+          customPageRoute(
+            const AnsParsScreen(),
+          ),
+        );
       },
       clipBehavior: Clip.none,
       child: Row(

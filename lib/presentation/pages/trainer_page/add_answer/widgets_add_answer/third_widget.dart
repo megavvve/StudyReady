@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:study_ready/presentation/pages/add_answer/widgets_add_answer/inherit_for_question_and_answers.dart';
+import 'package:study_ready/presentation/pages/trainer_page/add_answer/widgets_add_answer/inherit_for_question_and_answers.dart';
 
 class ThirdWidget extends StatelessWidget {
   const ThirdWidget({super.key});

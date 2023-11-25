@@ -14,22 +14,20 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: Builder(builder: (BuildContext context) {
-          return SizedBox(
-            width: 34.w,
-            height: 26.h,
-            child: Padding(
-              padding: EdgeInsets.only(left: 20.w,),
-              child: IconButton(
-                icon: Icon(
-                  Icons.menu,
-                  size: 40.sp,
-                  weight: 10.w,
-                ),
-                onPressed: () {
-                  Scaffold.of(context).openDrawer();
-                },
-                tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+          return Padding(
+            padding: EdgeInsets.only(
+              left: 20.w,
+            ),
+            child: IconButton(
+              icon: Icon(
+                Icons.menu,
+                size: 40.sp,
+                weight: 10.w,
               ),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+              tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
             ),
           );
         }),
@@ -38,12 +36,12 @@ class HomeScreen extends StatelessWidget {
       body: Stack(
         children: [
           Positioned(
-            bottom: 0.h,
-            child: materialsButton,
-          ),
-          Positioned(
             bottom: 400.h,
             child: const TrainerButtonWidget(),
+          ),
+          Positioned(
+            bottom: 0.h,
+            child: const MaterialsButton(),
           ),
         ],
       ),

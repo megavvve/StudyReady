@@ -12,7 +12,20 @@ class SliverAnsParsAppBarWidget extends StatelessWidget {
       surfaceTintColor: Colors.transparent,
       backgroundColor: backgroundColor,
       centerTitle: true,
-      flexibleSpace: FlexibleSpaceBar(
+      leading: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 5.w),
+        child: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            size: 30.sp,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
+    
+        
         title: Container(
           alignment: Alignment.center,
           width: 278.w,
@@ -24,7 +37,7 @@ class SliverAnsParsAppBarWidget extends StatelessWidget {
           ),
           child: const Text('Параметры'),
         ),
-      ),
+     
     );
   }
 }
