@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:study_ready/presentation/pages/trainprocess_screen/widget/process_widget.dart';
-
 import 'InheritedWidgetCheck.dart';
 
 class Answers extends StatefulWidget {
