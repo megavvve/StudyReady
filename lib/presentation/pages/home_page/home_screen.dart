@@ -18,7 +18,9 @@ class HomeScreen extends StatelessWidget {
             width: 34.w,
             height: 26.h,
             child: Padding(
-              padding: EdgeInsets.only(left: 20.w,),
+              padding: EdgeInsets.only(
+                left: 20.w,
+              ),
               child: IconButton(
                 icon: Icon(
                   Icons.menu,

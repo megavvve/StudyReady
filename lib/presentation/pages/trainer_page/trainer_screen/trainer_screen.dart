@@ -25,7 +25,7 @@ class _TrainerScreenState extends State<TrainerScreen> {
       body: Stack(children: [
         CustomScrollView(
           slivers: <Widget>[
-            AppBarWidget(),
+            const AppBarWidget(),
             SliverList.builder(
                 itemCount: 10,
                 itemBuilder: (BuildContext context, int index) =>
