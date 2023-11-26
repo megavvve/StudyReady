@@ -42,12 +42,12 @@ class _AnswersAndQuestionState extends State<AnswersAndQuestion> {
           SizedBox(height: 32.h),
           // вопрос из бд сюда засовывать по selectedQuestion (я так думаю)
           // selectedIndex считается с 0
-          const Answers(
+          Answers(
             list: [
-              "1.Ф ТекТекстТекстТекстст",
-              "2. ТекТекстТекстТекстст",
-              "3. ТекТекстТекстТе",
-              "4. ТекТекстТекстТесктТескстТекстст"
+              "1. ответ 1 вопрос ${selectedQuestion}",
+              "2. ответ 2 вопрос ${selectedQuestion}",
+              "3. ответ 3 вопрос ${selectedQuestion}",
+              "4. ответ 4 вопрос ${selectedQuestion}"
             ],
 
           ),

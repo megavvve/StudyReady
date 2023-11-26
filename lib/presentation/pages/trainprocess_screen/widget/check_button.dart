@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:study_ready/presentation/pages/trainer_screen/trainer_screen.dart';
 import 'package:study_ready/presentation/pages/trainprocess_screen/widget/answers.dart';
 import 'package:study_ready/presentation/pages/trainprocess_screen/widget/process_widget.dart';
 import 'InheritedWidgetCheck.dart';
@@ -84,7 +85,18 @@ class _CheckButtonState extends State<CheckButton> {
           selectedQuestion++;
           // если больше вопросов чем всего есть, то конец тренажора
           if (selectedQuestion > howmuchQuestion) {
-
+            Navigator.of(context).pushReplacement(
+              PageRouteBuilder(
+                transitionDuration: Duration.zero,
+                pageBuilder: (context, animation, secondaryAnimation) {
+                  return const TrainerScreen();
+                },
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                  return child;
+                },
+              ),
+            );
           }
           SharedState.of(context).updateselectedQuestion(selectedQuestion);
           }

@@ -81,6 +81,8 @@ class _TrainProcessScreenState extends State<TrainProcessScreen> {
                 ProcessWidget(
                   child: Column(
                     children: [
+
+                      //LinearProgressIndicator(value: ,),
                       /*
                       Row(children: [
                         Expanded(
