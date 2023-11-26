@@ -16,7 +16,8 @@ class AnswersAndQuestion extends StatefulWidget {
 class _AnswersAndQuestionState extends State<AnswersAndQuestion> {
   @override
   Widget build(BuildContext context) {
-    int selectedIndex = SharedState.of(context).selectedIndex;
+    int selectedQuestion = SharedState.of(context).selectedQuestion;
+
 
     return Padding(
       padding: EdgeInsets.all(17.0.sp),
@@ -35,10 +36,12 @@ class _AnswersAndQuestionState extends State<AnswersAndQuestion> {
             width: 335.w,
             child: Center(
                 child: Text(
-              "$selectedIndex",
+              "Вы на вопросе: $selectedQuestion",
             )),
           ),
           SizedBox(height: 32.h),
+          // вопрос из бд сюда засовывать по selectedQuestion (я так думаю)
+          // selectedIndex считается с 0
           const Answers(
             list: [
               "1.Ф ТекТекстТекстТекстст",
@@ -46,7 +49,7 @@ class _AnswersAndQuestionState extends State<AnswersAndQuestion> {
               "3. ТекТекстТекстТе",
               "4. ТекТекстТекстТесктТескстТекстст"
             ],
-            correctAnswer: 1,
+
           ),
         ],
       ),

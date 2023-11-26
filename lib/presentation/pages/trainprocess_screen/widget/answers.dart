@@ -7,9 +7,9 @@ import 'InheritedWidgetCheck.dart';
 
 class Answers extends StatefulWidget {
   final List<String> list;
-  final int correctAnswer;
 
-  const Answers({super.key, required this.list, required this.correctAnswer});
+
+  const Answers({super.key, required this.list});
 
   @override
   State<Answers> createState() => _AnswersState();

@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:study_ready/presentation/pages/trainprocess_screen/widget/answers.dart';
+import 'package:study_ready/presentation/pages/trainprocess_screen/widget/process_widget.dart';
+import 'InheritedWidgetCheck.dart';
 
 class CheckButton extends StatefulWidget {
   const CheckButton({super.key});
@@ -13,13 +18,78 @@ class _CheckButtonState extends State<CheckButton> {
 
   @override
   Widget build(BuildContext context) {
+    int selectedQuestion = SharedState.of(context).selectedQuestion;
+    int selectedIndex = SharedState.of(context).selectedIndex;
+    int howmuchQuestion = SharedState.of(context).howmuchQuestion;
     return GestureDetector(
       onTap: () {
         setState(() {
-          if(!isChecked) {
-            isChecked = !isChecked;
+          if([0,1,2,3].contains(selectedIndex)) { // если мы выбрали вопрос
+          //  isChecked = !isChecked;
+
+          String resultText = '';
+          Color resultColor;
+
+          int correctAnswer = 1;
+          // Берем из бд правильный номер ответа(0,1,2,3) по selectedQuestion и selectedIndex
+          if (selectedIndex == correctAnswer) {
+            resultText = 'Правильно';
+            resultColor = Colors.greenAccent;
+            // правильно
+          } else {
+            resultText = 'Неправильно';
+            resultColor = Colors.redAccent;
+            // неправльно
+          }
+
+
+
+          showModalBottomSheet<void>(
+            context: context,
+            builder: (BuildContext context) {
+              return Container(
+                height: 200,
+                color: resultColor,
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text(
+                        'Вы ответили $resultText',
+                        style: TextStyle(fontSize: 20.sp),
+                      ),
+                      /*
+                      ElevatedButton(
+                        child: const Text(
+                          'Следующий вопрос',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        onPressed: () {
+                          setState(() {
+
+                          });
+
+
+                          Navigator.pop(context);
+                        },
+                      ),*/
+                    ],
+                  ),
+                ),
+              );
+            },
+          );
+
+          selectedQuestion++;
+          // если больше вопросов чем всего есть, то конец тренажора
+          if (selectedQuestion > howmuchQuestion) {
 
           }
+          SharedState.of(context).updateselectedQuestion(selectedQuestion);
+          }
+
+
         });
       },
       child: Container(
