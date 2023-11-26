@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:drift/drift.dart' as drift;
+import 'package:flutter/services.dart';
 import '../../../data/local/db/app_db.dart';
+//import 'package:study_ready/assets/jsons/trainers.json';
 
 class FillTables {
   AppDB db = AppDB();
@@ -12,7 +16,15 @@ class FillTables {
     fillSubjects();
     fillChapters();
     fillThemes();
-    exampleJoinMethod(); // demo of leftJoin for tables (in dev)
+    fillQuestions();
+    //exampleJoinMethod(); // demo of leftJoin for tables (in dev)
+  }
+
+  // Json decode
+  Future<void> loadJsonAsset() async {
+    final String jsonString = await rootBundle.loadString('assets/jsons/trainers.json');
+    final data = jsonDecode(jsonString);
+    print(jsonString);
   }
 
   // creating test subjects
@@ -21,10 +33,7 @@ class FillTables {
     var listOfSubjects = await db.getSubjects();
     if (listOfSubjects.isEmpty) {
       var subjects = [
-        'Непрерывная математика',
-        'Дискретная математика',
-        'Алгебра и геометрия'
-      ];
+        'Непрерывная математика'];
 
       for (int i = 0; i < subjects.length; i++) {
         var subject = SubjectsCompanion(name: drift.Value(subjects[i]));
@@ -42,8 +51,8 @@ class FillTables {
   void fillChapters() async {
     var listOfChapters = await db.getChapters();
     if (listOfChapters.isEmpty) {
-      var chaptersIds = [1, 2, 3];
-      var chaptersNames = ['Пределы', 'Предикаты и кванторы', 'Матрицы'];
+      var chaptersIds = [1];
+      var chaptersNames = ['Нулевая глава'];
 
       for (int i = 0; i < chaptersIds.length; i++) {
         var chapter = ChaptersCompanion(
@@ -63,13 +72,10 @@ class FillTables {
   void fillThemes() async {
     var listOfThemes = await db.getThemes();
     if (listOfThemes.isEmpty) {
-      var subjectIds = [1, 2, 3];
-      var chapterNames = [1, 2, 3];
+      var subjectIds = [1];
+      var chapterNames = [1];
       var names = [
-        'Предел последовательности',
-        'Свойства предикатов',
-        'Матричные выражения'
-      ];
+        'Основные обозначения'];
 
       for (int i = 0; i < subjectIds.length; i++) {
         var theme = ThemesCompanion(
@@ -84,6 +90,12 @@ class FillTables {
     var listOfThemesDebug = await db.getThemes();
     print(listOfThemesDebug);
   }
+
+
+  void fillQuestions() async {
+    loadJsonAsset();
+  }
+
 
   void exampleJoinMethod() async {
     // here we go to print whole info about every THEME, getting names of SUBJECT and CHAPTER from other tables

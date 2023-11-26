@@ -13,7 +13,7 @@ class Trainer {
 
   final String image;
 
-  final List<Question> questions;
+  final List<Question> questions; // --> String as Json
 
   Trainer( {
     required this.id,
