@@ -22,86 +22,88 @@ class _CheckButtonState extends State<CheckButton> {
     int selectedQuestion = SharedState.of(context).selectedQuestion;
     int selectedIndex = SharedState.of(context).selectedIndex;
     int howmuchQuestion = SharedState.of(context).howmuchQuestion;
+
+    void nextQuestion() {
+      setState(() {
+        selectedQuestion++;
+        SharedState.of(context).updateselectedQuestion(selectedQuestion);
+      });
+    }
+
     return GestureDetector(
       onTap: () {
         setState(() {
-          if([0,1,2,3].contains(selectedIndex)) { // если мы выбрали вопрос
-          //  isChecked = !isChecked;
+          if ([0, 1, 2, 3].contains(selectedIndex)) {
+            // если мы выбрали вопрос
+            //  isChecked = !isChecked;
+            String resultText = '';
+            Color resultColor;
 
-          String resultText = '';
-          Color resultColor;
+            int correctAnswer = 1;
+            // Берем из бд правильный номер ответа(0,1,2,3) по selectedQuestion и selectedIndex
+            if (selectedIndex == correctAnswer) {
+              resultText = 'Правильно';
+              resultColor = Colors.greenAccent;
+              // правильно
+            } else {
+              resultText = 'Неправильно';
+              resultColor = Colors.redAccent;
+              // неправльно
+            }
 
-          int correctAnswer = 1;
-          // Берем из бд правильный номер ответа(0,1,2,3) по selectedQuestion и selectedIndex
-          if (selectedIndex == correctAnswer) {
-            resultText = 'Правильно';
-            resultColor = Colors.greenAccent;
-            // правильно
-          } else {
-            resultText = 'Неправильно';
-            resultColor = Colors.redAccent;
-            // неправльно
-          }
-
-
-
-          showModalBottomSheet<void>(
-            context: context,
-            builder: (BuildContext context) {
-              return Container(
-                height: 200,
-                color: resultColor,
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Text(
-                        'Вы ответили $resultText',
-                        style: TextStyle(fontSize: 20.sp),
-                      ),
-                      /*
-                      ElevatedButton(
-                        child: const Text(
-                          'Следующий вопрос',
-                          style: TextStyle(color: Colors.black),
+            showModalBottomSheet<void>(
+              context: context,
+              builder: (BuildContext context) {
+                return Container(
+                  height: 200.h,
+                  color: resultColor,
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Text(
+                          'Вы ответили $resultText',
+                          style: TextStyle(fontSize: 20.sp),
                         ),
-                        onPressed: () {
-                          setState(() {
+                        SizedBox(
+                          height: 12.h,
+                        ),
+                        ElevatedButton(
 
-                          });
-
-
-                          Navigator.pop(context);
-                        },
-                      ),*/
-                    ],
+                          child: const Text(
+                            'Следующий вопрос',
+                            style: TextStyle(color: Colors.black),
+                          ),
+                          onPressed: () {
+                            Navigator.pop(context);
+                            nextQuestion();
+                            if (selectedQuestion > howmuchQuestion) {
+                              Navigator.of(context).pushReplacement(
+                                PageRouteBuilder(
+                                  transitionDuration: Duration.zero,
+                                  pageBuilder:
+                                      (context, animation, secondaryAnimation) {
+                                    return const TrainerScreen();
+                                  },
+                                  transitionsBuilder: (context, animation,
+                                      secondaryAnimation, child) {
+                                    return child;
+                                  },
+                                ),
+                              );
+                            }
+                          },
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              );
-            },
-          );
-
-          selectedQuestion++;
-          // если больше вопросов чем всего есть, то конец тренажора
-          if (selectedQuestion > howmuchQuestion) {
-            Navigator.of(context).pushReplacement(
-              PageRouteBuilder(
-                transitionDuration: Duration.zero,
-                pageBuilder: (context, animation, secondaryAnimation) {
-                  return const TrainerScreen();
-                },
-                transitionsBuilder:
-                    (context, animation, secondaryAnimation, child) {
-                  return child;
-                },
-              ),
+                );
+              },
             );
-          }
-          SharedState.of(context).updateselectedQuestion(selectedQuestion);
-          }
 
-
+            // если больше вопросов чем всего есть, то конец тренажора
+          }
         });
       },
       child: Container(

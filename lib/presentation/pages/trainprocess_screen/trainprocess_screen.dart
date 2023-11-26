@@ -47,7 +47,9 @@ class _TrainProcessScreenState extends State<TrainProcessScreen> {
 
   @override
   Widget build(BuildContext context) {
+    //берем из бд сколько у нас всего вопросов в этом тренажоре
     var numberOfQuestions = 8; // Напиши сюда количество вопрсов
+
     var questions = <String>[];
     for (var i = 1; i <= numberOfQuestions; i++) {
       questions.add('$i');
@@ -66,11 +68,9 @@ class _TrainProcessScreenState extends State<TrainProcessScreen> {
       body: SharedState(
         selectedIndex: _selectedIndex,
         updateSelectedIndex: _updateSelectedIndex,
-
         selectedQuestion: _selectedQuestion,
         updateselectedQuestion: _updateSelectedQuestion,
-        howmuchQuestion: 8,
-        //берем из бд сколько у нас всего вопросов в этом тренажоре
+        howmuchQuestion: numberOfQuestions,
         child: Column(
           children: [
             SizedBox(
@@ -81,8 +81,16 @@ class _TrainProcessScreenState extends State<TrainProcessScreen> {
                 ProcessWidget(
                   child: Column(
                     children: [
-
-                      //LinearProgressIndicator(value: ,),
+                      SizedBox(
+                        height: 8.h,
+                        width: 350.w,
+                        child: LinearProgressIndicator(
+                          value: _selectedQuestion.toDouble() /
+                              numberOfQuestions.toDouble(),
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(mainColor),
+                        ),
+                      ),
                       /*
                       Row(children: [
                         Expanded(
@@ -93,6 +101,7 @@ class _TrainProcessScreenState extends State<TrainProcessScreen> {
                           ),
                         ),
                       ]),*/
+
                       Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
