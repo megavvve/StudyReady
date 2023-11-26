@@ -1,58 +1,61 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:study_ready/presentation/pages/trainer_page/add_answer/widgets_answer_parametrs/inherit_for_question_param.dart';
 
-class ModuleWidget extends StatefulWidget {
+class ModuleWidget extends StatelessWidget {
   const ModuleWidget({super.key});
 
   @override
-  State<ModuleWidget> createState() => _FirstWidgetState();
-}
-
-class _FirstWidgetState extends State<ModuleWidget> {
-  @override
   Widget build(BuildContext context) {
+    QuestionAndAnswersControllers? controllers = QuestionAndAnswersControllers.of(context);
     return Stack(
       clipBehavior: Clip.none,
       alignment: Alignment.center,
       children: [
         Container(
-          padding: const EdgeInsets.all(16),
+          padding: EdgeInsets.all(16.sp),
           alignment: Alignment.topLeft,
           width: 321.w,
           height: 116.h,
           decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(16)),
+              color: Colors.white, borderRadius: BorderRadius.circular(16.sp)),
           child: Text(
             'Модуль',
             style: TextStyle(fontSize: 20.sp),
           ),
         ),
         Positioned(
-          top: 63,
+          top: 63.sp,
           child: Container(
-            padding: const EdgeInsets.all(8),
+            padding: EdgeInsets.all(8.sp),
             alignment: Alignment.centerLeft,
             width: 309.w,
-            height: 113.h,
+            height: 100.h,
             decoration: BoxDecoration(
-                color: const Color.fromRGBO(198, 216, 245, 1),
-                borderRadius: BorderRadius.circular(16)),
-            child: Container(
-              alignment: Alignment.centerLeft,
-              width: 241.w,
-              height: 27.h,
-              child: const Padding(
-                padding: EdgeInsets.only(left: 8.0),
-                child: TextField(
-                  textCapitalization: TextCapitalization.sentences,
-                  decoration: InputDecoration(
+              color: const Color.fromRGBO(198, 216, 245, 1),
+              borderRadius: BorderRadius.circular(16.sp),
+            ),
+            child: Expanded(
+              child: TextField(
+                textInputAction: TextInputAction.done,
+                controller: controllers?.moduleController,
+                keyboardType: TextInputType.text,
+                minLines: 1,
+                maxLines: null,
+                textCapitalization: TextCapitalization.sentences,
+                decoration: InputDecoration(
+                  
+                    isDense: false,
                     isCollapsed: true,
-                    border: UnderlineInputBorder(borderSide: BorderSide.none),
+                    contentPadding: EdgeInsetsDirectional.only(start: 8.w),
+                    border:
+                        const UnderlineInputBorder(borderSide: BorderSide.none),
                     hintText: 'Введите модуль...',
-                    hintStyle: TextStyle(fontSize: 18),
-                  ),
-                  style: TextStyle(fontSize: 18),
-                ),
+                    hintMaxLines: 2,
+                    hintStyle: TextStyle(
+                      fontSize: 20.sp,
+                    )),
+                style: TextStyle(fontSize: 20.sp),
               ),
             ),
           ),
