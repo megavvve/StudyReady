@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/domain/models/trainer.dart';
+import 'package:study_ready/presentation/pages/trainer_page/train_process_screen/widget/InheritedWidgetCheck.dart';
+import 'package:study_ready/presentation/pages/trainer_page/train_process_screen/widget/answers_and_question.dart';
+import 'package:study_ready/presentation/pages/trainer_page/train_process_screen/widget/check_button.dart';
 import 'package:study_ready/presentation/pages/trainer_page/train_process_screen/widget/process_widget.dart';
+import 'package:study_ready/utils/app_colors.dart';
+
+import 'package:study_ready/utils/app_svg_assets.dart';
 import 'widget/question_buttons.dart';
 
 class TrainProcessScreen extends StatefulWidget {
@@ -15,32 +21,89 @@ class TrainProcessScreen extends StatefulWidget {
 Widget getTextWidgets(List<String> strings) {
   List<Widget> list = <Widget>[];
   for (var i = 0; i < strings.length; i++) {
-    list.add(QuestionButtons(id: i, label: strings[i]));
+    list.add(QuestionButtons(
+      id: i,
+      label: strings[i],
+      color: colorForCardTrainerBlue,
+    ));
   }
   return Row(children: list);
 }
 
 class _TrainProcessScreenState extends State<TrainProcessScreen> {
   List<Widget> list = <Widget>[];
-  //Trainer tr = widget.trainer;
+  int _selectedIndex = 0;
+void _updateSelectedIndex(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
   @override
   Widget build(BuildContext context) {
+    var numberOfQuestions = 8; // Напиши сюда количество вопрсов
+    var questions = <String>[];
+    for (var i = 1; i <= numberOfQuestions; i++) {
+      questions.add('$i');
+    }
+
     return Scaffold(
+      backgroundColor: backgroundColor,
       appBar: AppBar(
-        title: const Text(
-          "Непрерывная математика",
+        backgroundColor: backgroundColor,
+        title: const Stack(
+          children: [
+            Text('Непрерывная математика'),
+          ],
         ),
       ),
-      body: ProcessWidget(
-        child: Row(children: [
-          Expanded(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: getTextWidgets(['1', '2', '3', '4', '5', '6', '7', '8']),
+      body: SharedState(
+        selectedIndex: _selectedIndex,
+        updateSelectedIndex: _updateSelectedIndex,
+        child: Column(
+          children: [
+            SizedBox(
+              height: 15.h,
             ),
-          ),
-          const ShowWidget(),
-        ]),
+            Stack(
+              children: [
+                ProcessWidget(
+                  child: Column(
+                    children: [
+                      Row(children: [
+                        Expanded(
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: getTextWidgets(questions),
+                          ),
+                        ),
+                      ]),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: 20.h,
+                          ),
+                        ],
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          const AnswersAndQuestion(),
+                          SizedBox(
+                            height: 8.h,
+                          ),
+                          SizedBox(height: 60.h),
+                          const CheckButton(),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
