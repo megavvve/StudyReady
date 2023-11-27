@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/presentation/pages/trainprocess_screen/trainprocess_screen.dart';
 import 'package:study_ready/presentation/pages/trainprocess_screen/widget/process_widget.dart';
 
-import '../../../../utils/app_colors.dart';
 
 class QuestionButtons extends StatelessWidget {
   final String label;

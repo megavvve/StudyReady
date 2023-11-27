@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:study_ready/domain/models/trainer.dart';
 import 'package:study_ready/presentation/pages/trainer_page/train_process_screen/widget/answers_and_question.dart';
 import 'package:study_ready/presentation/pages/trainer_page/train_process_screen/widget/check_button.dart';
 import 'package:study_ready/presentation/pages/trainer_page/train_process_screen/widget/confirmation_dialog.dart';
@@ -8,7 +9,8 @@ import 'package:study_ready/presentation/pages/trainer_page/train_process_screen
 import '../../../../utils/app_colors.dart';
 
 class TrainProcessScreen extends StatefulWidget {
-  const TrainProcessScreen({super.key});
+  final Trainer trainer;
+  const TrainProcessScreen({super.key, required this.trainer});
 
   @override
   State<TrainProcessScreen> createState() => _TrainProcessScreenState();
@@ -42,16 +44,15 @@ class _TrainProcessScreenState extends State<TrainProcessScreen> {
       _selectedQuestion = question;
     });
   }
+  
+
 
   @override
   Widget build(BuildContext context) {
-    //берем из бд сколько у нас всего вопросов в этом тренажоре
-    var numberOfQuestions = 8; // Напиши сюда количество вопрсов
+    Trainer trainer = widget.trainer;
 
-    var questions = <String>[];
-    for (var i = 1; i <= numberOfQuestions; i++) {
-      questions.add('$i');
-    }
+    int numberOfQuestions = trainer.questions.length;
+
     return Scaffold(
       backgroundColor: backgroundColor,
       body: WillPopScope(
@@ -75,6 +76,7 @@ class _TrainProcessScreenState extends State<TrainProcessScreen> {
           selectedQuestion: _selectedQuestion,
           updateselectedQuestion: _updateSelectedQuestion,
           howmuchQuestion: numberOfQuestions,
+          answerQuestion: const [],
           child: CustomScrollView(
             slivers: [
               SliverAppBar(
@@ -130,20 +132,17 @@ class _TrainProcessScreenState extends State<TrainProcessScreen> {
                       ProcessWidget(
                         child: Column(
                           children: [
-                            const Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [],
-                            ),
                             Column(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                const AnswersAndQuestion(),
+                                AnswersAndQuestion(
+                                  trainer: trainer,
+                                ),
                                 SizedBox(
                                   height: 8.h,
                                 ),
                                 SizedBox(height: 30.h),
-                                const CheckButton(),
+                                 CheckButton(trainer: trainer,),
                                 SizedBox(height: 20.h),
                               ],
                             ),

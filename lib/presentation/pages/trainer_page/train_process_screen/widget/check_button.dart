@@ -1,11 +1,19 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'package:study_ready/domain/models/trainer.dart';
 import 'package:study_ready/presentation/pages/trainer_page/trainer_screen/trainer_screen.dart';
 import 'package:study_ready/utils/app_colors.dart';
+
 import 'inherited_widget_check.dart';
 
 class CheckButton extends StatefulWidget {
-  const CheckButton({super.key});
+  final Trainer trainer;
+  const CheckButton({
+    Key? key,
+    required this.trainer,
+  }) : super(key: key);
 
   @override
   _CheckButtonState createState() => _CheckButtonState();
@@ -13,12 +21,14 @@ class CheckButton extends StatefulWidget {
 
 class _CheckButtonState extends State<CheckButton> {
   bool isChecked = false;
-
   @override
   Widget build(BuildContext context) {
+    
+    final Trainer trainer = widget.trainer;
     int selectedQuestion = SharedState.of(context).selectedQuestion;
     int selectedIndex = SharedState.of(context).selectedIndex;
     int howmuchQuestion = SharedState.of(context).howmuchQuestion;
+    List<String> answerQuestion = SharedState.of(context).answerQuestion;
 
     void nextQuestion() {
       setState(() {
@@ -34,8 +44,8 @@ class _CheckButtonState extends State<CheckButton> {
           if ([0, 1, 2, 3].contains(selectedIndex)) {
             // String resultText = '';
             // Color resultColor;
-
-            int correctAnswer = 1;
+           
+            int correctAnswer = 0;
             // // Берем из бд правильный номер ответа(0,1,2,3) по selectedQuestion и selectedIndex
             // if (selectedIndex == correctAnswer) {
             //   resultText = 'Правильно';
@@ -138,7 +148,7 @@ class _CheckButtonState extends State<CheckButton> {
                 );
               }
             });
-            
+
             // если больше вопросов чем всего есть, то конец тренажора
           }
         });
