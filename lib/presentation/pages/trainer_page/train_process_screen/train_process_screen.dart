@@ -103,9 +103,9 @@ class _TrainProcessScreenState extends State<TrainProcessScreen> {
                     }
                   },
                 ),
-                title: const Column(
+                title: Column(
                   children: [
-                    Text('Непрерывная математика'),
+                    Text('Непрерывная математика', style: TextStyle(fontSize: 18.sp),),
                   ],
                 ),
                 flexibleSpace: Align(
