@@ -13,7 +13,15 @@ class Trainer {
 
    String image;
 
-   List<Question> questions;
-  Trainer(this.id, this.name, this.subject, this.description, this.color, this.image, this.questions);
-  
+  final List<Question> questions; // --> String as Json
+
+  Trainer( {
+    required this.id,
+    required this.name,
+    required this.subject,
+    required this.description,
+    required this.color,
+    required this.image,
+    required this.questions,
+  });
 }

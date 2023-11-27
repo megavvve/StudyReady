@@ -34,6 +34,32 @@ class ThemesComplete {
   ThemesComplete({required this.id, required this.subject, required this.chapter, required this.name});
 }
 
+class QuestionsComplete {
+  final int id;
+  final int course;
+  final String subject;
+  final String chapter;
+  final String theme;
+  final String difficultly;
+  final String context;
+  final String rightAnswer;
+  final List<String> incorrectAnswers;
+
+  QuestionsComplete({required this.id, required this.course, required this.subject, required this.chapter,
+    required this.theme, required this.difficultly, required this.context, required this.rightAnswer,
+      required this.incorrectAnswers});
+}
+
+class TrainersComplete {
+  final int id;
+  final String name;
+  final String? color;
+  final String? image;
+  final List<QuestionsComplete> questions;
+
+  TrainersComplete({required this.id, required this.name, required this.color, required this.image,
+    required this.questions});
+}
 
 @DriftDatabase(tables: [Subjects, Chapters, Themes, Question, Trainers])
 class AppDB extends _$AppDB {
@@ -42,37 +68,6 @@ class AppDB extends _$AppDB {
 
   @override
   int get schemaVersion => 1;
-
-  // Methods for Questions table
-
-
-  // Get list of questions
-  Future<List<QuestionData>> getQuestions() async {
-    return await select(question).get();
-  }
-
-  // Get question by id
-  Future<QuestionData> getQuestion(int id) async {
-    return await (select(question)
-      ..where((tbl) => tbl.id.equals(id))).getSingle();
-  }
-
-  // Update question with new entity
-  Future<bool> updateQuestion(QuestionCompanion entity) async {
-    return await update(question).replace(entity);
-  }
-
-  // Add new Question
-  Future<int> insertQuestion(QuestionCompanion entity) async {
-    return await into(question).insert(entity);
-  }
-
-  // Delete Question by id
-  Future<int> deleteQuestion(int id) async {
-    return await (delete(question)
-      ..where((tbl) => tbl.id.equals(id))).go();
-  }
-
 
   // Methods for Subjects
 
@@ -131,7 +126,7 @@ class AppDB extends _$AppDB {
   }
 
 
-  // Whole info about theme (in dev)
+  // Whole info about theme
   Future<List<ThemesComplete>> themeFullInfo() async {
     // create aliases for the geoPoints table so that we can reference it twice
     final subject = alias(subjects, 's');
@@ -151,4 +146,120 @@ class AppDB extends _$AppDB {
       );
     }).toList();
   }
+
+
+  // Methods for Questions table
+
+
+  // Get question fill info join subjects, chapters, themes
+  Future<List<QuestionsComplete>> getQuestionsFullInfo() async {
+    final subject = alias(subjects, 's');
+    final chapter = alias(chapters, 'c');
+    final theme = alias(themes, 't');
+
+    final rows = await select(question).join([
+      innerJoin(subject, subject.id.equalsExp(question.subjectId)),
+      innerJoin(chapter, chapter.id.equalsExp(question.chapterId)),
+      innerJoin(theme, theme.id.equalsExp(question.themeId)),
+    ]).get();
+
+    return rows.map((resultRow) {
+      return QuestionsComplete(
+        id: resultRow.readTable(question).id,
+        course: resultRow.readTable(question).courseNumber,
+        subject: resultRow.readTable(subject).name,
+        chapter: resultRow.readTable(chapter).name,
+        theme: resultRow.readTable(theme).name,
+        difficultly: resultRow.readTable(question).difficultly,
+        context: resultRow.readTable(question).questionContext,
+        rightAnswer: resultRow.readTable(question).rightAnswer,
+        incorrectAnswers: resultRow.readTable(question).incorrectAnswers
+      );
+    }).toList();
+
+  }
+
+  Future<QuestionsComplete> getQuestionFullInfoById(int id) async {
+    final subject = alias(subjects, 's');
+    final chapter = alias(chapters, 'c');
+    final theme = alias(themes, 't');
+
+    final query = select(question).join([
+      innerJoin(subject, subject.id.equalsExp(question.subjectId)),
+      innerJoin(chapter, chapter.id.equalsExp(question.chapterId)),
+      innerJoin(theme, theme.id.equalsExp(question.themeId)),
+    ]);
+
+    query.where(question.id.equals(id));
+
+    return query.watchSingle().map((resultRow) {
+      return QuestionsComplete(
+          id: resultRow.readTable(question).id,
+          course: resultRow.readTable(question).courseNumber,
+          subject: resultRow.readTable(subject).name,
+          chapter: resultRow.readTable(chapter).name,
+          theme: resultRow.readTable(theme).name,
+          difficultly: resultRow.readTable(question).difficultly,
+          context: resultRow.readTable(question).questionContext,
+          rightAnswer: resultRow.readTable(question).rightAnswer,
+          incorrectAnswers: resultRow.readTable(question).incorrectAnswers
+      );
+    }).first;
+  }
+
+
+
+  // Get question by id
+  Future<QuestionData> getQuestion(int id) async {
+    return await (select(question)
+      ..where((tbl) => tbl.id.equals(id))).getSingle();
+  }
+
+  // Update question with new entity
+  Future<bool> updateQuestion(QuestionCompanion entity) async {
+    return await update(question).replace(entity);
+  }
+
+  // Add new Question
+  Future<int> insertQuestion(QuestionCompanion entity) async {
+    return await into(question).insert(entity);
+  }
+
+  // Delete Question by id
+  Future<int> deleteQuestion(int id) async {
+    return await (delete(question)
+      ..where((tbl) => tbl.id.equals(id))).go();
+  }
+
+  // Trainers
+
+  // Add new Trainer
+  Future<int> insertTrainer(TrainersCompanion entity) async {
+    return await into(trainers).insert(entity);
+  }
+
+  // Get Trainer by id
+  Future<Trainer> getTrainer(int id) async {
+    return await (select(trainers)
+      ..where((tbl) => tbl.id.equals(id))).getSingle();
+  }
+
+  // Get full Trainer info (questions with ids)
+  Future<List<Trainer>> getTrainers() async {
+    return await select(trainers).get();
+  }
+
+  // Get full TrainersComplete objects
+  Future<TrainersComplete> getTrainerFullInfoById(int id) async {
+
+    var trainerBase = await getTrainer(id);
+    var questions = trainerBase.questions;
+    List<QuestionsComplete> questionsFull = [];
+    for (int i = 0; i < questions.length; i++) {
+      var q = await getQuestionFullInfoById(int.parse(questions[i]));
+      questionsFull.add(q);
+    }
+    return TrainersComplete(id: trainerBase.id, name: trainerBase.name, color: trainerBase.color, image: trainerBase.image, questions: questionsFull);
+  }
+
 }

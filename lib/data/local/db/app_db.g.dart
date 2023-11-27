@@ -1125,13 +1125,13 @@ class $TrainersTable extends Trainers with TableInfo<$TrainersTable, Trainer> {
   static const VerificationMeta _colorMeta = const VerificationMeta('color');
   @override
   late final GeneratedColumn<String> color = GeneratedColumn<String>(
-      'color', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      'color', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   static const VerificationMeta _imageMeta = const VerificationMeta('image');
   @override
   late final GeneratedColumn<String> image = GeneratedColumn<String>(
-      'image_link', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      'image_link', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   static const VerificationMeta _questionsMeta =
       const VerificationMeta('questions');
   @override
@@ -1163,14 +1163,10 @@ class $TrainersTable extends Trainers with TableInfo<$TrainersTable, Trainer> {
     if (data.containsKey('color')) {
       context.handle(
           _colorMeta, color.isAcceptableOrUnknown(data['color']!, _colorMeta));
-    } else if (isInserting) {
-      context.missing(_colorMeta);
     }
     if (data.containsKey('image_link')) {
       context.handle(_imageMeta,
           image.isAcceptableOrUnknown(data['image_link']!, _imageMeta));
-    } else if (isInserting) {
-      context.missing(_imageMeta);
     }
     context.handle(_questionsMeta, const VerificationResult.success());
     return context;
@@ -1187,9 +1183,9 @@ class $TrainersTable extends Trainers with TableInfo<$TrainersTable, Trainer> {
       name: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
       color: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}color'])!,
+          .read(DriftSqlType.string, data['${effectivePrefix}color']),
       image: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}image_link'])!,
+          .read(DriftSqlType.string, data['${effectivePrefix}image_link']),
       questions: $TrainersTable.$converterquestions.fromSql(attachedDatabase
           .typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}questions_ids'])!),
@@ -1208,22 +1204,26 @@ class $TrainersTable extends Trainers with TableInfo<$TrainersTable, Trainer> {
 class Trainer extends DataClass implements Insertable<Trainer> {
   final int id;
   final String name;
-  final String color;
-  final String image;
+  final String? color;
+  final String? image;
   final List<String> questions;
   const Trainer(
       {required this.id,
       required this.name,
-      required this.color,
-      required this.image,
+      this.color,
+      this.image,
       required this.questions});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
     map['name'] = Variable<String>(name);
-    map['color'] = Variable<String>(color);
-    map['image_link'] = Variable<String>(image);
+    if (!nullToAbsent || color != null) {
+      map['color'] = Variable<String>(color);
+    }
+    if (!nullToAbsent || image != null) {
+      map['image_link'] = Variable<String>(image);
+    }
     {
       final converter = $TrainersTable.$converterquestions;
       map['questions_ids'] = Variable<String>(converter.toSql(questions));
@@ -1235,8 +1235,10 @@ class Trainer extends DataClass implements Insertable<Trainer> {
     return TrainersCompanion(
       id: Value(id),
       name: Value(name),
-      color: Value(color),
-      image: Value(image),
+      color:
+          color == null && nullToAbsent ? const Value.absent() : Value(color),
+      image:
+          image == null && nullToAbsent ? const Value.absent() : Value(image),
       questions: Value(questions),
     );
   }
@@ -1247,8 +1249,8 @@ class Trainer extends DataClass implements Insertable<Trainer> {
     return Trainer(
       id: serializer.fromJson<int>(json['id']),
       name: serializer.fromJson<String>(json['name']),
-      color: serializer.fromJson<String>(json['color']),
-      image: serializer.fromJson<String>(json['image']),
+      color: serializer.fromJson<String?>(json['color']),
+      image: serializer.fromJson<String?>(json['image']),
       questions: serializer.fromJson<List<String>>(json['questions']),
     );
   }
@@ -1258,8 +1260,8 @@ class Trainer extends DataClass implements Insertable<Trainer> {
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
       'name': serializer.toJson<String>(name),
-      'color': serializer.toJson<String>(color),
-      'image': serializer.toJson<String>(image),
+      'color': serializer.toJson<String?>(color),
+      'image': serializer.toJson<String?>(image),
       'questions': serializer.toJson<List<String>>(questions),
     };
   }
@@ -1267,14 +1269,14 @@ class Trainer extends DataClass implements Insertable<Trainer> {
   Trainer copyWith(
           {int? id,
           String? name,
-          String? color,
-          String? image,
+          Value<String?> color = const Value.absent(),
+          Value<String?> image = const Value.absent(),
           List<String>? questions}) =>
       Trainer(
         id: id ?? this.id,
         name: name ?? this.name,
-        color: color ?? this.color,
-        image: image ?? this.image,
+        color: color.present ? color.value : this.color,
+        image: image.present ? image.value : this.image,
         questions: questions ?? this.questions,
       );
   @override
@@ -1305,8 +1307,8 @@ class Trainer extends DataClass implements Insertable<Trainer> {
 class TrainersCompanion extends UpdateCompanion<Trainer> {
   final Value<int> id;
   final Value<String> name;
-  final Value<String> color;
-  final Value<String> image;
+  final Value<String?> color;
+  final Value<String?> image;
   final Value<List<String>> questions;
   const TrainersCompanion({
     this.id = const Value.absent(),
@@ -1318,12 +1320,10 @@ class TrainersCompanion extends UpdateCompanion<Trainer> {
   TrainersCompanion.insert({
     this.id = const Value.absent(),
     required String name,
-    required String color,
-    required String image,
+    this.color = const Value.absent(),
+    this.image = const Value.absent(),
     required List<String> questions,
   })  : name = Value(name),
-        color = Value(color),
-        image = Value(image),
         questions = Value(questions);
   static Insertable<Trainer> custom({
     Expression<int>? id,
@@ -1344,8 +1344,8 @@ class TrainersCompanion extends UpdateCompanion<Trainer> {
   TrainersCompanion copyWith(
       {Value<int>? id,
       Value<String>? name,
-      Value<String>? color,
-      Value<String>? image,
+      Value<String?>? color,
+      Value<String?>? image,
       Value<List<String>>? questions}) {
     return TrainersCompanion(
       id: id ?? this.id,
