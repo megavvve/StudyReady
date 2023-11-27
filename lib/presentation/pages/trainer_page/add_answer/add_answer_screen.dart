@@ -39,7 +39,7 @@ class AddAnswerScreen extends StatelessWidget {
                       children: [
                         const FirstWidget(),
                         SizedBox(
-                          height: 65.h,
+                          height: 85.h,
                         ),
                         const SecondWidget(),
                         SizedBox(

@@ -30,7 +30,7 @@ class SliverAppBarWidget extends StatelessWidget
       title: Container(
         alignment: Alignment.center,
         width: 278.w,
-        height: 46.h,
+        height: 52.h,
         padding: EdgeInsets.all(10.sp),
         decoration: BoxDecoration(
             color: const Color(0XFF77A5F5),

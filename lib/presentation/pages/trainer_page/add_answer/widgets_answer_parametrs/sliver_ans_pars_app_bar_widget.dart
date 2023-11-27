@@ -29,13 +29,13 @@ class SliverAnsParsAppBarWidget extends StatelessWidget {
         title: Container(
           alignment: Alignment.center,
           width: 278.w,
-          height: 46.h,
+          height: 52.h,
           padding: EdgeInsets.all(10.sp),
           decoration: BoxDecoration(
             color: const Color.fromRGBO(119, 165, 245, 1),
             borderRadius: BorderRadius.circular(16.sp),
           ),
-          child: const Text('Параметры'),
+          child: Text('Параметры', style: TextStyle(fontSize: 18.sp),),
         ),
      
     );

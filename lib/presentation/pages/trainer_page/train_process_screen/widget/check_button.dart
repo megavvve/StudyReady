@@ -161,7 +161,7 @@ class _CheckButtonState extends State<CheckButton> {
                 ),
               ),
         width: 335.w,
-        height: 60.h,
+        height: 70.h,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

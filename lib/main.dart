@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/presentation/pages/home_page/home_screen.dart';
 import 'package:study_ready/utils/app_themes.dart';
-
 import 'domain/database/initialize/first_launch.dart';
 
 void main() async {
   await ScreenUtil.ensureScreenSize();
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(const MyApp());
-  FlutterNativeSplash.remove();
   FillTables ft = FillTables(); // launch basic data filling in tables
   ft.firstAppLaunch();
 }
