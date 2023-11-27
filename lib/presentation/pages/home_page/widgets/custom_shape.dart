@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:study_ready/utils/app_svg_assets.dart';
 
 class CustomShapeWidget extends StatelessWidget {
   @override

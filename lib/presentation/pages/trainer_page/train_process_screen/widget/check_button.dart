@@ -35,7 +35,7 @@ class _CheckButtonState extends State<CheckButton> {
             // String resultText = '';
             // Color resultColor;
 
-             int correctAnswer = 1;
+            int correctAnswer = 1;
             // // Берем из бд правильный номер ответа(0,1,2,3) по selectedQuestion и selectedIndex
             // if (selectedIndex == correctAnswer) {
             //   resultText = 'Правильно';
@@ -123,7 +123,6 @@ class _CheckButtonState extends State<CheckButton> {
                 );
               },
             ).whenComplete(() {
-              nextQuestion();
               if (selectedQuestion > howmuchQuestion) {
                 Navigator.of(context).pushReplacement(
                   PageRouteBuilder(

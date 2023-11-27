@@ -1,5 +1,3 @@
-import 'dart:math';
-
 List<String> generateRandomAnswers(
     String correctAnswer, List<String> incorrectAnswers) {
   List<String> answers = [];

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/diagnostics.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/presentation/pages/trainer_page/train_process_screen/widget/answers.dart';
-import 'package:study_ready/presentation/pages/trainer_page/train_process_screen/widget/process_widget.dart';
 
 import 'inherited_widget_check.dart';
 

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:study_ready/presentation/pages/trainer_page/train_process_screen/widget/process_widget.dart';
 import 'package:study_ready/presentation/pages/trainer_page/train_process_screen/widget/style_for_answer.dart';
 
 import 'inherited_widget_check.dart';

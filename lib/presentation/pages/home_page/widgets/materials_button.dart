@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:study_ready/presentation/navigation/custom_page_router.dart';
 import 'package:study_ready/presentation/pages/home_page/widgets/custom_shape.dart';
+import 'package:study_ready/presentation/pages/materials_page/materials_screen.dart';
 import 'package:study_ready/utils/app_svg_assets.dart';
 
-final materialsButton = IconButton(
-  onPressed: () {},
+class MaterialsButton extends StatelessWidget {
+  const MaterialsButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+  onPressed: () {
+    Navigator.of(context).push(
+      customPageRoute(
+        const MaterialScreen(),
+      ),
+    );
+  },
   padding: EdgeInsets.all(0.sp),
   splashColor: Colors.transparent,
   highlightColor: Colors.transparent,
@@ -39,3 +52,7 @@ final materialsButton = IconButton(
     ],
   ),
 );
+  }
+}
+
+

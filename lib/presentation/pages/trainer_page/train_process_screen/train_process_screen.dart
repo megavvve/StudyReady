@@ -5,7 +5,6 @@ import 'package:study_ready/presentation/pages/trainer_page/train_process_screen
 import 'package:study_ready/presentation/pages/trainer_page/train_process_screen/widget/confirmation_dialog.dart';
 import 'package:study_ready/presentation/pages/trainer_page/train_process_screen/widget/inherited_widget_check.dart';
 import 'package:study_ready/presentation/pages/trainer_page/train_process_screen/widget/process_widget.dart';
-
 import '../../../../utils/app_colors.dart';
 
 class TrainProcessScreen extends StatefulWidget {
