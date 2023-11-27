@@ -22,32 +22,19 @@ class TrainerScreen extends StatefulWidget {
 class _TrainerScreenState extends State<TrainerScreen> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TrainersBloc, TrainersState>(
-      builder: (context, state) {
-         final List<Trainer> trainerList = state.trainerList.cast<Trainer>();
-        return Scaffold(
-          drawer: const NavigatorDrawer(),
-          backgroundColor: backgroundColor,
-          body: Stack(children: [
-            CustomScrollView(
-              slivers: <Widget>[
-                const AppBarWidget(),
-                SliverList.builder(
-                  itemCount: trainerList.length,
-                  itemBuilder: (BuildContext context, int index) => TrainerCard(
-                    trainer: trainerList[index],
-                  ),
-                ),
-                SliverToBoxAdapter(
-                  child: SizedBox(
-                    height: 22.h,
-                  ),
-                )
-              ],
+    return Scaffold(
+      drawer: const NavigatorDrawer(),
+      backgroundColor: backgroundColor,
+      body: Stack(children: [
+        CustomScrollView(
+          slivers: <Widget>[
+            const AppBarWidget(),
+            SliverList.builder(
+              itemCount: 10,
+              itemBuilder: (BuildContext context, int index) =>
+                  const TrainerCard(trainer: null,),
             ),
-            Positioned(
-              bottom: 56.h,
-              right: 38.w,
+            SliverToBoxAdapter(
               child: SizedBox(
                 width: 70.w,
                 height: 70.h,

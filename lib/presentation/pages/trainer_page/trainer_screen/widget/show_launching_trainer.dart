@@ -4,7 +4,10 @@ import 'package:study_ready/domain/models/trainer.dart';
 import 'package:study_ready/presentation/navigation/custom_page_router.dart';
 import 'package:study_ready/presentation/pages/trainer_page/train_process_screen/train_process_screen.dart';
 
-void showLaunchingTrainer(BuildContext context,Trainer trainer) {
+
+
+void showLaunchingTrainer(BuildContext context) {
+  
   showModalBottomSheet<void>(
     context: context,
     isScrollControlled: true,

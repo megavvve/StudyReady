@@ -2,11 +2,17 @@ import 'package:flutter/material.dart';
 
 class SharedState extends InheritedWidget {
   final int selectedIndex;
+  final int selectedQuestion;
+  final int howmuchQuestion; // СКОЛЬКО ВСЕГО ВОПРОСОВ В НАШЕМ КОНКРЕТНОМ ТРЕНАЖОРЕ
   final Function(int) updateSelectedIndex;
+  final Function(int) updateselectedQuestion;
 
-  const SharedState({super.key, 
+  const SharedState({super.key,
     required this.selectedIndex,
     required this.updateSelectedIndex,
+    required this.selectedQuestion,
+    required this.updateselectedQuestion,
+    required this.howmuchQuestion,
     required Widget child,
   }) : super(child: child);
 
@@ -16,6 +22,7 @@ class SharedState extends InheritedWidget {
 
   @override
   bool updateShouldNotify(SharedState oldWidget) {
-    return oldWidget.selectedIndex != selectedIndex;
+    return true;
+    //return oldWidget.selectedIndex != selectedIndex;
   }
 }

@@ -14,20 +14,24 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: Builder(builder: (BuildContext context) {
-          return Padding(
-            padding: EdgeInsets.only(
-              left: 20.w,
-            ),
-            child: IconButton(
-              icon: Icon(
-                Icons.menu,
-                size: 40.sp,
-                weight: 10.w,
+          return SizedBox(
+            width: 34.w,
+            height: 26.h,
+            child: Padding(
+              padding: EdgeInsets.only(
+                left: 20.w,
               ),
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-              tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+              child: IconButton(
+                icon: Icon(
+                  Icons.menu,
+                  size: 40.sp,
+                  weight: 10.w,
+                ),
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
+                tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+              ),
             ),
           );
         }),

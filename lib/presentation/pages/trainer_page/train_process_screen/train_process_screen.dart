@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:study_ready/domain/models/trainer.dart';
-import 'package:study_ready/presentation/pages/trainer_page/train_process_screen/widget/InheritedWidgetCheck.dart';
 import 'package:study_ready/presentation/pages/trainer_page/train_process_screen/widget/answers_and_question.dart';
 import 'package:study_ready/presentation/pages/trainer_page/train_process_screen/widget/check_button.dart';
+import 'package:study_ready/presentation/pages/trainer_page/train_process_screen/widget/confirmation_dialog.dart';
+import 'package:study_ready/presentation/pages/trainer_page/train_process_screen/widget/inherited_widget_check.dart';
 import 'package:study_ready/presentation/pages/trainer_page/train_process_screen/widget/process_widget.dart';
-import 'package:study_ready/utils/app_colors.dart';
-
-import 'package:study_ready/utils/app_svg_assets.dart';
-import 'widget/question_buttons.dart';
+import '../../../../utils/app_colors.dart';
 
 class TrainProcessScreen extends StatefulWidget {
   final Trainer trainer;
@@ -18,7 +15,7 @@ class TrainProcessScreen extends StatefulWidget {
   State<TrainProcessScreen> createState() => _TrainProcessScreenState();
 }
 
-Widget getTextWidgets(List<String> strings) {
+/*Widget getTextWidgets(List<String> strings) {
   List<Widget> list = <Widget>[];
   for (var i = 0; i < strings.length; i++) {
     list.add(QuestionButtons(
@@ -28,81 +25,138 @@ Widget getTextWidgets(List<String> strings) {
     ));
   }
   return Row(children: list);
-}
+}*/
 
 class _TrainProcessScreenState extends State<TrainProcessScreen> {
   List<Widget> list = <Widget>[];
-  int _selectedIndex = 0;
-void _updateSelectedIndex(int index) {
+  int _selectedIndex = -1;
+  int _selectedQuestion = 1;
+
+  void _updateSelectedIndex(int index) {
     setState(() {
       _selectedIndex = index;
     });
   }
+
+  void _updateSelectedQuestion(int question) {
+    setState(() {
+      _selectedQuestion = question;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    //берем из бд сколько у нас всего вопросов в этом тренажоре
     var numberOfQuestions = 8; // Напиши сюда количество вопрсов
+
     var questions = <String>[];
     for (var i = 1; i <= numberOfQuestions; i++) {
       questions.add('$i');
     }
-
     return Scaffold(
       backgroundColor: backgroundColor,
-      appBar: AppBar(
-        backgroundColor: backgroundColor,
-        title: const Stack(
-          children: [
-            Text('Непрерывная математика'),
-          ],
-        ),
-      ),
-      body: SharedState(
-        selectedIndex: _selectedIndex,
-        updateSelectedIndex: _updateSelectedIndex,
-        child: Column(
-          children: [
-            SizedBox(
-              height: 15.h,
-            ),
-            Stack(
-              children: [
-                ProcessWidget(
-                  child: Column(
-                    children: [
-                      Row(children: [
-                        Expanded(
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: getTextWidgets(questions),
-                          ),
-                        ),
-                      ]),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: 20.h,
-                          ),
-                        ],
+      body: WillPopScope(
+        onWillPop: () async {
+          bool result = await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return const ConfirmationDialog();
+            },
+          );
+
+          if (result != null && result) {
+            return true; //Navigator.pop(context);
+          } else {
+            return false;
+          }
+        },
+        child: SharedState(
+          selectedIndex: _selectedIndex,
+          updateSelectedIndex: _updateSelectedIndex,
+          selectedQuestion: _selectedQuestion,
+          updateselectedQuestion: _updateSelectedQuestion,
+          howmuchQuestion: numberOfQuestions,
+          child: CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                pinned: true,
+                snap: true,
+                floating: true,
+                surfaceTintColor: Colors.transparent,
+                //expandedHeight: 200.0,
+                //toolbarHeight: 80.0.h,
+                collapsedHeight: 80.h,
+                backgroundColor: backgroundColor,
+                leading: IconButton(
+                  icon: const Icon(Icons.close),
+                  onPressed: () async {
+                    bool result = await showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return const ConfirmationDialog();
+                      },
+                    );
+
+                    if (result != null && result) {
+                      Navigator.pop(context);
+                    }
+                  },
+                ),
+                title: const Column(
+                  children: [
+                    Text('Непрерывная математика'),
+                  ],
+                ),
+                flexibleSpace: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.h),
+                    child: SizedBox(
+                      height: 15.h,
+                      width: 350.w,
+                      child: LinearProgressIndicator(
+                        value: (_selectedQuestion.toDouble() - 1) /
+                            numberOfQuestions.toDouble(),
+                        valueColor: AlwaysStoppedAnimation<Color>(mainColor),
                       ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          const AnswersAndQuestion(),
-                          SizedBox(
-                            height: 8.h,
-                          ),
-                          SizedBox(height: 60.h),
-                          const CheckButton(),
-                        ],
+                    ),
+                  ),
+                ),
+              ),
+              SliverList(
+                delegate: SliverChildListDelegate([
+                  Stack(
+                    children: [
+                      ProcessWidget(
+                        child: Column(
+                          children: [
+                            const Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [],
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                const AnswersAndQuestion(),
+                                SizedBox(
+                                  height: 8.h,
+                                ),
+                                SizedBox(height: 30.h),
+                                const CheckButton(),
+                                SizedBox(height: 20.h),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
-                ),
-              ],
-            ),
-          ],
+                ]),
+              ),
+            ],
+          ),
         ),
       ),
     );

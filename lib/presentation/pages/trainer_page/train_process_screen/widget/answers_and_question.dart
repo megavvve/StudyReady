@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/diagnostics.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/presentation/pages/trainer_page/train_process_screen/widget/answers.dart';
 
-import 'InheritedWidgetCheck.dart';
+import 'inherited_widget_check.dart';
 
 class AnswersAndQuestion extends StatefulWidget {
   const AnswersAndQuestion({super.key});
@@ -15,7 +14,7 @@ class AnswersAndQuestion extends StatefulWidget {
 class _AnswersAndQuestionState extends State<AnswersAndQuestion> {
   @override
   Widget build(BuildContext context) {
-    int selectedIndex = SharedState.of(context).selectedIndex;
+    int selectedQuestion = SharedState.of(context).selectedQuestion;
 
     return Padding(
       padding: EdgeInsets.all(17.0.sp),
@@ -23,8 +22,11 @@ class _AnswersAndQuestionState extends State<AnswersAndQuestion> {
         children: [
           Container(
             padding: EdgeInsets.all(16.sp),
+            
             decoration: BoxDecoration(
+              
               color: Colors.white,
+              
               borderRadius: BorderRadius.all(
                 Radius.circular(
                   14.sp,
@@ -33,19 +35,28 @@ class _AnswersAndQuestionState extends State<AnswersAndQuestion> {
             ),
             width: 335.w,
             child: Center(
-                child: Text(
-              "$selectedIndex",
-            )),
+              child: Text(
+                "Вы на вопросе: $selectedQuestion",
+                style: TextStyle(
+                  fontSize: 18.sp, // Размер шрифта
+                  fontWeight: FontWeight.w500, // Жирный шрифт для выделения
+                  color: Colors.black, // Цвет текста
+                  height: 1.5.h, // Межстрочный интервал
+                  // Дополнительные параметры, такие как fontFamily, letterSpacing, etc.
+                ),
+              ),
+            ),
           ),
-          SizedBox(height: 32.h),
-          const Answers(
+          SizedBox(height: 40.h),
+          // вопрос из бд сюда засовывать по selectedQuestion (я так думаю)
+          // selectedIndex считается с 0
+          Answers(
             list: [
-              "1.Ф ТекТекстТекстТекстст",
-              "2. ТекТекстТекстТекстст",
-              "3. ТекТекстТекстТе",
-              "4. ТекТекстТекстТесктТескстТекстст"
+              "1. ответ 1 вопрос $selectedQuestion",
+              "2. ответ 2 вопрос $selectedQuestion",
+              "3. ответ 3 вопрос $selectedQuestion",
+              "4. ответ 4 вопрос $selectedQuestion"
             ],
-            correctAnswer: 1,
           ),
         ],
       ),

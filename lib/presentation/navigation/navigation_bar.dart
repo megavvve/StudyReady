@@ -35,10 +35,10 @@ class NavigatorDrawer extends StatelessWidget {
                 ),
               ),
             ),
-            const Divider(
+            Divider(
               color: Colors.black,
-              indent: 20,
-              endIndent: 30,
+              indent: 20.w,
+              endIndent: 30.w,
             ),
           ],
         ),

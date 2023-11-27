@@ -1,4 +1,3 @@
-import 'package:drift/drift.dart' as drift;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -9,7 +8,8 @@ import 'package:study_ready/utils/app_themes.dart';
 
 import 'domain/database/initialize/first_launch.dart';
 
-void main() {
+void main() async {
+  await ScreenUtil.ensureScreenSize();
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(const MyApp());
@@ -33,9 +33,10 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'StudyReady',
           theme: lightTheme,
-          home: const HomeScreen(),
+          home: child,
         ),
       ),
+    child: const HomeScreen(),
     );
   }
 }

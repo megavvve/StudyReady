@@ -29,63 +29,65 @@ class AppBarWidget extends StatelessWidget {
             tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
           ),
         ),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            SizedBox(width:18.w,),
-            PopupMenuButton<String>(
-              itemBuilder: (BuildContext context) {
-                return {'непра', 'дискра', 'аиг'}.map((String choice) {
-                  return PopupMenuItem<String>(
-                    value: choice,
-                    child: Text(choice),
-                  );
-                }).toList();
-              },
-              child: TextButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.blue),
-                ),
-                onPressed: null,
-                child: const Row(
-                  children: [
-                    
-                    Text(
-                      'Выбор Предмета',
-                      style: TextStyle(color: Colors.black),
-                    ),
-                    Icon(Icons.arrow_drop_down, color: Colors.black),
-                  ],
-                ),
-              ),
-            ),
-            PopupMenuButton<String>(
-              itemBuilder: (BuildContext context) {
-                return {'Тренировка 1', 'Тренировка 2', 'Тренировка 3'}
-                    .map((String choice) {
-                  return PopupMenuItem<String>(
-                    value: choice,
-                    child: Text(choice),
-                  );
-                }).toList();
-              },
-              child: TextButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.blue),
-                ),
-                onPressed: null,
-                child: const Row(
-                  children: [
-                    Text(
-                      'Сортировка',
-                      style: TextStyle(color: Colors.black),
-                    ),
-                    Icon(Icons.arrow_drop_down, color: Colors.black),
-                  ],
+        title: Padding(
+          padding: EdgeInsets.only(right: 8.w),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(width: 5.w,),
+              PopupMenuButton<String>(
+                itemBuilder: (BuildContext context) {
+                  return {'непра', 'дискра', 'аиг'}.map((String choice) {
+                    return PopupMenuItem<String>(
+                      value: choice,
+                      child: Text(choice),
+                    );
+                  }).toList();
+                },
+                child: TextButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.blue),
+                  ),
+                  onPressed: null,
+                  child: Row(
+                    children: [
+                      Text(
+                        'Выбор Предмета',
+                        style: TextStyle(color: Colors.black, fontSize: 13.sp),
+                      ),
+                      Icon(Icons.arrow_drop_down, color: Colors.black, size: 15.sp,),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+              PopupMenuButton<String>(
+                itemBuilder: (BuildContext context) {
+                  return {'Тренировка 1', 'Тренировка 2', 'Тренировка 3'}
+                      .map((String choice) {
+                    return PopupMenuItem<String>(
+                      value: choice,
+                      child: Text(choice),
+                    );
+                  }).toList();
+                },
+                child: TextButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.blue),
+                  ),
+                  onPressed: null,
+                  child: Row(
+                    children: [
+                      Text(
+                        'Сортировка',
+                        style: TextStyle(color: Colors.black, fontSize: 13.sp),
+                      ),
+                      Icon(Icons.arrow_drop_down, color: Colors.black, size: 15.sp,),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ));
   }
 }

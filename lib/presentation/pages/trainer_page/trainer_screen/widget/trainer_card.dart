@@ -16,8 +16,6 @@ class TrainerCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 176.43.h,
-      width: 335.w,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(
           16.sp,
@@ -34,92 +32,86 @@ class TrainerCard extends StatelessWidget {
         left: 20.w,
         right: 20.w,
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Align(
-            alignment: Alignment.topRight,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                Container(
+      child: Stack(
+        children: [
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Align(
+                alignment: Alignment.topRight,
+                child: Container(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(
                       16.sp,
                     ),
-                    color: secondColor,
+                    color: const Color.fromRGBO(0, 0, 0, 0.2),
                   ),
-                  height: 22.h,
-                  width: 69.45.w,
-                ),
-                Text(
-                  trainer.questions.length as String,
-                  style: TextStyle(
-                    fontSize: 13.sp,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 2.h,
-          ),
-          Text(
-            trainer.subject,
-            style: TextStyle(
-              fontSize: 18.sp,
-              color: Colors.white,
-            ),
-          ),
-          SizedBox(
-            height: 8.h,
-          ),
-          Text(
-            trainer.name,
-            style: TextStyle(
-              fontSize: 12.sp,
-              color: Colors.white,
-            ),
-          ),
-          SizedBox(
-            height: 12.h,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              TextButton(
-                style: TextButton.styleFrom(
-                  textStyle: TextStyle(
-                    fontSize: 22.sp,
-                  ),
-                  backgroundColor: Colors.white,
-                ),
-                onPressed: () {
-                  showLaunchingTrainer(
-                    context,trainer
-                  );
-                },
-                child: Text(
-                  'Начнем',
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w400,
+                  child: Text(
+                    '10 вопросов',
+                    style: TextStyle(
+                      fontSize: 13.sp,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
               ),
-              Stack(
-                alignment: Alignment.topCenter,
+              SizedBox(
+                height: 2.h,
+              ),
+              Text(
+                'Непрерывная математика',
+                style: TextStyle(
+                  fontSize: 18.sp,
+                  color: Colors.white,
+                ),
+              ),
+              SizedBox(
+                height: 8.h,
+              ),
+              Text(
+                'Базовые опредления',
+                style: TextStyle(
+                  fontSize: 12.sp,
+                  color: Colors.white,
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  //pictureForTrainer,
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      textStyle: TextStyle(
+                        fontSize: 22.sp,
+                      ),
+                      backgroundColor: Colors.white,
+                    ),
+                    onPressed: () {
+                      showLaunchingTrainer(
+                        context,
+                      );
+                    },
+                    child: Text(
+                      'Начнем',
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ),
                   backgrondForTrainerCard,
                 ],
               ),
             ],
           ),
+          Positioned(
+              bottom: 10.0.h, 
+              right: 25.0.w, 
+              child: pictureForTrainer),
         ],
       ),
     );

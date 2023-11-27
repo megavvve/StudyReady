@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:study_ready/utils/app_colors.dart';
-
+import '../../../../../utils/app_colors.dart';
 
 class ProcessWidget extends StatefulWidget {
   final Widget child;
@@ -73,6 +72,8 @@ class ShowWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ProcessWidgetState data = ProcessWidget.of(context);
+
+
 
     return Padding(
       padding: EdgeInsets.all(8.0.sp),
