@@ -1,40 +1,46 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:study_ready/utils/home_screen/icons_pathes.dart';
 
 final eadyText = SvgPicture.asset(
-  eadyTextPath,
+  eadyTextPath, 
+  width: 195.w, height: 82.h,
 );
 final rLetterFront = SvgPicture.asset(
-  rLetterFrontPath,
+  rLetterFrontPath, 
+  width: 137.w, height: 299.h,
 );
 
 final rLetterBack = SvgPicture.asset(
-  rLetterBackPath,
+  rLetterBackPath, 
+  width: 137.w, height: 299.h,
 );
 
 final sLetterBack = SvgPicture.asset(
-  sLetterBackPath,
+  sLetterBackPath, width: 173.w, height: 282.h,
 );
 
 final sLetterFront = SvgPicture.asset(
-  sLetterFrontPath,
+  sLetterFrontPath, width: 173.w, height: 282.h,
 );
 
 final materialsText = SvgPicture.asset(
-  materialTextPath,
+  materialTextPath, 
+  width: 231.w, height: 79.h,
 );
 
 final trainerText = SvgPicture.asset(
-  trainerTextPath,
+  trainerTextPath, width: 244.w, height: 76.h,
 );
 
 final tudyText = SvgPicture.asset(
-  tudyTextPath,
+  tudyTextPath,  width: 194.w, height: 82.h,
 );
 final rectangle = SvgPicture.asset(
   rectanglePath,
-  width: 375.w,
+  height: 452.h, 
+  //fit: BoxFit.scaleDown, semanticsLabel: 'Image',
 );
 final backgrondForTrainerCard = SvgPicture.asset(
   'assets/images/trainer/backgroung_for_trainer.svg',

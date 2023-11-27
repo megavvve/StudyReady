@@ -6,7 +6,8 @@ import 'package:study_ready/utils/app_themes.dart';
 
 import 'domain/database/initialize/first_launch.dart';
 
-void main() {
+void main() async {
+  await ScreenUtil.ensureScreenSize();
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(const MyApp());
