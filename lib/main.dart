@@ -14,8 +14,11 @@ void main() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(const MyApp());
   FlutterNativeSplash.remove();
-  FillTables ft = FillTables(); // launch basic data filling in tables
-  ft.firstAppLaunch();
+
+   FillTables ft = FillTables(); // launch basic data filling in tables
+
+   ft.firstAppLaunch();
+  
 }
 
 class MyApp extends StatelessWidget {

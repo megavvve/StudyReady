@@ -4,10 +4,7 @@ import 'package:study_ready/domain/models/trainer.dart';
 import 'package:study_ready/presentation/navigation/custom_page_router.dart';
 import 'package:study_ready/presentation/pages/trainer_page/train_process_screen/train_process_screen.dart';
 
-
-
-void showLaunchingTrainer(BuildContext context,Trainer trainer) {
-  
+void showLaunchingTrainer(BuildContext context, Trainer trainer) {
   showModalBottomSheet<void>(
     context: context,
     isScrollControlled: true,
@@ -30,34 +27,50 @@ void showLaunchingTrainer(BuildContext context,Trainer trainer) {
               height: 54.h,
             ),
             Text(
-              trainer.subject,
+              "Непрерывная математика",
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 22.sp,
+                fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),
             ),
             SizedBox(
               height: 24.h,
             ),
-            Text(
-              trainer.name,
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 18.sp, color: Colors.white),
+            Row(
+              children: [
+                Text(
+                  'Тема: ',
+                  style: TextStyle(
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+                Text(
+                  trainer.name,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 18.sp, color: Colors.white),
+                ),
+              ],
             ),
             SizedBox(
               height: 24.h,
             ),
-            Text('Описание:',
-                style: TextStyle(
-                  fontSize: 16.sp,
-                  color: Colors.white,
-                )),
+            Text(
+              'Описание:',
+              style: TextStyle(
+                fontSize: 18.sp,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
             Text(
               textAlign: TextAlign.start,
-              trainer.description,
+              "Добро пожаловать в тренажер по предмету \"Непрерывная Математика\", разработанный для тех, кто стремится углубить свои знания в области математики и увереннее использовать их в решении задач. Этот тренажер фокусируется на базовых определениях, формируя крепкое понимание ключевых концепций, лежащих в основе непрерывной математики.",
               style: TextStyle(
-                fontSize: 16.sp,
+                fontSize: 18.sp,
                 color: Colors.white,
               ),
             ),
@@ -76,7 +89,9 @@ void showLaunchingTrainer(BuildContext context,Trainer trainer) {
                 onPressed: () {
                   Navigator.of(context).push(
                     customPageRoute(
-                       TrainProcessScreen(trainer: trainer,),
+                      TrainProcessScreen(
+                        trainer: trainer,
+                      ),
                     ),
                   );
                 },

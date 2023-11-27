@@ -14,10 +14,9 @@ class Answers extends StatefulWidget {
 }
 
 class _AnswersState extends State<Answers> {
-  
   @override
   Widget build(BuildContext context) {
- 
+   
     return Column(
       children: [
         for (int i = 0; i < widget.list.length; i++)
@@ -64,7 +63,6 @@ class _AnswersState extends State<Answers> {
       ],
     );
   }
-
 
   void _onButtonPressed(int buttonIndex) {
     SharedState.of(context).updateSelectedIndex(buttonIndex);

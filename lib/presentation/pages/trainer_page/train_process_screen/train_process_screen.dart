@@ -44,16 +44,15 @@ class _TrainProcessScreenState extends State<TrainProcessScreen> {
       _selectedQuestion = question;
     });
   }
+  
+
 
   @override
   Widget build(BuildContext context) {
-    //берем из бд сколько у нас всего вопросов в этом тренажоре
-    var numberOfQuestions = 8; // Напиши сюда количество вопрсов
+    Trainer trainer = widget.trainer;
 
-    var questions = <String>[];
-    for (var i = 1; i <= numberOfQuestions; i++) {
-      questions.add('$i');
-    }
+    int numberOfQuestions = trainer.questions.length;
+
     return Scaffold(
       backgroundColor: backgroundColor,
       body: WillPopScope(
@@ -77,6 +76,7 @@ class _TrainProcessScreenState extends State<TrainProcessScreen> {
           selectedQuestion: _selectedQuestion,
           updateselectedQuestion: _updateSelectedQuestion,
           howmuchQuestion: numberOfQuestions,
+          answerQuestion: const [],
           child: CustomScrollView(
             slivers: [
               SliverAppBar(
@@ -132,20 +132,17 @@ class _TrainProcessScreenState extends State<TrainProcessScreen> {
                       ProcessWidget(
                         child: Column(
                           children: [
-                            const Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [],
-                            ),
                             Column(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                const AnswersAndQuestion(),
+                                AnswersAndQuestion(
+                                  trainer: trainer,
+                                ),
                                 SizedBox(
                                   height: 8.h,
                                 ),
                                 SizedBox(height: 30.h),
-                                const CheckButton(),
+                                 CheckButton(trainer: trainer,),
                                 SizedBox(height: 20.h),
                               ],
                             ),

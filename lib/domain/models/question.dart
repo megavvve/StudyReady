@@ -3,11 +3,11 @@ class Question {
 
   final int courseNumber;
 
-  final int subjectId;
+  final String subject;
 
-  final int chapterId;
+  final String chapter;
 
-  final int themeId;
+  final String theme;
 
   final String difficultly;
 
@@ -20,12 +20,13 @@ class Question {
   Question(
     this.id,
     this.courseNumber,
-    this.subjectId,
-    this.chapterId,
-    this.themeId,
+    this.subject,
+    this.chapter,
+    this.theme,
     this.difficultly,
     this.questionContext,
     this.rightAnswer,
     this.incorrectAnswers,
   );
+   
 }

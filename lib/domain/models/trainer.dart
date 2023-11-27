@@ -1,27 +1,32 @@
-import 'package:study_ready/data/local/db/entity/question_entity.dart';
+import 'package:study_ready/data/local/db/app_db.dart' as db;
+import 'package:study_ready/domain/models/question.dart';
 
 class Trainer {
    int id;
 
    String name;
 
-   String subject;
+   //String subject;
 
-   String description;
+   //String description;
 
-   String color;
+   String? color;
 
-   String image;
+   String? image;
 
   final List<Question> questions; // --> String as Json
 
   Trainer( {
     required this.id,
     required this.name,
-    required this.subject,
-    required this.description,
+    //required this.subject,
+    //required this.description,
     required this.color,
     required this.image,
     required this.questions,
   });
+  
+
+   
 }
+

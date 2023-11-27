@@ -1,5 +1,5 @@
 List<String> generateRandomAnswers(
-    String correctAnswer, List<String> incorrectAnswers) {
+    String correctAnswer, List<String> incorrectAnswers,int selectedIndex) {
   List<String> answers = [];
 
   // Добавляем правильный ответ в список

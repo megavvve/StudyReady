@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -9,7 +8,8 @@ import 'package:study_ready/utils/app_svg_assets.dart';
 
 class TrainerCard extends StatelessWidget {
   final Trainer trainer;
-   const TrainerCard({super.key, 
+  const TrainerCard({
+    super.key,
     required this.trainer,
   });
 
@@ -17,11 +17,10 @@ class TrainerCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(
-          16.sp,
-        ),
-        color: (trainer.color.isEmpty) ? colorForCardTrainerBlue:Color(trainer.color as int),
-      ),
+          borderRadius: BorderRadius.circular(
+            16.sp,
+          ),
+          color: colorForCardTrainerBlue),
       padding: EdgeInsets.only(
         top: 20.h,
         left: 20.w,
@@ -50,7 +49,7 @@ class TrainerCard extends StatelessWidget {
                     color: const Color.fromRGBO(0, 0, 0, 0.2),
                   ),
                   child: Text(
-                    '10 вопросов',
+                    '${trainer.questions.length} вопросов',
                     style: TextStyle(
                       fontSize: 13.sp,
                       color: Colors.white,
@@ -73,7 +72,7 @@ class TrainerCard extends StatelessWidget {
                 height: 8.h,
               ),
               Text(
-                'Базовые опредления',
+                trainer.name,
                 style: TextStyle(
                   fontSize: 12.sp,
                   color: Colors.white,
@@ -90,9 +89,7 @@ class TrainerCard extends StatelessWidget {
                       backgroundColor: Colors.white,
                     ),
                     onPressed: () {
-                      showLaunchingTrainer(
-                        context, trainer
-                      );
+                      showLaunchingTrainer(context, trainer);
                     },
                     child: Text(
                       'Начнем',
@@ -108,10 +105,7 @@ class TrainerCard extends StatelessWidget {
               ),
             ],
           ),
-          Positioned(
-              bottom: 10.0.h, 
-              right: 25.0.w, 
-              child: pictureForTrainer),
+          Positioned(bottom: 10.0.h, right: 25.0.w, child: pictureForTrainer),
         ],
       ),
     );
