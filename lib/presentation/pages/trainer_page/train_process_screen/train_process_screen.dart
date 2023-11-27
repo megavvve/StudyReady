@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:study_ready/presentation/pages/train_process_screen/widget/confirmation_dialog.dart';
-import 'package:study_ready/presentation/pages/train_process_screen/widget/inherited_widget_check.dart';
-import 'package:study_ready/presentation/pages/train_process_screen/widget/answers_and_question.dart';
-import 'package:study_ready/presentation/pages/train_process_screen/widget/check_button.dart';
-import 'package:study_ready/presentation/pages/train_process_screen/widget/process_widget.dart';
+import 'package:study_ready/presentation/pages/trainer_page/train_process_screen/widget/confirmation_dialog.dart';
+import 'package:study_ready/presentation/pages/trainer_page/train_process_screen/widget/inherited_widget_check.dart';
+import 'package:study_ready/presentation/pages/trainer_page/train_process_screen/widget/answers_and_question.dart';
+import 'package:study_ready/presentation/pages/trainer_page/train_process_screen/widget/check_button.dart';
+import 'package:study_ready/presentation/pages/trainer_page/train_process_screen/widget/process_widget.dart';
 
-import '../../../utils/app_colors.dart';
+import '../../../../utils/app_colors.dart';
 
 class TrainProcessScreen extends StatefulWidget {
   const TrainProcessScreen({super.key});

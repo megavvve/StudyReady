@@ -11,7 +11,7 @@ class MaterialScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: const Center(
-        child: Text("Матриалы находятся в доработке"),
+        child: Text("Материалы находятся в доработке"),
       ),
     );
   }

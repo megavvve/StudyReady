@@ -10,7 +10,6 @@ class TrainerCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 176.43.h,
       width: 335.w,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(
@@ -34,28 +33,23 @@ class TrainerCard extends StatelessWidget {
         children: <Widget>[
           Align(
             alignment: Alignment.topRight,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(
-                      16.sp,
-                    ),
-                    color: secondColor,
-                  ),
-                  height: 22.h,
-                  width: 69.45.w,
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal:10.w,vertical: 5.h),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(
+                  16.sp,
                 ),
-                Text(
-                  '0/30',
-                  style: TextStyle(
-                    fontSize: 13.sp,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500,
-                  ),
+                color: const Color.fromRGBO(0, 0, 0, 0.2),
+              ),
+              
+              child: Text(
+                '10 вопросов',
+                style: TextStyle(
+                  fontSize: 13.sp,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
                 ),
-              ],
+              ),
             ),
           ),
           SizedBox(
@@ -78,9 +72,7 @@ class TrainerCard extends StatelessWidget {
               color: Colors.white,
             ),
           ),
-          SizedBox(
-            height: 12.h,
-          ),
+         
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -108,7 +100,7 @@ class TrainerCard extends StatelessWidget {
               Stack(
                 alignment: Alignment.topCenter,
                 children: [
-                  //pictureForTrainer,
+                  pictureForTrainer,
                   backgrondForTrainerCard,
                 ],
               ),

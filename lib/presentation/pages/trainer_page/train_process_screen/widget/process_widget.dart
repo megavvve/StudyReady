@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:study_ready/presentation/pages/trainer_screen/trainer_screen.dart';
 import 'package:study_ready/utils/app_svg_assets.dart';
 
-import '../../../../utils/app_colors.dart';
+import '../../../../../utils/app_colors.dart';
 import 'inherited_widget_check.dart';
 
 class ProcessWidget extends StatefulWidget {
