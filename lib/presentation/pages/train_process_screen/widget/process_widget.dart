@@ -4,7 +4,7 @@ import 'package:study_ready/presentation/pages/trainer_screen/trainer_screen.dar
 import 'package:study_ready/utils/app_svg_assets.dart';
 
 import '../../../../utils/app_colors.dart';
-import 'InheritedWidgetCheck.dart';
+import 'inherited_widget_check.dart';
 
 class ProcessWidget extends StatefulWidget {
   final Widget child;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../trainprocess_screen/trainprocess_screen.dart';
+import '../../train_process_screen/train_process_screen.dart';
 
 void showLaunchingTrainer(BuildContext context) {
   showModalBottomSheet<void>(
