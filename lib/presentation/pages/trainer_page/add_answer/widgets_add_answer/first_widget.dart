@@ -14,20 +14,13 @@ class FirstWidget extends StatelessWidget {
       children: [
         //белая карточка с названием вопроса
         Container(
-            padding: EdgeInsets.fromLTRB(16.w, 8.h, 16.w, 0.h),
+            padding: EdgeInsets.all(16.sp),
             alignment: Alignment.topLeft,
             width: 321.w,
             height: 116.h,
             decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(
-                16.sp,
-              ),
-            ),
+                color: Colors.white, borderRadius: BorderRadius.circular(16.sp)),
             child: TextField(
-              textInputAction: TextInputAction.done,
-              controller: controllers?.questionController,
-              minLines: 1,
               decoration: InputDecoration(
                   border:
                       const UnderlineInputBorder(borderSide: BorderSide.none),

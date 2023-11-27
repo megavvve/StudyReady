@@ -13,24 +13,17 @@ class SliverAppBarWidget extends StatelessWidget implements PreferredSizeWidget 
       backgroundColor: backgroundColor,
       
       leading: Padding(
-        padding: EdgeInsets.only(
-          left: 20.w,
-        ),
-        child: IconButton(
-          onPressed: () {
-            Scaffold.of(context).openDrawer();
-          },
-          icon: Icon(
-            Icons.menu,
-            size: 40.sp,
-          ),
+        padding: EdgeInsets.only(left: 10.w),
+        child: Icon(
+          Icons.menu,
+          size: 40.sp,
         ),
       ),
       
       title: Container(
         width: 278.w,
         height: 46.h,
-        alignment: Alignment.center,
+        padding: EdgeInsets.all(10.sp),
         decoration: BoxDecoration(
             color: const Color(0XFF77A5F5),
             borderRadius: BorderRadius.circular(16.sp)),

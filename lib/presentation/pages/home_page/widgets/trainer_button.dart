@@ -12,7 +12,6 @@ class TrainerButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      padding: const EdgeInsets.all(0.0),
       onPressed: () {
         Navigator.of(context).push(
           customPageRoute(
@@ -22,7 +21,7 @@ class TrainerButtonWidget extends StatelessWidget {
       },
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,
-      
+      padding: EdgeInsets.all(0.sp),
       icon: SizedBox(
         width: 375.w,
         child: Stack(

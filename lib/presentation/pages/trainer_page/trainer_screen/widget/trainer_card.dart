@@ -10,7 +10,6 @@ class TrainerCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 335.w,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(
           16.sp,
