@@ -3,8 +3,8 @@
     {
       "id": 1,
       "name": "Основные обозначения",
-      "color": null,
-      "image": null,
+      "color": "color",
+      "image": "image",
       "questions": [
         {
           "id": 1,

@@ -50,6 +50,16 @@ class QuestionsComplete {
       required this.incorrectAnswers});
 }
 
+class TrainersComplete {
+  final int id;
+  final String name;
+  final String? color;
+  final String? image;
+  final List<QuestionsComplete> questions;
+
+  TrainersComplete({required this.id, required this.name, required this.color, required this.image,
+    required this.questions});
+}
 
 @DriftDatabase(tables: [Subjects, Chapters, Themes, Question, Trainers])
 class AppDB extends _$AppDB {
@@ -169,6 +179,36 @@ class AppDB extends _$AppDB {
 
   }
 
+  Future<QuestionsComplete> getQuestionFullInfoById(int id) async {
+    final subject = alias(subjects, 's');
+    final chapter = alias(chapters, 'c');
+    final theme = alias(themes, 't');
+
+    final query = select(question).join([
+      innerJoin(subject, subject.id.equalsExp(question.subjectId)),
+      innerJoin(chapter, chapter.id.equalsExp(question.chapterId)),
+      innerJoin(theme, theme.id.equalsExp(question.themeId)),
+    ]);
+
+    query.where(question.id.equals(id));
+
+    return query.watchSingle().map((resultRow) {
+      return QuestionsComplete(
+          id: resultRow.readTable(question).id,
+          course: resultRow.readTable(question).courseNumber,
+          subject: resultRow.readTable(subject).name,
+          chapter: resultRow.readTable(chapter).name,
+          theme: resultRow.readTable(theme).name,
+          difficultly: resultRow.readTable(question).difficultly,
+          context: resultRow.readTable(question).questionContext,
+          rightAnswer: resultRow.readTable(question).rightAnswer,
+          incorrectAnswers: resultRow.readTable(question).incorrectAnswers
+      );
+    }).first;
+  }
+
+
+
   // Get question by id
   Future<QuestionData> getQuestion(int id) async {
     return await (select(question)
@@ -198,9 +238,28 @@ class AppDB extends _$AppDB {
     return await into(trainers).insert(entity);
   }
 
-  // Get full Trainer info (for print or edit)
+  // Get Trainer by id
+  Future<Trainer> getTrainer(int id) async {
+    return await (select(trainers)
+      ..where((tbl) => tbl.id.equals(id))).getSingle();
+  }
+
+  // Get full Trainer info (questions with ids)
   Future<List<Trainer>> getTrainers() async {
     return await select(trainers).get();
+  }
+
+  // Get full TrainersComplete objects
+  Future<TrainersComplete> getTrainerFullInfoById(int id) async {
+
+    var trainerBase = await getTrainer(id);
+    var questions = trainerBase.questions;
+    List<QuestionsComplete> questionsFull = [];
+    for (int i = 0; i < questions.length; i++) {
+      var q = await getQuestionFullInfoById(int.parse(questions[i]));
+      questionsFull.add(q);
+    }
+    return TrainersComplete(id: trainerBase.id, name: trainerBase.name, color: trainerBase.color, image: trainerBase.image, questions: questionsFull);
   }
 
 }
