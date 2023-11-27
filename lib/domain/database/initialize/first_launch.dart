@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:drift/drift.dart' as drift;
 import 'package:flutter/services.dart';
 import '../../../data/local/db/app_db.dart';
-//import 'package:study_ready/assets/jsons/trainers.json';
 
 class FillTables {
   AppDB db = AppDB();
@@ -17,14 +16,37 @@ class FillTables {
     fillChapters();
     fillThemes();
     fillQuestions();
+    var trainer = await loadJsonAsset();
+    parseQuestions(trainer);
     //exampleJoinMethod(); // demo of leftJoin for tables (in dev)
   }
 
   // Json decode
-  Future<void> loadJsonAsset() async {
+  Future<List> loadJsonAsset() async {
     final String jsonString = await rootBundle.loadString('assets/jsons/trainers.json');
     final data = jsonDecode(jsonString);
-    print(jsonString);
+    final trainer = data['trainers'];
+    // final questions = trainer[0]['questions'];
+    return trainer;
+  }
+
+  Future<void> parseQuestions(trainer) async {
+     final questions = trainer[0]['questions'];
+     for (int i = 0; i < questions.length; i ++) {
+       final incorrectAns = (questions[i]['incorrectAnswers'] as List).map((e) => e as String).toList();
+       var question = QuestionCompanion(courseNumber: drift.Value(questions[i]['courseNumber']),
+       subjectId: drift.Value(questions[i]['subjectId']), chapterId: drift.Value(questions[i]['chapterId']), themeId: drift.Value(questions[i]['themeId']),
+       difficultly: drift.Value(questions[i]['difficultly']), questionContext: drift.Value(questions[i]['questionContext']), rightAnswer: drift.Value(questions[i]['rightAnswer']),
+       incorrectAnswers: drift.Value(incorrectAns));
+
+       db.insertQuestion(question);
+     }
+     var listOfQuestionsDebug = await db.getQuestionsFullInfo();
+     for (var i = 0; i < listOfQuestionsDebug.length; i++) {
+       print((listOfQuestionsDebug[i].id, listOfQuestionsDebug[i].course,
+       listOfQuestionsDebug[i].subject, listOfQuestionsDebug[i].chapter, listOfQuestionsDebug[i].theme,
+       listOfQuestionsDebug[i].difficultly, listOfQuestionsDebug[i].context, listOfQuestionsDebug[i].rightAnswer, listOfQuestionsDebug[i].incorrectAnswers));
+     }
   }
 
   // creating test subjects

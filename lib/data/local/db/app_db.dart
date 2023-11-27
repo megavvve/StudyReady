@@ -191,7 +191,6 @@ class AppDB extends _$AppDB {
       ..where((tbl) => tbl.id.equals(id))).go();
   }
 
-
   // Trainers
 
   // Add new Trainer
