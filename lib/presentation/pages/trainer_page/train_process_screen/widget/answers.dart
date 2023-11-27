@@ -14,12 +14,10 @@ class Answers extends StatefulWidget {
 }
 
 class _AnswersState extends State<Answers> {
-  //int selectedButtonIndex = -1;
-
+  
   @override
   Widget build(BuildContext context) {
  
-    //SharedState.of(context).updateSelectedIndex(-1);
     return Column(
       children: [
         for (int i = 0; i < widget.list.length; i++)
@@ -67,12 +65,6 @@ class _AnswersState extends State<Answers> {
     );
   }
 
-  Color _buttonStyle(int buttonIndex) {
-    var data = SharedState.of(context);
-    return (buttonIndex == data.selectedIndex)
-        ? Colors.grey // Цвет выделенной кнопки
-        : Colors.white;
-  }
 
   void _onButtonPressed(int buttonIndex) {
     SharedState.of(context).updateSelectedIndex(buttonIndex);

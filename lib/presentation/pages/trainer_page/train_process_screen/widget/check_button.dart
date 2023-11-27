@@ -74,7 +74,7 @@ class _CheckButtonState extends State<CheckButton> {
                       SizedBox(height: 16.h),
                       Text(
                         isCorrect
-                            ? 'Отличная работа! Продолжайте в том же духе.'
+                            ? 'Отличная работа! Продолжайте в том же духе!'
                             : 'Попробуйте еще раз. У вас получится!',
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -138,7 +138,7 @@ class _CheckButtonState extends State<CheckButton> {
                 );
               }
             });
-            ;
+            
             // если больше вопросов чем всего есть, то конец тренажора
           }
         });

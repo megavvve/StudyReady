@@ -17,7 +17,6 @@ class TrainerScreen extends StatefulWidget {
 }
 
 class _TrainerScreenState extends State<TrainerScreen> {
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,9 +27,10 @@ class _TrainerScreenState extends State<TrainerScreen> {
           slivers: <Widget>[
             const AppBarWidget(),
             SliverList.builder(
-                itemCount: 10,
-                itemBuilder: (BuildContext context, int index) =>
-                    const TrainerCard()),
+              itemCount: 10,
+              itemBuilder: (BuildContext context, int index) =>
+                  const TrainerCard(),
+            ),
             SliverToBoxAdapter(
               child: SizedBox(
                 height: 22.h,

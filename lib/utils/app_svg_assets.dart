@@ -46,6 +46,8 @@ final backgrondForTrainerCard = SvgPicture.asset(
 );
 final pictureForTrainer = SvgPicture.asset(
   'assets/images/trainer/picture_for_trainer.svg',
+  width:90.w,
+  height: 75.h,
 );
 
 final backgroundForAppBar = SvgPicture.asset(
