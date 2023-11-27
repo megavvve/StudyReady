@@ -91,7 +91,7 @@ class TrainerCard extends StatelessWidget {
                     ),
                     onPressed: () {
                       showLaunchingTrainer(
-                        context,
+                        context, trainer
                       );
                     },
                     child: Text(

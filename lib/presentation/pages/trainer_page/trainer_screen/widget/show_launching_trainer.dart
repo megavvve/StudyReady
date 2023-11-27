@@ -6,7 +6,7 @@ import 'package:study_ready/presentation/pages/trainer_page/train_process_screen
 
 
 
-void showLaunchingTrainer(BuildContext context) {
+void showLaunchingTrainer(BuildContext context,Trainer trainer) {
   
   showModalBottomSheet<void>(
     context: context,

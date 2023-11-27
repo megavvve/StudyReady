@@ -35,8 +35,9 @@ class MyApp extends StatelessWidget {
           theme: lightTheme,
           home: child,
         ),
+        child: const HomeScreen(),
       ),
-    child: const HomeScreen(),
+    
     );
   }
 }
