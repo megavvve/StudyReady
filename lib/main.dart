@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'StudyReady',
         theme: lightTheme,
-        home: const HomeScreen(),
+        home: const HomeScreen() 
       ),
     );
   }
