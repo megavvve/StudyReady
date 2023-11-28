@@ -4,7 +4,7 @@
       "id": 1,
       "name": "Основные обозначения",
       "color": "color",
-      "image": "image",
+      "image": "assets/images/trainer/background_for_app_bar_trainer.svg",
       "questions": [
         {
           "id": 1,

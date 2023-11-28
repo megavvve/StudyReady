@@ -1,3 +1,4 @@
+import 'package:drift/drift.dart';
 import 'package:equatable/equatable.dart';
 import 'package:bloc/bloc.dart';
 import 'package:study_ready/data/local/db/app_db.dart' as db;
@@ -13,19 +14,25 @@ class TrainersBloc extends Bloc<TrainerEvent, TrainersState> {
     on<AddQuestion>(_onAddQuestion);
     on<InitLoad>(_onInitLoad);
     on<GenerateAnswersListEvent>(_onGenerateAnswers);
-    on<ClearCurrentAnswersEvent >(_onCleanCurrentAnswers);
+    on<ClearCurrentAnswersEvent>(_onCleanCurrentAnswers);
   }
 
   void _onAddQuestion(AddQuestion event, Emitter<TrainersState> emit) {
-    // db.AppDB dataBase = db.AppDB();
-    // final state = this.state;
-    // final question = event.question;
-    // final questForDb = db.QuestionsComplete(id:question.id, course: question.courseNumber, subject: question.subject, chapter: question.chapter, theme: question.theme, difficultly: question.difficultly, context: question.questionContext, rightAnswer: question.rightAnswer, incorrectAnswers: question.incorrectAnswers,);
-
-    //     dataBase.insertQuestion(questForDb);
-    //   }
-    // db.insertQuestion(question);
-    // emit(TrainersState(trainerList: List.from(state.trainerList)..add(question)));
+    final state = this.state;
+    final question = event.question;
+   dataBase.insertQuestion(
+      db.QuestionCompanion(
+        questionContext: Value<String>(
+          question.questionContext,
+        ),
+        rightAnswer: Value<String>(
+          question.rightAnswer,
+        ),
+       
+      ),
+    );
+    
+     //emit(TrainersState(trainerList: List.from(state.trainerList)..add(question)));
   }
 
   Future<void> _onInitLoad(InitLoad event, Emitter<TrainersState> emit) async {

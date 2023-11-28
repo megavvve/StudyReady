@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:study_ready/presentation/navigation/custom_page_router.dart';
-import 'package:study_ready/presentation/pages/trainer_page/add_answer/answer_parametrs_sreen.dart';
+import 'package:study_ready/utils/app_colors.dart';
 
 class OptionsButton extends StatelessWidget {
   const OptionsButton({super.key});
@@ -10,18 +9,36 @@ class OptionsButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       style: ButtonStyle(
-          shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-              side: const BorderSide(color: Colors.white),
-              borderRadius: BorderRadius.circular(16))),
-          fixedSize: MaterialStatePropertyAll(Size(304.w, 57.h)),
-          backgroundColor: const MaterialStatePropertyAll(Colors.white)),
+        shape: MaterialStatePropertyAll(
+          RoundedRectangleBorder(
+            side: const BorderSide(color: Colors.white),
+            borderRadius: BorderRadius.circular(16.sp),
+          ),
+        ),
+        fixedSize: MaterialStatePropertyAll(
+          Size(
+            304.w,
+            57.h,
+          ),
+        ),
+        backgroundColor: const MaterialStatePropertyAll(
+          Colors.white,
+        ),
+      ),
       onPressed: () {
-        Navigator.push(
-          context,
-          customPageRoute(
-            const AnsParsScreen(),
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            backgroundColor: Color(0xFF275CB3),
+            content: Text('Находится в разработке'),
+            duration: Duration(seconds: 2),
           ),
         );
+        // Navigator.push(
+        //   context,
+        //   customPageRoute(
+        //     const AnsParsScreen(),
+        //   ),
+        // );
       },
       clipBehavior: Clip.none,
       child: Row(

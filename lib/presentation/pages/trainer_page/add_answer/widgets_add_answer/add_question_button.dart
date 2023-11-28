@@ -12,13 +12,13 @@ class AddQuestionButton extends StatelessWidget {
       style: ButtonStyle(
           backgroundColor:
               const MaterialStatePropertyAll(Color.fromRGBO(119, 165, 245, 1)),
-          fixedSize: MaterialStatePropertyAll(Size(305.w, 50.h))),
+          fixedSize: MaterialStatePropertyAll(Size(305.w, 50.h,),),),
       onPressed: () {
         QuestionControllers? controllers = QuestionControllers.of(context);
         if (isEmptyTextField(controllers)) {
           print("ошибка. Неверный ввод данных");
         } else {
-          print("добавлено");
+          
         }
       },
       child: Text(
