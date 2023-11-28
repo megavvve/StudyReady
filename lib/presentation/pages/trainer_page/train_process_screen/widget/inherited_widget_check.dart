@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class SharedState extends InheritedWidget {
   final int selectedIndex;
   final int selectedQuestion;
@@ -7,9 +8,9 @@ class SharedState extends InheritedWidget {
       howmuchQuestion; // СКОЛЬКО ВСЕГО ВОПРОСОВ В НАШЕМ КОНКРЕТНОМ ТРЕНАЖОРЕ
   final Function(int) updateSelectedIndex;
   final Function(int) updateselectedQuestion;
-  final List<String> answerQuestion;
 
-   SharedState( {
+
+  const SharedState({
     super.key,
     required this.selectedIndex,
     required this.updateSelectedIndex,
@@ -17,7 +18,7 @@ class SharedState extends InheritedWidget {
     required this.updateselectedQuestion,
     required this.howmuchQuestion,
     required Widget child,
-    required this.answerQuestion,
+
   }) : super(child: child);
 
   static SharedState of(BuildContext context) {
@@ -27,33 +28,7 @@ class SharedState extends InheritedWidget {
   @override
   bool updateShouldNotify(SharedState oldWidget) {
     return true;
-    //return oldWidget.selectedIndex != selectedIndex;
-  }
-  
-bool _answersGenerated = false;
-
-  final List<String> _randomAnswers = [];
-  List<String> generateRandomAnswers(
-      String correctAnswer, List<String> incorrectAnswers) {
-    if (!_answersGenerated) {
-      // Добавляем правильный ответ в список
-      _randomAnswers.add(correctAnswer);
-
-      // Добавляем три неправильных ответа
-      _randomAnswers.addAll(incorrectAnswers);
-
-      // Перемешиваем список, чтобы порядок ответов был случайным
-      _randomAnswers.shuffle();
-
-      // Устанавливаем флаг, что лист ответов был сгенерирован
-      _answersGenerated = true;
-    }
-
-    return _randomAnswers;
   }
 
-  void resetAnswers() {
-    _answersGenerated = false;
-    _randomAnswers.clear();
-  }
+
 }

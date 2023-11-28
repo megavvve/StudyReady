@@ -2,9 +2,9 @@ part of 'trainer_bloc.dart';
 
 class TrainersState extends Equatable {
   final List<Trainer> trainerList;
-
-  const TrainersState({this.trainerList = const <Trainer>[]});
+  final List<List<String>> currentAnswers;
+  const TrainersState({this.trainerList = const <Trainer>[],this.currentAnswers = const []});
 
   @override
-  List<Object> get props => [trainerList];
+  List<Object> get props => [trainerList, currentAnswers];
 }

@@ -16,18 +16,6 @@ class TrainProcessScreen extends StatefulWidget {
   State<TrainProcessScreen> createState() => _TrainProcessScreenState();
 }
 
-/*Widget getTextWidgets(List<String> strings) {
-  List<Widget> list = <Widget>[];
-  for (var i = 0; i < strings.length; i++) {
-    list.add(QuestionButtons(
-      id: i,
-      label: strings[i],
-      color: colorForCardTrainerBlue,
-    ));
-  }
-  return Row(children: list);
-}*/
-
 class _TrainProcessScreenState extends State<TrainProcessScreen> {
   List<Widget> list = <Widget>[];
   int _selectedIndex = -1;
@@ -45,14 +33,14 @@ class _TrainProcessScreenState extends State<TrainProcessScreen> {
     });
   }
   
+    
 
-
+  
   @override
   Widget build(BuildContext context) {
     Trainer trainer = widget.trainer;
 
     int numberOfQuestions = trainer.questions.length;
-
     return Scaffold(
       backgroundColor: backgroundColor,
       body: WillPopScope(
@@ -64,8 +52,10 @@ class _TrainProcessScreenState extends State<TrainProcessScreen> {
             },
           );
 
-          if (result != null && result) {
-            return true; //Navigator.pop(context);
+          if (result) {
+            Navigator.pop(context);
+            Navigator.pop(context);
+            return true;
           } else {
             return false;
           }
@@ -76,7 +66,8 @@ class _TrainProcessScreenState extends State<TrainProcessScreen> {
           selectedQuestion: _selectedQuestion,
           updateselectedQuestion: _updateSelectedQuestion,
           howmuchQuestion: numberOfQuestions,
-          answerQuestion: const [],
+
+      
           child: CustomScrollView(
             slivers: [
               SliverAppBar(
@@ -84,28 +75,30 @@ class _TrainProcessScreenState extends State<TrainProcessScreen> {
                 snap: true,
                 floating: true,
                 surfaceTintColor: Colors.transparent,
-                //expandedHeight: 200.0,
-                //toolbarHeight: 80.0.h,
                 collapsedHeight: 80.h,
                 backgroundColor: backgroundColor,
                 leading: IconButton(
                   icon: const Icon(Icons.close),
                   onPressed: () async {
-                    bool result = await showDialog(
+                    final result = await showDialog(
                       context: context,
                       builder: (BuildContext context) {
                         return const ConfirmationDialog();
                       },
                     );
 
-                    if (result != null && result) {
+                    if (result!= null) {
+                      Navigator.pop(context);
                       Navigator.pop(context);
                     }
                   },
                 ),
                 title: Column(
                   children: [
-                    Text('Непрерывная математика', style: TextStyle(fontSize: 18.sp),),
+                    Text(
+                      'Непрерывная математика',
+                      style: TextStyle(fontSize: 18.sp),
+                    ),
                   ],
                 ),
                 flexibleSpace: Align(
@@ -142,7 +135,9 @@ class _TrainProcessScreenState extends State<TrainProcessScreen> {
                                   height: 8.h,
                                 ),
                                 SizedBox(height: 30.h),
-                                 CheckButton(trainer: trainer,),
+                                CheckButton(
+                                  trainer: trainer,
+                                ),
                                 SizedBox(height: 20.h),
                               ],
                             ),

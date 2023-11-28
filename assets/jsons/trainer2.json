@@ -1,0 +1,147 @@
+{
+  "trainers": [
+    {
+      "id": 2,
+      "name": "Абсолютная величина",
+      "color": "color",
+      "image": "image",
+      "questions": [
+        {
+          "id": 1,
+          "courseNumber": 1,
+          "subjectId": 1,
+          "chapterId": 1,
+          "themeId": 2,
+          "difficultly": "Easy",
+          "questionContext": "Выберите вариант ответа, в котором правильно вставлены пропущенные слова на место цифр:\nМодулем, или абсолютной величиной, вещественного числа x называется вещественное число |x|, определяемое условием:\n|x| = x, если x (1) 0; -x, если x (2) 0;",
+          "rightAnswer": "2",
+          "incorrectAnswers": [
+            "1) <, ⩾.",
+            "3) ⩽, ⩾.",
+            "4) >, <."
+          ]
+        },
+        {
+          "id": 2,
+          "courseNumber": 1,
+          "subjectId": 1,
+          "chapterId": 1,
+          "themeId": 2,
+          "difficultly": "Easy",
+          "questionContext": "Выберите вариант ответа, в котором правильно вставлены пропущенные слова на место цифр:\nИз определения модуля вытекает, что для любого числа a ∈ ℝ выполняются соотношения:\n|-a| (1) |a|,\na (2) |a|,\n-a (3) |a|.",
+          "rightAnswer": "4",
+          "incorrectAnswers": [
+            "1)=, ⩽, <.",
+            "2)=, >, <.",
+            "3)≠, <, <."
+          ]
+        },
+        {
+          "id": 3,
+          "courseNumber": 1,
+          "subjectId": 1,
+          "chapterId": 1,
+          "themeId": 2,
+          "difficultly": "Easy",
+          "questionContext": "Выберите вариант ответа, в котором правильно вставлены пропущенные слова на место цифр:\nНеравенство |a| < b равносильно соотношению -b (1) a (2) b.",
+          "rightAnswer": "1",
+          "incorrectAnswers": [
+            "2) ⩽, ⩽.",
+            "3) >, >.",
+            "4) ⩾, ⩾."
+          ]
+        },
+        {
+          "id": 4,
+          "courseNumber": 1,
+          "subjectId": 1,
+          "chapterId": 1,
+          "themeId": 2,
+          "difficultly": "Easy",
+          "questionContext": "Выберите вариант ответа, в котором правильно вставлены пропущенные слова на место цифр:\nНеравенство |a| ⩽ b равносильно соотношению –b (1) a (2) b.",
+          "rightAnswer": "2",
+          "incorrectAnswers": [
+            "1) <, <.",
+            "3) >, >.",
+            "4) ⩾, ⩾."
+          ]
+        },
+        {
+          "id": 5,
+          "courseNumber": 1,
+          "subjectId": 1,
+          "chapterId": 1,
+          "themeId": 2,
+          "difficultly": "Easy",
+          "questionContext": "Выберите вариант ответа, в котором правильно вставлены пропущенные слова на место цифр:\nНеравенство |x - a| < b равносильно неравенству a - b (1) x (2) a + b.",
+          "rightAnswer": "1",
+          "incorrectAnswers": [
+            "2) ⩽, ⩽.",
+            "3) >, >.",
+            "4) ⩾, ⩾"
+          ]
+        },
+        {
+          "id": 6,
+          "courseNumber": 1,
+          "subjectId": 1,
+          "chapterId": 1,
+          "themeId": 2,
+          "difficultly": "Easy",
+          "questionContext": "Выберите вариант ответа, в котором правильно вставлены пропущенные слова на место цифр:\nНеравенство |x - a| ⩽ b равносильно неравенству a - b (1) x (2) a + b.",
+          "rightAnswer": "2",
+          "incorrectAnswers": [
+            "1) <, <.",
+            "3) >, >.",
+            "4) ⩾, ⩾."
+          ]
+        },
+        {
+          "id": 7,
+          "courseNumber": 1,
+          "subjectId": 1,
+          "chapterId": 1,
+          "themeId": 2,
+          "difficultly": "Easy",
+          "questionContext": "Выберите вариант ответа, в котором правильно вставлены пропущенные слова на место цифр:\nДля любых a, b ∈ ℝ имеет место неравенство|a + b| (1) |a| + |b|.",
+          "rightAnswer": "2",
+          "incorrectAnswers": [
+            "1) <.",
+            "3) >.",
+            "4) ⩾."
+          ]
+        },
+        {
+          "id": 8,
+          "courseNumber": 1,
+          "subjectId": 1,
+          "chapterId": 1,
+          "themeId": 2,
+          "difficultly": "Easy",
+          "questionContext": "Выберите вариант ответа, в котором правильно вставлены пропущенные слова на место цифр:\nДля любых a1, a2, … , an ∈ ℝ имеет место неравенство|a1 + a2 + … + an| (1) |a1| + |a2| + … + |an|.",
+          "rightAnswer": "2",
+          "incorrectAnswers": [
+            "1) <.",
+            "3) >.",
+            "4) ⩾."
+          ]
+        },
+        {
+          "id": 9,
+          "courseNumber": 1,
+          "subjectId": 1,
+          "chapterId": 1,
+          "themeId": 2,
+          "difficultly": "Easy",
+          "questionContext": "Выберите вариант ответа, в котором правильно вставлены пропущенные слова на место цифр:\nДля любых a, b ∈ ℝ имеет место неравенство||a| - ||b|| (1) |a - b|.",
+          "rightAnswer": "2",
+          "incorrectAnswers": [
+            "1) <.",
+            "3) >.",
+            "4) ⩾."
+          ]
+        }
+      ]
+    }
+  ]
+}
