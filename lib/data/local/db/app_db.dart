@@ -13,16 +13,14 @@ import 'package:study_ready/data/local/db/entity/trainer_entity.dart';
 import 'entity/strings_list_json_converter.dart';
 part 'app_db.g.dart';
 
-LazyDatabase _openConnection(){
+LazyDatabase _openConnection() {
   return LazyDatabase(() async {
-
     final dbFolder = await getApplicationDocumentsDirectory();
     final file = File(path.join(dbFolder.path, 'learning.sqlite'));
 
     return NativeDatabase(file);
   });
 }
-
 
 // Themes object with joined subject and chapter
 class ThemesComplete {
@@ -31,7 +29,11 @@ class ThemesComplete {
   final String chapter;
   final String name;
 
-  ThemesComplete({required this.id, required this.subject, required this.chapter, required this.name});
+  ThemesComplete(
+      {required this.id,
+      required this.subject,
+      required this.chapter,
+      required this.name});
 }
 
 class QuestionsComplete {
@@ -45,8 +47,15 @@ class QuestionsComplete {
   final String rightAnswer;
   final List<String> incorrectAnswers;
 
-  QuestionsComplete({required this.id, required this.course, required this.subject, required this.chapter,
-    required this.theme, required this.difficultly, required this.context, required this.rightAnswer,
+  QuestionsComplete(
+      {required this.id,
+      required this.course,
+      required this.subject,
+      required this.chapter,
+      required this.theme,
+      required this.difficultly,
+      required this.context,
+      required this.rightAnswer,
       required this.incorrectAnswers});
 }
 
@@ -57,18 +66,37 @@ class TrainersComplete {
   final String? image;
   final List<QuestionsComplete> questions;
 
-  TrainersComplete({required this.id, required this.name, required this.color, required this.image,
-    required this.questions});
+  TrainersComplete(
+      {required this.id,
+      required this.name,
+      required this.color,
+      required this.image,
+      required this.questions});
 }
 
 @DriftDatabase(tables: [Subjects, Chapters, Themes, Question, Trainers])
 class AppDB extends _$AppDB {
-
   AppDB() : super(_openConnection());
 
   @override
   int get schemaVersion => 1;
+Future<void> deleteAndRegenerateDatabase() async {
+    // Close the existing database connection
+    await close();
 
+    // Get the application documents directory
+    final dbFolder = await getApplicationDocumentsDirectory();
+
+    // Create a File object for the database file
+    final file = File(path.join(dbFolder.path, 'learning.sqlite'));
+
+    // Delete the database file
+    if (await file.exists()) {
+      await file.delete();
+    }
+
+   
+  }
   // Methods for Subjects
 
   // Get list of questions
@@ -83,10 +111,8 @@ class AppDB extends _$AppDB {
 
   // Delete Subject by id
   Future<int> deleteSubject(int id) async {
-    return await (delete(subjects)
-      ..where((tbl) => tbl.id.equals(id))).go();
+    return await (delete(subjects)..where((tbl) => tbl.id.equals(id))).go();
   }
-
 
   // Methods for Chapters
 
@@ -102,10 +128,8 @@ class AppDB extends _$AppDB {
 
   // Delete Chapter by id
   Future<int> deleteChapter(int id) async {
-    return await (delete(chapters)
-      ..where((tbl) => tbl.id.equals(id))).go();
+    return await (delete(chapters)..where((tbl) => tbl.id.equals(id))).go();
   }
-
 
   // Methods for Themes
 
@@ -121,10 +145,8 @@ class AppDB extends _$AppDB {
 
   // Delete Theme by id
   Future<int> deleteTheme(int id) async {
-    return await (delete(themes)
-      ..where((tbl) => tbl.id.equals(id))).go();
+    return await (delete(themes)..where((tbl) => tbl.id.equals(id))).go();
   }
-
 
   // Whole info about theme
   Future<List<ThemesComplete>> themeFullInfo() async {
@@ -147,9 +169,7 @@ class AppDB extends _$AppDB {
     }).toList();
   }
 
-
   // Methods for Questions table
-
 
   // Get question fill info join subjects, chapters, themes
   Future<List<QuestionsComplete>> getQuestionsFullInfo() async {
@@ -165,18 +185,16 @@ class AppDB extends _$AppDB {
 
     return rows.map((resultRow) {
       return QuestionsComplete(
-        id: resultRow.readTable(question).id,
-        course: resultRow.readTable(question).courseNumber,
-        subject: resultRow.readTable(subject).name,
-        chapter: resultRow.readTable(chapter).name,
-        theme: resultRow.readTable(theme).name,
-        difficultly: resultRow.readTable(question).difficultly,
-        context: resultRow.readTable(question).questionContext,
-        rightAnswer: resultRow.readTable(question).rightAnswer,
-        incorrectAnswers: resultRow.readTable(question).incorrectAnswers
-      );
+          id: resultRow.readTable(question).id,
+          course: resultRow.readTable(question).courseNumber,
+          subject: resultRow.readTable(subject).name,
+          chapter: resultRow.readTable(chapter).name,
+          theme: resultRow.readTable(theme).name,
+          difficultly: resultRow.readTable(question).difficultly,
+          context: resultRow.readTable(question).questionContext,
+          rightAnswer: resultRow.readTable(question).rightAnswer,
+          incorrectAnswers: resultRow.readTable(question).incorrectAnswers);
     }).toList();
-
   }
 
   Future<QuestionsComplete> getQuestionFullInfoById(int id) async {
@@ -202,17 +220,25 @@ class AppDB extends _$AppDB {
           difficultly: resultRow.readTable(question).difficultly,
           context: resultRow.readTable(question).questionContext,
           rightAnswer: resultRow.readTable(question).rightAnswer,
-          incorrectAnswers: resultRow.readTable(question).incorrectAnswers
-      );
+          incorrectAnswers: resultRow.readTable(question).incorrectAnswers);
     }).first;
   }
 
-
+  // Clear all data from the database
+  Future<void> clearDatabase() async {
+    await transaction(() async {
+      await delete(subjects).go();
+      await delete(chapters).go();
+      await delete(themes).go();
+      await delete(question).go();
+      await delete(trainers).go();
+    });
+  }
 
   // Get question by id
   Future<QuestionData> getQuestion(int id) async {
-    return await (select(question)
-      ..where((tbl) => tbl.id.equals(id))).getSingle();
+    return await (select(question)..where((tbl) => tbl.id.equals(id)))
+        .getSingle();
   }
 
   // Update question with new entity
@@ -227,8 +253,7 @@ class AppDB extends _$AppDB {
 
   // Delete Question by id
   Future<int> deleteQuestion(int id) async {
-    return await (delete(question)
-      ..where((tbl) => tbl.id.equals(id))).go();
+    return await (delete(question)..where((tbl) => tbl.id.equals(id))).go();
   }
 
   // Trainers
@@ -240,8 +265,8 @@ class AppDB extends _$AppDB {
 
   // Get Trainer by id
   Future<Trainer> getTrainer(int id) async {
-    return await (select(trainers)
-      ..where((tbl) => tbl.id.equals(id))).getSingle();
+    return await (select(trainers)..where((tbl) => tbl.id.equals(id)))
+        .getSingle();
   }
 
   // Get full Trainer info (questions with ids)
@@ -251,15 +276,19 @@ class AppDB extends _$AppDB {
 
   // Get full TrainersComplete objects
   Future<TrainersComplete> getTrainerFullInfoById(int id) async {
-
     var trainerBase = await getTrainer(id);
     var questions = trainerBase.questions;
     List<QuestionsComplete> questionsFull = [];
     for (int i = 0; i < questions.length; i++) {
+      print(questions);
       var q = await getQuestionFullInfoById(int.parse(questions[i]));
       questionsFull.add(q);
     }
-    return TrainersComplete(id: trainerBase.id, name: trainerBase.name, color: trainerBase.color, image: trainerBase.image, questions: questionsFull);
+    return TrainersComplete(
+        id: trainerBase.id,
+        name: trainerBase.name,
+        color: trainerBase.color,
+        image: trainerBase.image,
+        questions: questionsFull);
   }
-
 }
