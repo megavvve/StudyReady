@@ -60,7 +60,8 @@ flutter:
     - assets/images/trainer/backgroung_for_trainer.svg
     - assets/images/trainer/picture_for_trainer.svg
     - assets/images/trainer/background_for_app_bar_trainer.svg
-    - assets/jsons/trainers.json
+    - assets/jsons/trainer1.json
+    - assets/jsons/trainer2.json
 
   # To add assets to your application, add an assets section, like this:
   # assets:

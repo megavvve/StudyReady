@@ -23,9 +23,12 @@ class FillTables {
   // Json decode
   Future<List> loadJsonAsset() async {
     final String jsonString =
-        await rootBundle.loadString('assets/jsons/trainers.json');
+        await rootBundle.loadString('assets/jsons/trainer1.json');
+
     final data = jsonDecode(jsonString);
+
     final trainer = data['trainers'];
+
     return trainer;
   }
 
@@ -81,7 +84,7 @@ class FillTables {
 
     var listOfTrainersDebug = await db.getTrainers();
     print(listOfTrainersDebug);
-  
+
     var questionsInTrainer1 = listOfTrainersDebug[0];
 
     var trainerComplete =

@@ -5,7 +5,6 @@ import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
-import 'package:study_ready/domain/models/trainer.dart' as tr;
 import 'package:study_ready/data/local/db/entity/chapter_entity.dart';
 import 'package:study_ready/data/local/db/entity/question_entity.dart';
 import 'package:study_ready/data/local/db/entity/subject_entity.dart';

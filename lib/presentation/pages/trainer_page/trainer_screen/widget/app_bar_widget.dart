@@ -37,7 +37,7 @@ class AppBarWidget extends StatelessWidget {
               SizedBox(width: 5.w,),
               PopupMenuButton<String>(
                 itemBuilder: (BuildContext context) {
-                  return {'непра', 'дискра', 'аиг'}.map((String choice) {
+                  return {'Непрерывная математика',}.map((String choice) {
                     return PopupMenuItem<String>(
                       value: choice,
                       child: Text(choice),
@@ -62,7 +62,7 @@ class AppBarWidget extends StatelessWidget {
               ),
               PopupMenuButton<String>(
                 itemBuilder: (BuildContext context) {
-                  return {'Тренировка 1', 'Тренировка 2', 'Тренировка 3'}
+                  return {'По умолчанию'}
                       .map((String choice) {
                     return PopupMenuItem<String>(
                       value: choice,

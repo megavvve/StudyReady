@@ -8,11 +8,12 @@ part 'trainer_event.dart';
 part 'trainer_state.dart';
 
 class TrainersBloc extends Bloc<TrainerEvent, TrainersState> {
-  
-db.AppDB dataBase = db.AppDB();
+  db.AppDB dataBase = db.AppDB();
   TrainersBloc() : super(const TrainersState()) {
     on<AddQuestion>(_onAddQuestion);
     on<InitLoad>(_onInitLoad);
+    on<GenerateAnswersListEvent>(_onGenerateAnswers);
+    on<ClearCurrentAnswersEvent >(_onCleanCurrentAnswers);
   }
 
   void _onAddQuestion(AddQuestion event, Emitter<TrainersState> emit) {
@@ -20,7 +21,6 @@ db.AppDB dataBase = db.AppDB();
     // final state = this.state;
     // final question = event.question;
     // final questForDb = db.QuestionsComplete(id:question.id, course: question.courseNumber, subject: question.subject, chapter: question.chapter, theme: question.theme, difficultly: question.difficultly, context: question.questionContext, rightAnswer: question.rightAnswer, incorrectAnswers: question.incorrectAnswers,);
-          
 
     //     dataBase.insertQuestion(questForDb);
     //   }
@@ -29,8 +29,6 @@ db.AppDB dataBase = db.AppDB();
   }
 
   Future<void> _onInitLoad(InitLoad event, Emitter<TrainersState> emit) async {
-    //final Trainer trainer = dataBase.
-
     final trainerFromDb = await dataBase.getTrainerFullInfoById(1);
     List<Question> questionFromTrainer = [];
     for (var i = 1; i <= trainerFromDb.questions.length; i++) {
@@ -60,5 +58,46 @@ db.AppDB dataBase = db.AppDB();
         trainerList: allTrainers,
       ),
     );
+  }
+
+  void _onGenerateAnswers(
+      GenerateAnswersListEvent event, Emitter<TrainersState> emit) {
+    final state = this.state;
+    final trainer = event.trainer;
+    List<List<String>> answers = [];
+    for (var i = 0; i < trainer.questions.length; i++) {
+      answers.add(_generateRandomAnswers(trainer.questions[i].rightAnswer,
+          trainer.questions[i].incorrectAnswers));
+    }
+
+    emit(
+      TrainersState(
+        trainerList: state.trainerList,
+        currentAnswers: answers,
+      ),
+    );
+  }
+
+  void _onCleanCurrentAnswers(
+      ClearCurrentAnswersEvent event, Emitter<TrainersState> emit) {
+    final state = this.state;
+
+    emit(TrainersState(
+      trainerList: state.trainerList,
+      currentAnswers: const [],
+    ));
+  }
+
+  List<String> _generateRandomAnswers(
+      String correctAnswer, List<String> incorrectAnswers) {
+    List<String> answers = [];
+
+    answers.add(correctAnswer);
+
+    answers.addAll(incorrectAnswers);
+
+    answers.shuffle();
+
+    return answers;
   }
 }

@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/presentation/navigation/navigation_bar.dart';
 import 'package:study_ready/presentation/pages/trainer_page/add_answer/widgets_add_answer/add_question_button.dart';
-import 'package:study_ready/presentation/pages/trainer_page/add_answer/widgets_add_answer/app_bar_1.dart';
 import 'package:study_ready/presentation/pages/trainer_page/add_answer/widgets_add_answer/first_widget.dart';
 
 import 'package:study_ready/presentation/pages/trainer_page/add_answer/widgets_add_answer/fourth_widget.dart';
 import 'package:study_ready/presentation/pages/trainer_page/add_answer/widgets_add_answer/inherit_for_question_and_answers.dart';
 import 'package:study_ready/presentation/pages/trainer_page/add_answer/widgets_add_answer/option_button.dart';
 import 'package:study_ready/presentation/pages/trainer_page/add_answer/widgets_add_answer/second_widget.dart';
+import 'package:study_ready/presentation/pages/trainer_page/add_answer/widgets_add_answer/sliver_app_bar_widget.dart';
 import 'package:study_ready/presentation/pages/trainer_page/add_answer/widgets_add_answer/third_widget.dart';
 import 'package:study_ready/utils/app_colors.dart';
 
