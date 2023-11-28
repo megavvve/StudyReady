@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/presentation/blocs/trainer_bloc/bloc/trainer_bloc.dart';
@@ -11,6 +12,7 @@ void main() async {
   runApp(const MyApp());
   FillTables ft = FillTables(); // launch basic data filling in tables
   ft.firstAppLaunch();
+  
 }
 
 class MyApp extends StatelessWidget {
@@ -18,6 +20,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return BlocProvider(
       create: (context) => TrainersBloc(),
       child: ScreenUtilInit(

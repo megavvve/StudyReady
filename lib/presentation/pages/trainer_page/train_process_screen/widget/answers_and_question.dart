@@ -22,7 +22,8 @@ class _AnswersAndQuestionState extends State<AnswersAndQuestion> {
 
     Trainer trainer = widget.trainer;
     final List<Question> questionList = trainer.questions;
-    final Question question = questionList[selectedQuestion - 1];
+    final Question question = questionList[(selectedQuestion>questionList.length)? 1
+            :selectedQuestion - 1];
     final List<String> answers = [
       question.rightAnswer,
       question.incorrectAnswers[0],
@@ -49,7 +50,10 @@ class _AnswersAndQuestionState extends State<AnswersAndQuestion> {
             width: 335.w,
             child: Center(
               child: Text(
-                questionList[selectedQuestion - 1].questionContext,
+                questionList[(selectedQuestion > questionList.length)
+                        ? 1
+                        : selectedQuestion - 1]
+                    .questionContext,
                 style: TextStyle(
                   fontSize: 18.sp, // Размер шрифта
                   fontWeight: FontWeight.w500, // Жирный шрифт для выделения

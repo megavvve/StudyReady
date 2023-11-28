@@ -1,10 +1,6 @@
-import 'dart:convert';
-
 import 'package:equatable/equatable.dart';
 import 'package:bloc/bloc.dart';
-import 'package:flutter/services.dart';
 import 'package:study_ready/data/local/db/app_db.dart' as db;
-import 'package:study_ready/domain/database/initialize/first_launch.dart';
 import 'package:study_ready/domain/models/question.dart';
 import 'package:study_ready/domain/models/trainer.dart';
 
@@ -12,17 +8,22 @@ part 'trainer_event.dart';
 part 'trainer_state.dart';
 
 class TrainersBloc extends Bloc<TrainerEvent, TrainersState> {
-  db.AppDB dataBase = db.AppDB();
-
+  
+db.AppDB dataBase = db.AppDB();
   TrainersBloc() : super(const TrainersState()) {
     on<AddQuestion>(_onAddQuestion);
     on<InitLoad>(_onInitLoad);
   }
 
   void _onAddQuestion(AddQuestion event, Emitter<TrainersState> emit) {
+    // db.AppDB dataBase = db.AppDB();
     // final state = this.state;
     // final question = event.question;
+    // final questForDb = db.QuestionsComplete(id:question.id, course: question.courseNumber, subject: question.subject, chapter: question.chapter, theme: question.theme, difficultly: question.difficultly, context: question.questionContext, rightAnswer: question.rightAnswer, incorrectAnswers: question.incorrectAnswers,);
+          
 
+    //     dataBase.insertQuestion(questForDb);
+    //   }
     // db.insertQuestion(question);
     // emit(TrainersState(trainerList: List.from(state.trainerList)..add(question)));
   }

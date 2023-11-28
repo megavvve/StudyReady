@@ -80,9 +80,8 @@ class FillTables {
     }
 
     var listOfTrainersDebug = await db.getTrainers();
-    print("***********************************");
     print(listOfTrainersDebug);
-    print("***********************************");
+  
     var questionsInTrainer1 = listOfTrainersDebug[0];
 
     var trainerComplete =
