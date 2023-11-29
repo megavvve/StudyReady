@@ -18,7 +18,6 @@ class TrainersBloc extends Bloc<TrainerEvent, TrainersState> {
   }
 
   void _onAddQuestion(AddQuestion event, Emitter<TrainersState> emit) async {
-    db.AppDB dataBase = db.AppDB();
     final state = this.state;
     final question = event.question;
     final questForDb = db.QuestionCompanion(
@@ -47,11 +46,12 @@ class TrainersBloc extends Bloc<TrainerEvent, TrainersState> {
       final trainers = [
         state.trainerList[0],
         Trainer(
-            id: 2,
-            name: "Свой тренажер",
-            color: '',
-            image: '',
-            questions: [question])
+          id: 2,
+          name: "Свой тренажер",
+          color: '',
+          image: '',
+          questions: [question],
+        )
       ];
 
       emit(
@@ -72,12 +72,36 @@ class TrainersBloc extends Bloc<TrainerEvent, TrainersState> {
             image: state.trainerList[1].image,
             questions: t)
       ];
+      final tr = [
+        state.trainerList[0].questions,
+        state.trainerList[1].questions
+      ];
+      final List<String> stringId = [];
+      for (var i in tr) {
+        for (var j in i) {
+          stringId.add("${j.id}");
+        }
+      }
+
+      dataBase.deleteTheme(2);
+      final dbb = db.TrainersCompanion(
+        name: const Value<String>("Свой тренажер"),
+        color: const Value<String?>(""),
+        image: const Value<String?>(""),
+        questions: Value<List<String>>(stringId),
+      );
+      //dataBase.insertTrainer(dbb);
+
       //dataBase.insertQuestion(question);
       emit(TrainersState(trainerList: trainers));
     }
   }
 
   Future<void> _onInitLoad(InitLoad event, Emitter<TrainersState> emit) async {
+    final allTrainersFromDB = await dataBase.getTrainers();
+    List<Trainer> allTrainers = [];
+    //print(allTrainersFromDB);
+    //for (var j = 1; j <= allTrainersFromDB.length; j++) {
     final trainerFromDb = await dataBase.getTrainerFullInfoById(1);
     List<Question> questionFromTrainer = [];
     for (var i = 1; i <= trainerFromDb.questions.length; i++) {
@@ -97,15 +121,17 @@ class TrainersBloc extends Bloc<TrainerEvent, TrainersState> {
         ),
       );
     }
-    List<Trainer> allTrainers = [
+    allTrainers.add(
       Trainer(
         id: trainerFromDb.id,
         name: trainerFromDb.name,
         color: trainerFromDb.color,
         image: trainerFromDb.image,
         questions: questionFromTrainer,
-      )
-    ];
+      ),
+    );
+    //}
+
     emit(
       TrainersState(
         trainerList: allTrainers,

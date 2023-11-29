@@ -291,4 +291,25 @@ Future<void> deleteAndRegenerateDatabase() async {
         image: trainerBase.image,
         questions: questionsFull);
   }
+  Future<int> deleteTrainer(int id) async {
+    // First, delete the trainer
+    final deletedTrainersCount =
+        await (delete(trainers)..where((tbl) => tbl.id.equals(id))).go();
+
+    // Check if the trainer was deleted successfully
+    if (deletedTrainersCount > 0) {
+      // If the trainer was deleted, also delete associated questions
+      await deleteQuestionsByTrainerId(id);
+
+      // Return the count of deleted trainers
+      return deletedTrainersCount;
+    } else {
+      // Return 0 if no trainers were deleted
+      return 0;
+    }
+  }
+  Future<void> deleteQuestionsByTrainerId(int trainerId) async {
+    await (delete(question)..where((tbl) => tbl.id.equals(trainerId)))
+        .go();
+  }
 }
