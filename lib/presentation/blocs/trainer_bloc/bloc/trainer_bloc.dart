@@ -3,6 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:study_ready/data/local/db/app_db.dart' as db;
 import 'package:study_ready/domain/models/question.dart';
 import 'package:study_ready/domain/models/trainer.dart';
+import 'package:study_ready/utils/navigation_bar/drawer_utils.dart';
 
 part 'trainer_event.dart';
 part 'trainer_state.dart';
@@ -13,46 +14,48 @@ class TrainersBloc extends Bloc<TrainerEvent, TrainersState> {
     on<AddQuestion>(_onAddQuestion);
     on<InitLoad>(_onInitLoad);
     on<GenerateAnswersListEvent>(_onGenerateAnswers);
-    on<ClearCurrentAnswersEvent >(_onCleanCurrentAnswers);
+    on<ClearCurrentAnswersEvent>(_onCleanCurrentAnswers);
   }
 
   void _onAddQuestion(AddQuestion event, Emitter<TrainersState> emit) {
-    // db.AppDB dataBase = db.AppDB();
-    // final state = this.state;
-    // final question = event.question;
-    // final questForDb = db.QuestionsComplete(id:question.id, course: question.courseNumber, subject: question.subject, chapter: question.chapter, theme: question.theme, difficultly: question.difficultly, context: question.questionContext, rightAnswer: question.rightAnswer, incorrectAnswers: question.incorrectAnswers,);
-
-    //     dataBase.insertQuestion(questForDb);
-    //   }
-    // db.insertQuestion(question);
-    // emit(TrainersState(trainerList: List.from(state.trainerList)..add(question)));
+    
   }
 
   Future<void> _onInitLoad(InitLoad event, Emitter<TrainersState> emit) async {
-    final trainerFromDb = await dataBase.getTrainerFullInfoById(1);
-    List<Question> questionFromTrainer = [];
-    for (var i = 1; i <= trainerFromDb.questions.length; i++) {
-      db.QuestionsComplete quest = await dataBase.getQuestionFullInfoById(i);
-      questionFromTrainer.add(Question(
-          quest.id,
-          quest.course,
-          quest.subject,
-          quest.chapter,
-          quest.theme,
-          quest.difficultly,
-          quest.context,
-          quest.rightAnswer,
-          quest.incorrectAnswers));
-    }
-    List<Trainer> allTrainers = [
-      Trainer(
+    final tarinersFromDB = await dataBase.getTrainers();
+    int c = 1;
+
+    List<Trainer> allTrainers = [];
+    for (var j = 1; j <= tarinersFromDB.length; j++) {
+      final trainerFromDb = await dataBase.getTrainerFullInfoById(j);
+      List<Question> questionFromTrainer = [];
+
+      for (var i = 1; i <= trainerFromDb.questions.length; i++) {
+        db.QuestionsComplete quest = await dataBase.getQuestionFullInfoById(c);
+        print("***************");
+        print(quest.id);
+        questionFromTrainer.add(Question(
+            quest.id,
+            quest.course,
+            quest.subject,
+            quest.chapter,
+            quest.theme,
+            quest.difficultly,
+            quest.context,
+            quest.rightAnswer,
+            quest.incorrectAnswers));
+        c++;
+      }
+      allTrainers.add(Trainer(
         id: trainerFromDb.id,
         name: trainerFromDb.name,
         color: trainerFromDb.color,
         image: trainerFromDb.image,
         questions: questionFromTrainer,
-      )
-    ];
+      ));
+      questionFromTrainer = [];
+    }
+
     emit(
       TrainersState(
         trainerList: allTrainers,
