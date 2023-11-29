@@ -4,7 +4,6 @@ import 'package:bloc/bloc.dart';
 import 'package:study_ready/data/local/db/app_db.dart' as db;
 import 'package:study_ready/domain/models/question.dart';
 import 'package:study_ready/domain/models/trainer.dart';
-import 'package:study_ready/utils/navigation_bar/drawer_utils.dart';
 
 part 'trainer_event.dart';
 part 'trainer_state.dart';
@@ -33,7 +32,7 @@ class TrainersBloc extends Bloc<TrainerEvent, TrainersState> {
     );
     //final trainersFromDB = await dataBase.getTrainers();
 
-    if (state.trainerList.length < 2) {
+    if (state.trainerList.length < 3) {
       final List<String> list = [];
       list.add("${question.id}");
       final initTrainerForDB = db.TrainersCompanion(
@@ -46,8 +45,9 @@ class TrainersBloc extends Bloc<TrainerEvent, TrainersState> {
 
       final trainers = [
         state.trainerList[0],
+        state.trainerList[1],
         Trainer(
-          id: 2,
+          id: 3,
           name: "Свой тренажер",
           color: '',
           image: '',
@@ -99,31 +99,28 @@ class TrainersBloc extends Bloc<TrainerEvent, TrainersState> {
   }
 
   Future<void> _onInitLoad(InitLoad event, Emitter<TrainersState> emit) async {
-    final allTrainersFromDB = await dataBase.getTrainers();
+    final tarinersFromDB = await dataBase.getTrainers();
+    int c = 1;
     List<Trainer> allTrainers = [];
-    //print(allTrainersFromDB);
-    //for (var j = 1; j <= allTrainersFromDB.length; j++) {
-    final trainerFromDb = await dataBase.getTrainerFullInfoById(1);
-    List<Question> questionFromTrainer = [];
-    for (var i = 1; i <= trainerFromDb.questions.length; i++) {
-      db.QuestionsComplete quest = await dataBase.getQuestionFullInfoById(i);
-
-      questionFromTrainer.add(
-        Question(
-          id: quest.id,
-          courseNumber: quest.course,
-          subject: quest.subject,
-          chapter: quest.chapter,
-          theme: quest.theme,
-          difficultly: quest.difficultly,
-          questionContext: quest.context,
-          rightAnswer: quest.rightAnswer,
-          incorrectAnswers: quest.incorrectAnswers,
-        ),
-      );
-    }
-    allTrainers.add(
-      Trainer(
+    for (var j = 1; j <= tarinersFromDB.length; j++) {
+      final trainerFromDb = await dataBase.getTrainerFullInfoById(j);
+      List<Question> questionFromTrainer = [];
+      for (var i = 1; i <= trainerFromDb.questions.length; i++) {
+        db.QuestionsComplete quest = await dataBase.getQuestionFullInfoById(c);
+    
+        questionFromTrainer.add(Question(
+            id:quest.id,
+            courseNumber:quest.course,
+            subject:quest.subject,
+            chapter:quest.chapter,
+            theme:quest.theme,
+            difficultly:quest.difficultly,
+            questionContext:quest.context,
+            rightAnswer:quest.rightAnswer,
+            incorrectAnswers:quest.incorrectAnswers, ));
+        c++;
+      }
+      allTrainers.add(Trainer(
         id: trainerFromDb.id,
         name: trainerFromDb.name,
         color: trainerFromDb.color,
@@ -132,12 +129,9 @@ class TrainersBloc extends Bloc<TrainerEvent, TrainersState> {
       ));
       questionFromTrainer = [];
     }
-
-    emit(
-      TrainersState(
-        trainerList: allTrainers,
-      ),
-    );
+    emit(TrainersState(
+      trainerList: allTrainers,
+    ));
   }
 
   void _onGenerateAnswers(

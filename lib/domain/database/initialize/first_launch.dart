@@ -118,13 +118,13 @@ class FillTables {
         ));
       }
 
-      print([
-        trainerComplete.id,
-        trainerComplete.name,
-        trainerComplete.color,
-        trainerComplete.image,
-        trainerCompleteQuestions
-      ]);
+      // print([
+      //   trainerComplete.id,
+      //   trainerComplete.name,
+      //   trainerComplete.color,
+      //   trainerComplete.image,
+      //   trainerCompleteQuestions
+      // ]);
     }
   }
 

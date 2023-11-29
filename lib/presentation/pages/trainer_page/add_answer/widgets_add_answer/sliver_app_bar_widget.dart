@@ -12,12 +12,16 @@ class SliverAppBarWidget extends StatelessWidget implements PreferredSizeWidget 
       pinned: true,
       backgroundColor: backgroundColor,
       leading: IconButton(
-        onPressed: () {},
-        icon: Icon(
-          Icons.menu,
-          size: 40.sp,
-        ),
-      ),
+            icon: Icon(
+              Icons.menu,
+              size: 40.sp,
+              weight: 10.w,
+            ),
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+            tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+          ),
       title: Container(
         width: 278.w,
         height: 46.h,
