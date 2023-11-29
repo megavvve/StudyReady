@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:study_ready/data/local/db/app_db.dart' as db;
 import 'package:study_ready/domain/models/question.dart';
 import 'package:study_ready/domain/models/trainer.dart';
+import 'package:study_ready/utils/navigation_bar/drawer_utils.dart';
 
 part 'trainer_event.dart';
 part 'trainer_state.dart';
@@ -128,9 +129,9 @@ class TrainersBloc extends Bloc<TrainerEvent, TrainersState> {
         color: trainerFromDb.color,
         image: trainerFromDb.image,
         questions: questionFromTrainer,
-      ),
-    );
-    //}
+      ));
+      questionFromTrainer = [];
+    }
 
     emit(
       TrainersState(
