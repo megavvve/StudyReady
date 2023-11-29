@@ -32,10 +32,7 @@ class _TrainProcessScreenState extends State<TrainProcessScreen> {
       _selectedQuestion = question;
     });
   }
-  
-    
 
-  
   @override
   Widget build(BuildContext context) {
     Trainer trainer = widget.trainer;
@@ -45,14 +42,14 @@ class _TrainProcessScreenState extends State<TrainProcessScreen> {
       backgroundColor: backgroundColor,
       body: WillPopScope(
         onWillPop: () async {
-          bool result = await showDialog(
+          final result = await showDialog(
             context: context,
             builder: (BuildContext context) {
               return const ConfirmationDialog();
             },
           );
 
-          if (result) {
+          if (result != null && result) {
             Navigator.pop(context);
             Navigator.pop(context);
             return true;
@@ -66,8 +63,6 @@ class _TrainProcessScreenState extends State<TrainProcessScreen> {
           selectedQuestion: _selectedQuestion,
           updateselectedQuestion: _updateSelectedQuestion,
           howmuchQuestion: numberOfQuestions,
-
-      
           child: CustomScrollView(
             slivers: [
               SliverAppBar(
@@ -87,7 +82,7 @@ class _TrainProcessScreenState extends State<TrainProcessScreen> {
                       },
                     );
 
-                    if (result!= null) {
+                    if (result != null && result) {
                       Navigator.pop(context);
                       Navigator.pop(context);
                     }
