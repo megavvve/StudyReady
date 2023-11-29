@@ -29,7 +29,7 @@ class ThirdWidget extends StatelessWidget {
           Expanded(
             child: TextField(
               textInputAction: TextInputAction.done,
-              controller: controllers?.answerController3,
+              controller: controllers.answerController3,
               minLines: 1,
               maxLines: null,
               textCapitalization: TextCapitalization.sentences,

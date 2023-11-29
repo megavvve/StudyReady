@@ -17,16 +17,15 @@ class Question {
 
   final List<String> incorrectAnswers;
 
-  Question(
-    this.id,
-    this.courseNumber,
-    this.subject,
-    this.chapter,
-    this.theme,
-    this.difficultly,
-    this.questionContext,
-    this.rightAnswer,
-    this.incorrectAnswers,
-  );
-   
+  Question({
+    required this.id,
+    required this.courseNumber,
+    required this.subject,
+    required this.chapter,
+    required this.theme,
+    required this.difficultly,
+    required this.questionContext,
+    required this.rightAnswer,
+    required this.incorrectAnswers,
+  });
 }

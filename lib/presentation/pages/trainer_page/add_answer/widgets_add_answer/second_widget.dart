@@ -32,7 +32,7 @@ class SecondWidget extends StatelessWidget {
           Expanded(
             child: TextField(
               textInputAction: TextInputAction.done,
-              controller: controllers?.answerController2,
+              controller: controllers.answerController2,
               minLines: 1,
               maxLines: null,
               textCapitalization: TextCapitalization.sentences,

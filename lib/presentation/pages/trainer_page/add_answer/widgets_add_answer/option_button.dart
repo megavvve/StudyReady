@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:study_ready/presentation/navigation/custom_page_router.dart';
-import 'package:study_ready/presentation/pages/trainer_page/add_answer/answer_parametrs_sreen.dart';
+import 'package:study_ready/presentation/pages/trainer_page/add_answer/widgets_add_answer/show_under_development.dart';
 
 class OptionsButton extends StatelessWidget {
   const OptionsButton({super.key});
@@ -10,18 +9,22 @@ class OptionsButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       style: ButtonStyle(
-          shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+          shape: MaterialStatePropertyAll(
+            RoundedRectangleBorder(
               side: const BorderSide(color: Colors.white),
-              borderRadius: BorderRadius.circular(16))),
+              borderRadius: BorderRadius.circular(16.sp),
+            ),
+          ),
           fixedSize: MaterialStatePropertyAll(Size(304.w, 57.h)),
           backgroundColor: const MaterialStatePropertyAll(Colors.white)),
       onPressed: () {
-        Navigator.push(
-          context,
-          customPageRoute(
-            const AnsParsScreen(),
-          ),
-        );
+        // Navigator.push(
+        //   context,
+        //   customPageRoute(
+        //     const AnsParsScreen(),
+        //   ),
+        // );
+        showUnderDevelopmentDialog(context);
       },
       clipBehavior: Clip.none,
       child: Row(

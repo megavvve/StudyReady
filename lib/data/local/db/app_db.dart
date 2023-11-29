@@ -280,7 +280,7 @@ Future<void> deleteAndRegenerateDatabase() async {
     var questions = trainerBase.questions;
     List<QuestionsComplete> questionsFull = [];
     for (int i = 0; i < questions.length; i++) {
-      print(questions);
+    
       var q = await getQuestionFullInfoById(int.parse(questions[i]));
       questionsFull.add(q);
     }

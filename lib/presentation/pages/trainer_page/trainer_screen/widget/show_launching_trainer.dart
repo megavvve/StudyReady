@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/domain/models/trainer.dart';
 import 'package:study_ready/presentation/navigation/custom_page_router.dart';
 import 'package:study_ready/presentation/pages/trainer_page/train_process_screen/train_process_screen.dart';
+import 'package:study_ready/utils/app_strings.dart';
 
 void showLaunchingTrainer(BuildContext context, Trainer trainer) {
   showModalBottomSheet<void>(
@@ -27,7 +28,7 @@ void showLaunchingTrainer(BuildContext context, Trainer trainer) {
               height: 54.h,
             ),
             Text(
-              "Непрерывная математика",
+              (trainer.id == 1) ? "Непрерывная математика" : "",
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 22.sp,
@@ -68,7 +69,7 @@ void showLaunchingTrainer(BuildContext context, Trainer trainer) {
             ),
             Text(
               textAlign: TextAlign.start,
-              "Добро пожаловать в тренажер по предмету \"Непрерывная Математика\", разработанный для тех, кто стремится углубить свои знания в области математики и увереннее использовать их в решении задач. Этот тренажер фокусируется на базовых определениях, формируя крепкое понимание ключевых концепций, лежащих в основе непрерывной математики.",
+              (trainer.id==1)?descriptionForNepra: descriptionForMyTrainer,
               style: TextStyle(
                 fontSize: 18.sp,
                 color: Colors.white,

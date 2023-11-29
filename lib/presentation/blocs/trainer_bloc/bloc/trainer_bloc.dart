@@ -1,3 +1,4 @@
+import 'package:drift/drift.dart';
 import 'package:equatable/equatable.dart';
 import 'package:bloc/bloc.dart';
 import 'package:study_ready/data/local/db/app_db.dart' as db;
@@ -13,19 +14,67 @@ class TrainersBloc extends Bloc<TrainerEvent, TrainersState> {
     on<AddQuestion>(_onAddQuestion);
     on<InitLoad>(_onInitLoad);
     on<GenerateAnswersListEvent>(_onGenerateAnswers);
-    on<ClearCurrentAnswersEvent >(_onCleanCurrentAnswers);
+    on<ClearCurrentAnswersEvent>(_onCleanCurrentAnswers);
   }
 
-  void _onAddQuestion(AddQuestion event, Emitter<TrainersState> emit) {
-    // db.AppDB dataBase = db.AppDB();
-    // final state = this.state;
-    // final question = event.question;
-    // final questForDb = db.QuestionsComplete(id:question.id, course: question.courseNumber, subject: question.subject, chapter: question.chapter, theme: question.theme, difficultly: question.difficultly, context: question.questionContext, rightAnswer: question.rightAnswer, incorrectAnswers: question.incorrectAnswers,);
+  void _onAddQuestion(AddQuestion event, Emitter<TrainersState> emit) async {
+    db.AppDB dataBase = db.AppDB();
+    final state = this.state;
+    final question = event.question;
+    final questForDb = db.QuestionCompanion(
+      courseNumber: Value<int>(question.courseNumber),
+      subjectId: Value<int>(question.subject.length + 1),
+      chapterId: const Value<int>(1),
+      themeId: const Value<int>(1),
+      difficultly: Value<String>(question.difficultly),
+      questionContext: Value<String>(question.questionContext),
+      rightAnswer: Value<String>(question.rightAnswer),
+      incorrectAnswers: Value<List<String>>(question.incorrectAnswers),
+    );
+    //final trainersFromDB = await dataBase.getTrainers();
 
-    //     dataBase.insertQuestion(questForDb);
-    //   }
-    // db.insertQuestion(question);
-    // emit(TrainersState(trainerList: List.from(state.trainerList)..add(question)));
+    if (state.trainerList.length < 2) {
+      final List<String> list = [];
+      list.add("${question.id}");
+      final initTrainerForDB = db.TrainersCompanion(
+        name: const Value<String>("Свой тренажер"),
+        color: const Value<String?>(""),
+        image: const Value<String?>(""),
+        questions: Value<List<String>>(list),
+      );
+      //dataBase.insertTrainer(initTrainerForDB);
+
+      final trainers = [
+        state.trainerList[0],
+        Trainer(
+            id: 2,
+            name: "Свой тренажер",
+            color: '',
+            image: '',
+            questions: [question])
+      ];
+
+      emit(
+        TrainersState(
+          trainerList: trainers,
+        ),
+      );
+    } else {
+      //dataBase.insertQuestion(questForDb);
+      final t = state.trainerList[1].questions;
+      t.add(question);
+      final trainers = [
+        state.trainerList[0],
+        Trainer(
+            id: state.trainerList[1].id,
+            name: state.trainerList[1].name,
+            color: state.trainerList[1].color,
+            image: state.trainerList[1].image,
+            questions: t)
+      ];
+      //dataBase.insertQuestion(question);
+      emit(TrainersState(trainerList: trainers));
+    }
   }
 
   Future<void> _onInitLoad(InitLoad event, Emitter<TrainersState> emit) async {
@@ -33,16 +82,20 @@ class TrainersBloc extends Bloc<TrainerEvent, TrainersState> {
     List<Question> questionFromTrainer = [];
     for (var i = 1; i <= trainerFromDb.questions.length; i++) {
       db.QuestionsComplete quest = await dataBase.getQuestionFullInfoById(i);
-      questionFromTrainer.add(Question(
-          quest.id,
-          quest.course,
-          quest.subject,
-          quest.chapter,
-          quest.theme,
-          quest.difficultly,
-          quest.context,
-          quest.rightAnswer,
-          quest.incorrectAnswers));
+
+      questionFromTrainer.add(
+        Question(
+          id: quest.id,
+          courseNumber: quest.course,
+          subject: quest.subject,
+          chapter: quest.chapter,
+          theme: quest.theme,
+          difficultly: quest.difficultly,
+          questionContext: quest.context,
+          rightAnswer: quest.rightAnswer,
+          incorrectAnswers: quest.incorrectAnswers,
+        ),
+      );
     }
     List<Trainer> allTrainers = [
       Trainer(

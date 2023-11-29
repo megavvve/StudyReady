@@ -22,12 +22,7 @@ class TrainerScreen extends StatefulWidget {
 }
 
 class _TrainerScreenState extends State<TrainerScreen> {
-  @override
-  void initState() {
-    final blocProduct = context.read<TrainersBloc>();
-    blocProduct.add(const InitLoad());
-    super.initState();
-  }
+  
 
   @override
   Widget build(BuildContext context) {

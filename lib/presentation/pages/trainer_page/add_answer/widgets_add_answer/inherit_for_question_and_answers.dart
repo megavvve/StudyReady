@@ -9,8 +9,8 @@ class QuestionControllers extends InheritedWidget {
 
   QuestionControllers({super.key, required Widget child}) : super(child: child);
 
-  static QuestionControllers? of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<QuestionControllers>();
+  static QuestionControllers of(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<QuestionControllers>()!;
   }
 
   @override

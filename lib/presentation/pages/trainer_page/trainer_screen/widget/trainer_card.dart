@@ -66,7 +66,7 @@ class TrainerCard extends StatelessWidget {
                     height: 2.h,
                   ),
                   Text(
-                    'Непрерывная математика',
+                    trainer.name,
                     style: TextStyle(
                       fontSize: 18.sp,
                       color: Colors.white,
@@ -76,7 +76,7 @@ class TrainerCard extends StatelessWidget {
                     height: 8.h,
                   ),
                   Text(
-                    trainer.name,
+                  (trainer.id==1)?'Непрерывная математика':"",
                     style: TextStyle(
                       fontSize: 12.sp,
                       color: Colors.white,

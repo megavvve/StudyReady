@@ -37,7 +37,7 @@ class FourthWidget extends StatelessWidget {
           Expanded(
             child: TextField(
               textInputAction: TextInputAction.done,
-              controller: controllers?.answerController4,
+              controller: controllers.answerController4,
               minLines: 1,
               maxLines: null,
               textCapitalization: TextCapitalization.sentences,

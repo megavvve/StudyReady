@@ -11,8 +11,8 @@ class FillTables {
     // functions for filling tables with default data
 
     // (!) for full database clean re-install app
-    //AppDB().clearDatabase;
-   // AppDB().deleteAndRegenerateDatabase();
+    
+     //AppDB().deleteAndRegenerateDatabase();
     fillSubjects();
     fillChapters();
     fillThemes();
@@ -70,7 +70,7 @@ class FillTables {
       for (int i = 0; i < questions.length; i++) {
         questionsIds.add((questions[i]['id']).toString());
       }
-      questionsIds = (questionsIds).map((e) => e as String).toList();
+      questionsIds = (questionsIds).map((e) => e).toList();
       var trainerDB = TrainersCompanion(
           name: drift.Value(trainer[0]['name']),
           color: drift.Value(trainer[0]['color']),
@@ -105,13 +105,13 @@ class FillTables {
       ));
     }
 
-    print([
-      trainerComplete.id,
-      trainerComplete.name,
-      trainerComplete.color,
-      trainerComplete.image,
-      trainerCompleteQuestions
-    ]);
+    // print([
+    //   trainerComplete.id,
+    //   trainerComplete.name,
+    //   trainerComplete.color,
+    //   trainerComplete.image,
+    //   trainerCompleteQuestions
+    // ]);
   }
 
   // creating test subjects
@@ -128,8 +128,8 @@ class FillTables {
       }
     }
 
-    var listOfSubjectsDebug = await db.getSubjects();
-    print(listOfSubjectsDebug);
+    //var listOfSubjectsDebug = await db.getSubjects();
+    //print(listOfSubjectsDebug);
   }
 
   // creating test chapters
@@ -149,8 +149,8 @@ class FillTables {
       }
     }
 
-    var listOfChaptersDebug = await db.getChapters();
-    print(listOfChaptersDebug);
+   // var listOfChaptersDebug = await db.getChapters();
+    //print(listOfChaptersDebug);
   }
 
   // creating test themes
@@ -164,15 +164,18 @@ class FillTables {
 
       for (int i = 0; i < subjectIds.length; i++) {
         var theme = ThemesCompanion(
-            subjectId: drift.Value(subjectIds[i]),
-            chapterId: drift.Value(chapterNames[i]),
-            name: drift.Value(names[i]));
+          subjectId: drift.Value(subjectIds[i]),
+          chapterId: drift.Value(chapterNames[i]),
+          name: drift.Value(
+            names[i],
+          ),
+        );
 
         db.insertTheme(theme);
       }
     }
 
-    var listOfThemesDebug = await db.getThemes();
-    print(listOfThemesDebug);
+    //var listOfThemesDebug = await db.getThemes();
+    //print(listOfThemesDebug);
   }
 }

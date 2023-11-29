@@ -21,6 +21,7 @@ class FirstWidget extends StatelessWidget {
             decoration: BoxDecoration(
                 color: Colors.white, borderRadius: BorderRadius.circular(16.sp)),
             child: TextField(
+              controller: controllers.questionController,
               decoration: InputDecoration(
                   border:
                       const UnderlineInputBorder(borderSide: BorderSide.none),
@@ -57,7 +58,7 @@ class FirstWidget extends StatelessWidget {
                 Expanded(
                   child: TextField(
                     textInputAction: TextInputAction.done,
-                    controller: controllers?.answerController1,
+                    controller: controllers.answerController1,
                     minLines: 2,
                     maxLines: null,
                     textCapitalization: TextCapitalization.sentences,
