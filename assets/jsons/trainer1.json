@@ -3,7 +3,7 @@
     {
       "id": 1,
       "name": "Основные обозначения",
-      "color": "color",
+      "color": "0xFF7C97FF",
       "image": "image",
       "questions": [
         {

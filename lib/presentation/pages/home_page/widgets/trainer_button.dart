@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:study_ready/domain/models/trainer.dart';
-import 'package:study_ready/presentation/blocs/trainer_bloc/bloc/trainer_bloc.dart';
 import 'package:study_ready/presentation/navigation/custom_page_router.dart';
 import 'package:study_ready/presentation/pages/trainer_page/trainer_screen/trainer_screen.dart';
 import 'package:study_ready/utils/app_svg_assets.dart';
@@ -22,8 +19,7 @@ class TrainerButtonWidget extends StatelessWidget {
                  const TrainerScreen(
                 ),
               ),
-            );
-           
+            );           
           },
           splashColor: Colors.transparent,
           highlightColor: const Color.fromRGBO(0, 0, 0, 0),

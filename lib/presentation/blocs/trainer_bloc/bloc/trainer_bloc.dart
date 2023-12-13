@@ -17,14 +17,14 @@ class TrainersBloc extends Bloc<TrainerEvent, TrainersState> {
     on<ReloadingListOfTrainersEvent>(_onReloadingListOfSimulators);
   }
   void _onReloadingListOfSimulators(
-      ReloadingListOfTrainersEvent event, Emitter<TrainersState> emit){
-        final state = this.state;
-         emit(
+      ReloadingListOfTrainersEvent event, Emitter<TrainersState> emit) {
+    final state = this.state;
+    emit(
       TrainersState(
         trainerList: state.trainerList,
       ),
     );
-      }
+  }
 
   void _onAddQuestion(AddQuestion event, Emitter<TrainersState> emit) async {
     final state = this.state;
@@ -43,7 +43,7 @@ class TrainersBloc extends Bloc<TrainerEvent, TrainersState> {
 
     List<Trainer> allTrainers = state.trainerList;
     for (Trainer element in allTrainers) {
-      if (element.name == "Абсолютная величина") {
+      if (element.name == "Свой тренажер") {
         final curQuestion = element;
         element.questions.add(question);
         final s = element.questions;
@@ -63,6 +63,7 @@ class TrainersBloc extends Bloc<TrainerEvent, TrainersState> {
             trainerList: allTrainers,
           ),
         );
+        return;
         // List<String> stringId = [];
         // for (var i in element.questions) {
         //   stringId.add("${i.id}");
@@ -77,6 +78,12 @@ class TrainersBloc extends Bloc<TrainerEvent, TrainersState> {
         //dataBase.insertQuestion();
       }
     }
+    allTrainers.add(Trainer(
+        id: allTrainers.last.id + 1,
+        name: "Свой тренажер",
+        color: "0xFFE3945F",
+        image: "",
+        questions: [question]));
 
     // if (state.trainerList.length < 3) {
     //   final List<String> list = [];
@@ -188,6 +195,7 @@ class TrainersBloc extends Bloc<TrainerEvent, TrainersState> {
         ));
         c++;
       }
+     
       allTrainers.add(Trainer(
         id: trainerFromDb.id,
         name: trainerFromDb.name,

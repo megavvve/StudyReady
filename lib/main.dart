@@ -12,9 +12,7 @@ void main() async {
   runApp(const MyApp());
   FillTables ft = FillTables(); // launch basic data filling in tables
   ft.firstAppLaunch();
-  
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -26,7 +24,10 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitDown,
     ]);
     return BlocProvider(
-      create: (context) => TrainersBloc()..add(const InitLoad()),
+      create: (context) => TrainersBloc()
+        ..add(
+          const InitLoad(),
+        ),
       child: ScreenUtilInit(
         designSize: const Size(375, 812),
         minTextAdapt: true,
@@ -39,7 +40,6 @@ class MyApp extends StatelessWidget {
         ),
         child: const HomeScreen(),
       ),
-    
     );
   }
 }
