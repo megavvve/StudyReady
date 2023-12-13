@@ -97,25 +97,26 @@ class FillTables {
     //print(listOfTrainersDebug);
 
     var questionsInTrainers = listOfTrainersDebug;
+    if (questionsInTrainers.isNotEmpty) {
+      for (int i = 0; i < questionsInTrainers.length; i++) {
+        var trainerComplete =
+            await db.getTrainerFullInfoById(questionsInTrainers[i].id);
 
-    for (int i = 0; i < questionsInTrainers.length; i++) {
-      var trainerComplete =
-          await db.getTrainerFullInfoById(questionsInTrainers[i].id);
+        var trainerCompleteQuestions = [];
 
-      var trainerCompleteQuestions = [];
-
-      for (int j = 0; j < trainerComplete.questions.length; j++) {
-        trainerCompleteQuestions.add((
-          trainerComplete.questions[j].id,
-          trainerComplete.questions[j].course,
-          trainerComplete.questions[j].subject,
-          trainerComplete.questions[j].chapter,
-          trainerComplete.questions[j].theme,
-          trainerComplete.questions[j].difficultly,
-          trainerComplete.questions[j].context,
-          trainerComplete.questions[j].rightAnswer,
-          trainerComplete.questions[j].incorrectAnswers
-        ));
+        for (int j = 0; j < trainerComplete.questions.length; j++) {
+          trainerCompleteQuestions.add((
+            trainerComplete.questions[j].id,
+            trainerComplete.questions[j].course,
+            trainerComplete.questions[j].subject,
+            trainerComplete.questions[j].chapter,
+            trainerComplete.questions[j].theme,
+            trainerComplete.questions[j].difficultly,
+            trainerComplete.questions[j].context,
+            trainerComplete.questions[j].rightAnswer,
+            trainerComplete.questions[j].incorrectAnswers
+          ));
+        }
       }
 
       // print([

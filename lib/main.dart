@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitDown,
     ]);
     return BlocProvider(
-      create: (context) => TrainersBloc(),
+      create: (context) => TrainersBloc()..add(const InitLoad()),
       child: ScreenUtilInit(
         designSize: const Size(375, 812),
         minTextAdapt: true,

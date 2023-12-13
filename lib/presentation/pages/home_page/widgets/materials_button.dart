@@ -23,7 +23,7 @@ class MaterialsButton extends StatelessWidget {
   highlightColor: Colors.transparent,
   icon: Stack(
     children: [
-      CustomShapeWidget(),
+      const CustomShapeWidget(),
       Positioned(
         left: 39.w,
         bottom: 50.h,

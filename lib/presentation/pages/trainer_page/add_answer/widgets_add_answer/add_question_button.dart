@@ -64,6 +64,7 @@ class AddQuestionButton extends StatelessWidget {
                   question: question,
                 ),
               );
+            
               Navigator.of(context).pop();
             }
           },

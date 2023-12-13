@@ -22,13 +22,11 @@ class TrainerScreen extends StatefulWidget {
 }
 
 class _TrainerScreenState extends State<TrainerScreen> {
-  
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TrainersBloc, TrainersState>(
       builder: (context, state) {
-        final List<Trainer> trainerList = state.trainerList;
+        List<Trainer> trainerList = state.trainerList;
         return Scaffold(
           drawer: const NavigatorDrawer(),
           backgroundColor: backgroundColor,
@@ -56,12 +54,15 @@ class _TrainerScreenState extends State<TrainerScreen> {
                   height: 70.h,
                   child: FittedBox(
                     child: FloatingActionButton(
-                      onPressed: () {
-                        Navigator.of(context).push(
+                      onPressed: () async {
+                        await Navigator.of(context).push(
                           customPageRoute(
                             const AddAnswerScreen(),
                           ),
                         );
+                        setState(() {
+                          trainerList = state.trainerList;
+                        });
                       },
                       backgroundColor: Colors.white,
                       child: const Icon(

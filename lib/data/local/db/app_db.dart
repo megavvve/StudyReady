@@ -80,7 +80,7 @@ class AppDB extends _$AppDB {
 
   @override
   int get schemaVersion => 1;
-Future<void> deleteAndRegenerateDatabase() async {
+  Future<void> deleteAndRegenerateDatabase() async {
     // Close the existing database connection
     await close();
 
@@ -94,8 +94,6 @@ Future<void> deleteAndRegenerateDatabase() async {
     if (await file.exists()) {
       await file.delete();
     }
-
-   
   }
   // Methods for Subjects
 
@@ -210,17 +208,19 @@ Future<void> deleteAndRegenerateDatabase() async {
 
     query.where(question.id.equals(id));
 
-    return query.watchSingle().map((resultRow) {
+    //final result = await query.watch().take(1).first;
+
+    return query.watch().take(1).map((resultRow) {
       return QuestionsComplete(
-          id: resultRow.readTable(question).id,
-          course: resultRow.readTable(question).courseNumber,
-          subject: resultRow.readTable(subject).name,
-          chapter: resultRow.readTable(chapter).name,
-          theme: resultRow.readTable(theme).name,
-          difficultly: resultRow.readTable(question).difficultly,
-          context: resultRow.readTable(question).questionContext,
-          rightAnswer: resultRow.readTable(question).rightAnswer,
-          incorrectAnswers: resultRow.readTable(question).incorrectAnswers);
+          id: resultRow.single.readTable(question).id,
+          course: resultRow.single.readTable(question).courseNumber,
+          subject: resultRow.single.readTable(subject).name,
+          chapter: resultRow.single.readTable(chapter).name,
+          theme: resultRow.single.readTable(theme).name,
+          difficultly: resultRow.single.readTable(question).difficultly,
+          context: resultRow.single.readTable(question).questionContext,
+          rightAnswer: resultRow.single.readTable(question).rightAnswer,
+          incorrectAnswers: resultRow.single.readTable(question).incorrectAnswers);
     }).first;
   }
 
@@ -279,11 +279,14 @@ Future<void> deleteAndRegenerateDatabase() async {
     var trainerBase = await getTrainer(id);
     var questions = trainerBase.questions;
     List<QuestionsComplete> questionsFull = [];
-    for (int i = 0; i < questions.length; i++) {
-    
-      var q = await getQuestionFullInfoById(int.parse(questions[i]));
-      questionsFull.add(q);
+
+    if (questions.isNotEmpty) {
+      for (int i = 0; i < questions.length; i++) {
+        var q = await getQuestionFullInfoById(int.parse(questions[i]));
+        questionsFull.add(q);
+      }
     }
+
     return TrainersComplete(
         id: trainerBase.id,
         name: trainerBase.name,
@@ -291,6 +294,7 @@ Future<void> deleteAndRegenerateDatabase() async {
         image: trainerBase.image,
         questions: questionsFull);
   }
+
   Future<int> deleteTrainer(int id) async {
     // First, delete the trainer
     final deletedTrainersCount =
@@ -308,8 +312,8 @@ Future<void> deleteAndRegenerateDatabase() async {
       return 0;
     }
   }
+
   Future<void> deleteQuestionsByTrainerId(int trainerId) async {
-    await (delete(question)..where((tbl) => tbl.id.equals(trainerId)))
-        .go();
+    await (delete(question)..where((tbl) => tbl.id.equals(trainerId))).go();
   }
 }
