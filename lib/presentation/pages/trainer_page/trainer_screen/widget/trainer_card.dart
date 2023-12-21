@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/domain/models/trainer.dart';
 import 'package:study_ready/presentation/blocs/trainer_bloc/bloc/trainer_bloc.dart';
 import 'package:study_ready/presentation/pages/trainer_page/trainer_screen/widget/show_launching_trainer.dart';
-import 'package:study_ready/utils/app_colors.dart';
 import 'package:study_ready/utils/app_svg_assets.dart';
 
 class TrainerCard extends StatelessWidget {
@@ -17,7 +16,6 @@ class TrainerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   
         return Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(
