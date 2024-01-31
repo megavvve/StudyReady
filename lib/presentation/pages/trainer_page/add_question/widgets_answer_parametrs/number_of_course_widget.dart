@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:study_ready/presentation/pages/trainer_page/add_answer/widgets_answer_parametrs/inherit_for_question_param.dart';
+import 'package:study_ready/presentation/pages/trainer_page/add_question/widgets_answer_parametrs/inherit_for_question_param.dart';
 
 class CourseNumberWidget extends StatelessWidget {
    const CourseNumberWidget({super.key});

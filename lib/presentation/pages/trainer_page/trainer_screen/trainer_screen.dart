@@ -7,7 +7,7 @@ import 'package:study_ready/domain/models/trainer.dart';
 import 'package:study_ready/presentation/blocs/trainer_bloc/bloc/trainer_bloc.dart';
 import 'package:study_ready/presentation/navigation/custom_page_router.dart';
 import 'package:study_ready/presentation/navigation/navigation_bar.dart';
-import 'package:study_ready/presentation/pages/trainer_page/add_answer/add_answer_screen.dart';
+import 'package:study_ready/presentation/pages/trainer_page/add_question/add_question_screen.dart';
 import 'package:study_ready/presentation/pages/trainer_page/trainer_screen/widget/trainer_card.dart';
 import 'package:study_ready/utils/app_colors.dart';
 import 'widget/app_bar_widget.dart';
@@ -55,11 +55,24 @@ class _TrainerScreenState extends State<TrainerScreen> {
                   child: FittedBox(
                     child: FloatingActionButton(
                       onPressed: () async {
-                        await Navigator.of(context).push(
-                          customPageRoute(
-                            const AddAnswerScreen(),
-                          ),
-                        );
+                        bool trainerExists = trainerList
+                            .any((trainer) => trainer.name == "Свой тренажер");
+                        if (!trainerExists) {
+                          await Navigator.of(context).push(
+                            customPageRoute(
+                              const AddQustionScreen(),
+                            ),
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                'Пока что нельзя добавить больше одного тренажера. Данная функция находится в разработке',
+                              ),
+                            ),
+                          );
+                        }
+
                         setState(() {
                           trainerList = state.trainerList;
                         });

@@ -317,3 +317,10 @@ class AppDB extends _$AppDB {
     await (delete(question)..where((tbl) => tbl.id.equals(trainerId))).go();
   }
 }
+// Update trainer with new entity
+// Future<bool> updateTrainer(TrainersCompanion entity) async {
+//  // return await update(trainers).replace(entity);
+// }
+
+
+

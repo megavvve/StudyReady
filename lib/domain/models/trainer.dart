@@ -18,6 +18,7 @@ class Trainer {
     required this.image,
     required this.questions,
   });
+
   
 
    

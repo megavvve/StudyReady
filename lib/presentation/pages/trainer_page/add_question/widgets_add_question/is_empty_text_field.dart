@@ -1,4 +1,4 @@
-import 'package:study_ready/presentation/pages/trainer_page/add_answer/widgets_add_answer/inherit_for_question_and_answers.dart';
+import 'package:study_ready/presentation/pages/trainer_page/add_question/widgets_add_question/inherit_for_question_and_answers.dart';
 
 bool isEmptyTextField(QuestionControllers controllers) {
   return controllers.questionController.text.isEmpty ||

@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/domain/models/question.dart';
 import 'package:study_ready/presentation/blocs/trainer_bloc/bloc/trainer_bloc.dart';
-import 'package:study_ready/presentation/pages/trainer_page/add_answer/widgets_add_answer/inherit_for_question_and_answers.dart';
-import 'package:study_ready/presentation/pages/trainer_page/add_answer/widgets_add_answer/is_empty_text_field.dart';
-import 'package:study_ready/presentation/pages/trainer_page/add_answer/widgets_add_answer/show_validation_error_Snack_bar.dart';
+import 'package:study_ready/presentation/pages/trainer_page/add_question/widgets_add_question/inherit_for_question_and_answers.dart';
+import 'package:study_ready/presentation/pages/trainer_page/add_question/widgets_add_question/is_empty_text_field.dart';
+import 'package:study_ready/presentation/pages/trainer_page/add_question/widgets_add_question/show_validation_error_Snack_bar.dart';
 
 class AddQuestionButton extends StatelessWidget {
   const AddQuestionButton({super.key});
@@ -64,7 +64,7 @@ class AddQuestionButton extends StatelessWidget {
                   question: question,
                 ),
               );
-            
+              
               Navigator.of(context).pop();
             }
           },
