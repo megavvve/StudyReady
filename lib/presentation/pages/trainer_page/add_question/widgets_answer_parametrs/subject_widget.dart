@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:study_ready/presentation/pages/trainer_page/add_answer/widgets_answer_parametrs/inherit_for_question_param.dart';
+import 'package:study_ready/presentation/pages/trainer_page/add_question/widgets_answer_parametrs/inherit_for_question_param.dart';
 
-class ModuleWidget extends StatelessWidget {
-  const ModuleWidget({super.key});
+class SubjectWidget extends StatefulWidget {
+  const SubjectWidget({super.key});
 
   @override
+  State<SubjectWidget> createState() => _SubjectWidgetState();
+}
+
+class _SubjectWidgetState extends State<SubjectWidget> {
+  @override
   Widget build(BuildContext context) {
-    QuestionAndAnswersControllers? controllers = QuestionAndAnswersControllers.of(context);
+    QuestionAndAnswersControllers? controllers =
+        QuestionAndAnswersControllers.of(context);
     return Stack(
       clipBehavior: Clip.none,
       alignment: Alignment.center,
@@ -20,7 +26,7 @@ class ModuleWidget extends StatelessWidget {
           decoration: BoxDecoration(
               color: Colors.white, borderRadius: BorderRadius.circular(16.sp)),
           child: Text(
-            'Модуль',
+            'Предмет',
             style: TextStyle(fontSize: 20.sp),
           ),
         ),
@@ -32,25 +38,22 @@ class ModuleWidget extends StatelessWidget {
             width: 309.w,
             height: 100.h,
             decoration: BoxDecoration(
-              color: const Color.fromRGBO(198, 216, 245, 1),
-              borderRadius: BorderRadius.circular(16.sp),
-            ),
+                color: const Color.fromRGBO(198, 216, 245, 1),
+                borderRadius: BorderRadius.circular(16.sp)),
             child: Expanded(
               child: TextField(
                 textInputAction: TextInputAction.done,
-                controller: controllers?.moduleController,
+                controller: controllers?.subjectController,
                 keyboardType: TextInputType.text,
                 minLines: 1,
                 maxLines: null,
                 textCapitalization: TextCapitalization.sentences,
                 decoration: InputDecoration(
-                  
                     isDense: false,
-                    isCollapsed: true,
                     contentPadding: EdgeInsetsDirectional.only(start: 8.w),
                     border:
                         const UnderlineInputBorder(borderSide: BorderSide.none),
-                    hintText: 'Введите модуль...',
+                    hintText: 'Введите предмет...',
                     hintMaxLines: 2,
                     hintStyle: TextStyle(
                       fontSize: 20.sp,

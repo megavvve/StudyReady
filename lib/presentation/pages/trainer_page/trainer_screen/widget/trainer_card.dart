@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/domain/models/trainer.dart';
 import 'package:study_ready/presentation/blocs/trainer_bloc/bloc/trainer_bloc.dart';
 import 'package:study_ready/presentation/pages/trainer_page/trainer_screen/widget/show_launching_trainer.dart';
-import 'package:study_ready/utils/app_colors.dart';
 import 'package:study_ready/utils/app_svg_assets.dart';
 
 class TrainerCard extends StatelessWidget {
@@ -17,14 +16,12 @@ class TrainerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TrainersBloc, TrainersState>(
-      builder: (context, state) {
         return Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(
                 16.sp,
               ),
-              color: colorForCardTrainerBlue),
+              color:Color(int.parse(trainer.color!) )),
           padding: EdgeInsets.only(
             top: 20.h,
             left: 20.w,
@@ -76,7 +73,9 @@ class TrainerCard extends StatelessWidget {
                     height: 8.h,
                   ),
                   Text(
-                  (trainer.id==1|| trainer.id == 2)?'Непрерывная математика':"",
+                    (trainer.name=="Свой тренажер")
+                        ? ""
+                        : 'Непрерывная математика',
                     style: TextStyle(
                       fontSize: 12.sp,
                       color: Colors.white,
@@ -94,8 +93,12 @@ class TrainerCard extends StatelessWidget {
                         ),
                         onPressed: () {
                           showLaunchingTrainer(context, trainer);
-                           final bloc = context.read<TrainersBloc>();
-                          bloc.add(GenerateAnswersListEvent(trainer: trainer));
+                          final bloc = context.read<TrainersBloc>();
+                          bloc.add(
+                            GenerateAnswersListEvent(
+                              trainer: trainer,
+                            ),
+                          );
                         },
                         child: Text(
                           'Начнем',
@@ -112,11 +115,13 @@ class TrainerCard extends StatelessWidget {
                 ],
               ),
               Positioned(
-                  bottom: 10.0.h, right: 25.0.w, child: pictureForTrainer),
+                bottom: 10.0.h,
+                right: 25.0.w,
+                child: pictureForTrainer,
+              ),
             ],
           ),
         );
-      },
-    );
+   
   }
 }

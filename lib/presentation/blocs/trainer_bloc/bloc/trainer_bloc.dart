@@ -1,4 +1,4 @@
-import 'package:drift/drift.dart';
+import 'package:drift/drift.dart' as drift;
 import 'package:equatable/equatable.dart';
 import 'package:bloc/bloc.dart';
 import 'package:study_ready/data/local/db/app_db.dart' as db;
@@ -15,91 +15,110 @@ class TrainersBloc extends Bloc<TrainerEvent, TrainersState> {
     on<InitLoad>(_onInitLoad);
     on<GenerateAnswersListEvent>(_onGenerateAnswers);
     on<ClearCurrentAnswersEvent>(_onCleanCurrentAnswers);
+    on<ReloadingListOfTrainersEvent>(_onReloadingListOfSimulators);
+  }
+  void _onReloadingListOfSimulators(
+      ReloadingListOfTrainersEvent event, Emitter<TrainersState> emit) {
+    final state = this.state;
+    emit(
+      TrainersState(
+        trainerList: state.trainerList,
+      ),
+    );
   }
 
   void _onAddQuestion(AddQuestion event, Emitter<TrainersState> emit) async {
     final state = this.state;
     final question = event.question;
-    final questForDb = db.QuestionCompanion(
-      courseNumber: Value<int>(question.courseNumber),
-      subjectId: Value<int>(question.subject.length + 1),
-      chapterId: const Value<int>(1),
-      themeId: const Value<int>(1),
-      difficultly: Value<String>(question.difficultly),
-      questionContext: Value<String>(question.questionContext),
-      rightAnswer: Value<String>(question.rightAnswer),
-      incorrectAnswers: Value<List<String>>(question.incorrectAnswers),
-    );
-    //final trainersFromDB = await dataBase.getTrainers();
+    List<Trainer> allTrainers = state.trainerList;
 
-    if (state.trainerList.length < 3) {
-      final List<String> list = [];
-      list.add("${question.id}");
-      final initTrainerForDB = db.TrainersCompanion(
-        name: const Value<String>("Свой тренажер"),
-        color: const Value<String?>(""),
-        image: const Value<String?>(""),
-        questions: Value<List<String>>(list),
-      );
-      //dataBase.insertTrainer(initTrainerForDB);
+    bool trainerExists =
+        allTrainers.any((trainer) => trainer.name == "Свой тренажер");
 
-      final trainers = [
-        state.trainerList[0],
-        state.trainerList[1],
+    if (trainerExists) {
+      // Trainer trainer =
+      //     allTrainers.firstWhere((trainer) => trainer.name == "Свой тренажер");
+
+      // trainer.questions.add(question);
+      // allTrainers.removeLast();
+
+      // allTrainers.add(
+      //   Trainer(
+      //     id: trainer.id,
+      //     name: trainer.name,
+      //     color: trainer.color,
+      //     image: trainer.image,
+      //     questions: trainer.questions,
+      //   ),
+      // );
+
+      // final questForDb = db.QuestionCompanion(
+      //        subjectId: const drift.Value(1),
+      //   chapterId: const drift.Value(1),
+      //   themeId: const drift.Value(1),
+      //   courseNumber: drift.Value(question.courseNumber),
+      //   difficultly: drift.Value(question.difficultly),
+      //   questionContext: drift.Value(question.questionContext),
+      //   rightAnswer: drift.Value(question.rightAnswer),
+      //   incorrectAnswers: drift.Value(question.incorrectAnswers),
+      // );
+      // dataBase.deleteTrainer(trainer.id);
+      // List<String> questionsWithStrId = [];
+      // for (var i in trainer.questions) {
+      //   questionsWithStrId.add(i.id.toString());
+      // }
+
+      // final trainerForDb = db.TrainersCompanion(
+      //   name: drift.Value(trainer.name),
+      //   color: drift.Value(trainer.color),
+      //   image: drift.Value(trainer.image),
+      //   questions: drift.Value(questionsWithStrId),
+      // );
+      // dataBase.insertQuestion(questForDb);
+      // dataBase.insertTrainer(trainerForDb);
+      
+    } else {
+      allTrainers.add(
         Trainer(
-          id: 3,
+          id: allTrainers.last.id + 1,
           name: "Свой тренажер",
-          color: '',
-          image: '',
+          color: "0xFFE3945F",
+          image: "",
           questions: [question],
-        )
-      ];
-
-      emit(
-        TrainersState(
-          trainerList: trainers,
         ),
       );
-    } else {
-      //dataBase.insertQuestion(questForDb);
-      final t = state.trainerList[1].questions;
-      t.add(question);
-      final trainers = [
-        state.trainerList[0],
-        Trainer(
-            id: state.trainerList[1].id,
-            name: state.trainerList[1].name,
-            color: state.trainerList[1].color,
-            image: state.trainerList[1].image,
-            questions: t)
-      ];
-      final tr = [
-        state.trainerList[0].questions,
-        state.trainerList[1].questions
-      ];
-      final List<String> stringId = [];
-      for (var i in tr) {
-        for (var j in i) {
-          stringId.add("${j.id}");
-        }
-      }
 
-      dataBase.deleteTheme(2);
-      final dbb = db.TrainersCompanion(
-        name: const Value<String>("Свой тренажер"),
-        color: const Value<String?>(""),
-        image: const Value<String?>(""),
-        questions: Value<List<String>>(stringId),
+      final questForDb =  db.QuestionCompanion(
+         subjectId: const drift.Value(1),
+chapterId: const drift.Value(1),
+themeId:const drift.Value(1),
+        courseNumber: drift.Value(question.courseNumber),
+        difficultly: drift.Value(question.difficultly),
+        questionContext: drift.Value(question.questionContext),
+        rightAnswer: drift.Value(question.rightAnswer),
+        incorrectAnswers: drift.Value(question.incorrectAnswers),
       );
-      //dataBase.insertTrainer(dbb);
+      List<String> que = [question.id.toString()];
 
-      //dataBase.insertQuestion(question);
-      emit(TrainersState(trainerList: trainers));
+      final trainerForDb = db.TrainersCompanion(
+        name: const drift.Value("Свой тренажер"),
+        color: const drift.Value("0xFFE3945F"),
+        image: const drift.Value(""),
+        questions: drift.Value(que),
+      );
+      dataBase.insertQuestion(questForDb);
+      dataBase.insertTrainer(trainerForDb);
     }
+    emit(
+      TrainersState(
+        trainerList: allTrainers,
+      ),
+    );
   }
 
   Future<void> _onInitLoad(InitLoad event, Emitter<TrainersState> emit) async {
     final tarinersFromDB = await dataBase.getTrainers();
+
     int c = 1;
     List<Trainer> allTrainers = [];
     for (var j = 1; j <= tarinersFromDB.length; j++) {
@@ -107,19 +126,23 @@ class TrainersBloc extends Bloc<TrainerEvent, TrainersState> {
       List<Question> questionFromTrainer = [];
       for (var i = 1; i <= trainerFromDb.questions.length; i++) {
         db.QuestionsComplete quest = await dataBase.getQuestionFullInfoById(c);
-    
-        questionFromTrainer.add(Question(
-            id:quest.id,
-            courseNumber:quest.course,
-            subject:quest.subject,
-            chapter:quest.chapter,
-            theme:quest.theme,
-            difficultly:quest.difficultly,
-            questionContext:quest.context,
-            rightAnswer:quest.rightAnswer,
-            incorrectAnswers:quest.incorrectAnswers, ));
+
+        questionFromTrainer.add(
+          Question(
+            id: quest.id,
+            courseNumber: quest.course,
+            subject: quest.subject,
+            chapter: quest.chapter,
+            theme: quest.theme,
+            difficultly: quest.difficultly,
+            questionContext: quest.context,
+            rightAnswer: quest.rightAnswer,
+            incorrectAnswers: quest.incorrectAnswers,
+          ),
+        );
         c++;
       }
+
       allTrainers.add(Trainer(
         id: trainerFromDb.id,
         name: trainerFromDb.name,
@@ -129,9 +152,16 @@ class TrainersBloc extends Bloc<TrainerEvent, TrainersState> {
       ));
       questionFromTrainer = [];
     }
-    emit(TrainersState(
-      trainerList: allTrainers,
-    ));
+    if (allTrainers.isEmpty) {
+      allTrainers = [
+        Trainer(id: 3, name: "", color: "", image: "", questions: [])
+      ];
+    } else {}
+    emit(
+      TrainersState(
+        trainerList: allTrainers,
+      ),
+    );
   }
 
   void _onGenerateAnswers(

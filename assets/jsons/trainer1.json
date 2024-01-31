@@ -3,7 +3,7 @@
     {
       "id": 1,
       "name": "Основные обозначения",
-      "color": "color",
+      "color": "0xFF7C97FF",
       "image": "image",
       "questions": [
         {
@@ -168,7 +168,7 @@
           "incorrectAnswers": [
             "ℚ ⊂ ℤ ⊂ ℕ ⊂ ℝ",
             "ℤ ⊂ ℕ ⊂ ℝ ⊂ ℚ",
-            "ℕ ⊂ ℤ ⊂ ℚ ⊃ ℝ"
+            "ℝ ⊂ ℤ ⊂ ℕ ⊂ ℚ"
           ]
         }
       ]

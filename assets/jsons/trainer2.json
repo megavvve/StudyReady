@@ -3,7 +3,7 @@
     {
       "id": 2,
       "name": "Абсолютная величина",
-      "color": "color",
+      "color": "0xFF9966CC",
       "image": "image",
       "questions": [
         {

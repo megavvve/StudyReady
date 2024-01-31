@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:study_ready/presentation/pages/trainer_page/add_answer/widgets_answer_parametrs/inherit_for_question_param.dart';
+import 'package:study_ready/presentation/pages/trainer_page/add_question/widgets_answer_parametrs/inherit_for_question_param.dart';
 
-class SubjectWidget extends StatefulWidget {
-  const SubjectWidget({super.key});
+class ThemeWidget extends StatelessWidget {
+  const ThemeWidget({super.key});
 
-  @override
-  State<SubjectWidget> createState() => _SubjectWidgetState();
-}
-
-class _SubjectWidgetState extends State<SubjectWidget> {
   @override
   Widget build(BuildContext context) {
-    QuestionAndAnswersControllers? controllers =
+     QuestionAndAnswersControllers? controllers =
         QuestionAndAnswersControllers.of(context);
     return Stack(
       clipBehavior: Clip.none,
@@ -24,9 +19,13 @@ class _SubjectWidgetState extends State<SubjectWidget> {
           width: 321.w,
           height: 116.h,
           decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(16.sp)),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(
+              16.sp,
+            ),
+          ),
           child: Text(
-            'Предмет',
+            'Тема',
             style: TextStyle(fontSize: 20.sp),
           ),
         ),
@@ -38,12 +37,15 @@ class _SubjectWidgetState extends State<SubjectWidget> {
             width: 309.w,
             height: 100.h,
             decoration: BoxDecoration(
-                color: const Color.fromRGBO(198, 216, 245, 1),
-                borderRadius: BorderRadius.circular(16.sp)),
+              color: const Color.fromRGBO(198, 216, 245, 1),
+              borderRadius: BorderRadius.circular(
+                16.sp,
+              ),
+            ),
             child: Expanded(
               child: TextField(
                 textInputAction: TextInputAction.done,
-                controller: controllers?.subjectController,
+                controller: controllers?.themeController,
                 keyboardType: TextInputType.text,
                 minLines: 1,
                 maxLines: null,
@@ -53,7 +55,7 @@ class _SubjectWidgetState extends State<SubjectWidget> {
                     contentPadding: EdgeInsetsDirectional.only(start: 8.w),
                     border:
                         const UnderlineInputBorder(borderSide: BorderSide.none),
-                    hintText: 'Введите предмет...',
+                    hintText: 'Введите тему...',
                     hintMaxLines: 2,
                     hintStyle: TextStyle(
                       fontSize: 20.sp,
