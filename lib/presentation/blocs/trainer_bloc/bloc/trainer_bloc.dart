@@ -36,47 +36,47 @@ class TrainersBloc extends Bloc<TrainerEvent, TrainersState> {
         allTrainers.any((trainer) => trainer.name == "Свой тренажер");
 
     if (trainerExists) {
-      // Trainer trainer =
-      //     allTrainers.firstWhere((trainer) => trainer.name == "Свой тренажер");
+      Trainer trainer =
+          allTrainers.firstWhere((trainer) => trainer.name == "Свой тренажер");
 
-      // trainer.questions.add(question);
-      // allTrainers.removeLast();
+      trainer.questions.add(question);
+      allTrainers.removeLast();
 
-      // allTrainers.add(
-      //   Trainer(
-      //     id: trainer.id,
-      //     name: trainer.name,
-      //     color: trainer.color,
-      //     image: trainer.image,
-      //     questions: trainer.questions,
-      //   ),
-      // );
+      allTrainers.add(
+        Trainer(
+          id: trainer.id,
+          name: trainer.name,
+          color: trainer.color,
+          image: trainer.image,
+          questions: trainer.questions,
+        ),
+      );
 
-      // final questForDb = db.QuestionCompanion(
-      //        subjectId: const drift.Value(1),
-      //   chapterId: const drift.Value(1),
-      //   themeId: const drift.Value(1),
-      //   courseNumber: drift.Value(question.courseNumber),
-      //   difficultly: drift.Value(question.difficultly),
-      //   questionContext: drift.Value(question.questionContext),
-      //   rightAnswer: drift.Value(question.rightAnswer),
-      //   incorrectAnswers: drift.Value(question.incorrectAnswers),
-      // );
-      // dataBase.deleteTrainer(trainer.id);
-      // List<String> questionsWithStrId = [];
-      // for (var i in trainer.questions) {
-      //   questionsWithStrId.add(i.id.toString());
-      // }
+      final questForDb = db.QuestionCompanion(
+        subjectId: const drift.Value(1),
+        chapterId: const drift.Value(1),
+        themeId: const drift.Value(1),
+        courseNumber: drift.Value(question.courseNumber),
+        difficultly: drift.Value(question.difficultly),
+        questionContext: drift.Value(question.questionContext),
+        rightAnswer: drift.Value(question.rightAnswer),
+        incorrectAnswers: drift.Value(question.incorrectAnswers),
+      );
+      dataBase.insertQuestion(questForDb);
+      List<String> questionsWithStrId = [];
+      for (var i in trainer.questions) {
+        questionsWithStrId.add(i.id.toString());
+      }
+      //questionsWithStrId.add(question.id.toString());
 
-      // final trainerForDb = db.TrainersCompanion(
-      //   name: drift.Value(trainer.name),
-      //   color: drift.Value(trainer.color),
-      //   image: drift.Value(trainer.image),
-      //   questions: drift.Value(questionsWithStrId),
-      // );
-      // dataBase.insertQuestion(questForDb);
-      // dataBase.insertTrainer(trainerForDb);
-      
+      final trainerForDb = db.TrainersCompanion(
+        id: drift.Value(trainer.id),
+        name: drift.Value(trainer.name),
+        color: drift.Value(trainer.color),
+        image: drift.Value(trainer.image),
+        questions: drift.Value(questionsWithStrId),
+      );
+      dataBase.updateTrainer(trainerForDb);
     } else {
       allTrainers.add(
         Trainer(
@@ -88,10 +88,10 @@ class TrainersBloc extends Bloc<TrainerEvent, TrainersState> {
         ),
       );
 
-      final questForDb =  db.QuestionCompanion(
-         subjectId: const drift.Value(1),
-chapterId: const drift.Value(1),
-themeId:const drift.Value(1),
+      final questForDb = db.QuestionCompanion(
+        subjectId: const drift.Value(1),
+        chapterId: const drift.Value(1),
+        themeId: const drift.Value(1),
         courseNumber: drift.Value(question.courseNumber),
         difficultly: drift.Value(question.difficultly),
         questionContext: drift.Value(question.questionContext),

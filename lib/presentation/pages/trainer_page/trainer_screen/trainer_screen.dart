@@ -55,24 +55,11 @@ class _TrainerScreenState extends State<TrainerScreen> {
                   child: FittedBox(
                     child: FloatingActionButton(
                       onPressed: () async {
-                        bool trainerExists = trainerList
-                            .any((trainer) => trainer.name == "Свой тренажер");
-                        if (!trainerExists) {
-                          await Navigator.of(context).push(
-                            customPageRoute(
-                              const AddQustionScreen(),
-                            ),
-                          );
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text(
-                                'Пока что нельзя добавить больше одного тренажера. Данная функция находится в разработке',
-                              ),
-                            ),
-                          );
-                        }
-
+                        await Navigator.of(context).push(
+                          customPageRoute(
+                            const AddQustionScreen(),
+                          ),
+                        );
                         setState(() {
                           trainerList = state.trainerList;
                         });
