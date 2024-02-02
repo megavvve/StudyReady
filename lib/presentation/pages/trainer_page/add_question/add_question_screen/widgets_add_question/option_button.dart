@@ -9,14 +9,17 @@ class OptionsButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       style: ButtonStyle(
-          shape: MaterialStatePropertyAll(
-            RoundedRectangleBorder(
-              side: const BorderSide(color: Colors.white),
-              borderRadius: BorderRadius.circular(16.sp),
-            ),
+        shape: MaterialStatePropertyAll(
+          RoundedRectangleBorder(
+            side: const BorderSide(color: Colors.white),
+            borderRadius: BorderRadius.circular(16.sp),
           ),
-          fixedSize: MaterialStatePropertyAll(Size(304.w, 57.h)),
-          backgroundColor: const MaterialStatePropertyAll(Colors.white)),
+        ),
+        fixedSize: MaterialStatePropertyAll(
+          Size(304.w, 57.h),
+        ),
+        backgroundColor: const MaterialStatePropertyAll(Colors.white),
+      ),
       onPressed: () {
         // Navigator.push(
         //   context,
