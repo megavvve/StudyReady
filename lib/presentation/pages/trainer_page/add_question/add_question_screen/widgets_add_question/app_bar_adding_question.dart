@@ -1,27 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:study_ready/presentation/widgets/burger_navigation_leading.dart';
 import 'package:study_ready/utils/app_colors.dart';
 
-class SliverAppBarWidget extends StatelessWidget implements PreferredSizeWidget {
-  const SliverAppBarWidget({super.key});
+class AppBarAddingQuestion extends StatelessWidget implements PreferredSizeWidget {
+  const AppBarAddingQuestion({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
       surfaceTintColor: Colors.transparent,
-      pinned: true,
+       floating: false,
+        pinned: true, snap: false,
+        shadowColor: Colors.transparent,
       backgroundColor: backgroundColor,
-      leading: IconButton(
-            icon: Icon(
-              Icons.menu,
-              size: 40.sp,
-              weight: 10.w,
-            ),
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
-            },
-            tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-          ),
+      leading:BurgerNavigationLeading(context), 
       title: Container(
         width: 278.w,
         height: 46.h,

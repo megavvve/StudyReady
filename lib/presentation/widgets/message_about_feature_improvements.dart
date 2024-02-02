@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:study_ready/utils/app_strings.dart';
 
-void showUnderDevelopmentDialog(BuildContext context) {
-    showDialog(
+void messAboutFeatureImprovements(BuildContext context) {
+ showDialog(
     context: context,
     builder: (BuildContext context) {
       return Dialog(
@@ -23,7 +24,7 @@ void showUnderDevelopmentDialog(BuildContext context) {
               ),
               SizedBox(height: 12.0.h),
               Text(
-                'Эта функция находится в разработке.',
+                messageAboutDevelopThisThing,
                 style: TextStyle(fontSize: 16.0.sp),
                 textAlign: TextAlign.center,
               ),
@@ -40,5 +41,4 @@ void showUnderDevelopmentDialog(BuildContext context) {
       );
     },
   );
-
 }
