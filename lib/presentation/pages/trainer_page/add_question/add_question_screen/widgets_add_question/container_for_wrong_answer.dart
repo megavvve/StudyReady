@@ -18,7 +18,7 @@ class ContainerForWrongAnswer extends StatelessWidget {
       padding: EdgeInsets.all(8.sp),
       alignment: Alignment.centerLeft,
       width: 309.w,
-      height: 70.h,
+      //height: 70.h,
       decoration: BoxDecoration(
         color: const Color.fromRGBO(198, 216, 245, 1),
         borderRadius: BorderRadius.circular(
@@ -38,30 +38,35 @@ class ContainerForWrongAnswer extends StatelessWidget {
               ),
             ),
             child: Text(
-              (index+2).toString(),
+              (index + 2).toString(),
               style: TextStyle(
                 fontSize: 18.sp,
               ),
             ),
           ),
           Expanded(
-            child: TextField(
-              textInputAction: TextInputAction.done,
-              controller: listOfWrongAnswerControllers[index],
-              minLines: 1,
-              maxLines: null,
-              textCapitalization: TextCapitalization.sentences,
-              decoration: InputDecoration(
-                  contentPadding: EdgeInsetsDirectional.only(start: 8.w),
-                  isCollapsed: true,
-                  border:
-                      const UnderlineInputBorder(borderSide: BorderSide.none),
-                  hintText: 'Введите неправильный ответ...',
-                  hintMaxLines: 1,
-                  hintStyle: TextStyle(
-                    fontSize: 18.sp,
-                  )),
-              style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w400),
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 13.w),
+                child: TextField(
+                  textInputAction: TextInputAction.done,
+                  controller: listOfWrongAnswerControllers[index],
+                  maxLines: null,
+                  textCapitalization: TextCapitalization.sentences,
+                  decoration: InputDecoration(
+                      contentPadding: EdgeInsetsDirectional.only(start: 5.w),
+                      isCollapsed: true,
+                      border: const UnderlineInputBorder(
+                          borderSide: BorderSide.none),
+                      hintText: 'Введите неправильный ответ...',
+                      hintMaxLines: 2,
+                      hintStyle: TextStyle(
+                        fontSize: 18.sp,
+                      )),
+                  style:
+                      TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w400),
+                ),
+              ),
             ),
           )
         ],

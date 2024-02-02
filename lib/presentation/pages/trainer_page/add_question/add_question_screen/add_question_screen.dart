@@ -34,10 +34,14 @@ class AddQustionScreen extends StatelessWidget {
                   color: backgroundColor,
                   child: QuestionControllers(
                     child: Column(
+                      
                       children: [
+                        SizedBox(
+                          height: 10.h,
+                        ),
                         const QuestionAndRightAnswerWidget(),
                         SizedBox(
-                          height: 70.h,
+                          height: 40.h,
                         ),
                         Column(
                           children: List.generate(3, (index) => Column(
@@ -60,7 +64,7 @@ class AddQustionScreen extends StatelessWidget {
                         ),
                         const AddQuestionButton(),
                         SizedBox(
-                          height: 15.h,
+                          height: 20.h,
                         ),
                       ],
                     ),

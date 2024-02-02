@@ -8,81 +8,92 @@ class QuestionAndRightAnswerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     QuestionControllers? controllers = QuestionControllers.of(context);
-    return Stack(
-      clipBehavior: Clip.none,
-      alignment: Alignment.center,
+    return Column(
       children: [
         //белая карточка с названием вопроса
         Container(
-            padding: EdgeInsets.all(16.sp),
+            padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 13.w),
             alignment: Alignment.topLeft,
-            width: 321.w,
-            height: 116.h,
+            width: 320.w,
             decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(16.sp)),
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16.sp),
+            ),
             child: TextField(
+              textInputAction: TextInputAction.done,
               controller: controllers.questionController,
+              maxLines: null,
               decoration: InputDecoration(
+                  contentPadding: EdgeInsetsDirectional.only(start: 1.w),
+                  isCollapsed: true,
                   border:
                       const UnderlineInputBorder(borderSide: BorderSide.none),
-                  hintText: 'Название вопроса...',
+                  hintText: 'Введите формулировку вопроса...',
+                  hintMaxLines: 2,
+                  helperMaxLines: 1,
                   hintStyle: TextStyle(
-                    fontSize: 20.sp,
+                    fontSize: 18.sp,
                     fontWeight: FontWeight.w400,
                   )),
-              style: TextStyle(fontSize: 20.sp),
+              style: TextStyle(
+                fontSize: 18.sp,
+              ),
             )),
         //белая карточка с названием вопроса
-
+        SizedBox(
+          height: 10.h,
+        ),
         //зеленая карточка введите правильный ответ
-        Positioned(
-          top: 70.sp,
-          child: Container(
-            padding: EdgeInsets.all(8.sp),
-            alignment: Alignment.center,
-            width: 309.w,
-            height: 70.h,
-            decoration: BoxDecoration(
-              color: const Color.fromRGBO(204, 245, 203, 1),
-              borderRadius: BorderRadius.circular(
-                16.sp,
-              ),
+        Container(
+          padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 13.w),
+          alignment: Alignment.center,
+          width: 309.w,
+          decoration: BoxDecoration(
+            color: const Color.fromRGBO(204, 245, 203, 1),
+            borderRadius: BorderRadius.circular(
+              16.sp,
             ),
-            child: Row(
-              children: [
-                Container(
-                  alignment: Alignment.center,
-                  width: 30.w,
-                  height: 34.h,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(8.sp)),
-                  child: Text('1', style: TextStyle(fontSize: 18.sp)),
+          ),
+          child: Row(
+            children: [
+              Container(
+                alignment: Alignment.center,
+                width: 30.w,
+                height: 30.h,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(
+                    8.sp,
+                  ),
                 ),
-                Expanded(
+                child: Text('1', style: TextStyle(fontSize: 18.sp)),
+              ),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.all(6.sp),
                   child: TextField(
                     textInputAction: TextInputAction.done,
                     controller: controllers.answerController1,
-                    minLines: 2,
                     maxLines: null,
                     textCapitalization: TextCapitalization.sentences,
                     decoration: InputDecoration(
-                        contentPadding: EdgeInsetsDirectional.only(start: 8.w),
+                        contentPadding: EdgeInsetsDirectional.only(start: 5.w),
                         isCollapsed: true,
                         border: const UnderlineInputBorder(
                             borderSide: BorderSide.none),
                         hintText: 'Введите правильный ответ...',
-                        hintMaxLines: 1,
+                        hintMaxLines: 2,
                         hintStyle: TextStyle(
                           fontSize: 18.sp,
                           fontWeight: FontWeight.w400,
                         )),
-                    style: TextStyle(fontSize: 18.sp,),
+                    style: TextStyle(
+                      fontSize: 18.sp,
+                    ),
                   ),
-                )
-              ],
-            ),
+                ),
+              )
+            ],
           ),
         ),
         //зеленая карточка введите правильный ответ

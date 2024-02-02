@@ -6,6 +6,7 @@ import 'package:study_ready/presentation/blocs/trainer_bloc/bloc/trainer_bloc.da
 import 'package:study_ready/presentation/pages/trainer_page/add_question/add_question_screen/widgets_add_question/inherit_for_question_and_answers.dart';
 import 'package:study_ready/presentation/pages/trainer_page/add_question/add_question_screen/widgets_add_question/is_empty_text_field.dart';
 import 'package:study_ready/presentation/pages/trainer_page/add_question/add_question_screen/widgets_add_question/show_validation_error_Snack_bar.dart';
+import 'package:study_ready/utils/app_colors.dart';
 
 class AddQuestionButton extends StatelessWidget {
   const AddQuestionButton({super.key});
@@ -16,13 +17,13 @@ class AddQuestionButton extends StatelessWidget {
       builder: (context, state) {
         return ElevatedButton(
           style: ButtonStyle(
-            backgroundColor: const MaterialStatePropertyAll(
-              Color.fromRGBO(212, 228, 254, 1),
+            backgroundColor:  MaterialStatePropertyAll(
+              mainColor,
             ),
             fixedSize: MaterialStatePropertyAll(
               Size(
-                305.w,
-                50.h,
+                320.w,
+                60.h,
               ),
             ),
           ),

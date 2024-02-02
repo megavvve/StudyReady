@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/presentation/pages/home_page/home_screen.dart';
-import 'package:study_ready/utils/app_colors.dart';
 import 'package:study_ready/utils/navigation_bar/drawer_utils.dart';
 
 class NavigatorDrawer extends StatelessWidget {
@@ -11,7 +10,7 @@ class NavigatorDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       width: 222.w,
-      backgroundColor: backgroundColor,
+      backgroundColor: Colors.white,
       child: Container(
         padding: EdgeInsets.only(
           top: 50.sp,
