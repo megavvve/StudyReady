@@ -7,10 +7,10 @@ import 'package:study_ready/domain/models/trainer.dart';
 import 'package:study_ready/presentation/blocs/trainer_bloc/bloc/trainer_bloc.dart';
 import 'package:study_ready/presentation/navigation/custom_page_router.dart';
 import 'package:study_ready/presentation/navigation/navigation_bar.dart';
-import 'package:study_ready/presentation/pages/trainer_page/add_question/add_question_screen.dart';
+import 'package:study_ready/presentation/pages/trainer_page/add_question/add_question_screen/add_question_screen.dart';
 import 'package:study_ready/presentation/pages/trainer_page/trainer_screen/widget/trainer_card.dart';
 import 'package:study_ready/utils/app_colors.dart';
-import 'widget/app_bar_widget.dart';
+import 'widget/app_bar/app_bar_widget.dart';
 
 class TrainerScreen extends StatefulWidget {
   const TrainerScreen({
@@ -43,6 +43,12 @@ class _TrainerScreenState extends State<TrainerScreen> {
                         trainer: trainerList[index],
                       ),
                     ),
+                    SliverToBoxAdapter(
+                      child: SizedBox(
+                        height: 30.h,
+                      ),
+                    )
+                    
                   ],
                 ),
               ),

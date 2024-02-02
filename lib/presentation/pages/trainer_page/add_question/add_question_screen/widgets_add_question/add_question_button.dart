@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/domain/models/question.dart';
 import 'package:study_ready/presentation/blocs/trainer_bloc/bloc/trainer_bloc.dart';
-import 'package:study_ready/presentation/pages/trainer_page/add_question/widgets_add_question/inherit_for_question_and_answers.dart';
-import 'package:study_ready/presentation/pages/trainer_page/add_question/widgets_add_question/is_empty_text_field.dart';
-import 'package:study_ready/presentation/pages/trainer_page/add_question/widgets_add_question/show_validation_error_Snack_bar.dart';
+import 'package:study_ready/presentation/pages/trainer_page/add_question/add_question_screen/widgets_add_question/inherit_for_question_and_answers.dart';
+import 'package:study_ready/presentation/pages/trainer_page/add_question/add_question_screen/widgets_add_question/is_empty_text_field.dart';
+import 'package:study_ready/presentation/pages/trainer_page/add_question/add_question_screen/widgets_add_question/show_validation_error_Snack_bar.dart';
 
 class AddQuestionButton extends StatelessWidget {
   const AddQuestionButton({super.key});
@@ -17,12 +17,7 @@ class AddQuestionButton extends StatelessWidget {
         return ElevatedButton(
           style: ButtonStyle(
             backgroundColor: const MaterialStatePropertyAll(
-              Color.fromRGBO(
-                119,
-                165,
-                245,
-                1,
-              ),
+              Color.fromRGBO(212, 228, 254, 1),
             ),
             fixedSize: MaterialStatePropertyAll(
               Size(

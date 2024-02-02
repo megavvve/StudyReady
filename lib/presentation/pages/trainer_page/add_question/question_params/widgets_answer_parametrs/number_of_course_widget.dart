@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:study_ready/presentation/pages/trainer_page/add_question/widgets_answer_parametrs/inherit_for_question_param.dart';
+import 'package:study_ready/presentation/pages/trainer_page/add_question/question_params/widgets_answer_parametrs/inherit_for_question_param.dart';
 
-class SubjectWidget extends StatefulWidget {
-  const SubjectWidget({super.key});
+class CourseNumberWidget extends StatelessWidget {
+   const CourseNumberWidget({super.key});
 
-  @override
-  State<SubjectWidget> createState() => _SubjectWidgetState();
-}
 
-class _SubjectWidgetState extends State<SubjectWidget> {
+
   @override
   Widget build(BuildContext context) {
     QuestionAndAnswersControllers? controllers =
@@ -24,9 +21,9 @@ class _SubjectWidgetState extends State<SubjectWidget> {
           width: 321.w,
           height: 116.h,
           decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(16.sp)),
+              color: Colors.white, borderRadius: BorderRadius.circular(16.sp,),),
           child: Text(
-            'Предмет',
+            'Номер курса',
             style: TextStyle(fontSize: 20.sp),
           ),
         ),
@@ -43,22 +40,23 @@ class _SubjectWidgetState extends State<SubjectWidget> {
             child: Expanded(
               child: TextField(
                 textInputAction: TextInputAction.done,
-                controller: controllers?.subjectController,
-                keyboardType: TextInputType.text,
+                controller: controllers?.courseNumController,
+                keyboardType: TextInputType.number,
                 minLines: 1,
                 maxLines: null,
                 textCapitalization: TextCapitalization.sentences,
                 decoration: InputDecoration(
                     isDense: false,
+                    isCollapsed: true,
                     contentPadding: EdgeInsetsDirectional.only(start: 8.w),
                     border:
-                        const UnderlineInputBorder(borderSide: BorderSide.none),
-                    hintText: 'Введите предмет...',
+                        const UnderlineInputBorder(borderSide: BorderSide.none,),
+                    hintText: 'Введите номер курса...',
                     hintMaxLines: 2,
                     hintStyle: TextStyle(
                       fontSize: 20.sp,
                     )),
-                style: TextStyle(fontSize: 20.sp),
+                style: TextStyle(fontSize: 20.sp,),
               ),
             ),
           ),

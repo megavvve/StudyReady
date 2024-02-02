@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:study_ready/presentation/pages/trainer_page/add_question/widgets_add_question/show_under_development.dart';
+import 'package:study_ready/presentation/widgets/message_about_feature_improvements.dart';
 
 class OptionsButton extends StatelessWidget {
   const OptionsButton({super.key});
@@ -24,7 +24,7 @@ class OptionsButton extends StatelessWidget {
         //     const AnsParsScreen(),
         //   ),
         // );
-        showUnderDevelopmentDialog(context);
+        messAboutFeatureImprovements(context);
       },
       clipBehavior: Clip.none,
       child: Row(

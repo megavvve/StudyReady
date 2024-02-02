@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/presentation/navigation/navigation_bar.dart';
 import 'package:study_ready/presentation/pages/home_page/widgets/materials_button.dart';
 import 'package:study_ready/presentation/pages/home_page/widgets/trainer_button.dart';
+import 'package:study_ready/presentation/widgets/burger_navigation_leading.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
@@ -21,17 +22,7 @@ class HomeScreen extends StatelessWidget {
               padding: EdgeInsets.only(
                 left: 20.w,
               ),
-              child: IconButton(
-                icon: Icon(
-                  Icons.menu,
-                  size: 40.sp,
-                  weight: 10.w,
-                ),
-                onPressed: () {
-                  Scaffold.of(context).openDrawer();
-                },
-                tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-              ),
+              child: BurgerNavigationLeading(context),
             ),
           );
         }),
