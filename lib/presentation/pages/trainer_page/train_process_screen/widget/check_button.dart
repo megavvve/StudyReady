@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:study_ready/domain/models/trainer.dart';
-import 'package:study_ready/presentation/blocs/trainer_bloc/bloc/trainer_bloc.dart';
+import 'package:study_ready/domain/entities/trainer.dart';
+import 'package:study_ready/presentation/blocs/trainer_bloc/trainer_bloc.dart';
 import 'package:study_ready/presentation/navigation/custom_page_router.dart';
 import 'package:study_ready/presentation/pages/trainer_page/train_process_screen/widget/train_result_screen.dart';
 
@@ -22,10 +22,10 @@ class CheckButton extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _CheckButtonState createState() => _CheckButtonState();
+  CheckButtonState createState() => CheckButtonState();
 }
 
-class _CheckButtonState extends State<CheckButton> {
+class CheckButtonState extends State<CheckButton> {
   bool isChecked = false;
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,7 @@ class _CheckButtonState extends State<CheckButton> {
       });
     }
 
-    return BlocBuilder<TrainersBloc, TrainersState>(
+    return BlocBuilder<TrainerBloc, TrainerState>(
       builder: (context, state) {
         return GestureDetector(
           onTap: () {

@@ -7,13 +7,17 @@ class SortingFab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: secondColor,
+    return SizedBox(
       height: 40.h,
       child: TextButton(
         style: TextButton.styleFrom(
-          padding:
-              EdgeInsets.symmetric(horizontal: 10.w),
+          backgroundColor: secondColor,
+          padding: EdgeInsets.symmetric(horizontal: 10.w),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(
+              6.sp,
+            ), // Закругление углов
+          ),
         ),
         onPressed: () {
           showModalBottomSheet(

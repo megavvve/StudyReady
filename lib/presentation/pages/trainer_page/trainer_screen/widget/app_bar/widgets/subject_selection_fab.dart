@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:study_ready/presentation/blocs/trainer_bloc/bloc/trainer_bloc.dart';
+import 'package:study_ready/presentation/blocs/trainer_bloc/trainer_bloc.dart';
 import 'package:study_ready/utils/app_colors.dart';
 
 class SubjectSelectionFab extends StatelessWidget {
@@ -9,16 +9,21 @@ class SubjectSelectionFab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TrainersBloc, TrainersState>(
+    return BlocBuilder<TrainerBloc, TrainerState>(
       builder: (context, state) {
         // final trainerList = state.trainerList;
 
-        return Container(
-          color: secondColor,
+        return SizedBox(
           height: 40.h,
           child: TextButton(
             style: TextButton.styleFrom(
+              backgroundColor: secondColor,
               padding: EdgeInsets.symmetric(horizontal: 10.w),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(
+                  6.sp,
+                ), // Закругление углов
+              ),
             ),
             onPressed: () {
               // Получение списка предметов из тренажеров (замените этот список своим)

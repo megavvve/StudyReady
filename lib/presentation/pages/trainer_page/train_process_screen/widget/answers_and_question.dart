@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:study_ready/domain/models/question.dart';
-import 'package:study_ready/domain/models/trainer.dart';
-import 'package:study_ready/presentation/blocs/trainer_bloc/bloc/trainer_bloc.dart';
+import 'package:study_ready/domain/entities/question.dart';
+import 'package:study_ready/domain/entities/trainer.dart';
+import 'package:study_ready/presentation/blocs/trainer_bloc/trainer_bloc.dart';
 import 'package:study_ready/presentation/pages/trainer_page/train_process_screen/widget/answers.dart';
 
 import 'inherited_widget_check.dart';
@@ -27,7 +27,7 @@ class _AnswersAndQuestionState extends State<AnswersAndQuestion> {
     Trainer trainer = widget.trainer;
     final List<Question> questionList = trainer.questions;
  
-    return BlocBuilder<TrainersBloc, TrainersState>(
+    return BlocBuilder<TrainerBloc, TrainerState>(
       builder: (context, state) {
         
         final answers = state.currentAnswers[

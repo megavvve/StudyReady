@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:study_ready/domain/models/trainer.dart';
-import 'package:study_ready/presentation/blocs/trainer_bloc/bloc/trainer_bloc.dart';
+import 'package:study_ready/domain/entities/trainer.dart';
+import 'package:study_ready/presentation/blocs/trainer_bloc/trainer_bloc.dart';
 import 'package:study_ready/presentation/pages/trainer_page/trainer_screen/widget/show_launching_trainer.dart';
 import 'package:study_ready/utils/app_svg_assets.dart';
 
@@ -63,7 +63,7 @@ class TrainerCard extends StatelessWidget {
                     height: 2.h,
                   ),
                   Text(
-                    trainer.name,
+                    trainer.trainerName,
                     style: TextStyle(
                       fontSize: 18.sp,
                       color: Colors.white,
@@ -73,9 +73,7 @@ class TrainerCard extends StatelessWidget {
                     height: 8.h,
                   ),
                   Text(
-                    (trainer.name=="Свой тренажер")
-                        ? ""
-                        : 'Непрерывная математика',
+                    trainer.subjectName,
                     style: TextStyle(
                       fontSize: 12.sp,
                       color: Colors.white,
@@ -93,7 +91,7 @@ class TrainerCard extends StatelessWidget {
                         ),
                         onPressed: () {
                           showLaunchingTrainer(context, trainer);
-                          final bloc = context.read<TrainersBloc>();
+                          final bloc = context.read<TrainerBloc>();
                           bloc.add(
                             GenerateAnswersListEvent(
                               trainer: trainer,

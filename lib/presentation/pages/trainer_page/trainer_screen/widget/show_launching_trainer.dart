@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:study_ready/domain/models/trainer.dart';
+import 'package:study_ready/domain/entities/trainer.dart';
 import 'package:study_ready/presentation/navigation/custom_page_router.dart';
 import 'package:study_ready/presentation/pages/trainer_page/train_process_screen/train_process_screen.dart';
-import 'package:study_ready/utils/app_strings.dart';
+
 
 void showLaunchingTrainer(BuildContext context, Trainer trainer) {
   showModalBottomSheet<void>(
@@ -28,7 +28,7 @@ void showLaunchingTrainer(BuildContext context, Trainer trainer) {
               height: 54.h,
             ),
             Text(
-              (trainer.id == 1 || trainer.id == 2) ? "Непрерывная математика" : "",
+              trainer.subjectName,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 22.sp,
@@ -42,7 +42,7 @@ void showLaunchingTrainer(BuildContext context, Trainer trainer) {
             Row(
               children: [
                 Text(
-                  'Тема: ',
+                  'Название: ',
                   style: TextStyle(
                     fontSize: 18.sp,
                     fontWeight: FontWeight.bold,
@@ -50,7 +50,7 @@ void showLaunchingTrainer(BuildContext context, Trainer trainer) {
                   ),
                 ),
                 Text(
-                  trainer.name,
+                  trainer.trainerName,
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 18.sp, color: Colors.white),
                 ),
@@ -69,8 +69,7 @@ void showLaunchingTrainer(BuildContext context, Trainer trainer) {
             ),
             Text(
               textAlign: TextAlign.start,
-              (trainer.id==1||trainer.id==2)?(trainer.id==1)?descriptionForNepra: abolutVelich
-                  : descriptionForMyTrainer,
+              trainer.description,
               style: TextStyle(
                 fontSize: 18.sp,
                 color: Colors.white,

@@ -1,8 +1,12 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:study_ready/domain/models/question.dart';
-import 'package:study_ready/presentation/blocs/trainer_bloc/bloc/trainer_bloc.dart';
+import 'package:study_ready/domain/entities/chapter.dart';
+import 'package:study_ready/domain/entities/question.dart';
+import 'package:study_ready/domain/entities/subject.dart';
+import 'package:study_ready/domain/entities/theme.dart' as theme;
+import 'package:study_ready/presentation/blocs/trainer_bloc/trainer_bloc.dart';
 import 'package:study_ready/presentation/pages/trainer_page/add_question/add_question_screen/widgets_add_question/inherit_for_question_and_answers.dart';
 import 'package:study_ready/presentation/pages/trainer_page/add_question/add_question_screen/widgets_add_question/is_empty_text_field.dart';
 import 'package:study_ready/presentation/pages/trainer_page/add_question/add_question_screen/widgets_add_question/show_validation_error_Snack_bar.dart';
@@ -13,7 +17,7 @@ class AddQuestionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TrainersBloc, TrainersState>(
+    return BlocBuilder<TrainerBloc, TrainerState>(
       builder: (context, state) {
         return ElevatedButton(
           style: ButtonStyle(
@@ -32,7 +36,7 @@ class AddQuestionButton extends StatelessWidget {
             if (isEmptyTextField(controllers)) {
               showValidationErrorSnackBar(context);
             } else {
-              final bloc = context.read<TrainersBloc>();
+              final bloc = context.read<TrainerBloc>();
               int count = 0;
               for (var i = 0; i < state.trainerList.length; i++) {
                 var que = state.trainerList[i].questions;
@@ -43,9 +47,9 @@ class AddQuestionButton extends StatelessWidget {
               final question = Question(
                   id: count + 1,
                   courseNumber: 1,
-                  subject: "",
-                  chapter: '',
-                  theme: '',
+                  subject: Subject(id: 1, name: ''),
+                  chapter: Chapter(id: 1, subjectId: 1, name: ''),
+                  theme: theme.Theme(id: 1, subject: Subject(id: 1, name: ''), chapter: Chapter(id: 1, subjectId: 1, name: ''), name: ''),
                   difficultly: "Easy",
                   questionContext: controllers.questionController.text,
                   rightAnswer: controllers.answerController1.text,

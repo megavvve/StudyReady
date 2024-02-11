@@ -2,16 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:study_ready/domain/inintialize_data.dart';
-import 'package:study_ready/presentation/blocs/trainer_bloc/bloc/trainer_bloc.dart';
+import 'package:study_ready/injection_container.dart';
+import 'package:study_ready/presentation/blocs/trainer_bloc/trainer_bloc.dart';
 import 'package:study_ready/presentation/pages/home_page/home_screen.dart';
 import 'package:study_ready/utils/app_themes.dart';
 
 void main() async {
-  await ScreenUtil.ensureScreenSize();
   WidgetsFlutterBinding.ensureInitialized();
-
-  initializeData();
+  await setup();
+  await ScreenUtil.ensureScreenSize();
   runApp(const MyApp());
 }
 
@@ -24,11 +23,9 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    return BlocProvider(
-      create: (context) => TrainersBloc()
-        ..add(
-          const InitLoad(),
-        ),
+    return BlocProvider<TrainerBloc>(
+      create: (_) => getIt<TrainerBloc>(),
+      
       child: ScreenUtilInit(
         designSize: const Size(375, 812),
         minTextAdapt: true,
