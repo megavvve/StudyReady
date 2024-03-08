@@ -1,116 +1,129 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/presentation/navigation/navigation_bar.dart';
-import 'package:study_ready/presentation/pages/materials_page/models/material_model.dart';
+import 'package:study_ready/domain/models/m_material.dart';
 import 'package:study_ready/presentation/pages/materials_page/widgets/material_card.dart';
 
+// class MaterialScreen extends StatefulWidget {
+//   const MaterialScreen({super.key});
 
-class MaterialScreen extends StatefulWidget {
-  const MaterialScreen({super.key});
+//   @override
+//   State<MaterialScreen> createState() => _MaterialScreenState();
+// }
 
-  @override
-  State<MaterialScreen> createState() => _MaterialScreenState();
-}
+// class _MaterialScreenState extends State<MaterialScreen> {
+//   TextEditingController searchTextController = TextEditingController();
+//   List<MMaterial> _materials = [];
+//   @override
+//   void initState() {
+//     _materials = testModelOfMaterialsFromDatabase;
+//     super.initState();
+//   }
 
-class _MaterialScreenState extends State<MaterialScreen> {
-  TextEditingController searchTextController = TextEditingController();
-  List<MMaterial> _materials = [];
-  @override
-  void initState() {
-    _materials = db;
-    super.initState();
-  }
+//   //поиск по теме!
+//   void filter(String query) {
+//     List<MMaterial> result = [];
+//     if (query.isEmpty) {
+//       result = testModelOfMaterialsFromDatabase;
+//     } else {
+//       result = testModelOfMaterialsFromDatabase
+//           .where(
+//             (material) => material.text.toLowerCase().contains(
+//                   query.toLowerCase(),
+//                 ),
+//           )
+//           .toList();
+//     }
+//     setState(() {
+//       _materials = result;
+//     });
+//   }
 
-  //поиск по теме!
-  void filter(String query) {
-    List<MMaterial> result = [];
-    if (query.isEmpty) {
-      result = db;
-    } else {
-      result = db
-          .where((material) =>
-              material.topic.toLowerCase().contains(query.toLowerCase()))
-          .toList();
-    }
-    setState(() {
-      _materials = result;
-    });
-  }
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       drawer: const NavigatorDrawer(),
+//       backgroundColor: const Color(0xFFEDF0FF),
+//       body: CustomScrollView(
+//         slivers: [
+//           SliverAppBar(
+//             surfaceTintColor: Colors.transparent,
+//             pinned: true,
+//             floating: true,
+//             backgroundColor: const Color(0xFFEDF0FF),
+//             title: PreferredSize(
+//               preferredSize: Size(290.w, 50.h),
+//               child: TextField(
+//                 onChanged: (value) => filter(value),
+//                 controller: searchTextController,
+//                 decoration: (searchTextController.text.isEmpty)
+//                     ? InputDecoration(
+//                         hintText: "Введите тему...",
+//                         contentPadding: EdgeInsets.all(8.sp),
+//                         prefixIcon: const Icon(Icons.search),
+//                         filled: true,
+//                         fillColor: const Color(0xFFD8E2FF),
+//                         border: OutlineInputBorder(
+//                           borderSide: BorderSide.none,
+//                           borderRadius: BorderRadius.circular(50.sp),
+//                         ),
+//                       )
+//                     : InputDecoration(
+//                         contentPadding: EdgeInsets.all(8.sp),
+//                         prefixIcon: const Icon(Icons.search),
+//                         filled: true,
+//                         fillColor: Colors.amber,
+//                         border: OutlineInputBorder(
+//                           borderSide: BorderSide.none,
+//                           borderRadius: BorderRadius.circular(50.sp),
+//                         ),
+//                       ),
+//               ),
+//             ),
+//           ),
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: const NavigatorDrawer(),
-      backgroundColor: const Color(0xFFEDF0FF),
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            surfaceTintColor: Colors.transparent,
-            pinned: true,
-            floating: true,
-            backgroundColor: const Color(0xFFEDF0FF),
-            title: PreferredSize(
-              preferredSize: Size(290.w, 50.h),
-              child: TextField(
-                onChanged: (value) => filter(value),
-                controller: searchTextController,
-                decoration: InputDecoration(
-                  hintText: "Введите тему...",
-                  contentPadding: EdgeInsets.all(8.sp),
-                  prefixIcon: const Icon(Icons.search),
-                  filled: true,
-                  fillColor: const Color(0xFFD8E2FF),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(50.sp),
-                  ),
-                ),
-              ),
-            ),
-          ),
+//           //кнопка фильтрации
+//           SliverToBoxAdapter(
+//             child: Padding(
+//               padding: EdgeInsets.all(8.sp),
+//               child: Align(
+//                 alignment: Alignment.center,
+//                 child: Container(
+//                   decoration: BoxDecoration(
+//                     borderRadius: BorderRadius.circular(8.sp),
+//                     color: const Color(0xFFD8E2FF),
+//                   ),
+//                   height: 32.h,
+//                   width: 122.w,
+//                   alignment: Alignment.center,
+//                   child: Text(
+//                     "Фильтр",
+//                     style: TextStyle(color: Colors.black, fontSize: 16.sp),
+//                   ),
+//                 ),
+//               ),
+//             ),
+//           ),
 
-          //кнопка фильтрации
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.all(8.sp),
-              child: Align(
-                alignment: Alignment.center,
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.sp),
-                    color: const Color(0xFFD8E2FF),
-                  ),
-                  height: 32.h,
-                  width: 122.w,
-                  alignment: Alignment.center,
-                  child: Text(
-                    "Фильтр",
-                    style: TextStyle(color: Colors.black, fontSize: 16.sp),
-                  ),
-                ),
-              ),
-            ),
-          ),
-
-          //карточки с материалами
-          SliverGrid.builder(
-            itemCount: _materials.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-            ),
-            itemBuilder: (BuildContext context, int index) => MaterialCard(
-              topic: _materials[index].topic,
-              text: _materials[index].text,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
+//           //карточки с материалами
+//           SliverGrid.builder(
+//             itemCount: _materials.length,
+//             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+//               crossAxisCount: 2,
+//             ),
+//             itemBuilder: (BuildContext context, int index) => MaterialCard(
+//               topic: _materials[index].topic,
+//               text: _materials[index].text,
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
 
 // невозможно кастомить под себя UI.
-/*
+
 class MaterialScreen extends StatefulWidget {
   const MaterialScreen({super.key});
 
@@ -193,13 +206,13 @@ class _MaterialScreenState extends State<MaterialScreen> {
             ),
           ),
           SliverGrid.builder(
-            itemCount: db.length,
+            itemCount: testModelOfMaterialsFromDatabase.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
             ),
             itemBuilder: (BuildContext context, int index) => MaterialCard(
-              topic: db[index].topic,
-              text: db[index].text,
+              topic: testModelOfMaterialsFromDatabase[index].topic,
+              text: testModelOfMaterialsFromDatabase[index].text,
             ),
           ),
         ],
@@ -284,4 +297,3 @@ class CustomSearchDelegate extends SearchDelegate {
     );
   }
 }
-*/
