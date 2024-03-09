@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:study_ready/utils/app_colors.dart';
 
 class CardInfo extends StatelessWidget {
   final String topic;
@@ -9,7 +10,7 @@ class CardInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFEDF0FF),
+      backgroundColor: backgroundColor,
       body: Column(
         children: [
           SizedBox(
@@ -18,7 +19,7 @@ class CardInfo extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16.sp),
-              color: const Color(0xFF5B94F1),
+              color: mainColor,
             ),
             width: 373.w,
             height: 63.h,
@@ -26,16 +27,18 @@ class CardInfo extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: const Icon(Icons.arrow_back)),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(Icons.arrow_back),
+                ),
                 Padding(
-                    padding: EdgeInsets.all(8.sp),
-                    child: Text(
-                      topic,
-                      style: TextStyle(fontSize: 25.sp),
-                    )),
+                  padding: EdgeInsets.all(8.sp),
+                  child: Text(
+                    topic,
+                    style: TextStyle(fontSize: 25.sp),
+                  ),
+                ),
               ],
             ),
           ),
@@ -48,7 +51,7 @@ class CardInfo extends StatelessWidget {
                 color: Colors.white,
               ),
               padding: EdgeInsets.all(8.sp),
-              child: Text(text),
+              child: Text(text, style: const TextStyle(fontSize: 18),),
             ),
           ),
         ],

@@ -36,7 +36,11 @@ class MaterialCard extends StatelessWidget {
         ),
         width: 147.w,
         height: 191.h,
-        child: Text(text, overflow: TextOverflow.ellipsis, maxLines: 8,),
+        child: Text(
+          text,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 8,
+        ),
       ),
     );
   }
