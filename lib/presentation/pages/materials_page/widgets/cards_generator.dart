@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:study_ready/domain/models/m_material.dart';
+import 'package:study_ready/domain/entities/m_material.dart';
 import 'package:study_ready/presentation/pages/materials_page/widgets/material_card.dart';
 
 class CardsGenerator extends StatelessWidget {
