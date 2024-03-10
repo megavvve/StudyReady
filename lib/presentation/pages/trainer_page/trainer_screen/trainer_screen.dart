@@ -1,5 +1,6 @@
 // ignore_for_file: unused_local_variable
 
+import 'package:drift/drift.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -26,7 +27,51 @@ class _TrainerScreenState extends State<TrainerScreen> {
   Widget build(BuildContext context) {
     return BlocBuilder<TrainerBloc, TrainerState>(
       builder: (context, state) {
+
+        //
+        //su
+
+
         List<Trainer> trainerList = state.trainerList;
+        List<Trainer> sortedList = List.from(trainerList);
+
+        sortedList.sort((a, b) => a.questions.length.compareTo(b.questions.length));
+
+        int typeSort = 0; // Переменная для выбора типа сортировки
+        switch(typeSort){
+          case 0:
+            sortedList.sort((a, b) => a.trainerName.compareTo(b.trainerName)); // по имени тренажер
+            break;
+          case 1:
+            sortedList.sort((a, b) => a.id.compareTo(b.id)); // по id
+            break;
+          case 2:
+            sortedList.sort((a, b) => a.questions.length.compareTo(b.questions.length)); // по кол-во вопросов
+            break;
+          case 3:
+            sortedList.sort((a, b) => a.questions.length.compareTo(b.questions.length)); // апо имени предмета
+            break;
+        }
+
+
+        String subjectSort = "Непрерывная математика"; // Переменная на выбора отображения предметов, если все поставить, то не будет сортировки
+
+        Set<String> subjectNames = {}; // лист со списком предметов (отправить в виджет для отображения нужно)
+        for(var i in trainerList){
+          subjectNames.add(i.subjectName);
+        }
+
+        if(subjectSort != 'Все') { // Не сортируем все предметы
+
+          for(var i in sortedList){
+              if(i.subjectName != subjectSort){
+                sortedList.remove(i);
+              }
+          }
+        }
+
+
+
         return Scaffold(
           drawer: const NavigatorDrawer(),
           backgroundColor: backgroundColor,
@@ -37,10 +82,10 @@ class _TrainerScreenState extends State<TrainerScreen> {
                   slivers: <Widget>[
                     const AppBarWidget(),
                     SliverList.builder(
-                      itemCount: trainerList.length,
+                      itemCount: sortedList.length,
                       itemBuilder: (BuildContext context, int index) =>
                           TrainerCard(
-                        trainer: trainerList[index],
+                        trainer: sortedList[index],
                       ),
                     ),
                     SliverToBoxAdapter(
@@ -66,7 +111,7 @@ class _TrainerScreenState extends State<TrainerScreen> {
                           ),
                         );
                         setState(() {
-                          trainerList = state.trainerList;
+                          sortedList = state.trainerList;
                         });
                       },
                       backgroundColor: Colors.white,

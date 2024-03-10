@@ -9,6 +9,8 @@ class SubjectSelectionFab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final su = "";
+
     return BlocBuilder<TrainerBloc, TrainerState>(
       builder: (context, state) {
         // final trainerList = state.trainerList;
@@ -27,7 +29,7 @@ class SubjectSelectionFab extends StatelessWidget {
             ),
             onPressed: () {
               // Получение списка предметов из тренажеров (замените этот список своим)
-              List<String> subjects = ['Непрерывная математика'];
+              List<String> subjects = ['Все', 'Непрерывная математика']; // можно через множество
 
               // При нажатии на FloatingActionButton открываем нижнее диалоговое окно
               showModalBottomSheet(
@@ -50,6 +52,13 @@ class SubjectSelectionFab extends StatelessWidget {
                         ListTile(
                           title: Text(subject),
                           onTap: () {
+
+                            if(subject == subjects[0]){
+
+                            }
+                            else if(subject == subjects[1]){
+
+                            }
                             // Добавьте здесь логику обработки выбора предмета
                             // Например, передайте выбранный предмет в функцию для обработки
 
