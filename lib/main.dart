@@ -6,9 +6,14 @@ import 'package:study_ready/injection_container.dart';
 import 'package:study_ready/presentation/blocs/trainer_bloc/trainer_bloc.dart';
 import 'package:study_ready/presentation/pages/home_page/home_screen.dart';
 import 'package:study_ready/utils/app_themes.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   await setup();
   await ScreenUtil.ensureScreenSize();
   runApp(const MyApp());
@@ -25,7 +30,6 @@ class MyApp extends StatelessWidget {
     ]);
     return BlocProvider<TrainerBloc>(
       create: (_) => getIt<TrainerBloc>(),
-      
       child: ScreenUtilInit(
         designSize: const Size(375, 812),
         minTextAdapt: true,
