@@ -40,6 +40,7 @@ dependencies:
 
   analyzer: ^6.2.0
   bloc: ^8.1.2
+  firebase_core: ^2.27.0
 
   #
 
