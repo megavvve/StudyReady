@@ -9,16 +9,28 @@ class AddQuestionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
         style: ButtonStyle(
-            backgroundColor: const MaterialStatePropertyAll(
-                Color.fromRGBO(119, 165, 245, 1)),
-            fixedSize: MaterialStatePropertyAll(Size(305.w, 50.h))),
+          shape: MaterialStatePropertyAll(
+            RoundedRectangleBorder(
+              side: const BorderSide(color: Color.fromARGB(255, 69, 139, 255)),
+              borderRadius: BorderRadius.circular(16.sp),
+            ),
+          ),
+          backgroundColor:
+              const MaterialStatePropertyAll(Color.fromARGB(255, 69, 139, 255)),
+          fixedSize: MaterialStatePropertyAll(
+            Size(327.w, 59.h),
+          ),
+        ),
         onPressed: () {
           QuestionControllers? controllers = QuestionControllers.of(context);
           print(controllers?.answerController1.text);
         },
         child: Text(
-          'Добавить вопрос',
-          style: TextStyle(color: Colors.black, fontSize: 20.sp),
+          'Создать тренажер',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 20.sp,
+          ),
         ));
   }
 }

@@ -9,10 +9,10 @@ class FourthWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     QuestionControllers? controllers = QuestionControllers.of(context);
     return Container(
-      padding: EdgeInsets.all(8.sp),
+      padding: EdgeInsets.fromLTRB(18.sp, 8.sp, 18.sp, 8.sp),
       alignment: Alignment.centerLeft,
-      width: 309.w,
-      height: 113.h,
+      width: 327.w,
+      height: 59.h,
       decoration: BoxDecoration(
         color: const Color.fromRGBO(198, 216, 245, 1),
         borderRadius: BorderRadius.circular(
@@ -23,16 +23,19 @@ class FourthWidget extends StatelessWidget {
         children: [
           Container(
             alignment: Alignment.center,
-            width: 39.w,
-            height: 34.h,
+            width: 29.w,
+            height: 25.h,
             decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(8.sp)),
+                color: Colors.white, borderRadius: BorderRadius.circular(5.sp)),
             child: Text(
               '4',
               style: TextStyle(
                 fontSize: 18.sp,
               ),
             ),
+          ),
+          SizedBox(
+            width: 10.w,
           ),
           Expanded(
             child: TextField(
@@ -46,10 +49,11 @@ class FourthWidget extends StatelessWidget {
                   isCollapsed: true,
                   border:
                       const UnderlineInputBorder(borderSide: BorderSide.none),
-                  hintText: 'Введите неправильный ответ...',
+                  hintText: 'Введите ответ...',
                   hintMaxLines: 2,
                   hintStyle: TextStyle(
                     fontSize: 18.sp,
+                    color: const Color.fromRGBO(0, 0, 0, 0.46),
                   )),
               style: TextStyle(
                 fontSize: 18.sp,

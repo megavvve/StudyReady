@@ -10,10 +10,13 @@ class OptionsButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       style: ButtonStyle(
-          shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+          shape: MaterialStatePropertyAll(
+            RoundedRectangleBorder(
               side: const BorderSide(color: Colors.white),
-              borderRadius: BorderRadius.circular(16))),
-          fixedSize: MaterialStatePropertyAll(Size(304.w, 57.h)),
+              borderRadius: BorderRadius.circular(16.sp),
+            ),
+          ),
+          fixedSize: MaterialStatePropertyAll(Size(306.w, 57.h)),
           backgroundColor: const MaterialStatePropertyAll(Colors.white)),
       onPressed: () {
         Navigator.push(
@@ -28,11 +31,11 @@ class OptionsButton extends StatelessWidget {
         children: [
           Icon(
             Icons.settings,
-            size: 40.sp,
+            size: 30.sp,
             color: Colors.black,
           ),
           SizedBox(
-            width: 10.w,
+            width: 6.w,
           ),
           Text(
             'Параметры',
