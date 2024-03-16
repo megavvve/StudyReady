@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:study_ready/domain/entities/m_material.dart';
+import 'package:study_ready/domain/entities/study_material.dart';
 import 'package:study_ready/presentation/navigation/navigation_bar.dart';
 import 'package:study_ready/presentation/pages/materials_page/widgets/cards_generator.dart';
 import 'package:study_ready/presentation/pages/materials_page/widgets/filter_button.dart';
@@ -14,21 +14,21 @@ class MaterialScreen extends StatefulWidget {
 
 class _MaterialScreenState extends State<MaterialScreen> {
   TextEditingController searchTextController = TextEditingController();
-  List<MMaterial> _materials = [];
+  List<StudyMaterial> _materials = [];
   @override
   void initState() {
-    _materials = testModelOfMaterialsFromDatabase;
+    _materials = testMaterials;
     super.initState();
   }
 
   void filter(String query) {
-    List<MMaterial> result = [];
+    List<StudyMaterial> result = [];
     if (query.isEmpty) {
-      result = testModelOfMaterialsFromDatabase;
+      result = testMaterials;
     } else {
-      result = testModelOfMaterialsFromDatabase
+      result = testMaterials
           .where(
-            (material) => material.text.toLowerCase().contains(
+            (material) => material.content.toLowerCase().contains(
                   query.toLowerCase(),
                 ),
           )

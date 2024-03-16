@@ -3,7 +3,7 @@ import 'package:study_ready/data/datasources/local/app_db.dart';
 import 'package:study_ready/data/datasources/local/models/local_question_db.dart';
 import 'package:study_ready/data/mapper/question_mapper.dart';
 import 'package:study_ready/domain/entities/question.dart';
-import 'package:study_ready/domain/repositories/question_repository.dart';
+import 'package:study_ready/domain/repositories/trainer_repository/question_repository.dart';
 
 class QuestionRepositoryImpl implements QuestionRepository {
   AppDB appDB = GetIt.instance.get<AppDB>();

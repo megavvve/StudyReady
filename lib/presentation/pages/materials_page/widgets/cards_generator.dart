@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:study_ready/domain/entities/m_material.dart';
+import 'package:study_ready/domain/entities/study_material.dart';
 import 'package:study_ready/presentation/pages/materials_page/widgets/material_card.dart';
 
 class CardsGenerator extends StatelessWidget {
-  final List<MMaterial> itemsList;
+  final List<StudyMaterial> itemsList;
   const CardsGenerator({super.key, required this.itemsList});
 
   @override
@@ -14,8 +14,8 @@ class CardsGenerator extends StatelessWidget {
         crossAxisCount: 2,
       ),
       itemBuilder: (BuildContext context, int index) => MaterialCard(
-        topic: itemsList[index].topic,
-        text: itemsList[index].text,
+        topic: itemsList[index].title,
+        text: itemsList[index].content,
       ),
     );
   }
