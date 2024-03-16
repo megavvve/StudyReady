@@ -1,5 +1,5 @@
 import 'package:study_ready/domain/entities/question.dart';
-import 'package:study_ready/domain/repositories/question_repository.dart';
+import 'package:study_ready/domain/repositories/trainer_repository/question_repository.dart';
 
 class InsertQuestion {
   QuestionRepository questionRepository;
