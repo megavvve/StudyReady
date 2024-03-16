@@ -79,3 +79,12 @@ List<StudyMaterial> testMaterials = [
     fileType: 'pdf',
   ),
 ];
+
+StudyMaterial testMaterial = StudyMaterial(
+  id: '1',
+  title: 'Sample Material',
+  content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
+  subjectName: 'Sample Subject',
+  uploadDate: DateTime.now(),
+  fileType: 'pdf',
+);

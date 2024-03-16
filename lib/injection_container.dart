@@ -29,8 +29,7 @@ Future<void> setup() async {
 
 // Sign in anonymously
   User? user = await authRepository.signInAnonymously();
-  print(user?.displayName);
-  print("********************");
+  print(user?.email);
   getIt.registerFactory(
     () => TrainerBloc(
       getIt(),
