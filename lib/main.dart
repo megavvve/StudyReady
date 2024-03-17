@@ -10,13 +10,19 @@ import 'package:study_ready/utils/app_themes.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await setup();
-
+  // final Reference ref =
+  //     FirebaseStorage.instance.ref().child('Математический анализ.pdf');
+  // final String downloadURL = await ref.getDownloadURL();
   await ScreenUtil.ensureScreenSize();
-  runApp(const MyApp());
+  runApp(
+    const MyApp(),
+  );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
