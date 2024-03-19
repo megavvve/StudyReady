@@ -1,7 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/domain/entities/study_material.dart';
 import 'package:study_ready/presentation/navigation/navigation_bar.dart';
+import 'package:study_ready/presentation/pages/materials_page/widgets/add_material_button.dart';
 import 'package:study_ready/presentation/pages/materials_page/widgets/cards_generator.dart';
 import 'package:study_ready/presentation/pages/materials_page/widgets/filter_button.dart';
 import 'package:study_ready/utils/app_colors.dart';
@@ -44,46 +48,57 @@ class _MaterialScreenState extends State<MaterialScreen> {
     return Scaffold(
       drawer: const NavigatorDrawer(),
       backgroundColor: backgroundColor,
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            surfaceTintColor: Colors.transparent,
-            pinned: true,
-            floating: true,
-            backgroundColor: backgroundColor,
-            title: PreferredSize(
-              preferredSize: Size(290.w, 50.h),
-              child: TextField(
-                onChanged: (value) => filter(value),
-                controller: searchTextController,
-                decoration: (searchTextController.text.isEmpty)
-                    ? InputDecoration(
-                        hintText: "Поиск...",
-                        contentPadding: EdgeInsets.all(8.sp),
-                        prefixIcon: const Icon(Icons.search),
-                        filled: true,
-                        fillColor: secondColor,
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.circular(50.sp),
-                        ),
-                      )
-                    : InputDecoration(
-                        contentPadding: EdgeInsets.all(8.sp),
-                        prefixIcon: const Icon(Icons.search),
-                        filled: true,
-                        fillColor: Colors.amber,
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.circular(50.sp),
-                        ),
-                      ),
-              ),
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: CustomScrollView(
+              slivers: [
+                SliverAppBar(
+                  surfaceTintColor: Colors.transparent,
+                  pinned: true,
+                  floating: true,
+                  backgroundColor: backgroundColor,
+                  title: PreferredSize(
+                    preferredSize: Size(290.w, 50.h),
+                    child: TextField(
+                      onChanged: (value) => filter(value),
+                      controller: searchTextController,
+                      decoration: (searchTextController.text.isEmpty)
+                          ? InputDecoration(
+                              hintText: "Поиск...",
+                              contentPadding: EdgeInsets.all(8.sp),
+                              prefixIcon: const Icon(Icons.search),
+                              filled: true,
+                              fillColor: secondColor,
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius: BorderRadius.circular(50.sp),
+                              ),
+                            )
+                          : InputDecoration(
+                              contentPadding: EdgeInsets.all(8.sp),
+                              prefixIcon: const Icon(Icons.search),
+                              filled: true,
+                              fillColor: Colors.amber,
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius: BorderRadius.circular(50.sp),
+                              ),
+                            ),
+                    ),
+                  ),
+                ),
+                const FilterButton(),
+                CardsGenerator(
+                  itemsList: _materials,
+                ),
+              ],
             ),
           ),
-          const FilterButton(),
-          CardsGenerator(
-            itemsList: _materials,
+          Positioned(
+            bottom: 56.h,
+            right: 38.w,
+            child: const AddMaterialButton(),
           ),
         ],
       ),

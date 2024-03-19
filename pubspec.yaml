@@ -9,6 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+    
   flutter_screenutil: ^5.9.0
   cupertino_icons: ^1.0.2
   firebase_auth: ^4.17.8
@@ -71,6 +72,8 @@ flutter:
     - assets/images/trainer/background_for_app_bar_trainer.svg
     - assets/jsons/trainer1.json
     - assets/jsons/trainer2.json
+  
+    - assets/icons/navigation/material_icon.svg
 
   # To add assets to your application, add an assets section, like this:
   # assets:

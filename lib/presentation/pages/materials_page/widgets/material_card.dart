@@ -1,45 +1,49 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:study_ready/presentation/pages/materials_page/widgets/card_info_page.dart';
+import 'package:study_ready/domain/entities/study_material.dart';
+import 'package:study_ready/presentation/pages/materials_page/widgets/material_reader.dart';
 
 class MaterialCard extends StatelessWidget {
-  final String topic;
-  final String text;
+  final StudyMaterial studyMaterial;
 
   const MaterialCard({
-    required this.topic,
-    required this.text,
-    super.key,
-  });
+    required this.studyMaterial,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => CardInfo(
-              topic: topic,
-              text: text,
-            ),
-          ),
-        );
+            context,
+            MaterialPageRoute(
+                builder: (context) => MaterialReader(
+                      material: studyMaterial,
+                    )));
       },
-      child: Container(
-        margin: EdgeInsets.all(8.sp),
-        padding: EdgeInsets.all(8.sp),
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16.sp),
-          color: Colors.white,
-        ),
-        width: 147.w,
-        height: 191.h,
-        child: Text(
-          text,
-          overflow: TextOverflow.ellipsis,
-          maxLines: 8,
+      child: Card(
+        elevation: 4,
+        margin: const EdgeInsets.all(8),
+        child: Padding(
+          padding: EdgeInsets.all(12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                studyMaterial.title,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 8),
+              Text(
+                studyMaterial.content,
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
+          ),
         ),
       ),
     );

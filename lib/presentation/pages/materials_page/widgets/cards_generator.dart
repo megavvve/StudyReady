@@ -14,8 +14,7 @@ class CardsGenerator extends StatelessWidget {
         crossAxisCount: 2,
       ),
       itemBuilder: (BuildContext context, int index) => MaterialCard(
-        topic: itemsList[index].title,
-        text: itemsList[index].content,
+        studyMaterial: itemsList[index],
       ),
     );
   }
