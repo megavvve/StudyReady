@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:study_ready/data/mapper/study_material_mapper.dart';
+import 'package:study_ready/data/models/study_material_api.dart';
 import 'package:study_ready/domain/entities/study_material.dart';
 import 'package:study_ready/domain/repositories/study_material_repository.dart';
 import 'package:study_ready/utils/exceptions.dart';
@@ -10,9 +12,9 @@ class FirebaseStudyMaterialRepository implements StudyMaterialRepository {
   Future<List<StudyMaterial>> getMaterials() async {
     try {
       QuerySnapshot snapshot = await _firestore.collection('materials').get();
-      return snapshot.docs
-          .map((doc) => StudyMaterial.fromFirestore(doc))
-          .toList();
+      return StudyMaterialMapper.fromApiList(snapshot.docs
+          .map((doc) => StudyMaterialApi.fromFirestore(doc))
+          .toList());
     } catch (e) {
       throw DataFetchException('Failed to fetch materials: $e');
     }
@@ -21,7 +23,8 @@ class FirebaseStudyMaterialRepository implements StudyMaterialRepository {
   @override
   Future<void> addMaterial(StudyMaterial material) async {
     try {
-      await _firestore.collection('materials').add(material.toJson());
+      final materialApi = StudyMaterialMapper.toApi(material);
+      await _firestore.collection('materials').add(materialApi.toJson());
     } catch (e) {
       throw DataStoreException('Failed to add material: $e');
     }
@@ -33,7 +36,7 @@ class FirebaseStudyMaterialRepository implements StudyMaterialRepository {
       DocumentSnapshot doc =
           await _firestore.collection('materials').doc(id).get();
       if (doc.exists) {
-        return StudyMaterial.fromFirestore(doc);
+        return StudyMaterialMapper.fromApi(StudyMaterialApi.fromFirestore(doc));
       } else {
         return null;
       }

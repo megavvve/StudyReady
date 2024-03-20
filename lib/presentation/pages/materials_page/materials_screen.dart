@@ -21,16 +21,15 @@ class _MaterialScreenState extends State<MaterialScreen> {
   List<StudyMaterial> _materials = [];
   @override
   void initState() {
-    _materials = testMaterials;
     super.initState();
   }
 
   void filter(String query) {
     List<StudyMaterial> result = [];
     if (query.isEmpty) {
-      result = testMaterials;
+      //result = testMaterials;
     } else {
-      result = testMaterials
+      result = _materials
           .where(
             (material) => material.content.toLowerCase().contains(
                   query.toLowerCase(),

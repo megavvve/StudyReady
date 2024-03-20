@@ -7,8 +7,6 @@ import 'package:study_ready/presentation/blocs/trainer_bloc/trainer_bloc.dart';
 import 'package:study_ready/presentation/pages/home_page/home_screen.dart';
 import 'package:study_ready/utils/app_themes.dart';
 
-import 'package:study_ready/presentation/pages/auth_page/auth_screen.dart'; //test
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await setup();
@@ -44,7 +42,7 @@ class MyApp extends StatelessWidget {
           theme: lightTheme,
           home: child,
         ),
-        child: const AuthScreen(), // start screen
+        child: const HomeScreen(), // start screen
       ),
     );
   }

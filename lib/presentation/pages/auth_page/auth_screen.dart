@@ -1,7 +1,6 @@
 // here we go to put the layout code.
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/presentation/navigation/navigation_bar.dart';
 import 'package:study_ready/presentation/pages/auth_page/widgets/login_form.dart';
 import 'package:study_ready/presentation/navigation/burger_navigation_leading.dart';
