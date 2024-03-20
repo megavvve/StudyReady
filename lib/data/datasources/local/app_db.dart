@@ -5,10 +5,12 @@ import 'package:drift/native.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
 import 'package:study_ready/data/datasources/local/entity/chapter_table_entity.dart';
+import 'package:study_ready/data/datasources/local/entity/materials_table_entity.dart';
 import 'package:study_ready/data/datasources/local/entity/question_table_entity.dart';
 import 'package:study_ready/data/datasources/local/entity/subject_table_entity.dart';
 import 'package:study_ready/data/datasources/local/entity/themes_table_entity.dart';
 import 'package:study_ready/data/datasources/local/entity/trainer_table_entity.dart';
+import 'package:study_ready/data/datasources/local/models/local_material_db.dart';
 import 'package:study_ready/data/datasources/local/models/local_question_db.dart';
 import 'package:study_ready/data/datasources/local/models/theme_db.dart';
 import 'package:study_ready/data/datasources/local/models/local_trainer_db.dart';
@@ -48,7 +50,8 @@ LazyDatabase _openConnection() {
   ChapterTable,
   ThemeTable,
   QuestionTable,
-  TrainerTable
+  TrainerTable,
+  MaterialsTable
 ])
 class AppDB extends _$AppDB {
   AppDB() : super(_openConnection());
@@ -303,4 +306,62 @@ class AppDB extends _$AppDB {
   Future<bool> updateTrainer(TrainerTableCompanion entity) async {
     return await update(trainerTable).replace(entity);
   }
+
+
+  // Methods for Materials
+
+
+  //Get whole info about Materials (list materials)
+  Future<List<LocalMaterial>> materialsFullInfo() async {
+    final subject = alias(subjectTable, 's');
+
+    final rows = await select(materialsTable).join([
+      innerJoin(subject, subject.id.equalsExp(materialsTable.subjectId)),
+    ]).get();
+
+    return rows.map((resultRow) {
+      return LocalMaterial(
+        id: resultRow.readTable(materialsTable).id,
+        name: resultRow.readTable(materialsTable).name,
+        subject: resultRow.readTable(subject).name,
+        context: resultRow.readTable(materialsTable).context,
+      );
+    }).toList();
+  }
+
+  // Get single material full info by id
+  Future<LocalMaterial> getMaterialFullInfoById(int id) async {
+    final subject = alias(subjectTable, 's');
+
+    final query = select(materialsTable).join([
+      innerJoin(subject, subject.id.equalsExp(materialsTable.subjectId)),
+    ]);
+
+    query.where(materialsTable.id.equals(id));
+
+    return query.watchSingle().map((resultRow) {
+      return LocalMaterial(
+          id: resultRow.readTable(materialsTable).id,
+          name: resultRow.readTable(materialsTable).name,
+          subject: resultRow.readTable(subject).name,
+          context: resultRow.readTable(materialsTable).context);
+    }).first;
+  }
+
+  // Get list of materials (no other tables joined)
+  Future<List<MaterialsTableData>> getMaterial() async {
+    return await select(materialsTable).get();
+  }
+
+  // Adding Material
+  Future<int> insertMaterial(MaterialsTableCompanion entity) async {
+    return await into(materialsTable).insert(entity);
+  }
+
+  // Delete Material by id
+  Future<int> deleteMaterial(int id) async {
+    return await (delete(materialsTable)..where((tbl) => tbl.id.equals(id))).go();
+  }
+
+
 }
