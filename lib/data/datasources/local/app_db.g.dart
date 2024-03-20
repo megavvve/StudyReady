@@ -1483,6 +1483,258 @@ class TrainerTableCompanion extends UpdateCompanion<TrainerTableData> {
   }
 }
 
+class $MaterialsTableTable extends MaterialsTable
+    with TableInfo<$MaterialsTableTable, MaterialsTableData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $MaterialsTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+      'name', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _subjectIdMeta =
+      const VerificationMeta('subjectId');
+  @override
+  late final GeneratedColumn<int> subjectId = GeneratedColumn<int>(
+      'subjectId', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES subject_table (id)'));
+  static const VerificationMeta _contextMeta =
+      const VerificationMeta('context');
+  @override
+  late final GeneratedColumn<String> context = GeneratedColumn<String>(
+      'context', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [id, name, subjectId, context];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'materials_table';
+  @override
+  VerificationContext validateIntegrity(Insertable<MaterialsTableData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    if (data.containsKey('subjectId')) {
+      context.handle(_subjectIdMeta,
+          subjectId.isAcceptableOrUnknown(data['subjectId']!, _subjectIdMeta));
+    } else if (isInserting) {
+      context.missing(_subjectIdMeta);
+    }
+    if (data.containsKey('context')) {
+      context.handle(_contextMeta,
+          this.context.isAcceptableOrUnknown(data['context']!, _contextMeta));
+    } else if (isInserting) {
+      context.missing(_contextMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  MaterialsTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return MaterialsTableData(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      name: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+      subjectId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}subjectId'])!,
+      context: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}context'])!,
+    );
+  }
+
+  @override
+  $MaterialsTableTable createAlias(String alias) {
+    return $MaterialsTableTable(attachedDatabase, alias);
+  }
+}
+
+class MaterialsTableData extends DataClass
+    implements Insertable<MaterialsTableData> {
+  final int id;
+  final String name;
+  final int subjectId;
+  final String context;
+  const MaterialsTableData(
+      {required this.id,
+      required this.name,
+      required this.subjectId,
+      required this.context});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['name'] = Variable<String>(name);
+    map['subjectId'] = Variable<int>(subjectId);
+    map['context'] = Variable<String>(context);
+    return map;
+  }
+
+  MaterialsTableCompanion toCompanion(bool nullToAbsent) {
+    return MaterialsTableCompanion(
+      id: Value(id),
+      name: Value(name),
+      subjectId: Value(subjectId),
+      context: Value(context),
+    );
+  }
+
+  factory MaterialsTableData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return MaterialsTableData(
+      id: serializer.fromJson<int>(json['id']),
+      name: serializer.fromJson<String>(json['name']),
+      subjectId: serializer.fromJson<int>(json['subjectId']),
+      context: serializer.fromJson<String>(json['context']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'name': serializer.toJson<String>(name),
+      'subjectId': serializer.toJson<int>(subjectId),
+      'context': serializer.toJson<String>(context),
+    };
+  }
+
+  MaterialsTableData copyWith(
+          {int? id, String? name, int? subjectId, String? context}) =>
+      MaterialsTableData(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        subjectId: subjectId ?? this.subjectId,
+        context: context ?? this.context,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('MaterialsTableData(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('subjectId: $subjectId, ')
+          ..write('context: $context')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, name, subjectId, context);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is MaterialsTableData &&
+          other.id == this.id &&
+          other.name == this.name &&
+          other.subjectId == this.subjectId &&
+          other.context == this.context);
+}
+
+class MaterialsTableCompanion extends UpdateCompanion<MaterialsTableData> {
+  final Value<int> id;
+  final Value<String> name;
+  final Value<int> subjectId;
+  final Value<String> context;
+  const MaterialsTableCompanion({
+    this.id = const Value.absent(),
+    this.name = const Value.absent(),
+    this.subjectId = const Value.absent(),
+    this.context = const Value.absent(),
+  });
+  MaterialsTableCompanion.insert({
+    this.id = const Value.absent(),
+    required String name,
+    required int subjectId,
+    required String context,
+  })  : name = Value(name),
+        subjectId = Value(subjectId),
+        context = Value(context);
+  static Insertable<MaterialsTableData> custom({
+    Expression<int>? id,
+    Expression<String>? name,
+    Expression<int>? subjectId,
+    Expression<String>? context,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (name != null) 'name': name,
+      if (subjectId != null) 'subjectId': subjectId,
+      if (context != null) 'context': context,
+    });
+  }
+
+  MaterialsTableCompanion copyWith(
+      {Value<int>? id,
+      Value<String>? name,
+      Value<int>? subjectId,
+      Value<String>? context}) {
+    return MaterialsTableCompanion(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      subjectId: subjectId ?? this.subjectId,
+      context: context ?? this.context,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    if (subjectId.present) {
+      map['subjectId'] = Variable<int>(subjectId.value);
+    }
+    if (context.present) {
+      map['context'] = Variable<String>(context.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('MaterialsTableCompanion(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('subjectId: $subjectId, ')
+          ..write('context: $context')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDB extends GeneratedDatabase {
   _$AppDB(QueryExecutor e) : super(e);
   late final $SubjectTableTable subjectTable = $SubjectTableTable(this);
@@ -1490,10 +1742,17 @@ abstract class _$AppDB extends GeneratedDatabase {
   late final $ThemeTableTable themeTable = $ThemeTableTable(this);
   late final $QuestionTableTable questionTable = $QuestionTableTable(this);
   late final $TrainerTableTable trainerTable = $TrainerTableTable(this);
+  late final $MaterialsTableTable materialsTable = $MaterialsTableTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities =>
-      [subjectTable, chapterTable, themeTable, questionTable, trainerTable];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [
+        subjectTable,
+        chapterTable,
+        themeTable,
+        questionTable,
+        trainerTable,
+        materialsTable
+      ];
 }

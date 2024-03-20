@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
           theme: lightTheme,
           home: child,
         ),
-        child: const AuthScreen(), // start screen
+        child: const HomeScreen(), // start screen
       ),
     );
   }
