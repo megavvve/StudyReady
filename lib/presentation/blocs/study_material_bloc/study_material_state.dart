@@ -1,8 +1,8 @@
 part of 'study_material_bloc.dart';
 
-sealed class StudyMaterialState extends Equatable {
+abstract class StudyMaterialState extends Equatable {
   const StudyMaterialState();
-  
+
   @override
   List<Object> get props => [];
 }

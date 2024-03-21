@@ -28,81 +28,74 @@ class TrainerBloc extends Bloc<TrainerEvent, TrainerState> {
       this.getTrainers,
       this.getTrainerFullInfoById,
       this.getQuestionFullInfoById)
-      : super(const TrainerState()) {
+      : super(TrainerInitial()) {
     on<AddQuestion>(_onAddQuestion);
     on<InitLoad>(_onInitLoad);
     on<GenerateAnswersListEvent>(_onGenerateAnswers);
     on<ClearCurrentAnswersEvent>(_onCleanCurrentAnswers);
-    on<ReloadingListOfTrainerEvent>(_onReloadingListOfSimulators);
-  }
-  void _onReloadingListOfSimulators(
-      ReloadingListOfTrainerEvent event, Emitter<TrainerState> emit) {
-    final state = this.state;
-    emit(
-      TrainerState(
-        trainerList: state.trainerList,
-      ),
-    );
   }
 
   void _onAddQuestion(AddQuestion event, Emitter<TrainerState> emit) async {
     final state = this.state;
-    final question = event.question;
+    if (state is TrainerLoadSuccess) {
+      final question = event.question;
 
-    List<Trainer> allTrainer = state.trainerList;
+      List<Trainer> allTrainer = state.trainerList;
 
-    bool trainerExists =
-        allTrainer.any((trainer) => trainer.trainerName == "Свой тренажер");
+      bool trainerExists =
+          allTrainer.any((trainer) => trainer.trainerName == "Свой тренажер");
 
-    if (trainerExists) {
-      Trainer trainer = allTrainer
-          .firstWhere((trainer) => trainer.trainerName == "Свой тренажер");
+      if (trainerExists) {
+        Trainer trainer = allTrainer
+            .firstWhere((trainer) => trainer.trainerName == "Свой тренажер");
 
-      trainer.questions.add(question);
-      allTrainer.removeLast();
+        trainer.questions.add(question);
+        allTrainer.removeLast();
 
-      allTrainer.add(
-        Trainer(
-          id: trainer.id,
-          trainerName: trainer.trainerName,
-          color: trainer.color,
-          image: trainer.image,
-          questions: trainer.questions,
-          subjectName: 'Свой тренажер',
+        allTrainer.add(
+          Trainer(
+            id: trainer.id,
+            trainerName: trainer.trainerName,
+            color: trainer.color,
+            image: trainer.image,
+            questions: trainer.questions,
+            subjectName: 'Свой тренажер',
+            description: descriptionForMyTrainer,
+          ),
+        );
+
+        insertQuestion.call(question);
+        List<String> questionsWithStrId = [];
+        for (var i in trainer.questions) {
+          questionsWithStrId.add(i.id.toString());
+        }
+        //questionsWithStrId.add(question.id.toString());
+
+        updateTrainer.call(trainer);
+      } else {
+        Trainer trainer = Trainer(
+          id: allTrainer.last.id + 1,
+          trainerName: "Свой тренажер",
+          subjectName: "Свой тренажер",
           description: descriptionForMyTrainer,
+          color: "0xFFE3945F",
+          image: "",
+          questions: [question],
+        );
+        allTrainer.add(
+          trainer,
+        );
+
+        insertQuestion.call(question);
+        insertTrainer.call(trainer);
+      }
+
+      emit(
+        TrainerLoadSuccess(
+          trainerList: allTrainer,
         ),
       );
-
-      insertQuestion.call(question);
-      List<String> questionsWithStrId = [];
-      for (var i in trainer.questions) {
-        questionsWithStrId.add(i.id.toString());
-      }
-      //questionsWithStrId.add(question.id.toString());
-
-      updateTrainer.call(trainer);
-    } else {
-      Trainer trainer = Trainer(
-        id: allTrainer.last.id + 1,
-        trainerName: "Свой тренажер",
-        subjectName: "Свой тренажер",
-        description: descriptionForMyTrainer,
-        color: "0xFFE3945F",
-        image: "",
-        questions: [question],
-      );
-      allTrainer.add(
-        trainer,
-      );
-
-      insertQuestion.call(question);
-      insertTrainer.call(trainer);
     }
-    emit(
-      TrainerState(
-        trainerList: allTrainer,
-      ),
-    );
   }
 
   Future<void> _onInitLoad(InitLoad event, Emitter<TrainerState> emit) async {
@@ -131,9 +124,15 @@ class TrainerBloc extends Bloc<TrainerEvent, TrainerState> {
       allTrainer.add(trainer);
       questionFromTrainer = [];
     }
-
+    if (allTrainer.isEmpty) {
+      emit(
+        const TrainerLoadFailure(
+          errorMessage: "Ошибка инициализации",
+        ),
+      );
+    }
     emit(
-      TrainerState(
+      TrainerLoadSuccess(
         trainerList: allTrainer,
       ),
     );
@@ -141,7 +140,6 @@ class TrainerBloc extends Bloc<TrainerEvent, TrainerState> {
 
   void _onGenerateAnswers(
       GenerateAnswersListEvent event, Emitter<TrainerState> emit) {
-    final state = this.state;
     final trainer = event.trainer;
     List<List<String>> answers = [];
     for (var i = 0; i < trainer.questions.length; i++) {
@@ -150,8 +148,7 @@ class TrainerBloc extends Bloc<TrainerEvent, TrainerState> {
     }
 
     emit(
-      TrainerState(
-        trainerList: state.trainerList,
+      TrainerLoadSuccess(
         currentAnswers: answers,
       ),
     );
@@ -159,11 +156,8 @@ class TrainerBloc extends Bloc<TrainerEvent, TrainerState> {
 
   void _onCleanCurrentAnswers(
       ClearCurrentAnswersEvent event, Emitter<TrainerState> emit) {
-    final state = this.state;
-
-    emit(TrainerState(
-      trainerList: state.trainerList,
-      currentAnswers: const [],
+    emit(const TrainerLoadSuccess(
+      currentAnswers: [],
     ));
   }
 
