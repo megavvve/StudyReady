@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class StudyMaterialApi {
-  final String id;
+  final int id;
   final String title;
   final String content;
   final String subjectName;
-  final DateTime uploadDate;
+  final String uploadDate;
   final String fileType;
 
   StudyMaterialApi({
@@ -20,11 +20,11 @@ class StudyMaterialApi {
   factory StudyMaterialApi.fromFirestore(DocumentSnapshot doc) {
     Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
     return StudyMaterialApi(
-      id: doc.id,
+      id: int.parse(data['id']),
       title: data['title'] ?? '',
       content: data['content'] ?? '',
       subjectName: data['subjectName'] ?? '',
-      uploadDate: (data['uploadDate'] as Timestamp).toDate(),
+      uploadDate: data['uploadDate'] ?? '',
       fileType: data['fileType'] ?? '',
     );
   }

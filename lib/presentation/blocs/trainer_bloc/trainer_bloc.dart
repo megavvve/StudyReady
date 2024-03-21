@@ -3,12 +3,12 @@ import 'package:equatable/equatable.dart';
 
 import 'package:study_ready/domain/entities/question.dart';
 import 'package:study_ready/domain/entities/trainer.dart';
-import 'package:study_ready/domain/usecases/get_question_full_info_by_id.dart';
-import 'package:study_ready/domain/usecases/get_trainer_full_info_by_id.dart';
-import 'package:study_ready/domain/usecases/get_trainers.dart';
-import 'package:study_ready/domain/usecases/insert_question.dart';
-import 'package:study_ready/domain/usecases/insert_trainer.dart';
-import 'package:study_ready/domain/usecases/update_trainer.dart';
+import 'package:study_ready/domain/usecases/trainer/get_question_full_info_by_id.dart';
+import 'package:study_ready/domain/usecases/trainer/get_trainer_full_info_by_id.dart';
+import 'package:study_ready/domain/usecases/trainer/get_trainers.dart';
+import 'package:study_ready/domain/usecases/trainer/insert_question.dart';
+import 'package:study_ready/domain/usecases/trainer/insert_trainer.dart';
+import 'package:study_ready/domain/usecases/trainer/update_trainer.dart';
 import 'package:study_ready/utils/app_strings.dart';
 
 part 'trainer_event.dart';
