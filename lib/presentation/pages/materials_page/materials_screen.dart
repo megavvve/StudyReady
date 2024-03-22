@@ -108,7 +108,6 @@ class _MaterialScreenState extends State<MaterialScreen> {
             ),
           );
         } else {
-          // Здесь можно добавить отображение индикатора загрузки
           return Scaffold(
               drawer: const NavigatorDrawer(),
               backgroundColor: backgroundColor,
