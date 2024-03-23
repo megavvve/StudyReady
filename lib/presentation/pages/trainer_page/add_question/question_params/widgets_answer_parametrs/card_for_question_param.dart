@@ -2,9 +2,9 @@ import 'package:easy_autocomplete/easy_autocomplete.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:study_ready/domain/entities/trainer.dart';
 import 'package:study_ready/presentation/blocs/trainer_bloc/trainer_bloc.dart';
-import 'package:study_ready/presentation/pages/trainer_page/add_question/question_params/widgets_answer_parametrs/inherit_for_question_param.dart';
 
 class CardForQuestionParams extends StatefulWidget {
   final String param;
@@ -15,22 +15,35 @@ class CardForQuestionParams extends StatefulWidget {
   }) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _CardForQuestionParamsState createState() => _CardForQuestionParamsState();
 }
 
 class _CardForQuestionParamsState extends State<CardForQuestionParams> {
-  late TextEditingController? customTextEditingController;
-  late List<Trainer> trainers;
-  String currentText = '';
+  List<Trainer> trainers = [];
+  late SharedPreferences prefs;
+
+  late TextEditingController customTextEditingController;
+
   @override
   void initState() {
     super.initState();
-    trainers = [];
+    customTextEditingController = TextEditingController();
+    _initSharedPreferences();
+  }
+
+  Future<void> _initSharedPreferences() async {
+    prefs = await SharedPreferences.getInstance();
+    String? text = prefs.getString(widget.param);
+
+    setState(() {
+      customTextEditingController.text = text ?? ''; // Установка текста здесь
+    });
   }
 
   @override
   void dispose() {
-    customTextEditingController?.dispose();
+    customTextEditingController.dispose();
     super.dispose();
   }
 
@@ -40,7 +53,6 @@ class _CardForQuestionParamsState extends State<CardForQuestionParams> {
       if (state is TrainerLoadSuccess) {
         trainers = state.trainerList;
       }
-      customTextEditingController = getEditingController(widget.param);
 
       return Padding(
         padding: EdgeInsets.symmetric(horizontal: 30.0.w),
@@ -51,17 +63,19 @@ class _CardForQuestionParamsState extends State<CardForQuestionParams> {
                 Padding(
                   padding: EdgeInsets.only(left: 10.0.w),
                   child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        widget.param,
-                        style: TextStyle(
-                            fontSize: 20.w, fontWeight: FontWeight.w400),
-                      )),
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      widget.param,
+                      style: TextStyle(
+                        fontSize: 20.w,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ),
                 ),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 8.w),
                   alignment: Alignment.centerLeft,
-                  //height: 80.h,
                   decoration: BoxDecoration(
                     color: const Color.fromRGBO(198, 216, 245, 1),
                     borderRadius: BorderRadius.circular(16.sp),
@@ -69,11 +83,14 @@ class _CardForQuestionParamsState extends State<CardForQuestionParams> {
                   child: Stack(
                     children: [
                       EasyAutocomplete(
+                        keyboardType: TextInputType.none,
                         controller: customTextEditingController,
                         suggestions: _buildPopupMenuItems(trainers),
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.symmetric(
-                              vertical: 0, horizontal: 10.h),
+                            vertical: 0,
+                            horizontal: 10.h,
+                          ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5.sp),
                             borderSide: const BorderSide(
@@ -88,24 +105,19 @@ class _CardForQuestionParamsState extends State<CardForQuestionParams> {
                               style: BorderStyle.solid,
                             ),
                           ),
-                          // suffixIcon: IconButton(
-                          //   onPressed: () {
-                          //     setState(() {
-                          //       currentText = ''; // Очищаем текущий текст
-                          //     });
-                          //   },
-                          //   icon: const Icon(Icons.clear),
-                          // ),
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                customTextEditingController.text = "";
+                                prefs.setString(widget.param, "");
+                              });
+                            },
+                            icon: const Icon(Icons.clear),
+                          ),
                         ),
-                        onChanged: (value) {
-                          setState(() {
-                            currentText = value; // Обновляем текущий текст
-                          });
-                        },
-                        onSubmitted: (value) {
-                          setState(() {
-                            currentText = value; // Обновляем текущий текст
-                          });
+                        onChanged: (value) async {
+                          prefs = await SharedPreferences.getInstance();
+                          prefs.setString(widget.param, value);
                         },
                         suggestionBuilder: (data) {
                           return Container(
@@ -130,35 +142,10 @@ class _CardForQuestionParamsState extends State<CardForQuestionParams> {
                 ),
               ],
             ),
-            if (customTextEditingController != null)
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.delete),
-                color: Colors.black,
-              )
-            else
-              const SizedBox(),
           ],
         ),
       );
     });
-  }
-
-  TextEditingController? getEditingController(String param) {
-    switch (param) {
-      case 'Предмет':
-        return QuestionAndAnswersControllers.of(context)?.subjectController;
-      case 'Номер курса':
-        return QuestionAndAnswersControllers.of(context)?.courseNumController;
-      case 'Номер модуля':
-        return QuestionAndAnswersControllers.of(context)?.moduleController;
-      case 'Тема':
-        return QuestionAndAnswersControllers.of(context)?.themeController;
-      case 'Сложность':
-        return QuestionAndAnswersControllers.of(context)?.difficultController;
-      default:
-        return TextEditingController();
-    }
   }
 
   List<String> _buildPopupMenuItems(List<Trainer> trainers) {
