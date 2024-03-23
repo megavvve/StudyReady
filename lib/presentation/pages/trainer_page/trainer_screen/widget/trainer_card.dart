@@ -16,12 +16,14 @@ class TrainerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<TrainerBloc, TrainerState>(
+      builder: (context, state) {
         return Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(
                 16.sp,
               ),
-              color:Color(int.parse(trainer.color!) )),
+              color: Color(int.parse(trainer.color!))),
           padding: EdgeInsets.only(
             top: 20.h,
             left: 20.w,
@@ -94,6 +96,9 @@ class TrainerCard extends StatelessWidget {
                           final bloc = context.read<TrainerBloc>();
                           bloc.add(
                             GenerateAnswersListEvent(
+                              trainerList: (state is TrainerLoadSuccess)
+                                  ? state.trainerList
+                                  : [],
                               trainer: trainer,
                             ),
                           );
@@ -120,6 +125,7 @@ class TrainerCard extends StatelessWidget {
             ],
           ),
         );
-   
+      },
+    );
   }
 }

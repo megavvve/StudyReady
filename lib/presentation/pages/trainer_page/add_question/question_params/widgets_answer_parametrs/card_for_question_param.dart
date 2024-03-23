@@ -177,6 +177,7 @@ class _CardForQuestionParamsState extends State<CardForQuestionParams> {
 List<String> getSubjectsFromTrainers(List<Trainer> trainers) {
   Set<String> subjectsSet = {}; // Используем множество для уникальных предметов
   for (var trainer in trainers) {
+    subjectsSet.add(trainer.subjectName);
     for (var question in trainer.questions) {
       subjectsSet.add(
           question.subject.name.toString()); // Добавляем предмет в множество

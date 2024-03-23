@@ -141,6 +141,7 @@ class TrainerBloc extends Bloc<TrainerEvent, TrainerState> {
   void _onGenerateAnswers(
       GenerateAnswersListEvent event, Emitter<TrainerState> emit) {
     final trainer = event.trainer;
+    final trainers = event.trainerList;
     List<List<String>> answers = [];
     for (var i = 0; i < trainer.questions.length; i++) {
       answers.add(_generateRandomAnswers(trainer.questions[i].rightAnswer,
@@ -149,6 +150,7 @@ class TrainerBloc extends Bloc<TrainerEvent, TrainerState> {
 
     emit(
       TrainerLoadSuccess(
+        trainerList: trainers,
         currentAnswers: answers,
       ),
     );
