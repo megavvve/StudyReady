@@ -14,6 +14,7 @@ void main() async {
   // final Reference ref =
   //     FirebaseStorage.instance.ref().child('Математический анализ.pdf');
   // final String downloadURL = await ref.getDownloadURL();
+
   await ScreenUtil.ensureScreenSize();
   runApp(
     const MyApp(),

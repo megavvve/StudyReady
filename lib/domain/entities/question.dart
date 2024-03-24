@@ -1,6 +1,7 @@
 import 'package:study_ready/domain/entities/chapter.dart';
 import 'package:study_ready/domain/entities/subject.dart';
 import 'package:study_ready/domain/entities/theme.dart';
+import 'package:study_ready/domain/entities/trainer.dart';
 
 class Question {
   final int id;
@@ -32,4 +33,15 @@ class Question {
     required this.rightAnswer,
     required this.incorrectAnswers,
   });
+  static int getNextId(List<Trainer> trainerList) {
+    int maxId = 0;
+    for (var trainer in trainerList) {
+      for (var question in trainer.questions) {
+        if (question.id > maxId) {
+          maxId = question.id;
+        }
+      }
+    }
+    return maxId + 1;
+  }
 }

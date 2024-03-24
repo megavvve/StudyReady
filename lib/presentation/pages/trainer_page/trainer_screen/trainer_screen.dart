@@ -56,7 +56,7 @@ class TrainerScreen extends StatelessWidget {
                     child: FittedBox(
                       child: FloatingActionButton(
                         onPressed: () async {
-                          await Navigator.of(context).push(
+                          await Navigator.of(context).pushReplacement(
                             customPageRoute(
                               const AddQustionScreen(),
                             ),

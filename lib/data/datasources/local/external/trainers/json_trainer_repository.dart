@@ -6,7 +6,7 @@ import 'package:get_it/get_it.dart';
 import '../../app_db.dart';
 
 class JsonTrainerRepository {
-   final AppDB _db = GetIt.instance.get<AppDB>();
+  final AppDB _db = GetIt.instance.get<AppDB>();
 
   Future<void> initializeTrainers() async {
     // functions for filling tables with default data
@@ -15,7 +15,9 @@ class JsonTrainerRepository {
     _fillSubjects();
     _fillChapters();
     _fillThemes();
-    var trainers = await _loadJsonAsset();
+    // print(trainersFromDb.first.id);
+
+    List<dynamic> trainers = await _loadJsonAsset();
     _fillQuestions(trainers);
     _fillTrainer(trainers);
   } // Json decode

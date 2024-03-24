@@ -8,6 +8,7 @@ import 'package:study_ready/presentation/pages/trainer_page/add_question/add_que
 import 'package:study_ready/presentation/pages/trainer_page/add_question/add_question_screen/widgets_add_question/option_button.dart';
 import 'package:study_ready/presentation/pages/trainer_page/add_question/add_question_screen/widgets_add_question/container_for_wrong_answer.dart';
 import 'package:study_ready/presentation/pages/trainer_page/add_question/add_question_screen/widgets_add_question/app_bar_adding_question.dart';
+import 'package:study_ready/presentation/pages/trainer_page/add_question/question_params/widgets_answer_parametrs/card_for_question_param.dart';
 import 'package:study_ready/utils/app_colors.dart';
 
 class AddQustionScreen extends StatelessWidget {
@@ -34,7 +35,6 @@ class AddQustionScreen extends StatelessWidget {
                   color: backgroundColor,
                   child: QuestionControllers(
                     child: Column(
-                      
                       children: [
                         SizedBox(
                           height: 10.h,
@@ -44,16 +44,25 @@ class AddQustionScreen extends StatelessWidget {
                           height: 40.h,
                         ),
                         Column(
-                          children: List.generate(3, (index) => Column(
-                                children: [
-                                  ContainerForWrongAnswer(
-                                    index: index,
-                                  ),
-                                  SizedBox(
-                                    height: 20.h,
-                                  ),
-                                ],
-                              ),), 
+                          children: List.generate(
+                            3,
+                            (index) => Column(
+                              children: [
+                                ContainerForWrongAnswer(
+                                  index: index,
+                                ),
+                                SizedBox(
+                                  height: 20.h,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20.h,
+                        ),
+                        const CardForQuestionParams(
+                          param: "Добавить в тренажер:",
                         ),
                         SizedBox(
                           height: 20.h,

@@ -10,9 +10,10 @@ class TrainerMapper {
   AppDB appDB = GetIt.instance.get<AppDB>();
   static Future<Trainer> fromLocalTrainer(LocalTrainer localTrainer) async {
     final List<Future<Question>> questions = localTrainer.questions
-        .map((localQuestion)  async => await QuestionMapper.fromLocalQuestion(localQuestion))
+        .map((localQuestion) async =>
+            await QuestionMapper.fromLocalQuestion(localQuestion))
         .toList();
-    
+
     return Trainer(
       id: localTrainer.id,
       trainerName: localTrainer.trainerName,
@@ -53,9 +54,7 @@ class TrainerMapper {
   }
 
   Future<Trainer> fromTrainerTableCompanion(
-    
       TrainerTableCompanion companion) async {
-        
     return Trainer(
       id: companion.id.value,
       trainerName: companion.trainerName.value,
@@ -65,8 +64,8 @@ class TrainerMapper {
       image: companion.image.value,
       questions: await QuestionMapper.fromStringIds(
           companion.questions.value,
-          QuestionMapper.fromLocalQuestions(
-              await appDB.getQuestionsFullInfo()).cast<Question>()),
+          QuestionMapper.fromLocalQuestions(await appDB.getQuestionsFullInfo())
+              .cast<Question>()),
     );
   }
 
@@ -80,8 +79,8 @@ class TrainerMapper {
       image: tableData.image,
       questions: await QuestionMapper.fromStringIds(
           tableData.questions,
-          QuestionMapper.fromLocalQuestions(
-              await appDB.getQuestionsFullInfo()).cast<Question>()),
+          QuestionMapper.fromLocalQuestions(await appDB.getQuestionsFullInfo())
+              .cast<Question>()),
     );
   }
 
@@ -109,7 +108,9 @@ class TrainerMapper {
     return trainers;
   }
 }
-Future<List<Question>> _resolveFutures(List<Future<Question>> futureList) async {
+
+Future<List<Question>> _resolveFutures(
+    List<Future<Question>> futureList) async {
   // Дождитесь завершения всех futures и получите список результатов
   List<Question> questions = await Future.wait(futureList);
   return questions;

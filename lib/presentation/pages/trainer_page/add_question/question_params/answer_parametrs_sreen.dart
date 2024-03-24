@@ -26,9 +26,8 @@ class AnsParsScreen extends StatelessWidget {
         slivers: [
           const SliverAnsParsAppBarWidget(),
           SliverToBoxAdapter(
-            child: Container(
-              height: 16.h,
-              color: backgroundColor,
+            child: SizedBox(
+              height: 40.h,
             ),
           ),
           SliverList(

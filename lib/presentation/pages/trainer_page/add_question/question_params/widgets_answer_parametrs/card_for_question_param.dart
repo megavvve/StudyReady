@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:study_ready/domain/entities/trainer.dart';
 import 'package:study_ready/presentation/blocs/trainer_bloc/trainer_bloc.dart';
+import 'package:study_ready/utils/app_colors.dart';
 
 class CardForQuestionParams extends StatefulWidget {
   final String param;
@@ -86,6 +87,7 @@ class _CardForQuestionParamsState extends State<CardForQuestionParams> {
                         keyboardType: TextInputType.none,
                         controller: customTextEditingController,
                         suggestions: _buildPopupMenuItems(trainers),
+                        suggestionBackgroundColor: secondColor,
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.symmetric(
                             vertical: 0,
@@ -168,8 +170,11 @@ class _CardForQuestionParamsState extends State<CardForQuestionParams> {
       case "Сложность":
         options = ["Легкий", "Средний", "Сложный"];
         break;
+      case "Добавить в тренажер:":
+        options = getTrainers(trainers);
+        break;
     }
-
+    //options.add("Добавить +");
     return options;
   }
 }
@@ -219,4 +224,14 @@ List<String> getThemesFromTrainers(List<Trainer> trainers) {
     }
   }
   return themesSet.toList(); // Возвращаем список уникальных тем
+}
+
+List<String> getTrainers(List<Trainer> trainers) {
+  List<String> trainersList = []; // Используем множество для уникальных тем
+  for (var trainer in trainers) {
+    String string =
+        "Тренажер: ${trainer.trainerName}, предмет: ${trainer.subjectName}";
+    trainersList.add(string);
+  }
+  return trainersList.toList(); // Возвращаем список уникальных тем
 }

@@ -16,8 +16,8 @@ class InitLoad extends TrainerEvent {
 
 class AddQuestion extends TrainerEvent {
   final Question question;
-
-  const AddQuestion({required this.question});
+  final Trainer? trainerToAddTo;
+  const AddQuestion({required this.question, required this.trainerToAddTo});
 
   @override
   List<Object> get props => [question];

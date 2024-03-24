@@ -22,4 +22,18 @@ class Trainer {
     required this.image,
     required this.questions,
   });
+  static Trainer? getTrainerFromMyText(String? text, List<Trainer> trainers) {
+    if (text != null && trainers.isNotEmpty) {
+      List<String> parts = text.split(", ");
+      String trainerName = parts[0].split(": ")[1];
+      String subjectName = parts[1].split(": ")[1];
+      return trainers.firstWhere(
+        (trainer) =>
+            trainer.trainerName == trainerName &&
+            trainer.subjectName == subjectName,
+      );
+    } else {
+      return null;
+    }
+  }
 }

@@ -72,8 +72,8 @@ class TrainingResultScreen extends StatelessWidget {
                   onPressed: () {
                     Navigator.pop(context);
                     Navigator.pop(context);
-                    final bloc = context.read<TrainerBloc>();
-                    bloc.add(const InitLoad());
+                    // final bloc = context.read<TrainerBloc>();
+                    // bloc.add(const InitLoad());
                   },
                   child: Text(
                     'Продолжить',

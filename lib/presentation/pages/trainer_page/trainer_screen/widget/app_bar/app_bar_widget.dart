@@ -11,22 +11,23 @@ class AppBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-        backgroundColor: backgroundColor,
-        pinned: true,
-        snap: false,
-        floating: true,
-        surfaceTintColor: secondColor,
-        leading:BurgerNavigationLeading(context),
-        title: Padding(
-          padding:  EdgeInsets.only(right:8.0.w),
-          child: const Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              SubjectSelectionFab(),
-              SortingFab(),
-            ],
-          ),
-        ));
+      backgroundColor: secondColor,
+      pinned: true,
+      snap: false,
+      floating: true,
+      surfaceTintColor: secondColor,
+      leading: BurgerNavigationLeading(context),
+      title: Padding(
+        padding: EdgeInsets.only(right: 8.0.w),
+        child: const Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            SubjectSelectionFab(),
+            SortingFab(),
+          ],
+        ),
+      ),
+    );
   }
 }

@@ -9,7 +9,6 @@ import 'package:study_ready/domain/usecases/trainer/get_trainers.dart';
 import 'package:study_ready/domain/usecases/trainer/insert_question.dart';
 import 'package:study_ready/domain/usecases/trainer/insert_trainer.dart';
 import 'package:study_ready/domain/usecases/trainer/update_trainer.dart';
-import 'package:study_ready/utils/app_strings.dart';
 
 part 'trainer_event.dart';
 part 'trainer_state.dart';
@@ -39,75 +38,65 @@ class TrainerBloc extends Bloc<TrainerEvent, TrainerState> {
     final state = this.state;
     if (state is TrainerLoadSuccess) {
       final question = event.question;
+      final trainer = event.trainerToAddTo;
+      if (trainer != null) {
+        List<Trainer> allTrainers = List.from(state.trainerList);
 
-      List<Trainer> allTrainer = state.trainerList;
+        int index =
+            allTrainers.indexWhere((element) => element.id == trainer.id);
+        if (index != -1) {
+          trainer.questions
+              .add(question); // Добавляем вопрос в список вопросов тренажера
+          insertQuestion.call(question);
+          updateTrainer.call(trainer); // Обновляем тренажера в хранилище данных
 
-      bool trainerExists =
-          allTrainer.any((trainer) => trainer.trainerName == "Свой тренажер");
-
-      if (trainerExists) {
-        Trainer trainer = allTrainer
-            .firstWhere((trainer) => trainer.trainerName == "Свой тренажер");
-
-        trainer.questions.add(question);
-        allTrainer.removeLast();
-
-        allTrainer.add(
-          Trainer(
-            id: trainer.id,
-            trainerName: trainer.trainerName,
-            color: trainer.color,
-            image: trainer.image,
-            questions: trainer.questions,
-            subjectName: 'Свой тренажер',
-            description: descriptionForMyTrainer,
+          emit(
+            TrainerLoadSuccess(
+              trainerList: allTrainers,
+            ),
+          );
+        } else {
+          print('Trainer with id ${trainer.id} not found.');
+        }
+      }
+    } else {
+      final tr = event.trainerToAddTo;
+      if (tr != null) {
+        tr.questions.add(event.question);
+        emit(
+          TrainerLoadSuccess(
+            trainerList: [
+              Trainer(
+                id: tr.id,
+                trainerName: tr.trainerName,
+                subjectName: tr.subjectName,
+                description: tr.description,
+                color: tr.color,
+                image: tr.image,
+                questions: tr.questions,
+              ),
+            ],
           ),
         );
-
-        insertQuestion.call(question);
-        List<String> questionsWithStrId = [];
-        for (var i in trainer.questions) {
-          questionsWithStrId.add(i.id.toString());
-        }
-        //questionsWithStrId.add(question.id.toString());
-
-        updateTrainer.call(trainer);
-      } else {
-        Trainer trainer = Trainer(
-          id: allTrainer.last.id + 1,
-          trainerName: "Свой тренажер",
-          subjectName: "Свой тренажер",
-          description: descriptionForMyTrainer,
-          color: "0xFFE3945F",
-          image: "",
-          questions: [question],
-        );
-        allTrainer.add(
-          trainer,
-        );
-
-        insertQuestion.call(question);
-        insertTrainer.call(trainer);
       }
 
-      emit(
-        TrainerLoadSuccess(
-          trainerList: allTrainer,
-        ),
-      );
+      //нужно добавить в базу данных вопрос
     }
   }
 
   Future<void> _onInitLoad(InitLoad event, Emitter<TrainerState> emit) async {
     final trainersFromDB = await getTrainers.call();
 
-    int c = 1;
+    int c = 0;
     List<Trainer> allTrainer = [];
-    for (var j = 1; j <= trainersFromDB.length; j++) {
-      Trainer trainerFromDb = await getTrainerFullInfoById.call(j);
+    for (var j = 0; j < trainersFromDB.length; j++) {
+      // Изменение условия цикла
+      Trainer trainerFromDb =
+          await getTrainerFullInfoById.call(j + 1); // Добавление 1 к индексу
       List<Question> questionFromTrainer = [];
-      for (var i = 1; i <= trainerFromDb.questions.length; i++) {
-        Question question = await getQuestionFullInfoById.call(c);
+      for (var i = 0; i < trainerFromDb.questions.length; i++) {
+        // Изменение условия цикла
+        Question question = await getQuestionFullInfoById.call(c + 1);
 
         questionFromTrainer.add(question);
         c++;
