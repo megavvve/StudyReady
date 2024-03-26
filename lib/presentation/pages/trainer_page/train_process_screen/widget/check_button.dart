@@ -26,12 +26,12 @@ class CheckButton extends StatefulWidget {
 
 class CheckButtonState extends State<CheckButton> {
   bool isChecked = false;
+  int correctAnswers = 0;
   @override
   Widget build(BuildContext context) {
     int selectedQuestion = SharedState.of(context).selectedQuestion;
     int selectedIndex = SharedState.of(context).selectedIndex;
     int howmuchQuestion = SharedState.of(context).howmuchQuestion;
-
     void nextQuestionIndex() {
       setState(() {
         selectedQuestion++;
@@ -61,6 +61,7 @@ class CheckButtonState extends State<CheckButton> {
                     }
                   }
                   bool isCorrect = selectedIndex == correctAnswer;
+                  correctAnswers += isCorrect ? 1 : 0;
                   showModalBottomSheet<void>(
                     context: context,
                     builder: (BuildContext context) {
@@ -124,7 +125,7 @@ class CheckButtonState extends State<CheckButton> {
                       Navigator.of(context).pushReplacement(
                         customPageRoute(
                           TrainingResultScreen(
-                            correctAnswers: 10,
+                            correctAnswers: correctAnswers,
                             totalQuestions: howmuchQuestion,
                             randomResultingText: getRandomCongratulations(),
                           ),

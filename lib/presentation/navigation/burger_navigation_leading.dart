@@ -8,7 +8,7 @@ IconButton BurgerNavigationLeading(BuildContext context) {
     padding: EdgeInsets.only(left: 20.w,),
     icon: Icon(
       Icons.menu,
-      size: 40.sp,
+      size: 30.sp,
       weight: 10.w,
     ),
     onPressed: () {

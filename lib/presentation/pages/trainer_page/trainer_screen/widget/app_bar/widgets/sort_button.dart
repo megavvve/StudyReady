@@ -8,19 +8,21 @@ class SortingFab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 40.h,
+      height: 32.h,
+      width: 110.w,
       child: TextButton(
         style: TextButton.styleFrom(
-          backgroundColor: secondColor,
+          backgroundColor: trainerAppBarButtonsBackground,
           padding: EdgeInsets.symmetric(horizontal: 10.w),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(
-              6.sp,
+              10.sp,
             ), // Закругление углов
           ),
         ),
         onPressed: () {
           showModalBottomSheet(
+            backgroundColor: trainerBottomSheetBackground,
             context: context,
             builder: (BuildContext context) {
               return Column(
@@ -31,7 +33,7 @@ class SortingFab extends StatelessWidget {
                     child: Text(
                       "Сортировать",
                       style:
-                          TextStyle(fontWeight: FontWeight.w500, fontSize: 16.sp),
+                          TextStyle(fontWeight: FontWeight.w400, fontSize: 20.sp),
                     ),
                   ),
                   ListTile(
@@ -56,8 +58,8 @@ class SortingFab extends StatelessWidget {
         child: Text(
           "Сортировка",
           style: TextStyle(
-              fontSize: 16.sp,
-              fontWeight: FontWeight.w500,
+              fontSize: 13.sp,
+              fontWeight: FontWeight.w400,
               color: Colors.black),
         ),
       ),

@@ -18,7 +18,7 @@ void showLaunchingTrainer(BuildContext context, Trainer trainer) {
           color: const Color(0xFF5970CC),
         ),
         padding: EdgeInsets.symmetric(horizontal: 28.w),
-        width: 350.w,
+        width: 360.w,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,8 +50,9 @@ void showLaunchingTrainer(BuildContext context, Trainer trainer) {
                   ),
                 ),
                 Text(
+                  maxLines: 2,
                   trainer.trainerName,
-                  textAlign: TextAlign.center,
+                  textAlign: TextAlign.start,
                   style: TextStyle(fontSize: 18.sp, color: Colors.white),
                 ),
               ],

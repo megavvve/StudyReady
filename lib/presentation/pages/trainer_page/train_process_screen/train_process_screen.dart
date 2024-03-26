@@ -22,6 +22,7 @@ class _TrainProcessScreenState extends State<TrainProcessScreen> {
   List<Widget> list = <Widget>[];
   int _selectedIndex = -1;
   int _selectedQuestion = 1;
+  int correctAnswers = 0;
 
   void _updateSelectedIndex(int index) {
     setState(() {

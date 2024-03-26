@@ -20,7 +20,9 @@ class TrainingResultScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: backgroundColor,
       appBar: AppBar(
+        backgroundColor: backgroundColor,
         title: const Text(
           'Результат тренировки',
         ),
@@ -46,11 +48,14 @@ class TrainingResultScreen extends StatelessWidget {
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(
-                  Icons.check,
-                  color: Colors.green,
-                  size: 100.0.sp,
+                Center(
+                  child: Icon(
+                    Icons.check,
+                    color: Colors.green,
+                    size: 100.0.sp,
+                  ),
                 ),
                 SizedBox(height: 20.0.h),
                 Text(
@@ -59,28 +64,50 @@ class TrainingResultScreen extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 40.0.h),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: mainColor, // Цвет кнопки
-                    shape: RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.circular(16.sp), // Закругленные углы
+                Text(
+                  "Количество правильных",
+                  style: TextStyle(color: Colors.green, fontSize: 20.sp),
+                ),
+                Text(
+                  "ответов: $correctAnswers",
+                  style: TextStyle(color: Colors.green, fontSize: 20.sp),
+                ),
+                SizedBox(
+                  height: 80.h,
+                ),
+                Text(
+                  "Количество неправильных",
+                  style: TextStyle(color: Colors.red, fontSize: 20.sp),
+                ),
+                Text(
+                  "ответов: ${totalQuestions - correctAnswers}",
+                  style: TextStyle(color: Colors.red, fontSize: 20.sp),
+                ),
+                SizedBox(height: 80.0.h),
+                Center(
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: mainColor, // Цвет кнопки
+                      shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.circular(16.sp), // Закругленные углы
+                      ),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 16.sp, vertical: 12.sp), // Отступы
                     ),
-                    padding: EdgeInsets.symmetric(
-                        horizontal: 16.sp, vertical: 12.sp), // Отступы
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                    // final bloc = context.read<TrainerBloc>();
-                    // bloc.add(const InitLoad());
-                  },
-                  child: Text(
-                    'Продолжить',
-                    style: TextStyle(
-                      fontSize: 16.sp,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
+                    onPressed: () {
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                      // final bloc = context.read<TrainerBloc>();
+                      // bloc.add(const InitLoad());
+                    },
+                    child: Text(
+                      'Продолжить',
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ),

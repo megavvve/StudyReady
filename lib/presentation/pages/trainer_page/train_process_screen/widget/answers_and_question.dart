@@ -65,7 +65,7 @@ class _AnswersAndQuestionState extends State<AnswersAndQuestion> {
             ),
           );
         } else {
-          return CircularProgressIndicator(); // Placeholder for loading state
+          return const CircularProgressIndicator(); // Placeholder for loading state
         }
       },
     );

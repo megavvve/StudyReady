@@ -14,14 +14,15 @@ class SubjectSelectionFab extends StatelessWidget {
         // final trainerList = state.trainerList;
 
         return SizedBox(
-          height: 40.h,
+          height: 32.h,
+          width: 170.w,
           child: TextButton(
             style: TextButton.styleFrom(
-              backgroundColor: secondColor,
+              backgroundColor: trainerAppBarButtonsBackground,
               padding: EdgeInsets.symmetric(horizontal: 10.w),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(
-                  6.sp,
+                  10.sp,
                 ), // Закругление углов
               ),
             ),
@@ -31,6 +32,7 @@ class SubjectSelectionFab extends StatelessWidget {
 
               // При нажатии на FloatingActionButton открываем нижнее диалоговое окно
               showModalBottomSheet(
+                backgroundColor: trainerBottomSheetBackground,
                 context: context,
                 builder: (BuildContext context) {
                   return Column(
@@ -41,9 +43,9 @@ class SubjectSelectionFab extends StatelessWidget {
                           vertical: 10.h,
                         ),
                         child: Text(
-                          "Выбрать предмет: ",
+                          "Выбрать предмет",
                           style: TextStyle(
-                              fontWeight: FontWeight.w500, fontSize: 16.sp),
+                              fontWeight: FontWeight.w400, fontSize: 20.sp),
                         ),
                       ),
                       for (String subject in subjects)
@@ -64,8 +66,8 @@ class SubjectSelectionFab extends StatelessWidget {
             child: Text(
               "Выбрать предмет",
               style: TextStyle(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w500,
+                  fontSize: 13.sp,
+                  fontWeight: FontWeight.w400,
                   color: Colors.black),
             ),
           ),
