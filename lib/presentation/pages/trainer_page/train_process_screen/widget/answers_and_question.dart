@@ -27,7 +27,7 @@ class _AnswersAndQuestionState extends State<AnswersAndQuestion> {
     return BlocBuilder<TrainerBloc, TrainerState>(
       builder: (context, state) {
         if (state is TrainerLoadSuccess) {
-          final answers = state.currentAnswers[
+          final answers = state.currentTrainersAnswers[
               (selectedQuestion > questionList.length)
                   ? 1
                   : selectedQuestion - 1];

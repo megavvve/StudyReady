@@ -36,4 +36,15 @@ class Trainer {
       return null;
     }
   }
+
+  static int getNextTrainerId(List<Trainer> trainers) {
+    if (trainers.isEmpty) {
+      return 1; // Если список пуст, начинаем с id = 1
+    } else {
+      return trainers
+              .map((trainer) => trainer.id)
+              .reduce((a, b) => a > b ? a : b) +
+          1;
+    }
+  }
 }

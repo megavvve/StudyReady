@@ -5,6 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:study_ready/domain/entities/trainer.dart';
 import 'package:study_ready/presentation/blocs/trainer_bloc/trainer_bloc.dart';
+import 'package:study_ready/presentation/pages/trainer_page/add_question/add_question_screen/widgets_add_question/add_trainer_dialog.dart';
+import 'package:study_ready/presentation/pages/trainer_page/add_question/question_params/widgets_answer_parametrs/add_text_dialog.dart';
 import 'package:study_ready/utils/app_colors.dart';
 
 class CardForQuestionParams extends StatefulWidget {
@@ -57,97 +59,134 @@ class _CardForQuestionParamsState extends State<CardForQuestionParams> {
 
       return Padding(
         padding: EdgeInsets.symmetric(horizontal: 30.0.w),
-        child: Stack(
+        child: Column(
           children: [
-            Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(left: 10.0.w),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      widget.param,
-                      style: TextStyle(
-                        fontSize: 20.w,
-                        fontWeight: FontWeight.w400,
+            Padding(
+              padding: EdgeInsets.only(left: 10.0.w),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  widget.param,
+                  style: TextStyle(
+                    fontSize: 20.w,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 8.w),
+              alignment: Alignment.centerLeft,
+              decoration: BoxDecoration(
+                color: const Color.fromRGBO(198, 216, 245, 1),
+                borderRadius: BorderRadius.circular(16.sp),
+              ),
+              child: Stack(
+                children: [
+                  EasyAutocomplete(
+                    keyboardType: TextInputType.none,
+                    controller: customTextEditingController,
+                    suggestions: _buildPopupMenuItems(trainers),
+                    suggestionBackgroundColor: secondColor,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(
+                        vertical: 0,
+                        horizontal: 10.h,
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.sp),
+                        borderSide: const BorderSide(
+                          color: Colors.transparent,
+                          style: BorderStyle.solid,
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.sp),
+                        borderSide: const BorderSide(
+                          color: Colors.transparent,
+                          style: BorderStyle.solid,
+                        ),
+                      ),
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            customTextEditingController.text = "";
+                            prefs.setString(widget.param, "");
+                          });
+                        },
+                        icon: const Icon(Icons.clear),
                       ),
                     ),
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8.w),
-                  alignment: Alignment.centerLeft,
-                  decoration: BoxDecoration(
-                    color: const Color.fromRGBO(198, 216, 245, 1),
-                    borderRadius: BorderRadius.circular(16.sp),
-                  ),
-                  child: Stack(
-                    children: [
-                      EasyAutocomplete(
-                        keyboardType: TextInputType.none,
-                        controller: customTextEditingController,
-                        suggestions: _buildPopupMenuItems(trainers),
-                        suggestionBackgroundColor: secondColor,
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.symmetric(
-                            vertical: 0,
-                            horizontal: 10.h,
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.sp),
-                            borderSide: const BorderSide(
-                              color: Colors.transparent,
-                              style: BorderStyle.solid,
-                            ),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.sp),
-                            borderSide: const BorderSide(
-                              color: Colors.transparent,
-                              style: BorderStyle.solid,
-                            ),
-                          ),
-                          suffixIcon: IconButton(
-                            onPressed: () {
-                              setState(() {
-                                customTextEditingController.text = "";
-                                prefs.setString(widget.param, "");
-                              });
-                            },
-                            icon: const Icon(Icons.clear),
+                    onChanged: (value) async {
+                      if (customTextEditingController.text != "Добавить +") {
+                        prefs = await SharedPreferences.getInstance();
+                        prefs.setString(widget.param, value);
+                      } else {
+                        if (widget.param != "Добавить в тренажер:") {
+                          showAddTextDialog(context);
+                        } else {
+                          showAddTrainerDialog(context, trainers);
+                        }
+                      }
+                    },
+                    suggestionBuilder: (data) {
+                      return Container(
+                        margin: EdgeInsets.all(2.h),
+                        padding: EdgeInsets.all(5.sp),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(5.sp),
+                        ),
+                        child: Text(
+                          data,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 15.sp,
                           ),
                         ),
-                        onChanged: (value) async {
-                          prefs = await SharedPreferences.getInstance();
-                          prefs.setString(widget.param, value);
-                        },
-                        suggestionBuilder: (data) {
-                          return Container(
-                            margin: EdgeInsets.all(2.h),
-                            padding: EdgeInsets.all(5.sp),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(5.sp),
-                            ),
-                            child: Text(
-                              data,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 15.sp,
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ],
+                      );
+                    },
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
       );
     });
+  }
+
+  void showAddTextDialog(BuildContext context) async {
+    final enteredText = await showDialog<String>(
+      context: context,
+      builder: (BuildContext context) {
+        return const AddTextDialog();
+      },
+    );
+    if (enteredText != null) {
+      setState(() {
+        customTextEditingController.text = enteredText;
+      });
+      prefs.setString(widget.param, enteredText);
+    }
+  }
+
+  void showAddTrainerDialog(
+      BuildContext context, List<Trainer> trainers) async {
+    final enteredText = await showDialog<String>(
+      context: context,
+      builder: (BuildContext context) {
+        return AddTrainerDialog(
+          trainers: trainers,
+        );
+      },
+    );
+    if (enteredText != null) {
+      setState(() {
+        customTextEditingController.text = enteredText;
+      });
+      prefs.setString(widget.param, enteredText);
+    }
   }
 
   List<String> _buildPopupMenuItems(List<Trainer> trainers) {
@@ -161,7 +200,7 @@ class _CardForQuestionParamsState extends State<CardForQuestionParams> {
       case "Номер курса":
         options = getCourseNumbersFromTrainers(trainers);
         break;
-      case "Номер модуля":
+      case "Глава":
         options = getModuleNumbersFromTrainers(trainers);
         break;
       case "Тема":
@@ -174,7 +213,7 @@ class _CardForQuestionParamsState extends State<CardForQuestionParams> {
         options = getTrainers(trainers);
         break;
     }
-    //options.add("Добавить +");
+    options.add("Добавить +");
     return options;
   }
 }

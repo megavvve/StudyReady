@@ -50,11 +50,13 @@ class CheckButtonState extends State<CheckButton> {
                 if ([0, 1, 2, 3].contains(selectedIndex)) {
                   int correctAnswer = 0;
                   for (var i = 0;
-                      i < state.currentAnswers[selectedQuestion - 1].length;
+                      i <
+                          state.currentTrainersAnswers[selectedQuestion - 1]
+                              .length;
                       i++) {
                     if (widget.trainer.questions[selectedQuestion - 1]
                             .rightAnswer ==
-                        state.currentAnswers[selectedQuestion - 1][i]) {
+                        state.currentTrainersAnswers[selectedQuestion - 1][i]) {
                       correctAnswer = i;
                     }
                   }

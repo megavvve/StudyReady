@@ -39,13 +39,9 @@ class StudyMaterialBloc extends Bloc<StudyMaterialEvent, StudyMaterialState> {
   void _onInitLoad(
       MaterialInitLoadEvent event, Emitter<StudyMaterialState> emit) async {
     try {
-      print(
-        "-------------------",
-      );
       final allMaterials = await getStudyMaterials.call();
 
       if (allMaterials.isEmpty) {
-        print("111111111111111");
         emit(const StudyMaterialError(message: "Ошибка инициализации"));
       } else {
         emit(

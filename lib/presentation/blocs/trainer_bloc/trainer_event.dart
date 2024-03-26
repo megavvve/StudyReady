@@ -41,9 +41,10 @@ class ClearCurrentAnswersEvent extends TrainerEvent {
   List<Object> get props => [trainerList];
 }
 
-class ReloadingListOfTrainerEvent extends TrainerEvent {
-  const ReloadingListOfTrainerEvent();
+class AddTrainer extends TrainerEvent {
+  final Trainer trainer;
+  const AddTrainer({required this.trainer});
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [trainer];
 }

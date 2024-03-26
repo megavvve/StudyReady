@@ -25,7 +25,9 @@ class TrainerScreen extends StatelessWidget {
           if (state is TrainerLoading) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is TrainerLoadSuccess) {
-            List<Trainer> trainerList = state.trainerList;
+            List<Trainer> trainerList = state.trainerList
+                .where((element) => element.questions.isNotEmpty)
+                .toList();
             return Stack(
               children: [
                 Positioned.fill(

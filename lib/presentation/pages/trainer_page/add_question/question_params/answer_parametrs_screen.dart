@@ -16,7 +16,7 @@ class AnsParsScreen extends StatelessWidget {
     final listOfParams = [
       "Предмет",
       "Номер курса",
-      "Номер модуля",
+      "Глава",
       "Тема",
       "Сложность"
     ];

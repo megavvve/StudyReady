@@ -1,7 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:study_ready/domain/entities/chapter.dart';
 
 import 'package:study_ready/domain/entities/question.dart';
+import 'package:study_ready/domain/entities/subject.dart';
+import 'package:study_ready/domain/entities/theme.dart';
 import 'package:study_ready/domain/entities/trainer.dart';
 import 'package:study_ready/domain/usecases/trainer/get_question_full_info_by_id.dart';
 import 'package:study_ready/domain/usecases/trainer/get_trainer_full_info_by_id.dart';
@@ -32,10 +35,12 @@ class TrainerBloc extends Bloc<TrainerEvent, TrainerState> {
     on<InitLoad>(_onInitLoad);
     on<GenerateAnswersListEvent>(_onGenerateAnswers);
     on<ClearCurrentAnswersEvent>(_onCleanCurrentAnswers);
+    on<AddTrainer>(_onAddTrainer);
   }
 
   void _onAddQuestion(AddQuestion event, Emitter<TrainerState> emit) async {
     final state = this.state;
+
     if (state is TrainerLoadSuccess) {
       final question = event.question;
       final trainer = event.trainerToAddTo;
@@ -58,6 +63,8 @@ class TrainerBloc extends Bloc<TrainerEvent, TrainerState> {
         } else {
           print('Trainer with id ${trainer.id} not found.');
         }
+      } else {
+        insertQuestion.call(question);
       }
     } else {
       final tr = event.trainerToAddTo;
@@ -140,7 +147,7 @@ class TrainerBloc extends Bloc<TrainerEvent, TrainerState> {
     emit(
       TrainerLoadSuccess(
         trainerList: trainers,
-        currentAnswers: answers,
+        currentTrainersAnswers: answers,
       ),
     );
   }
@@ -148,7 +155,7 @@ class TrainerBloc extends Bloc<TrainerEvent, TrainerState> {
   void _onCleanCurrentAnswers(
       ClearCurrentAnswersEvent event, Emitter<TrainerState> emit) {
     emit(const TrainerLoadSuccess(
-      currentAnswers: [],
+      currentTrainersAnswers: [],
     ));
   }
 
@@ -163,5 +170,20 @@ class TrainerBloc extends Bloc<TrainerEvent, TrainerState> {
     answers.shuffle();
 
     return answers;
+  }
+
+  void _onAddTrainer(AddTrainer event, Emitter<TrainerState> emit) async {
+    final trainer = event.trainer;
+    insertTrainer.call(trainer);
+    final state = this.state;
+    if (state is TrainerLoadSuccess) {
+      final trainerList = state.trainerList;
+      trainerList.add(trainer);
+      emit(
+        TrainerLoadSuccess(
+          trainerList: trainerList,
+        ),
+      );
+    }
   }
 }

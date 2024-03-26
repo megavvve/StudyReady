@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/domain/entities/trainer.dart';
 import 'package:study_ready/presentation/blocs/trainer_bloc/trainer_bloc.dart';
 import 'package:study_ready/presentation/pages/trainer_page/trainer_screen/widget/show_launching_trainer.dart';
+import 'package:study_ready/utils/app_colors.dart';
 import 'package:study_ready/utils/app_svg_assets.dart';
 
 class TrainerCard extends StatelessWidget {
@@ -23,7 +24,9 @@ class TrainerCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(
                 16.sp,
               ),
-              color: Color(int.parse(trainer.color!))),
+              color: (trainer.color != null)
+                  ? Color(int.parse(trainer.color!))
+                  : colorForCardTrainerBlue),
           padding: EdgeInsets.only(
             top: 20.h,
             left: 20.w,

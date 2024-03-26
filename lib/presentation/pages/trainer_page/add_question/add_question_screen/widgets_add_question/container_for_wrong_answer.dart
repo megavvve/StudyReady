@@ -1,19 +1,55 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:study_ready/presentation/pages/trainer_page/add_question/add_question_screen/widgets_add_question/inherit_for_question_and_answers.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class ContainerForWrongAnswer extends StatelessWidget {
+class ContainerForWrongAnswer extends StatefulWidget {
   final int index;
-  const ContainerForWrongAnswer({super.key, required this.index});
+  const ContainerForWrongAnswer({Key? key, required this.index})
+      : super(key: key);
+
+  @override
+  _ContainerForWrongAnswerState createState() =>
+      _ContainerForWrongAnswerState();
+}
+
+class _ContainerForWrongAnswerState extends State<ContainerForWrongAnswer> {
+  SharedPreferences? prefs;
+  late List<TextEditingController> listOfWrongAnswerControllers;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPrefs();
+  }
+
+  Future<void> _loadPrefs() async {
+    prefs = await SharedPreferences.getInstance();
+
+    // Здесь вы можете выполнять другие асинхронные операции, связанные с SharedPreferences
+    setState(
+        () {}); // вызов setState, чтобы перестроить виджет с учетом полученных данных
+  }
 
   @override
   Widget build(BuildContext context) {
-    QuestionControllers? controllers = QuestionControllers.of(context);
+    TextEditingController answerController2 = TextEditingController(
+        text: (prefs?.getString("answer2") != null)
+            ? prefs?.getString("answer2")
+            : "");
+    TextEditingController answerController3 = TextEditingController(
+        text: (prefs?.getString("answer3") != null)
+            ? prefs?.getString("answer3")
+            : "");
+    TextEditingController answerController4 = TextEditingController(
+        text: (prefs?.getString("answer4") != null)
+            ? prefs?.getString("answer4")
+            : "");
     List<TextEditingController> listOfWrongAnswerControllers = [
-      controllers.answerController2,
-      controllers.answerController3,
-      controllers.answerController4,
+      answerController2,
+      answerController3,
+      answerController4,
     ];
+
     return Container(
       padding: EdgeInsets.all(8.sp),
       alignment: Alignment.centerLeft,
@@ -38,7 +74,7 @@ class ContainerForWrongAnswer extends StatelessWidget {
               ),
             ),
             child: Text(
-              (index + 2).toString(),
+              (widget.index + 2).toString(),
               style: TextStyle(
                 fontSize: 18.sp,
               ),
@@ -50,9 +86,12 @@ class ContainerForWrongAnswer extends StatelessWidget {
                 padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 13.w),
                 child: TextField(
                   textInputAction: TextInputAction.done,
-                  controller: listOfWrongAnswerControllers[index],
+                  controller: listOfWrongAnswerControllers[widget.index],
                   maxLines: null,
                   textCapitalization: TextCapitalization.sentences,
+                  onChanged: (value) {
+                    prefs?.setString("answer${widget.index + 2}", value);
+                  },
                   decoration: InputDecoration(
                       contentPadding: EdgeInsetsDirectional.only(start: 5.w),
                       isCollapsed: true,

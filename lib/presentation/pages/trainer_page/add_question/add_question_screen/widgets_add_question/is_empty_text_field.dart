@@ -1,9 +1,19 @@
-import 'package:study_ready/presentation/pages/trainer_page/add_question/add_question_screen/widgets_add_question/inherit_for_question_and_answers.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-bool isEmptyTextField(QuestionControllers controllers) {
-  return controllers.questionController.text.isEmpty ||
-      controllers.answerController1.text.isEmpty ||
-      controllers.answerController2.text.isEmpty ||
-      controllers.answerController3.text.isEmpty ||
-      controllers.answerController4.text.isEmpty;
+Future<bool> isEmptyTextField() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  String question = prefs.getString("question") ?? "";
+  String answer1 = prefs.getString("answer1") ?? "";
+  String answer2 = prefs.getString("answer2") ?? "";
+  String answer3 = prefs.getString("answer3") ?? "";
+  String answer4 = prefs.getString("answer4") ?? "";
+  String addToTrainer = prefs.getString("Добавить в тренажер:") ?? "";
+
+  return question.isEmpty ||
+      answer1.isEmpty ||
+      answer2.isEmpty ||
+      answer3.isEmpty ||
+      answer4.isEmpty ||
+      addToTrainer.isEmpty;
 }

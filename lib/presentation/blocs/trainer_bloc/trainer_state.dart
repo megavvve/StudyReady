@@ -22,10 +22,23 @@ final class TrainerLoadFailure extends TrainerState {
 
 final class TrainerLoadSuccess extends TrainerState {
   final List<Trainer> trainerList;
-  final List<List<String>> currentAnswers;
+  final List<List<String>> currentTrainersAnswers;
+  final List<Question> listOfQuestions;
+  final List<Subject> listOfSubjects;
+  final List<String> listOfCourseNums;
+  final List<Chapter> listOfChapters;
+  final List<Theme> listOfThemes;
+  final List<String> listOfDifficults;
   const TrainerLoadSuccess(
-      {this.trainerList = const <Trainer>[], this.currentAnswers = const []});
+      {this.trainerList = const <Trainer>[],
+      this.currentTrainersAnswers = const [],
+      this.listOfQuestions = const [],
+      this.listOfSubjects = const [],
+      this.listOfCourseNums = const [],
+      this.listOfChapters = const [],
+      this.listOfThemes = const [],
+      this.listOfDifficults = const []});
 
   @override
-  List<Object> get props => [trainerList, currentAnswers];
+  List<Object> get props => [trainerList, currentTrainersAnswers];
 }

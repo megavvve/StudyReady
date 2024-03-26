@@ -8,7 +8,6 @@ import 'package:study_ready/domain/entities/subject.dart';
 import 'package:study_ready/domain/entities/trainer.dart';
 import 'package:study_ready/presentation/blocs/trainer_bloc/trainer_bloc.dart';
 import 'package:study_ready/presentation/navigation/custom_page_router.dart';
-import 'package:study_ready/presentation/pages/trainer_page/add_question/add_question_screen/widgets_add_question/inherit_for_question_and_answers.dart';
 import 'package:study_ready/presentation/pages/trainer_page/add_question/add_question_screen/widgets_add_question/is_empty_text_field.dart';
 import 'package:study_ready/presentation/pages/trainer_page/add_question/add_question_screen/widgets_add_question/show_validation_error_Snack_bar.dart';
 import 'package:study_ready/presentation/pages/trainer_page/trainer_screen/trainer_screen.dart';
@@ -38,15 +37,13 @@ class AddQuestionButton extends StatelessWidget {
               ),
             ),
             onPressed: () async {
-              QuestionControllers controllers = QuestionControllers.of(context);
-              if (isEmptyTextField(controllers)) {
+              if (await isEmptyTextField()) {
                 showValidationErrorSnackBar(context);
               } else {
                 final bloc = context.read<TrainerBloc>();
                 SharedPreferences prefs = await SharedPreferences.getInstance();
                 String? courseNumText = prefs.getString("Номер курса");
-                int courseNum =
-                    courseNumText != null ? int.parse(courseNumText) : 1;
+                String courseNum = courseNumText ?? "1";
 
                 Subject subject = Subject.findSubjectByName(
                     prefs.getString("Предмет"), trainerList);
@@ -60,17 +57,17 @@ class AddQuestionButton extends StatelessWidget {
 
                 final question = Question(
                   id: Question.getNextId(trainerList),
-                  courseNumber: courseNum,
+                  courseNumber: (courseNum == "") ? 1 : int.parse(courseNum),
                   subject: subject,
                   chapter: chapter,
                   theme: theme1,
                   difficultly: prefs.getString("Сложность") ?? "Легко",
-                  questionContext: controllers.questionController.text,
-                  rightAnswer: controllers.answerController1.text,
+                  questionContext: prefs.getString("question")!,
+                  rightAnswer: prefs.getString("answer1")!,
                   incorrectAnswers: [
-                    controllers.answerController2.text,
-                    controllers.answerController3.text,
-                    controllers.answerController4.text,
+                    prefs.getString("answer2")!,
+                    prefs.getString("answer3")!,
+                    prefs.getString("answer4")!,
                   ],
                 );
 
