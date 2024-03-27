@@ -34,7 +34,7 @@ class OptionsButton extends StatelessWidget {
       child: Row(
         children: [
           Icon(
-            Icons.settings,
+            Icons.settings_outlined,
             size: 30.sp,
             color: Colors.black,
           ),

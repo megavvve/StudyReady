@@ -21,12 +21,13 @@ class TrainerCard extends StatelessWidget {
       builder: (context, state) {
         return Container(
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(
-                16.sp,
-              ),
-              color: (trainer.color != null)
-                  ? Color(int.parse(trainer.color!))
-                  : colorForCardTrainerBlue),
+            borderRadius: BorderRadius.circular(
+              16.sp,
+            ),
+            color: (trainer.color != null)
+                ? Color(int.parse(trainer.color!))
+                : colorForCardTrainerBlue,
+          ),
           padding: EdgeInsets.only(
             top: 20.h,
             left: 20.w,
