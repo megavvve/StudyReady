@@ -30,7 +30,7 @@ class _MaterialScreenState extends State<MaterialScreen> {
     } else {
       result = _materials
           .where(
-            (material) => material.content.toLowerCase().contains(
+            (material) => material.fileName.toLowerCase().contains(
                   query.toLowerCase(),
                 ),
           )

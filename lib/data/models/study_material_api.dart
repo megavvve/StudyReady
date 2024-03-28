@@ -2,17 +2,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class StudyMaterialApi {
   final int id;
-  final String title;
-  final String content;
-  final String subjectName;
+  final String fileName;
+  final String filePath;
   final String uploadDate;
   final String fileType;
 
   StudyMaterialApi({
     required this.id,
-    required this.title,
-    required this.content,
-    required this.subjectName,
+    required this.fileName,
+    required this.filePath,
     required this.uploadDate,
     required this.fileType,
   });
@@ -21,9 +19,8 @@ class StudyMaterialApi {
     Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
     return StudyMaterialApi(
       id: int.parse(data['id']),
-      title: data['title'] ?? '',
-      content: data['content'] ?? '',
-      subjectName: data['subjectName'] ?? '',
+      fileName: data['fileName'] ?? '',
+      filePath: data['filePath'] ?? '',
       uploadDate: data['uploadDate'] ?? '',
       fileType: data['fileType'] ?? '',
     );
@@ -32,9 +29,8 @@ class StudyMaterialApi {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'title': title,
-      'content': content,
-      'subjectName': subjectName,
+      'fileName': fileName,
+      'filePath': filePath,
       'uploadDate': uploadDate,
       'fileType': fileType,
     };

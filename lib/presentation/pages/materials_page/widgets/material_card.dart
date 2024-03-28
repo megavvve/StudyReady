@@ -30,18 +30,13 @@ class MaterialCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                studyMaterial.title,
+                studyMaterial.fileName,
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               SizedBox(height: 8),
-              Text(
-                studyMaterial.content,
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
-              ),
             ],
           ),
         ),

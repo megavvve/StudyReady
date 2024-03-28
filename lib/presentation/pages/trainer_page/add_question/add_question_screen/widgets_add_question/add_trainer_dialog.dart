@@ -23,30 +23,40 @@ class AddTrainerDialog extends StatelessWidget {
     return BlocBuilder<TrainerBloc, TrainerState>(
       builder: (context, state) {
         return AlertDialog(
-          title: const Text('Add Trainer'),
+          title: const Text('Добавить тренажер'),
           content: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextField(
                   controller: trainerNameController,
-                  decoration: const InputDecoration(labelText: 'Trainer Name'),
+                  decoration: const InputDecoration(labelText: 'Имя тренажера'),
                 ),
                 TextField(
                   controller: subjectNameController,
-                  decoration: const InputDecoration(labelText: 'Subject Name'),
+                  decoration:
+                      const InputDecoration(labelText: 'Название предмета'),
                 ),
                 TextField(
                   controller: descriptionController,
-                  decoration: const InputDecoration(labelText: 'Description'),
+                  decoration: const InputDecoration(labelText: 'Описание'),
                 ),
               ],
             ),
           ),
           actions: <Widget>[
             TextButton(
-              onPressed: () {
+              onPressed: () async {
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                prefs.setString("Добавить в тренажер:", "");
                 Navigator.of(context).pop();
+                Navigator.of(context).pushReplacement(
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        const AddQustionScreen(),
+                    transitionDuration: Duration.zero, // Нет анимации
+                  ),
+                );
               },
               child: const Text(
                 'Cancel',

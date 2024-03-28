@@ -5,9 +5,9 @@ class StudyMaterialMapper {
   static StudyMaterial fromApi(StudyMaterialApi apiModel) {
     return StudyMaterial(
       id: apiModel.id,
-      title: apiModel.title,
-      content: apiModel.content,
-      subjectName: apiModel.subjectName,
+      fileName: apiModel.fileName,
+      filePath: apiModel.filePath,
+      subjectName: '',
       uploadDate: apiModel.uploadDate,
       fileType: apiModel.fileType,
     );
@@ -16,9 +16,8 @@ class StudyMaterialMapper {
   static StudyMaterialApi toApi(StudyMaterial domainModel) {
     return StudyMaterialApi(
       id: domainModel.id,
-      title: domainModel.title,
-      content: domainModel.content,
-      subjectName: domainModel.subjectName,
+      fileName: domainModel.fileName,
+      filePath: domainModel.filePath,
       uploadDate: domainModel.uploadDate,
       fileType: domainModel.fileType,
     );

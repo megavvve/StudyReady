@@ -4,7 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:study_ready/data/datasources/local/app_db.dart';
 import 'package:study_ready/data/datasources/local/external/trainers/json_trainer_repository.dart';
 import 'package:study_ready/data/repositories/firebase_auth_repository.dart';
-import 'package:study_ready/data/repositories/study_material_repository.dart';
+import 'package:study_ready/data/repositories/firebase_study_material_repository.dart';
 import 'package:study_ready/data/repositories/trainer_repository/question_repository.dart';
 import 'package:study_ready/data/repositories/trainer_repository/trainer_repository.dart';
 import 'package:study_ready/domain/repositories/auth_repository.dart';
