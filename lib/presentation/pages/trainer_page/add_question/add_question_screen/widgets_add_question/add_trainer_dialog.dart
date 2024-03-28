@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,6 +14,16 @@ class AddTrainerDialog extends StatelessWidget {
     Key? key,
     required this.trainers,
   }) : super(key: key);
+
+  static String? getRandomColorForCard() {
+    const List<String> colors = [
+      "0xFF7C97FF",
+      "0xFF9496F4",
+      "0xFFF67791",
+      "0xFFE3945F",
+    ];
+    return colors[Random().nextInt(3)];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +82,8 @@ class AddTrainerDialog extends StatelessWidget {
                   trainerName: trainerNameController.text,
                   subjectName: subjectNameController.text,
                   description: descriptionController.text,
-                  color: null, // цвет и изображение пока оставим null
+                  color:
+                      getRandomColorForCard(), // цвет и изображение пока оставим null
                   image: null,
                   questions: [], // пока не содержит вопросов
                 );

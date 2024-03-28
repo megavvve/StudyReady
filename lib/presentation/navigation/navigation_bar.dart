@@ -13,7 +13,7 @@ class NavigatorDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      width: 222.w,
+      width: 240.w,
       backgroundColor: burgerBackground,
       child: Container(
         padding: EdgeInsets.only(
@@ -38,11 +38,7 @@ class NavigatorDrawer extends StatelessWidget {
                 ),
               ),
             ),
-            Divider(
-              color: Colors.black,
-              indent: 20.w,
-              endIndent: 30.w,
-            ),
+            divider,
             ListTile(
               leading: materialIcon,
               title: materialTitle,
@@ -60,11 +56,7 @@ class NavigatorDrawer extends StatelessWidget {
                 ),
               ),
             ),
-            Divider(
-              color: Colors.black,
-              indent: 20.w,
-              endIndent: 30.w,
-            ),
+            divider,
             ListTile(
               leading: trainerIcon,
               title: trainerTitle,
@@ -82,11 +74,7 @@ class NavigatorDrawer extends StatelessWidget {
                 ),
               ),
             ),
-            Divider(
-              color: Colors.black,
-              indent: 20.w,
-              endIndent: 30.w,
-            ),
+            divider,
             ListTile(
               leading: addQuestionIcon,
               title: addQuestionTitle,
@@ -104,11 +92,7 @@ class NavigatorDrawer extends StatelessWidget {
                 ),
               ),
             ),
-            Divider(
-              color: Colors.black,
-              indent: 20.w,
-              endIndent: 30.w,
-            ),
+            divider,
           ],
         ),
       ),

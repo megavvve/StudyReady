@@ -7,6 +7,7 @@ class ConfirmationDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      backgroundColor: Colors.white,
       title: Text(
         'Вы точно хотите завершить тренажер?',
         style: TextStyle(

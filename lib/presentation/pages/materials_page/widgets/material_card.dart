@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/domain/entities/study_material.dart';
 import 'package:study_ready/presentation/pages/materials_page/widgets/material_reader.dart';
 
@@ -15,28 +16,33 @@ class MaterialCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => MaterialReader(
-                      material: studyMaterial,
-                    )));
+          context,
+          MaterialPageRoute(
+            builder: (context) => MaterialReader(
+              material: studyMaterial,
+            ),
+          ),
+        );
       },
       child: Card(
+        surfaceTintColor: Colors.transparent,
+        color: Colors.white,
+        shadowColor: Colors.white,
         elevation: 4,
-        margin: const EdgeInsets.all(8),
+        margin: EdgeInsets.all(8.sp),
         child: Padding(
-          padding: EdgeInsets.all(12),
+          padding: EdgeInsets.all(12.sp),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 studyMaterial.fileName,
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 18.sp,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
             ],
           ),
         ),
