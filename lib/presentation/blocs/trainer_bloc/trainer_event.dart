@@ -33,6 +33,18 @@ class GenerateAnswersListEvent extends TrainerEvent {
   List<Object> get props => [trainer, trainerList];
 }
 
+class SortTrainers extends TrainerEvent {
+  final String sortBy;
+
+  const SortTrainers(this.sortBy);
+}
+
+class FilterTrainersBySubject extends TrainerEvent {
+  final String subject;
+
+  const FilterTrainersBySubject(this.subject);
+}
+
 class ClearCurrentAnswersEvent extends TrainerEvent {
   final List<Trainer> trainerList;
   const ClearCurrentAnswersEvent({required this.trainerList});

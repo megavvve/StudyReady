@@ -5,14 +5,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 //leading icons
 final mainIcon = Icon(
   Icons.home_outlined,
-  size: 50.sp,
+  size: 40.sp,
   color: Colors.black,
 );
 
 //leading icons
 final materialIcon = Icon(
   Icons.menu_book_outlined,
-  size: 50.sp,
+  size: 40.sp,
   color: Colors.black,
 );
 
@@ -20,14 +20,12 @@ final materialIcon = Icon(
 final trainerIcon = SvgPicture.asset(
   "assets/icons/navigation/trainer_icon.svg",
   color: Colors.black,
-  width: 50.w,
-  height: 50.h,
 );
 
 //leading icons
 final addQuestionIcon = Icon(
-  Icons.quiz_outlined,
-  size: 50.sp,
+  Icons.add,
+  size: 40.sp,
   color: Colors.black,
 );
 

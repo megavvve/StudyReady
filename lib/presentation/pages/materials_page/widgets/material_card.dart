@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/domain/entities/study_material.dart';
 import 'package:study_ready/presentation/pages/materials_page/widgets/material_reader.dart';
+import 'package:study_ready/utils/app_colors.dart';
 
 class MaterialCard extends StatelessWidget {
   final StudyMaterial studyMaterial;
@@ -25,24 +27,41 @@ class MaterialCard extends StatelessWidget {
         );
       },
       child: Card(
-        surfaceTintColor: Colors.transparent,
         color: Colors.white,
-        shadowColor: Colors.white,
-        elevation: 4,
-        margin: EdgeInsets.all(8.sp),
+        elevation: 6,
+        //margin: EdgeInsets.all(8.sp),
         child: Padding(
-          padding: EdgeInsets.all(12.sp),
+          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 1.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Text(
                 studyMaterial.fileName,
                 style: TextStyle(
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.bold,
+                  fontSize: 17.sp,
+                  fontWeight: FontWeight.w400,
                 ),
               ),
-              const SizedBox(height: 8),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  (studyMaterial.uploadDate == '')
+                      ? Text('')
+                      : Text(
+                          '${DateTime.parse(studyMaterial.uploadDate).year}-${DateTime.parse(studyMaterial.uploadDate).month}-${DateTime.parse(studyMaterial.uploadDate).day}',
+                          style: TextStyle(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w300,
+                              fontStyle: FontStyle.italic),
+                        ),
+                  Icon(
+                    Icons.picture_as_pdf,
+                    size: 30.sp,
+                    color: mainColor,
+                  ),
+                ],
+              )
             ],
           ),
         ),

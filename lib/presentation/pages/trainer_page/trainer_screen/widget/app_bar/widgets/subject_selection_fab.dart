@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:study_ready/domain/entities/trainer.dart';
 import 'package:study_ready/presentation/blocs/trainer_bloc/trainer_bloc.dart';
+import 'package:study_ready/presentation/pages/trainer_page/trainer_screen/trainer_screen.dart';
 import 'package:study_ready/utils/app_colors.dart';
 
 class SubjectSelectionFab extends StatelessWidget {
@@ -9,10 +11,17 @@ class SubjectSelectionFab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<String> subjectsList = [];
     return BlocBuilder<TrainerBloc, TrainerState>(
       builder: (context, state) {
         // final trainerList = state.trainerList;
-
+        if (state is TrainerLoadSuccess) {
+          Set<String> subjectsSet = {};
+          for (Trainer trainer in state.trainerList) {
+            subjectsSet.add(trainer.subjectName);
+          }
+          subjectsList = subjectsSet.toList();
+        }
         return SizedBox(
           height: 32.h,
           width: 170.w,
@@ -27,9 +36,6 @@ class SubjectSelectionFab extends StatelessWidget {
               ),
             ),
             onPressed: () {
-              // Получение списка предметов из тренажеров (замените этот список своим)
-              List<String> subjects = ['Непрерывная математика'];
-
               // При нажатии на FloatingActionButton открываем нижнее диалоговое окно
               showModalBottomSheet(
                 backgroundColor: trainerBottomSheetBackground,
@@ -48,16 +54,24 @@ class SubjectSelectionFab extends StatelessWidget {
                               fontWeight: FontWeight.w400, fontSize: 20.sp),
                         ),
                       ),
-                      for (String subject in subjects)
+                      for (String subject in subjectsList)
                         ListTile(
-                          title: Text(subject),
-                          onTap: () {
-                            // Добавьте здесь логику обработки выбора предмета
-                            // Например, передайте выбранный предмет в функцию для обработки
-
-                            Navigator.pop(context);
-                          },
-                        ),
+                            title: Text(subject),
+                            onTap: () {
+                              Navigator.of(context)
+                                  .pushReplacement(PageRouteBuilder(
+                                transitionDuration:
+                                    const Duration(milliseconds: 0),
+                                pageBuilder: (_, __, ___) =>
+                                    const TrainerScreen(),
+                                transitionsBuilder: (_, animation, __, child) {
+                                  return FadeTransition(
+                                    opacity: animation,
+                                    child: child,
+                                  );
+                                },
+                              ));
+                            }),
                     ],
                   );
                 },
