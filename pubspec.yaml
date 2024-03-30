@@ -75,12 +75,14 @@ flutter:
   assets:
     - assets/icons/
     - assets/icons/home_screen/
-    - assets/images/trainer/backgroung_for_trainer.svg
+    - assets/images/trainer/background_for_trainer.svg
+    - assets/images/trainer/background1_for_trainer.svg
+    - assets/images/trainer/background2_for_trainer.svg
+    - assets/images/trainer/background3_for_trainer.svg
     - assets/images/trainer/picture_for_trainer.svg
     - assets/images/trainer/background_for_app_bar_trainer.svg
     - assets/jsons/trainer1.json
     - assets/jsons/trainer2.json
-    - assets/icons/navigation/trainer_icon.svg
 
   # To add assets to your application, add an assets section, like this:
   # assets:

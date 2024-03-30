@@ -18,9 +18,11 @@ class HomeScreen extends StatelessWidget {
       backgroundColor: backgroundColor,
       appBar: AppBar(
         backgroundColor: backgroundColor,
-        leading: Builder(builder: (BuildContext context) {
-          return BurgerNavigationLeading(context);
-        }),
+        leading: Builder(
+          builder: (BuildContext context) {
+            return BurgerNavigationLeading(context);
+          },
+        ),
       ),
       drawer: const NavigatorDrawer(),
       body: Stack(

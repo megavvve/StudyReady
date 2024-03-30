@@ -11,44 +11,42 @@ class MaterialsButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-  onPressed: () {
-    Navigator.of(context).push(
-      customPageRoute(
-        const MaterialScreen(),
+      onPressed: () {
+        Navigator.of(context).push(
+          customPageRoute(
+            const MaterialScreen(),
+          ),
+        );
+      },
+      padding: EdgeInsets.all(0.sp),
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      icon: Stack(
+        children: [
+          const CustomShapeWidget(),
+          Positioned(
+            left: 39.w,
+            bottom: 50.h,
+            child: rLetterBack,
+          ),
+          Positioned(
+            left: 49.w,
+            bottom: 50.h,
+            child: rLetterFront,
+          ),
+          Positioned(
+            left: 140.w,
+            bottom: 192.25.h,
+            child: materialsText,
+          ),
+          Positioned(
+            left: 161.23.w,
+            bottom: 148.41.h,
+            child: eadyText,
+          ),
+          //Container(height: 200.h, color: Colors.grey,),
+        ],
       ),
     );
-  },
-  padding: EdgeInsets.all(0.sp),
-  splashColor: Colors.transparent,
-  highlightColor: Colors.transparent,
-  icon: Stack(
-    children: [
-      const CustomShapeWidget(),
-      Positioned(
-        left: 39.w,
-        bottom: 50.h,
-        child: rLetterBack,
-      ),
-      Positioned(
-        left: 49.w,
-        bottom: 50.h,
-        child: rLetterFront,
-      ),
-      Positioned(
-        left: 140.w,
-        bottom: 192.25.h,
-        child: materialsText,
-      ),
-      Positioned(
-        left: 161.23.w,
-        bottom: 148.41.h,
-        child: eadyText,
-      ),
-      //Container(height: 200.h, color: Colors.grey,),
-    ],
-  ),
-);
   }
 }
-
-

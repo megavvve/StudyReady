@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 // ignore: non_constant_identifier_names
 IconButton BurgerNavigationLeading(BuildContext context) {
   return  IconButton(
-    padding: EdgeInsets.only(left: 20.w,),
     icon: Icon(
       Icons.menu,
       size: 30.sp,

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/domain/entities/trainer.dart';
+import 'package:study_ready/presentation/navigation/burger_navigation_leading.dart';
 import 'package:study_ready/presentation/navigation/custom_page_router.dart';
 import 'package:study_ready/presentation/navigation/navigation_bar.dart';
 import 'package:study_ready/presentation/pages/trainer_page/add_question/add_question_screen/add_question_screen.dart';
 import 'package:study_ready/presentation/pages/trainer_page/trainer_screen/widget/app_bar/widgets/sort_button.dart';
-import 'package:study_ready/presentation/pages/trainer_page/trainer_screen/widget/app_bar/widgets/subject_selection_fab.dart';
 import 'package:study_ready/presentation/pages/trainer_page/trainer_screen/widget/trainer_card.dart';
 import 'package:study_ready/utils/app_colors.dart';
 
@@ -28,6 +28,11 @@ class TrainerListWidget extends StatelessWidget {
             child: CustomScrollView(
               slivers: <Widget>[
                 SliverAppBar(
+                  leading: Builder(
+                    builder: (BuildContext context) {
+                      return BurgerNavigationLeading(context);
+                    },
+                  ),
                   backgroundColor: backgroundColor,
                   pinned: true,
                   snap: false,

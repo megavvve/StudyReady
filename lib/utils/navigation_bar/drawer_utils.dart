@@ -1,31 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 //leading icons
 final mainIcon = Icon(
   Icons.home_outlined,
-  size: 40.sp,
+  size: 33.sp,
   color: Colors.black,
 );
 
 //leading icons
 final materialIcon = Icon(
   Icons.menu_book_outlined,
-  size: 40.sp,
+  size: 33.sp,
   color: Colors.black,
 );
 
 //leading icons
-final trainerIcon = SvgPicture.asset(
-  "assets/icons/navigation/trainer_icon.svg",
+final trainerIcon = Icon(
+  Icons.widgets_outlined,
+  size: 33.sp,
   color: Colors.black,
 );
 
 //leading icons
 final addQuestionIcon = Icon(
   Icons.add,
-  size: 40.sp,
+  size: 33.sp,
   color: Colors.black,
 );
 

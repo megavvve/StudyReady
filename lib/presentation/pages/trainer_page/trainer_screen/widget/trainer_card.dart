@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,11 +17,14 @@ class TrainerCard extends StatelessWidget {
     required this.trainer,
   });
 
+  
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TrainerBloc, TrainerState>(
       builder: (context, state) {
         return Container(
+          clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(
               16.sp,
@@ -31,7 +36,6 @@ class TrainerCard extends StatelessWidget {
           padding: EdgeInsets.only(
             top: 20.h,
             left: 20.w,
-            right: 20.w,
           ),
           margin: EdgeInsets.only(
             top: 26.h,
@@ -46,21 +50,24 @@ class TrainerCard extends StatelessWidget {
                 children: <Widget>[
                   Align(
                     alignment: Alignment.topRight,
-                    child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(
-                          16.sp,
+                    child: Padding(
+                      padding: EdgeInsets.only(right: 20.w),
+                      child: Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(
+                            16.sp,
+                          ),
+                          color: const Color.fromRGBO(0, 0, 0, 0.2),
                         ),
-                        color: const Color.fromRGBO(0, 0, 0, 0.2),
-                      ),
-                      child: Text(
-                        '${trainer.questions.length} вопросов',
-                        style: TextStyle(
-                          fontSize: 13.sp,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
+                        child: Text(
+                          '${trainer.questions.length} вопросов',
+                          style: TextStyle(
+                            fontSize: 13.sp,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                     ),
@@ -116,16 +123,18 @@ class TrainerCard extends StatelessWidget {
                           ),
                         ),
                       ),
-                      backgrondForTrainerCard,
+                      backgrondsForTrainerCard[Random().nextInt(3)],
                     ],
                   ),
                 ],
               ),
+              /*
               Positioned(
                 bottom: 10.0.h,
                 right: 25.0.w,
                 child: pictureForTrainer,
               ),
+              */
             ],
           ),
         );

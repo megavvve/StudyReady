@@ -47,7 +47,7 @@ class MaterialCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   (studyMaterial.uploadDate == '')
-                      ? Text('')
+                      ? const Text('')
                       : Text(
                           '${DateTime.parse(studyMaterial.uploadDate).year}-${DateTime.parse(studyMaterial.uploadDate).month}-${DateTime.parse(studyMaterial.uploadDate).day}',
                           style: TextStyle(
