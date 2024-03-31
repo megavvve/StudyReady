@@ -6,23 +6,26 @@ class SaveButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ButtonStyle(
-        backgroundColor:
-            const MaterialStatePropertyAll(Color.fromRGBO(119, 165, 245, 1)),
-        fixedSize: MaterialStatePropertyAll(
-          Size(
-            305.w,
-            55.h,
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 15.0.w),
+      child: ElevatedButton(
+        style: ButtonStyle(
+          backgroundColor:
+              const MaterialStatePropertyAll(Color.fromRGBO(119, 165, 245, 1)),
+          fixedSize: MaterialStatePropertyAll(
+            Size(
+              305.w,
+              55.h,
+            ),
           ),
         ),
-       ),
-      onPressed: () {
-        Navigator.pop(context);
-      },
-      child: Text(
-        'Сохранить',
-        style: TextStyle(color: Colors.black, fontSize: 20.sp),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        child: Text(
+          'Сохранить',
+          style: TextStyle(color: Colors.black, fontSize: 20.sp),
+        ),
       ),
     );
   }

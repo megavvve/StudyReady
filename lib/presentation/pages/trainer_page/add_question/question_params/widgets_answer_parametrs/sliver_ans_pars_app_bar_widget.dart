@@ -24,20 +24,20 @@ class SliverAnsParsAppBarWidget extends StatelessWidget {
           },
         ),
       ),
-    
-        
-        title: Container(
-          alignment: Alignment.center,
-          width: 278.w,
-          height: 52.h,
-          padding: EdgeInsets.all(10.sp),
-          decoration: BoxDecoration(
-            color: const Color.fromRGBO(119, 165, 245, 1),
-            borderRadius: BorderRadius.circular(16.sp),
-          ),
-          child: Text('Параметры', style: TextStyle(fontSize: 18.sp),),
+      title: Container(
+        alignment: Alignment.center,
+        width: 298.w,
+        height: 32.h,
+        padding: EdgeInsets.all(5.sp),
+        decoration: BoxDecoration(
+          color: const Color(0xFFB8D3FF),
+          borderRadius: BorderRadius.circular(8.sp),
         ),
-     
+        child: Text(
+          'Параметры тренажера',
+          style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w400),
+        ),
+      ),
     );
   }
 }

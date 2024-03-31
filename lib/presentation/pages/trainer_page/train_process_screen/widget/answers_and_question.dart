@@ -10,73 +10,63 @@ import 'inherited_widget_check.dart';
 
 class AnswersAndQuestion extends StatefulWidget {
   final Trainer trainer;
-  const AnswersAndQuestion({super.key, required this.trainer});
+  const AnswersAndQuestion({Key? key, required this.trainer}) : super(key: key);
 
   @override
   State<AnswersAndQuestion> createState() => _AnswersAndQuestionState();
 }
 
 class _AnswersAndQuestionState extends State<AnswersAndQuestion> {
-  
   @override
   Widget build(BuildContext context) {
-
-  
     int selectedQuestion = SharedState.of(context).selectedQuestion;
 
     Trainer trainer = widget.trainer;
     final List<Question> questionList = trainer.questions;
- 
+
     return BlocBuilder<TrainerBloc, TrainerState>(
       builder: (context, state) {
-        
-        final answers = state.currentAnswers[
-            (selectedQuestion > questionList.length)
-                ? 1
-                : selectedQuestion - 1];
-        return Padding(
-          padding: EdgeInsets.all(
-            17.0.sp,
-          ),
-          child: Column(
-            children: [
-              Container(
-                padding: EdgeInsets.all(
-                  16.sp,
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(
-                      14.sp,
+        if (state is TrainerLoadSuccess) {
+          final answers = state.currentTrainersAnswers[
+              (selectedQuestion > questionList.length)
+                  ? 1
+                  : selectedQuestion - 1];
+          return Padding(
+            padding: EdgeInsets.all(17.0.sp),
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(16.sp),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(14.sp),
+                    ),
+                  ),
+                  width: 335.w,
+                  child: Center(
+                    child: Text(
+                      questionList[(selectedQuestion > questionList.length)
+                              ? 1
+                              : selectedQuestion - 1]
+                          .questionContext,
+                      style: TextStyle(
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black,
+                        height: 1.5.h,
+                      ),
                     ),
                   ),
                 ),
-                width: 335.w,
-                child: Center(
-                  child: Text(
-                    questionList[(selectedQuestion > questionList.length)
-                            ? 1
-                            : selectedQuestion - 1]
-                        .questionContext,
-                    style: TextStyle(
-                      fontSize: 18.sp, // Размер шрифта
-                      fontWeight: FontWeight.w500, // Жирный шрифт для выделения
-                      color: Colors.black, // Цвет текста
-                      height: 1.5.h, // Межстрочный интервал
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 40.h,
-              ),
-              Answers(
-                list: answers,
-              ),
-            ],
-          ),
-        );
+                SizedBox(height: 40.h),
+                Answers(list: answers),
+              ],
+            ),
+          );
+        } else {
+          return const CircularProgressIndicator(); // Placeholder for loading state
+        }
       },
     );
   }

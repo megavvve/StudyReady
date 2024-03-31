@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/injection_container.dart';
+import 'package:study_ready/presentation/blocs/study_material_bloc/study_material_bloc.dart';
 import 'package:study_ready/presentation/blocs/trainer_bloc/trainer_bloc.dart';
 import 'package:study_ready/presentation/pages/home_page/home_screen.dart';
 import 'package:study_ready/utils/app_themes.dart';
@@ -13,6 +14,7 @@ void main() async {
   // final Reference ref =
   //     FirebaseStorage.instance.ref().child('Математический анализ.pdf');
   // final String downloadURL = await ref.getDownloadURL();
+
   await ScreenUtil.ensureScreenSize();
   runApp(
     const MyApp(),
@@ -26,12 +28,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
-    return BlocProvider<TrainerBloc>(
-      create: (_) => getIt<TrainerBloc>(),
+    SystemChrome.setPreferredOrientations(
+      [
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ],
+    );
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<TrainerBloc>(
+          create: (_) => getIt<TrainerBloc>(),
+        ),
+        BlocProvider<StudyMaterialBloc>(
+            create: (_) => getIt<StudyMaterialBloc>()),
+      ],
       child: ScreenUtilInit(
         designSize: const Size(375, 812),
         minTextAdapt: true,

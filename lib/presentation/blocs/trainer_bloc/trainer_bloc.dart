@@ -1,15 +1,17 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:study_ready/domain/entities/chapter.dart';
 
 import 'package:study_ready/domain/entities/question.dart';
+import 'package:study_ready/domain/entities/subject.dart';
+import 'package:study_ready/domain/entities/theme.dart';
 import 'package:study_ready/domain/entities/trainer.dart';
-import 'package:study_ready/domain/usecases/get_question_full_info_by_id.dart';
-import 'package:study_ready/domain/usecases/get_trainer_full_info_by_id.dart';
-import 'package:study_ready/domain/usecases/get_trainers.dart';
-import 'package:study_ready/domain/usecases/insert_question.dart';
-import 'package:study_ready/domain/usecases/insert_trainer.dart';
-import 'package:study_ready/domain/usecases/update_trainer.dart';
-import 'package:study_ready/utils/app_strings.dart';
+import 'package:study_ready/domain/usecases/trainer/get_question_full_info_by_id.dart';
+import 'package:study_ready/domain/usecases/trainer/get_trainer_full_info_by_id.dart';
+import 'package:study_ready/domain/usecases/trainer/get_trainers.dart';
+import 'package:study_ready/domain/usecases/trainer/insert_question.dart';
+import 'package:study_ready/domain/usecases/trainer/insert_trainer.dart';
+import 'package:study_ready/domain/usecases/trainer/update_trainer.dart';
 
 part 'trainer_event.dart';
 part 'trainer_state.dart';
@@ -28,93 +30,82 @@ class TrainerBloc extends Bloc<TrainerEvent, TrainerState> {
       this.getTrainers,
       this.getTrainerFullInfoById,
       this.getQuestionFullInfoById)
-      : super(const TrainerState()) {
+      : super(TrainerInitial()) {
     on<AddQuestion>(_onAddQuestion);
     on<InitLoad>(_onInitLoad);
     on<GenerateAnswersListEvent>(_onGenerateAnswers);
     on<ClearCurrentAnswersEvent>(_onCleanCurrentAnswers);
-    on<ReloadingListOfTrainerEvent>(_onReloadingListOfSimulators);
-  }
-  void _onReloadingListOfSimulators(
-      ReloadingListOfTrainerEvent event, Emitter<TrainerState> emit) {
-    final state = this.state;
-    emit(
-      TrainerState(
-        trainerList: state.trainerList,
-      ),
-    );
+    on<AddTrainer>(_onAddTrainer);
+    on<SortTrainers>(_onSortTrainer);
+    on<FilterTrainersBySubject>(_onFilterTrainersBySubject);
   }
 
   void _onAddQuestion(AddQuestion event, Emitter<TrainerState> emit) async {
     final state = this.state;
-    final question = event.question;
 
-    List<Trainer> allTrainer = state.trainerList;
+    if (state is TrainerLoadSuccess) {
+      final question = event.question;
+      final trainer = event.trainerToAddTo;
+      if (trainer != null) {
+        List<Trainer> allTrainers = List.from(state.trainerList);
 
-    bool trainerExists =
-        allTrainer.any((trainer) => trainer.trainerName == "Свой тренажер");
+        int index =
+            allTrainers.indexWhere((element) => element.id == trainer.id);
+        if (index != -1) {
+          trainer.questions
+              .add(question); // Добавляем вопрос в список вопросов тренажера
+          insertQuestion.call(question);
+          updateTrainer.call(trainer); // Обновляем тренажера в хранилище данных
 
-    if (trainerExists) {
-      Trainer trainer = allTrainer
-          .firstWhere((trainer) => trainer.trainerName == "Свой тренажер");
-
-      trainer.questions.add(question);
-      allTrainer.removeLast();
-
-      allTrainer.add(
-        Trainer(
-          id: trainer.id,
-          trainerName: trainer.trainerName,
-          color: trainer.color,
-          image: trainer.image,
-          questions: trainer.questions,
-          subjectName: 'Свой тренажер',
-          description: descriptionForMyTrainer,
-        ),
-      );
-
-      insertQuestion.call(question);
-      List<String> questionsWithStrId = [];
-      for (var i in trainer.questions) {
-        questionsWithStrId.add(i.id.toString());
+          emit(
+            TrainerLoadSuccess(
+              trainerList: allTrainers,
+            ),
+          );
+        } else {
+          print('Trainer with id ${trainer.id} not found.');
+        }
+      } else {
+        insertQuestion.call(question);
       }
-      //questionsWithStrId.add(question.id.toString());
-
-      updateTrainer.call(trainer);
     } else {
-      Trainer trainer = Trainer(
-        id: allTrainer.last.id + 1,
-        trainerName: "Свой тренажер",
-        subjectName: "Свой тренажер",
-        description: descriptionForMyTrainer,
-        color: "0xFFE3945F",
-        image: "",
-        questions: [question],
-      );
-      allTrainer.add(
-        trainer,
-      );
+      final tr = event.trainerToAddTo;
+      if (tr != null) {
+        tr.questions.add(event.question);
+        emit(
+          TrainerLoadSuccess(
+            trainerList: [
+              Trainer(
+                id: tr.id,
+                trainerName: tr.trainerName,
+                subjectName: tr.subjectName,
+                description: tr.description,
+                color: tr.color,
+                image: tr.image,
+                questions: tr.questions,
+              ),
+            ],
+          ),
+        );
+      }
 
-      insertQuestion.call(question);
-      insertTrainer.call(trainer);
+      //нужно добавить в базу данных вопрос
     }
-    emit(
-      TrainerState(
-        trainerList: allTrainer,
-      ),
-    );
   }
 
   Future<void> _onInitLoad(InitLoad event, Emitter<TrainerState> emit) async {
     final trainersFromDB = await getTrainers.call();
 
-    int c = 1;
+    int c = 0;
     List<Trainer> allTrainer = [];
-    for (var j = 1; j <= trainersFromDB.length; j++) {
-      Trainer trainerFromDb = await getTrainerFullInfoById.call(j);
+    for (var j = 0; j < trainersFromDB.length; j++) {
+      // Изменение условия цикла
+      Trainer trainerFromDb =
+          await getTrainerFullInfoById.call(j + 1); // Добавление 1 к индексу
       List<Question> questionFromTrainer = [];
-      for (var i = 1; i <= trainerFromDb.questions.length; i++) {
-        Question question = await getQuestionFullInfoById.call(c);
+      for (var i = 0; i < trainerFromDb.questions.length; i++) {
+        // Изменение условия цикла
+        Question question = await getQuestionFullInfoById.call(c + 1);
 
         questionFromTrainer.add(question);
         c++;
@@ -131,9 +122,15 @@ class TrainerBloc extends Bloc<TrainerEvent, TrainerState> {
       allTrainer.add(trainer);
       questionFromTrainer = [];
     }
-
+    if (allTrainer.isEmpty) {
+      emit(
+        const TrainerLoadFailure(
+          errorMessage: "Ошибка инициализации",
+        ),
+      );
+    }
     emit(
-      TrainerState(
+      TrainerLoadSuccess(
         trainerList: allTrainer,
       ),
     );
@@ -141,8 +138,8 @@ class TrainerBloc extends Bloc<TrainerEvent, TrainerState> {
 
   void _onGenerateAnswers(
       GenerateAnswersListEvent event, Emitter<TrainerState> emit) {
-    final state = this.state;
     final trainer = event.trainer;
+    final trainers = event.trainerList;
     List<List<String>> answers = [];
     for (var i = 0; i < trainer.questions.length; i++) {
       answers.add(_generateRandomAnswers(trainer.questions[i].rightAnswer,
@@ -150,33 +147,94 @@ class TrainerBloc extends Bloc<TrainerEvent, TrainerState> {
     }
 
     emit(
-      TrainerState(
-        trainerList: state.trainerList,
-        currentAnswers: answers,
+      TrainerLoadSuccess(
+        trainerList: trainers,
+        currentTrainersAnswers: answers,
       ),
     );
   }
 
   void _onCleanCurrentAnswers(
       ClearCurrentAnswersEvent event, Emitter<TrainerState> emit) {
-    final state = this.state;
-
-    emit(TrainerState(
-      trainerList: state.trainerList,
-      currentAnswers: const [],
+    emit(const TrainerLoadSuccess(
+      currentTrainersAnswers: [],
     ));
   }
 
-  List<String> _generateRandomAnswers(
-      String correctAnswer, List<String> incorrectAnswers) {
-    List<String> answers = [];
-
-    answers.add(correctAnswer);
-
-    answers.addAll(incorrectAnswers);
-
-    answers.shuffle();
-
-    return answers;
+  void _onAddTrainer(AddTrainer event, Emitter<TrainerState> emit) async {
+    final trainer = event.trainer;
+    insertTrainer.call(trainer);
+    final state = this.state;
+    if (state is TrainerLoadSuccess) {
+      final trainerList = state.trainerList;
+      trainerList.add(trainer);
+      emit(
+        TrainerLoadSuccess(
+          trainerList: trainerList,
+        ),
+      );
+    }
   }
+
+  void _onSortTrainer(SortTrainers event, Emitter<TrainerState> emit) {
+    final state = this.state;
+    if (state is TrainerLoadSuccess) {
+      final sortedTrainers = _sortTrainers(event.sortBy, state.trainerList);
+
+      emit(
+        TrainerLoadSuccess(
+          trainerList: sortedTrainers,
+        ),
+      );
+    }
+  }
+
+  void _onFilterTrainersBySubject(
+      FilterTrainersBySubject event, Emitter<TrainerState> emit) {
+    final state = this.state;
+    if (state is TrainerLoadSuccess) {
+      final sortedTrainers = state.trainerList
+          .where((element) => element.subjectName == event.subject)
+          .toList();
+
+      emit(
+        TrainerLoadSuccess(
+          trainerList: sortedTrainers,
+        ),
+      );
+    }
+  }
+}
+
+List<Trainer> _sortTrainers(String sortBy, List<Trainer> trainers) {
+  // Здесь вы можете реализовать различные методы сортировки
+  switch (sortBy) {
+    case 'default':
+      trainers.sort((a, b) => a.id.compareTo(b.id));
+      break;
+    case 'name':
+      trainers.sort((a, b) => a.trainerName.compareTo(b.trainerName));
+      break;
+    case 'subject':
+      trainers.sort((a, b) => a.subjectName.compareTo(b.subjectName));
+    case 'count_question':
+      trainers.sort((a, b) => b.questions.length.compareTo(a.questions.length));
+    default:
+      // По умолчанию не сортировать
+      break;
+  }
+  return trainers;
+}
+
+List<String> _generateRandomAnswers(
+    String correctAnswer, List<String> incorrectAnswers) {
+  List<String> answers = [];
+
+  answers.add(correctAnswer);
+
+  answers.addAll(incorrectAnswers);
+
+  answers.shuffle();
+
+  return answers;
 }

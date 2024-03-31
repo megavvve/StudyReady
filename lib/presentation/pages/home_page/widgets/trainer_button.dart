@@ -40,7 +40,7 @@ class TrainerButtonWidget extends StatelessWidget {
               child: trainerText,
             ),
             Positioned(
-              left: 165.87.w,
+              left: 160.87.w,
               bottom: 143.2.h,
               child: tudyText,
             ),

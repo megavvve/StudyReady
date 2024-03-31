@@ -19,19 +19,23 @@ class AppBarAddingQuestion extends StatelessWidget
       leading: BurgerNavigationLeading(context),
       title: Row(
         children: [
-          SizedBox(width: 10.w,),
+          SizedBox(
+            width: 10.w,
+          ),
           Container(
             height: 35.h,
             width: 250.w,
             alignment: Alignment.center,
-            
             decoration: BoxDecoration(
               color: secondColor,
               borderRadius: BorderRadius.circular(6.sp),
             ),
             child: Text(
               'Новый вопрос',
-              style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500,),
+              style: TextStyle(
+                fontSize: 18.sp,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
         ],

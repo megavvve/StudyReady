@@ -5,6 +5,7 @@ import 'package:study_ready/presentation/navigation/navigation_bar.dart';
 import 'package:study_ready/presentation/pages/home_page/widgets/materials_button.dart';
 import 'package:study_ready/presentation/pages/home_page/widgets/trainer_button.dart';
 import 'package:study_ready/presentation/navigation/burger_navigation_leading.dart';
+import 'package:study_ready/utils/app_colors.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
@@ -14,10 +15,14 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: backgroundColor,
       appBar: AppBar(
-        leading: Builder(builder: (BuildContext context) {
-          return BurgerNavigationLeading(context);
-        }),
+        backgroundColor: backgroundColor,
+        leading: Builder(
+          builder: (BuildContext context) {
+            return BurgerNavigationLeading(context);
+          },
+        ),
       ),
       drawer: const NavigatorDrawer(),
       body: Stack(

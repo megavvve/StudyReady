@@ -16,8 +16,8 @@ class InitLoad extends TrainerEvent {
 
 class AddQuestion extends TrainerEvent {
   final Question question;
-
-  const AddQuestion({required this.question});
+  final Trainer? trainerToAddTo;
+  const AddQuestion({required this.question, required this.trainerToAddTo});
 
   @override
   List<Object> get props => [question];
@@ -25,23 +25,38 @@ class AddQuestion extends TrainerEvent {
 
 class GenerateAnswersListEvent extends TrainerEvent {
   final Trainer trainer;
-
-  const GenerateAnswersListEvent({required this.trainer});
+  final List<Trainer> trainerList;
+  const GenerateAnswersListEvent(
+      {required this.trainerList, required this.trainer});
 
   @override
-  List<Object> get props => [trainer];
+  List<Object> get props => [trainer, trainerList];
+}
+
+class SortTrainers extends TrainerEvent {
+  final String sortBy;
+
+  const SortTrainers(this.sortBy);
+}
+
+class FilterTrainersBySubject extends TrainerEvent {
+  final String subject;
+
+  const FilterTrainersBySubject(this.subject);
 }
 
 class ClearCurrentAnswersEvent extends TrainerEvent {
-  const ClearCurrentAnswersEvent();
+  final List<Trainer> trainerList;
+  const ClearCurrentAnswersEvent({required this.trainerList});
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [trainerList];
 }
 
-class ReloadingListOfTrainerEvent extends TrainerEvent {
-  const ReloadingListOfTrainerEvent();
+class AddTrainer extends TrainerEvent {
+  final Trainer trainer;
+  const AddTrainer({required this.trainer});
 
-    @override
-  List<Object> get props => [];
+  @override
+  List<Object> get props => [trainer];
 }

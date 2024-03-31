@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -27,12 +26,12 @@ class CheckButton extends StatefulWidget {
 
 class CheckButtonState extends State<CheckButton> {
   bool isChecked = false;
+  int correctAnswers = 0;
   @override
   Widget build(BuildContext context) {
     int selectedQuestion = SharedState.of(context).selectedQuestion;
     int selectedIndex = SharedState.of(context).selectedIndex;
     int howmuchQuestion = SharedState.of(context).howmuchQuestion;
-
     void nextQuestionIndex() {
       setState(() {
         selectedQuestion++;
@@ -44,133 +43,139 @@ class CheckButtonState extends State<CheckButton> {
 
     return BlocBuilder<TrainerBloc, TrainerState>(
       builder: (context, state) {
-        return GestureDetector(
-          onTap: () {
-            setState(() {
-              if ([0, 1, 2, 3].contains(selectedIndex)) {
-                int correctAnswer = 0;
-                for (var i = 0;
-                    i < state.currentAnswers[selectedQuestion - 1].length;
-                    i++) {
-                  if (widget.trainer.questions[selectedQuestion - 1]
-                          .rightAnswer ==
-                      state.currentAnswers[selectedQuestion - 1][i]) {
-                    correctAnswer = i;
+        if (state is TrainerLoadSuccess) {
+          return GestureDetector(
+            onTap: () {
+              setState(() {
+                if ([0, 1, 2, 3].contains(selectedIndex)) {
+                  int correctAnswer = 0;
+                  for (var i = 0;
+                      i <
+                          state.currentTrainersAnswers[selectedQuestion - 1]
+                              .length;
+                      i++) {
+                    if (widget.trainer.questions[selectedQuestion - 1]
+                            .rightAnswer ==
+                        state.currentTrainersAnswers[selectedQuestion - 1][i]) {
+                      correctAnswer = i;
+                    }
                   }
-                }
-                bool isCorrect = selectedIndex == correctAnswer;
-                showModalBottomSheet<void>(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(16.sp),
-                          topRight: Radius.circular(16.sp),
+                  bool isCorrect = selectedIndex == correctAnswer;
+                  correctAnswers += isCorrect ? 1 : 0;
+                  showModalBottomSheet<void>(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(16.sp),
+                            topRight: Radius.circular(16.sp),
+                          ),
                         ),
-                      ),
-                      padding: EdgeInsets.all(15.sp),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          Text(
-                            isCorrect ? 'Правильно!' : 'Неправильно',
-                            style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              color: isCorrect ? Colors.green : Colors.red,
-                            ),
-                          ),
-                          SizedBox(height: 16.h),
-                          Text(
-                            isCorrect
-                                ? 'Отличная работа! Продолжайте в том же духе!'
-                                : 'Попробуйте еще раз. У вас получится!',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 18.sp,
-                              color: isCorrect ? Colors.green : Colors.red,
-                            ),
-                          ),
-                          SizedBox(height: 16.h),
-                          ElevatedButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                                  isCorrect ? Colors.green : Colors.red,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.sp),
+                        padding: EdgeInsets.all(15.sp),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Text(
+                              isCorrect ? 'Правильно!' : 'Неправильно',
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                color: isCorrect ? Colors.green : Colors.red,
                               ),
                             ),
-                            child: Text(
-                              'Следующий вопрос',
+                            SizedBox(height: 16.h),
+                            Text(
+                              isCorrect
+                                  ? 'Отличная работа! Продолжайте в том же духе!'
+                                  : 'Попробуйте еще раз. У вас получится!',
+                              textAlign: TextAlign.center,
                               style: TextStyle(
-                                  fontSize: 16.sp,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600),
+                                fontSize: 18.sp,
+                                color: isCorrect ? Colors.green : Colors.red,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                ).whenComplete(() {
-                  if (selectedQuestion >= howmuchQuestion) {
-                   
-                    Navigator.of(context).pushReplacement(
-                      customPageRoute(
-                        TrainingResultScreen(
-                          correctAnswers: 10,
-                          totalQuestions: howmuchQuestion,
-                          randomResultingText: getRandomCongratulations(),
+                            SizedBox(height: 16.h),
+                            ElevatedButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor:
+                                    isCorrect ? Colors.green : Colors.red,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8.sp),
+                                ),
+                              ),
+                              child: Text(
+                                'Следующий вопрос',
+                                style: TextStyle(
+                                    fontSize: 16.sp,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                            ),
+                          ],
                         ),
+                      );
+                    },
+                  ).whenComplete(() {
+                    if (selectedQuestion >= howmuchQuestion) {
+                      Navigator.of(context).pushReplacement(
+                        customPageRoute(
+                          TrainingResultScreen(
+                            correctAnswers: correctAnswers,
+                            totalQuestions: howmuchQuestion,
+                            randomResultingText: getRandomCongratulations(),
+                          ),
+                        ),
+                      );
+                    } else {
+                      nextQuestionIndex();
+                    }
+                  });
+                }
+              });
+            },
+            child: Container(
+              padding: EdgeInsets.all(
+                16.sp,
+              ),
+              decoration: (selectedIndex == -1)
+                  ? BoxDecoration(
+                      color: secondColor,
+                      borderRadius: BorderRadius.circular(
+                        16.sp,
                       ),
-                    );
-                 
-                  } else {
-                    nextQuestionIndex();
-                  }
-                });
-              }
-            });
-          },
-          child: Container(
-            padding: EdgeInsets.all(
-              16.sp,
-            ),
-            decoration: (selectedIndex == -1)
-                ? BoxDecoration(
-                    color: secondColor,
-                    borderRadius: BorderRadius.circular(
-                      16.sp,
+                    )
+                  : BoxDecoration(
+                      color: mainColor,
+                      borderRadius: BorderRadius.circular(
+                        16.sp,
+                      ),
                     ),
-                  )
-                : BoxDecoration(
-                    color: mainColor,
-                    borderRadius: BorderRadius.circular(
-                      16.sp,
-                    ),
+              width: 335.w,
+              height: 70.h,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(width: 8.w),
+                  Text(
+                    !isChecked ? 'Проверка' : 'Продолжить',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 18.sp),
                   ),
-            width: 335.w,
-            height: 70.h,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(width: 8.w),
-                Text(
-                  !isChecked ? 'Проверка' : 'Продолжить',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 18.sp),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        );
+          );
+        } else {
+          // Handle loading or failure states
+          return const CircularProgressIndicator(); // Placeholder for loading state
+        }
       },
     );
   }
