@@ -36,8 +36,6 @@ class TrainerBloc extends Bloc<TrainerEvent, TrainerState> {
     on<GenerateAnswersListEvent>(_onGenerateAnswers);
     on<ClearCurrentAnswersEvent>(_onCleanCurrentAnswers);
     on<AddTrainer>(_onAddTrainer);
-    on<SortTrainers>(_onSortTrainer);
-    on<FilterTrainersBySubject>(_onFilterTrainersBySubject);
   }
 
   void _onAddQuestion(AddQuestion event, Emitter<TrainerState> emit) async {
@@ -176,65 +174,16 @@ class TrainerBloc extends Bloc<TrainerEvent, TrainerState> {
     }
   }
 
-  void _onSortTrainer(SortTrainers event, Emitter<TrainerState> emit) {
-    final state = this.state;
-    if (state is TrainerLoadSuccess) {
-      final sortedTrainers = _sortTrainers(event.sortBy, state.trainerList);
+  List<String> _generateRandomAnswers(
+      String correctAnswer, List<String> incorrectAnswers) {
+    List<String> answers = [];
 
-      emit(
-        TrainerLoadSuccess(
-          trainerList: sortedTrainers,
-        ),
-      );
-    }
+    answers.add(correctAnswer);
+
+    answers.addAll(incorrectAnswers);
+
+    answers.shuffle();
+
+    return answers;
   }
-
-  void _onFilterTrainersBySubject(
-      FilterTrainersBySubject event, Emitter<TrainerState> emit) {
-    final state = this.state;
-    if (state is TrainerLoadSuccess) {
-      final sortedTrainers = state.trainerList
-          .where((element) => element.subjectName == event.subject)
-          .toList();
-
-      emit(
-        TrainerLoadSuccess(
-          trainerList: sortedTrainers,
-        ),
-      );
-    }
-  }
-}
-
-List<Trainer> _sortTrainers(String sortBy, List<Trainer> trainers) {
-  // Здесь вы можете реализовать различные методы сортировки
-  switch (sortBy) {
-    case 'default':
-      trainers.sort((a, b) => a.id.compareTo(b.id));
-      break;
-    case 'name':
-      trainers.sort((a, b) => a.trainerName.compareTo(b.trainerName));
-      break;
-    case 'subject':
-      trainers.sort((a, b) => a.subjectName.compareTo(b.subjectName));
-    case 'count_question':
-      trainers.sort((a, b) => b.questions.length.compareTo(a.questions.length));
-    default:
-      // По умолчанию не сортировать
-      break;
-  }
-  return trainers;
-}
-
-List<String> _generateRandomAnswers(
-    String correctAnswer, List<String> incorrectAnswers) {
-  List<String> answers = [];
-
-  answers.add(correctAnswer);
-
-  answers.addAll(incorrectAnswers);
-
-  answers.shuffle();
-
-  return answers;
 }

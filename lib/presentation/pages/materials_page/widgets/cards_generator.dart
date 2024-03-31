@@ -14,6 +14,7 @@ class CardsGenerator extends StatelessWidget {
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         childAspectRatio: 0.8.h,
+        mainAxisSpacing: 10.h,
       ),
       itemBuilder: (BuildContext context, int index) => MaterialCard(
         studyMaterial: itemsList[index],
