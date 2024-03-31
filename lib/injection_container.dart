@@ -1,3 +1,4 @@
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get_it/get_it.dart';
@@ -26,9 +27,6 @@ final getIt = GetIt.instance;
 
 //Dependency injection
 Future<void> setup() async {
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
   final AuthRepository authRepository = FirebaseAuthRepository();
 
 // Sign in anonymously

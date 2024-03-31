@@ -36,59 +36,11 @@ class FirebaseStudyMaterialRepository implements StudyMaterialRepository {
     }
   }
 
-  // @override
-  // Future<List<StudyMaterial>> getMaterials() async {
-  //   List<StudyMaterial> materials = [];
-
-  //   try {
-  //     final storage = FirebaseStorage.instance;
-
-  //     final storageRef = storage.ref();
-
-  //     final ListResult result = await storageRef.listAll();
-
-  //     for (Reference item in result.items) {
-  //       final metadata = await item.getMetadata();
-  //       final timeCreated = metadata.timeCreated.toString();
-
-  //       String type = metadata.contentType ?? '';
-
-  //       final appDocDir = await getApplicationDocumentsDirectory();
-  //       final fileName = metadata.name;
-  //       String fileNameWithoutExtension = fileName.split('.').first;
-  //       final filePath = "${appDocDir.path}/$fileName";
-  //       final file = File(filePath);
-
-  //       await item.writeToFile(file);
-  //       final material = StudyMaterial(
-  //         id: materials.length + 1,
-  //         fileName: fileNameWithoutExtension,
-  //         filePath: filePath,
-  //         subjectName: '',
-  //         uploadDate: timeCreated,
-  //         fileType: type,
-  //       );
-  //       materials.add(material);
-  //       await addMaterial(material);
-  //     }
-  //   } catch (e) {
-  //     print('Error fetching materials: $e');
-  //   }
-
-  //   return materials;
-  // }
   @override
   Future<List<StudyMaterial>> getMaterials() async {
     List<StudyMaterial> materials = [];
 
     try {
-      // final List<StudyMaterial> localMaterials = await _getLocalMaterials();
-      // if (localMaterials.isNotEmpty) {
-      //   materials.addAll(localMaterials);
-      // } else {
-      //   final List<StudyMaterial> remoteMaterials = await _getRemoteMaterials();
-      //   materials.addAll(remoteMaterials);
-      // }
       final List<StudyMaterial> remoteMaterials = await _getRemoteMaterials();
       materials.addAll(remoteMaterials);
     } catch (e) {
@@ -129,13 +81,8 @@ class FirebaseStudyMaterialRepository implements StudyMaterialRepository {
     List<StudyMaterial> remoteMaterials = [];
 
     try {
-      // Получаем материалы из Firestore
-      final List<StudyMaterial> firestoreMaterials =
-          await _getFirestoreMaterials();
-      remoteMaterials.addAll(firestoreMaterials);
-
-      // Скачиваем материалы из Firebase Storage
-      final storage = FirebaseStorage.instance;
+      final storage = FirebaseStorage.instanceFor(
+          bucket: "gs://studyready-df819.appspot.com");
       final storageRef = storage.ref();
       final ListResult result = await storageRef.listAll();
 
@@ -173,9 +120,7 @@ class FirebaseStudyMaterialRepository implements StudyMaterialRepository {
       QuerySnapshot querySnapshot =
           await FirebaseFirestore.instance.collection('materials').get();
 
-      // Обходим каждый документ в коллекции
       querySnapshot.docs.forEach((doc) {
-        // Извлекаем данные из документа
         String fileName = doc['fileName'];
         String filePath = doc['filePath'];
         String subjectName = doc['subjectName'];
