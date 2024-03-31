@@ -1,3 +1,5 @@
+import 'package:drift/drift.dart';
+import 'package:study_ready/data/datasources/local/app_db.dart';
 import 'package:study_ready/data/models/study_material_api.dart';
 import 'package:study_ready/domain/entities/study_material.dart';
 
@@ -33,5 +35,15 @@ class StudyMaterialMapper {
     return domainList
         .map((domainModel) => StudyMaterialMapper.toApi(domainModel))
         .toList();
+  }
+
+  static MaterialsTableCompanion mapStudyMaterialToMaterialsTableCompanion(
+      StudyMaterial material) {
+    return MaterialsTableCompanion(
+      fileName: Value(material.fileName),
+      filePath: Value(material.filePath),
+      uploadDate: Value(material.uploadDate),
+      fileType: Value(material.fileType),
+    );
   }
 }

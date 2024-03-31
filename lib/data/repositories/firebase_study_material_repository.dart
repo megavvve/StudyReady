@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:get_it/get_it.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:study_ready/data/datasources/local/app_db.dart';
 import 'package:study_ready/data/mapper/study_material_mapper.dart';
 import 'package:study_ready/data/models/study_material_api.dart';
 import 'package:study_ready/domain/entities/study_material.dart';
@@ -10,6 +12,7 @@ import 'package:study_ready/utils/exceptions.dart';
 
 class FirebaseStudyMaterialRepository implements StudyMaterialRepository {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  AppDB appDB = GetIt.instance.get<AppDB>();
 
   @override
   Future<void> addMaterial(StudyMaterial material) async {
@@ -39,10 +42,15 @@ class FirebaseStudyMaterialRepository implements StudyMaterialRepository {
   @override
   Future<List<StudyMaterial>> getMaterials() async {
     List<StudyMaterial> materials = [];
-
+    final localMaterials = await appDB.getMaterials();
     try {
-      final List<StudyMaterial> remoteMaterials = await _getRemoteMaterials();
-      materials.addAll(remoteMaterials);
+      if (localMaterials.isEmpty) {
+        final List<StudyMaterial> remoteMaterials = await _getRemoteMaterials();
+        materials.addAll(remoteMaterials);
+      } else {
+        final List<StudyMaterial> localMaterials = await _getLocalMaterials();
+        materials.addAll(localMaterials);
+      }
     } catch (e) {
       print('Error fetching materials: $e');
     }
@@ -52,27 +60,17 @@ class FirebaseStudyMaterialRepository implements StudyMaterialRepository {
 
   Future<List<StudyMaterial>> _getLocalMaterials() async {
     List<StudyMaterial> localMaterials = [];
-
-    final appDocDir = await getApplicationDocumentsDirectory();
-    final storageDirectory = Directory(appDocDir.path);
-    if (storageDirectory.existsSync()) {
-      final List<FileSystemEntity> files = storageDirectory.listSync();
-      for (FileSystemEntity file in files) {
-        if (file is File) {
-          final String fileName = file.path.split('/').last;
-          final String fileNameWithoutExtension = fileName.split('.').first;
-          final String filePath = file.path;
-          final StudyMaterial material = StudyMaterial(
-            id: localMaterials.length + 1,
-            fileName: fileNameWithoutExtension,
-            filePath: filePath,
-            subjectName: '',
-            uploadDate: '', // Установите соответствующую дату
-            fileType: '', // Установите соответствующий тип файла
-          );
-          localMaterials.add(material);
-        }
-      }
+    final materialsFromDb = await appDB.getMaterials();
+    for (var element in materialsFromDb) {
+      final StudyMaterial material = StudyMaterial(
+        id: element.id,
+        fileName: element.fileName,
+        filePath: element.filePath,
+        subjectName: '',
+        uploadDate: element.uploadDate,
+        fileType: element.fileType,
+      );
+      localMaterials.add(material);
     }
     return localMaterials;
   }
@@ -104,44 +102,14 @@ class FirebaseStudyMaterialRepository implements StudyMaterialRepository {
           fileType: type,
         );
         remoteMaterials.add(material);
+        appDB.insertMaterial(
+            StudyMaterialMapper.mapStudyMaterialToMaterialsTableCompanion(
+                material));
       }
     } catch (e) {
       print('Error fetching remote materials: $e');
     }
 
     return remoteMaterials;
-  }
-
-  Future<List<StudyMaterial>> _getFirestoreMaterials() async {
-    List<StudyMaterial> firestoreMaterials = [];
-
-    try {
-      // Получаем доступ к коллекции "materials" в Firestore
-      QuerySnapshot querySnapshot =
-          await FirebaseFirestore.instance.collection('materials').get();
-
-      querySnapshot.docs.forEach((doc) {
-        String fileName = doc['fileName'];
-        String filePath = doc['filePath'];
-        String subjectName = doc['subjectName'];
-        String uploadDate = doc['uploadDate'];
-        String fileType = doc['fileType'];
-
-        // Создаем объект StudyMaterial и добавляем его в список
-        StudyMaterial material = StudyMaterial(
-          id: firestoreMaterials.length + 1,
-          fileName: fileName,
-          filePath: filePath,
-          subjectName: subjectName,
-          uploadDate: uploadDate,
-          fileType: fileType,
-        );
-        firestoreMaterials.add(material);
-      });
-    } catch (e) {
-      print('Error fetching materials from Firestore: $e');
-    }
-
-    return firestoreMaterials;
   }
 }

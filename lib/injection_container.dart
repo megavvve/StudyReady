@@ -1,6 +1,4 @@
-import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:get_it/get_it.dart';
 import 'package:study_ready/data/datasources/local/app_db.dart';
 import 'package:study_ready/data/datasources/local/external/trainers/json_trainer_repository.dart';
@@ -19,7 +17,6 @@ import 'package:study_ready/domain/usecases/trainer/get_trainers.dart';
 import 'package:study_ready/domain/usecases/trainer/insert_question.dart';
 import 'package:study_ready/domain/usecases/trainer/insert_trainer.dart';
 import 'package:study_ready/domain/usecases/trainer/update_trainer.dart';
-import 'package:study_ready/firebase_options.dart';
 import 'package:study_ready/presentation/blocs/study_material_bloc/study_material_bloc.dart';
 import 'package:study_ready/presentation/blocs/trainer_bloc/trainer_bloc.dart';
 
