@@ -1498,28 +1498,33 @@ class $MaterialsTableTable extends MaterialsTable
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  static const VerificationMeta _fileNameMeta =
+      const VerificationMeta('fileName');
   @override
-  late final GeneratedColumn<String> name = GeneratedColumn<String>(
-      'name', aliasedName, false,
+  late final GeneratedColumn<String> fileName = GeneratedColumn<String>(
+      'fileName', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _subjectIdMeta =
-      const VerificationMeta('subjectId');
+  static const VerificationMeta _filePathMeta =
+      const VerificationMeta('filePath');
   @override
-  late final GeneratedColumn<int> subjectId = GeneratedColumn<int>(
-      'subjectId', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES subject_table (id)'));
-  static const VerificationMeta _contextMeta =
-      const VerificationMeta('context');
+  late final GeneratedColumn<String> filePath = GeneratedColumn<String>(
+      'filePath', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _uploadDateMeta =
+      const VerificationMeta('uploadDate');
   @override
-  late final GeneratedColumn<String> context = GeneratedColumn<String>(
-      'context', aliasedName, false,
+  late final GeneratedColumn<String> uploadDate = GeneratedColumn<String>(
+      'uploadDate', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _fileTypeMeta =
+      const VerificationMeta('fileType');
+  @override
+  late final GeneratedColumn<String> fileType = GeneratedColumn<String>(
+      'fileType', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
   @override
-  List<GeneratedColumn> get $columns => [id, name, subjectId, context];
+  List<GeneratedColumn> get $columns =>
+      [id, fileName, filePath, uploadDate, fileType];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -1533,23 +1538,31 @@ class $MaterialsTableTable extends MaterialsTable
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
-    if (data.containsKey('name')) {
+    if (data.containsKey('fileName')) {
+      context.handle(_fileNameMeta,
+          fileName.isAcceptableOrUnknown(data['fileName']!, _fileNameMeta));
+    } else if (isInserting) {
+      context.missing(_fileNameMeta);
+    }
+    if (data.containsKey('filePath')) {
+      context.handle(_filePathMeta,
+          filePath.isAcceptableOrUnknown(data['filePath']!, _filePathMeta));
+    } else if (isInserting) {
+      context.missing(_filePathMeta);
+    }
+    if (data.containsKey('uploadDate')) {
       context.handle(
-          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
+          _uploadDateMeta,
+          uploadDate.isAcceptableOrUnknown(
+              data['uploadDate']!, _uploadDateMeta));
     } else if (isInserting) {
-      context.missing(_nameMeta);
+      context.missing(_uploadDateMeta);
     }
-    if (data.containsKey('subjectId')) {
-      context.handle(_subjectIdMeta,
-          subjectId.isAcceptableOrUnknown(data['subjectId']!, _subjectIdMeta));
+    if (data.containsKey('fileType')) {
+      context.handle(_fileTypeMeta,
+          fileType.isAcceptableOrUnknown(data['fileType']!, _fileTypeMeta));
     } else if (isInserting) {
-      context.missing(_subjectIdMeta);
-    }
-    if (data.containsKey('context')) {
-      context.handle(_contextMeta,
-          this.context.isAcceptableOrUnknown(data['context']!, _contextMeta));
-    } else if (isInserting) {
-      context.missing(_contextMeta);
+      context.missing(_fileTypeMeta);
     }
     return context;
   }
@@ -1562,12 +1575,14 @@ class $MaterialsTableTable extends MaterialsTable
     return MaterialsTableData(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      name: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
-      subjectId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}subjectId'])!,
-      context: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}context'])!,
+      fileName: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}fileName'])!,
+      filePath: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}filePath'])!,
+      uploadDate: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}uploadDate'])!,
+      fileType: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}fileType'])!,
     );
   }
 
@@ -1580,30 +1595,34 @@ class $MaterialsTableTable extends MaterialsTable
 class MaterialsTableData extends DataClass
     implements Insertable<MaterialsTableData> {
   final int id;
-  final String name;
-  final int subjectId;
-  final String context;
+  final String fileName;
+  final String filePath;
+  final String uploadDate;
+  final String fileType;
   const MaterialsTableData(
       {required this.id,
-      required this.name,
-      required this.subjectId,
-      required this.context});
+      required this.fileName,
+      required this.filePath,
+      required this.uploadDate,
+      required this.fileType});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
-    map['name'] = Variable<String>(name);
-    map['subjectId'] = Variable<int>(subjectId);
-    map['context'] = Variable<String>(context);
+    map['fileName'] = Variable<String>(fileName);
+    map['filePath'] = Variable<String>(filePath);
+    map['uploadDate'] = Variable<String>(uploadDate);
+    map['fileType'] = Variable<String>(fileType);
     return map;
   }
 
   MaterialsTableCompanion toCompanion(bool nullToAbsent) {
     return MaterialsTableCompanion(
       id: Value(id),
-      name: Value(name),
-      subjectId: Value(subjectId),
-      context: Value(context),
+      fileName: Value(fileName),
+      filePath: Value(filePath),
+      uploadDate: Value(uploadDate),
+      fileType: Value(fileType),
     );
   }
 
@@ -1612,9 +1631,10 @@ class MaterialsTableData extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return MaterialsTableData(
       id: serializer.fromJson<int>(json['id']),
-      name: serializer.fromJson<String>(json['name']),
-      subjectId: serializer.fromJson<int>(json['subjectId']),
-      context: serializer.fromJson<String>(json['context']),
+      fileName: serializer.fromJson<String>(json['fileName']),
+      filePath: serializer.fromJson<String>(json['filePath']),
+      uploadDate: serializer.fromJson<String>(json['uploadDate']),
+      fileType: serializer.fromJson<String>(json['fileType']),
     );
   }
   @override
@@ -1622,86 +1642,102 @@ class MaterialsTableData extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
-      'name': serializer.toJson<String>(name),
-      'subjectId': serializer.toJson<int>(subjectId),
-      'context': serializer.toJson<String>(context),
+      'fileName': serializer.toJson<String>(fileName),
+      'filePath': serializer.toJson<String>(filePath),
+      'uploadDate': serializer.toJson<String>(uploadDate),
+      'fileType': serializer.toJson<String>(fileType),
     };
   }
 
   MaterialsTableData copyWith(
-          {int? id, String? name, int? subjectId, String? context}) =>
+          {int? id,
+          String? fileName,
+          String? filePath,
+          String? uploadDate,
+          String? fileType}) =>
       MaterialsTableData(
         id: id ?? this.id,
-        name: name ?? this.name,
-        subjectId: subjectId ?? this.subjectId,
-        context: context ?? this.context,
+        fileName: fileName ?? this.fileName,
+        filePath: filePath ?? this.filePath,
+        uploadDate: uploadDate ?? this.uploadDate,
+        fileType: fileType ?? this.fileType,
       );
   @override
   String toString() {
     return (StringBuffer('MaterialsTableData(')
           ..write('id: $id, ')
-          ..write('name: $name, ')
-          ..write('subjectId: $subjectId, ')
-          ..write('context: $context')
+          ..write('fileName: $fileName, ')
+          ..write('filePath: $filePath, ')
+          ..write('uploadDate: $uploadDate, ')
+          ..write('fileType: $fileType')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, name, subjectId, context);
+  int get hashCode => Object.hash(id, fileName, filePath, uploadDate, fileType);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is MaterialsTableData &&
           other.id == this.id &&
-          other.name == this.name &&
-          other.subjectId == this.subjectId &&
-          other.context == this.context);
+          other.fileName == this.fileName &&
+          other.filePath == this.filePath &&
+          other.uploadDate == this.uploadDate &&
+          other.fileType == this.fileType);
 }
 
 class MaterialsTableCompanion extends UpdateCompanion<MaterialsTableData> {
   final Value<int> id;
-  final Value<String> name;
-  final Value<int> subjectId;
-  final Value<String> context;
+  final Value<String> fileName;
+  final Value<String> filePath;
+  final Value<String> uploadDate;
+  final Value<String> fileType;
   const MaterialsTableCompanion({
     this.id = const Value.absent(),
-    this.name = const Value.absent(),
-    this.subjectId = const Value.absent(),
-    this.context = const Value.absent(),
+    this.fileName = const Value.absent(),
+    this.filePath = const Value.absent(),
+    this.uploadDate = const Value.absent(),
+    this.fileType = const Value.absent(),
   });
   MaterialsTableCompanion.insert({
     this.id = const Value.absent(),
-    required String name,
-    required int subjectId,
-    required String context,
-  })  : name = Value(name),
-        subjectId = Value(subjectId),
-        context = Value(context);
+    required String fileName,
+    required String filePath,
+    required String uploadDate,
+    required String fileType,
+  })  : fileName = Value(fileName),
+        filePath = Value(filePath),
+        uploadDate = Value(uploadDate),
+        fileType = Value(fileType);
   static Insertable<MaterialsTableData> custom({
     Expression<int>? id,
-    Expression<String>? name,
-    Expression<int>? subjectId,
-    Expression<String>? context,
+    Expression<String>? fileName,
+    Expression<String>? filePath,
+    Expression<String>? uploadDate,
+    Expression<String>? fileType,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
-      if (name != null) 'name': name,
-      if (subjectId != null) 'subjectId': subjectId,
-      if (context != null) 'context': context,
+      if (fileName != null) 'fileName': fileName,
+      if (filePath != null) 'filePath': filePath,
+      if (uploadDate != null) 'uploadDate': uploadDate,
+      if (fileType != null) 'fileType': fileType,
     });
   }
 
   MaterialsTableCompanion copyWith(
       {Value<int>? id,
-      Value<String>? name,
-      Value<int>? subjectId,
-      Value<String>? context}) {
+      Value<String>? fileName,
+      Value<String>? filePath,
+      Value<String>? uploadDate,
+      Value<String>? fileType}) {
     return MaterialsTableCompanion(
       id: id ?? this.id,
-      name: name ?? this.name,
-      subjectId: subjectId ?? this.subjectId,
-      context: context ?? this.context,
+      fileName: fileName ?? this.fileName,
+      filePath: filePath ?? this.filePath,
+      uploadDate: uploadDate ?? this.uploadDate,
+      fileType: fileType ?? this.fileType,
     );
   }
 
@@ -1711,14 +1747,17 @@ class MaterialsTableCompanion extends UpdateCompanion<MaterialsTableData> {
     if (id.present) {
       map['id'] = Variable<int>(id.value);
     }
-    if (name.present) {
-      map['name'] = Variable<String>(name.value);
+    if (fileName.present) {
+      map['fileName'] = Variable<String>(fileName.value);
     }
-    if (subjectId.present) {
-      map['subjectId'] = Variable<int>(subjectId.value);
+    if (filePath.present) {
+      map['filePath'] = Variable<String>(filePath.value);
     }
-    if (context.present) {
-      map['context'] = Variable<String>(context.value);
+    if (uploadDate.present) {
+      map['uploadDate'] = Variable<String>(uploadDate.value);
+    }
+    if (fileType.present) {
+      map['fileType'] = Variable<String>(fileType.value);
     }
     return map;
   }
@@ -1727,9 +1766,10 @@ class MaterialsTableCompanion extends UpdateCompanion<MaterialsTableData> {
   String toString() {
     return (StringBuffer('MaterialsTableCompanion(')
           ..write('id: $id, ')
-          ..write('name: $name, ')
-          ..write('subjectId: $subjectId, ')
-          ..write('context: $context')
+          ..write('fileName: $fileName, ')
+          ..write('filePath: $filePath, ')
+          ..write('uploadDate: $uploadDate, ')
+          ..write('fileType: $fileType')
           ..write(')'))
         .toString();
   }

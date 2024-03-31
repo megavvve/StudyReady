@@ -311,46 +311,51 @@ class AppDB extends _$AppDB {
   // Methods for Materials
 
 
-  //Get whole info about Materials (list materials)
-  Future<List<LocalMaterial>> materialsFullInfo() async {
-    final subject = alias(subjectTable, 's');
+  //Get whole info about Materials (list materials) (OLD, DEPRECATED)!
+  // Future<List<LocalMaterial>> materialsFullInfo() async {
+  //   final subject = alias(subjectTable, 's');
+  //
+  //   final rows = await select(materialsTable).join([
+  //     innerJoin(subject, subject.id.equalsExp(materialsTable.subjectId)),
+  //   ]).get();
+  //
+  //   return rows.map((resultRow) {
+  //     return LocalMaterial(
+  //       id: resultRow.readTable(materialsTable).id,
+  //       name: resultRow.readTable(materialsTable).name,
+  //       subject: resultRow.readTable(subject).name,
+  //       context: resultRow.readTable(materialsTable).context,
+  //     );
+  //   }).toList();
+  // }
 
-    final rows = await select(materialsTable).join([
-      innerJoin(subject, subject.id.equalsExp(materialsTable.subjectId)),
-    ]).get();
+  // Get single material full info by id (OLD, DEPRECATED)!
+  // Future<LocalMaterial> getMaterialFullInfoById(int id) async {
+  //   final subject = alias(subjectTable, 's');
+  //
+  //   final query = select(materialsTable).join([
+  //     innerJoin(subject, subject.id.equalsExp(materialsTable.subjectId)),
+  //   ]);
+  //
+  //   query.where(materialsTable.id.equals(id));
+  //
+  //   return query.watchSingle().map((resultRow) {
+  //     return LocalMaterial(
+  //         id: resultRow.readTable(materialsTable).id,
+  //         name: resultRow.readTable(materialsTable).name,
+  //         subject: resultRow.readTable(subject).name,
+  //         context: resultRow.readTable(materialsTable).context);
+  //   }).first;
+  // }
 
-    return rows.map((resultRow) {
-      return LocalMaterial(
-        id: resultRow.readTable(materialsTable).id,
-        name: resultRow.readTable(materialsTable).name,
-        subject: resultRow.readTable(subject).name,
-        context: resultRow.readTable(materialsTable).context,
-      );
-    }).toList();
-  }
-
-  // Get single material full info by id
-  Future<LocalMaterial> getMaterialFullInfoById(int id) async {
-    final subject = alias(subjectTable, 's');
-
-    final query = select(materialsTable).join([
-      innerJoin(subject, subject.id.equalsExp(materialsTable.subjectId)),
-    ]);
-
-    query.where(materialsTable.id.equals(id));
-
-    return query.watchSingle().map((resultRow) {
-      return LocalMaterial(
-          id: resultRow.readTable(materialsTable).id,
-          name: resultRow.readTable(materialsTable).name,
-          subject: resultRow.readTable(subject).name,
-          context: resultRow.readTable(materialsTable).context);
-    }).first;
-  }
-
-  // Get list of materials (no other tables joined)
-  Future<List<MaterialsTableData>> getMaterial() async {
+  // Get list of materials
+  Future<List<MaterialsTableData>> getMaterials() async {
     return await select(materialsTable).get();
+  }
+
+  // Get material by id
+  Future<MaterialsTableData> getMaterial(int id) async {
+    return await (select(materialsTable)..where((tbl) => tbl.id.equals(id))).getSingle();
   }
 
   // Adding Material

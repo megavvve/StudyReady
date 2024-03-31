@@ -1,12 +1,14 @@
 class LocalMaterial {
   final int id;
-  final String name;
-  final String subject;
-  final String context;
+  final String fileName;
+  final String filePath;
+  final String uploadDate;
+  final String fileType;
 
   LocalMaterial(
       { required this.id,
-        required this.name,
-        required this.subject,
-        required this.context});
+        required this.fileName,
+        required this.filePath,
+        required this.uploadDate,
+        required this.fileType});
 }

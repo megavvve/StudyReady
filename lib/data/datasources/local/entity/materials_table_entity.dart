@@ -7,10 +7,12 @@ class MaterialsTable extends Table {
 
   IntColumn get id => integer().autoIncrement().named('id')();
 
-  TextColumn get name => text().named('name')();
+  TextColumn get fileName => text().named('fileName')();
 
-  IntColumn get subjectId => integer().references(SubjectTable, #id).named('subjectId')();
+  TextColumn get filePath => text().named('filePath')();
 
-  TextColumn get context => text().named('context')();
+  TextColumn get uploadDate => text().named('uploadDate')();
+
+  TextColumn get fileType => text().named('fileType')();
 
 }
