@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/presentation/blocs/study_material_bloc/study_material_bloc.dart';
 import 'package:study_ready/presentation/navigation/navigation_bar.dart';
 import 'package:study_ready/presentation/pages/materials_page/widgets/material_screen_widget.dart';
@@ -21,6 +22,16 @@ class _MaterialScreenState extends State<MaterialScreen> {
           final listMaterial = state.materials;
           return MaterialScreenWidget(
             materialList: listMaterial,
+          );
+        } else if (state is StudyMaterialError) {
+          return Scaffold(
+            body: Center(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                child: const Text(
+                    "Не удалось получить данные при первом входе в приложение.\nПожалуйста, проверьте подключение к интернету."),
+              ),
+            ),
           );
         } else {
           return Scaffold(

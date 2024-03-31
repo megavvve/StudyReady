@@ -10,7 +10,6 @@ import 'package:study_ready/data/datasources/local/entity/question_table_entity.
 import 'package:study_ready/data/datasources/local/entity/subject_table_entity.dart';
 import 'package:study_ready/data/datasources/local/entity/themes_table_entity.dart';
 import 'package:study_ready/data/datasources/local/entity/trainer_table_entity.dart';
-import 'package:study_ready/data/datasources/local/models/local_material_db.dart';
 import 'package:study_ready/data/datasources/local/models/local_question_db.dart';
 import 'package:study_ready/data/datasources/local/models/theme_db.dart';
 import 'package:study_ready/data/datasources/local/models/local_trainer_db.dart';
@@ -18,8 +17,6 @@ import 'entity/strings_list_json_converter.dart';
 import 'package:sqlite3/sqlite3.dart';
 import 'package:sqlite3_flutter_libs/sqlite3_flutter_libs.dart';
 part 'app_db.g.dart';
-
-
 
 LazyDatabase _openConnection() {
   // the LazyDatabase util lets us find the right location for the file async.
@@ -59,7 +56,6 @@ class AppDB extends _$AppDB {
   @override
   int get schemaVersion => 1;
 
-  
   Future<void> deleteAndRegenerateDatabase() async {
     // Close the existing database connection
     await close();
@@ -75,18 +71,18 @@ class AppDB extends _$AppDB {
       await file.delete();
     }
   }
-  
-  
 
 // Methods for Subjects
 // Add new Subject
   Future<int> insertSubject(SubjectTableCompanion entity) async {
     return await into(subjectTable).insert(entity);
   }
+
   // Get list of Subject
   Future<List<SubjectTableData>> getSubjects() async {
     return await select(subjectTable).get();
   }
+
   // Delete Subject by id
   Future<int> deleteSubject(int id) async {
     return await (delete(subjectTable)..where((tbl) => tbl.id.equals(id))).go();
@@ -299,7 +295,8 @@ class AppDB extends _$AppDB {
   }
 
   Future<void> deleteQuestionsByTrainerId(int trainerId) async {
-    await (delete(questionTable)..where((tbl) => tbl.id.equals(trainerId))).go();
+    await (delete(questionTable)..where((tbl) => tbl.id.equals(trainerId)))
+        .go();
   }
 
   //Update trainer with new entity
@@ -307,9 +304,7 @@ class AppDB extends _$AppDB {
     return await update(trainerTable).replace(entity);
   }
 
-
   // Methods for Materials
-
 
   //Get whole info about Materials (list materials) (OLD, DEPRECATED)!
   // Future<List<LocalMaterial>> materialsFullInfo() async {
@@ -355,7 +350,8 @@ class AppDB extends _$AppDB {
 
   // Get material by id
   Future<MaterialsTableData> getMaterial(int id) async {
-    return await (select(materialsTable)..where((tbl) => tbl.id.equals(id))).getSingle();
+    return await (select(materialsTable)..where((tbl) => tbl.id.equals(id)))
+        .getSingle();
   }
 
   // Adding Material
@@ -365,8 +361,7 @@ class AppDB extends _$AppDB {
 
   // Delete Material by id
   Future<int> deleteMaterial(int id) async {
-    return await (delete(materialsTable)..where((tbl) => tbl.id.equals(id))).go();
+    return await (delete(materialsTable)..where((tbl) => tbl.id.equals(id)))
+        .go();
   }
-
-
 }

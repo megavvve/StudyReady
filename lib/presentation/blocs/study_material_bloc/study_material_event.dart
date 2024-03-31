@@ -49,3 +49,10 @@ class DeleteMaterial extends StudyMaterialEvent {
   @override
   String toString() => 'DeleteMaterial { material: $material }';
 }
+
+class MaterialLoadFailureEvent extends StudyMaterialEvent {
+  const MaterialLoadFailureEvent();
+
+  @override
+  List<Object> get props => [];
+}

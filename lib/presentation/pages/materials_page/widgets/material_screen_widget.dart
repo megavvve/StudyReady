@@ -32,6 +32,7 @@ class _MaterialScreenWidgetState extends State<MaterialScreenWidget> {
     'По типу данных',
   ];
   List<StudyMaterial> _filteredMaterials = [];
+  String curParam = "По умолчанию";
   String _query = '';
   didPop(result) {
     // Вызываем unfocus перед закрытием второй страницы
@@ -41,7 +42,7 @@ class _MaterialScreenWidgetState extends State<MaterialScreenWidget> {
 
   @override
   Widget build(BuildContext context) {
-    materials = List.from(widget.materialList);
+    materials = sortMaterials(curParam, widget.materialList);
     if (searchTextController.text.isEmpty) {
       _filteredMaterials = widget.materialList;
     } else {
@@ -169,9 +170,7 @@ class _MaterialScreenWidgetState extends State<MaterialScreenWidget> {
                                           ),
                                           onTap: () {
                                             setState(() {
-                                              materials = sortMaterials(
-                                                  paramsOfSort[index],
-                                                  materials);
+                                              curParam = paramsOfSort[index];
                                             });
 
                                             Navigator.pop(context);

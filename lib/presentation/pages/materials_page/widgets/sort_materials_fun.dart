@@ -4,9 +4,9 @@ List<StudyMaterial> sortMaterials(
     String sortBy, List<StudyMaterial> materials) {
   switch (sortBy) {
     case 'По умолчанию':
-      materials.sort((a, b) => a.id.compareTo(b.id));
+      materials.sort((a, b) => b.id.compareTo(a.id));
       break;
-    case 'По названию метариала':
+    case 'По названию материала':
       materials.sort((a, b) => a.fileName.compareTo(b.fileName));
       break;
     case 'По дате загрузки':

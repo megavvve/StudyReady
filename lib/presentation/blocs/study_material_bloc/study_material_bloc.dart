@@ -7,6 +7,8 @@ part 'study_material_event.dart';
 part 'study_material_state.dart';
 
 class StudyMaterialBloc extends Bloc<StudyMaterialEvent, StudyMaterialState> {
+  final _timeoutDuration = const Duration(seconds: 10);
+
   final GetStudyMaterials getStudyMaterials;
   StudyMaterialBloc(this.getStudyMaterials) : super(StudyMaterialInitial()) {
     on<AddMaterial>(_onAddQuestion);
@@ -39,7 +41,8 @@ class StudyMaterialBloc extends Bloc<StudyMaterialEvent, StudyMaterialState> {
   void _onInitLoad(
       MaterialInitLoadEvent event, Emitter<StudyMaterialState> emit) async {
     try {
-      final allMaterials = await getStudyMaterials.call();
+      final allMaterials =
+          await getStudyMaterials.call().timeout(_timeoutDuration);
 
       if (allMaterials.isEmpty) {
         emit(const StudyMaterialError(message: "Ошибка инициализации"));
