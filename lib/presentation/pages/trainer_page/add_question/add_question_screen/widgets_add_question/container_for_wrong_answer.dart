@@ -51,10 +51,9 @@ class _ContainerForWrongAnswerState extends State<ContainerForWrongAnswer> {
     ];
 
     return Container(
-      padding: EdgeInsets.all(8.sp),
+      padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 13.w),
       alignment: Alignment.centerLeft,
       width: 309.w,
-      //height: 70.h,
       decoration: BoxDecoration(
         color: const Color.fromRGBO(198, 216, 245, 1),
         borderRadius: BorderRadius.circular(
@@ -102,8 +101,10 @@ class _ContainerForWrongAnswerState extends State<ContainerForWrongAnswer> {
                       hintStyle: TextStyle(
                         fontSize: 18.sp,
                       )),
-                  style:
-                      TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w400),
+                  style: TextStyle(
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w300,
+                  ),
                 ),
               ),
             ),

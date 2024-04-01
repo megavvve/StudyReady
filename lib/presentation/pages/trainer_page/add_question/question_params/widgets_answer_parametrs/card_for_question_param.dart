@@ -68,8 +68,8 @@ class _CardForQuestionParamsState extends State<CardForQuestionParams> {
                 child: Text(
                   widget.param,
                   style: TextStyle(
-                    fontSize: 20.w,
-                    fontWeight: FontWeight.w400,
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.w300,
                   ),
                 ),
               ),
@@ -140,9 +140,9 @@ class _CardForQuestionParamsState extends State<CardForQuestionParams> {
                         child: Text(
                           data,
                           style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 15.sp,
-                          ),
+                              color: Colors.black,
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.w300),
                         ),
                       );
                     },

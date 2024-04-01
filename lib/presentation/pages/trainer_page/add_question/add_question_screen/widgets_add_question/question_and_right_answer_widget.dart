@@ -11,7 +11,7 @@ class QuestionAndRightAnswerWidget extends StatelessWidget {
         future: SharedPreferences.getInstance(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator(); // или любой другой виджет загрузки
+            return const CircularProgressIndicator(); // или любой другой виджет загрузки
           }
           if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}');
@@ -32,44 +32,47 @@ class QuestionAndRightAnswerWidget extends StatelessWidget {
             children: [
               //белая карточка с названием вопроса
               Container(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 15.h, horizontal: 13.w),
-                  alignment: Alignment.topLeft,
-                  width: 320.w,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(16.sp),
-                  ),
-                  child: TextField(
-                    textInputAction: TextInputAction.done,
-                    controller: questionController,
-                    onChanged: (value) {
-                      prefs.setString("question", value);
-                    },
-                    maxLines: null,
-                    decoration: InputDecoration(
-                        contentPadding: EdgeInsetsDirectional.only(start: 1.w),
-                        isCollapsed: true,
-                        border: const UnderlineInputBorder(
-                            borderSide: BorderSide.none),
-                        hintText: 'Введите формулировку вопроса...',
-                        hintMaxLines: 2,
-                        helperMaxLines: 1,
-                        hintStyle: TextStyle(
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.w400,
-                        )),
-                    style: TextStyle(
-                      fontSize: 18.sp,
+                padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 13.w),
+                alignment: Alignment.topLeft,
+                width: 320.w,
+                // height: 60.h,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16.sp),
+                ),
+                child: TextField(
+                  textInputAction: TextInputAction.done,
+                  controller: questionController,
+                  onChanged: (value) {
+                    prefs.setString("question", value);
+                  },
+                  maxLines: null,
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsetsDirectional.only(start: 1.w),
+                    isCollapsed: true,
+                    border: const UnderlineInputBorder(
+                      borderSide: BorderSide.none,
                     ),
-                  )),
+                    hintText: 'Введите формулировку\nвопроса...',
+                    hintMaxLines: 4,
+                    helperMaxLines: 2,
+                    hintStyle: TextStyle(
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w300,
+                    ),
+                  ),
+                  style: TextStyle(
+                    fontSize: 18.sp,
+                  ),
+                ),
+              ),
               //белая карточка с названием вопроса
               SizedBox(
-                height: 10.h,
+                height: 20.h,
               ),
               //зеленая карточка введите правильный ответ
               Container(
-                padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 13.w),
+                padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 13.w),
                 alignment: Alignment.center,
                 width: 309.w,
                 decoration: BoxDecoration(
@@ -90,7 +93,12 @@ class QuestionAndRightAnswerWidget extends StatelessWidget {
                           8.sp,
                         ),
                       ),
-                      child: Text('1', style: TextStyle(fontSize: 18.sp)),
+                      child: Text(
+                        '1',
+                        style: TextStyle(
+                          fontSize: 18.sp,
+                        ),
+                      ),
                     ),
                     Expanded(
                       child: Padding(
@@ -113,7 +121,7 @@ class QuestionAndRightAnswerWidget extends StatelessWidget {
                               hintMaxLines: 2,
                               hintStyle: TextStyle(
                                 fontSize: 18.sp,
-                                fontWeight: FontWeight.w400,
+                                fontWeight: FontWeight.w300,
                               )),
                           style: TextStyle(
                             fontSize: 18.sp,
@@ -124,7 +132,6 @@ class QuestionAndRightAnswerWidget extends StatelessWidget {
                   ],
                 ),
               ),
-              //зеленая карточка введите правильный ответ
             ],
           );
         });

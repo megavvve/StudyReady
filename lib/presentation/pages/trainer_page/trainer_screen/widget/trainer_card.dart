@@ -7,7 +7,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/domain/entities/trainer.dart';
 import 'package:study_ready/presentation/blocs/trainer_bloc/trainer_bloc.dart';
 import 'package:study_ready/presentation/pages/trainer_page/trainer_screen/widget/show_launching_trainer.dart';
-import 'package:study_ready/utils/app_colors.dart';
 import 'package:study_ready/utils/app_svg_assets.dart';
 
 class TrainerCard extends StatelessWidget {
@@ -17,7 +16,15 @@ class TrainerCard extends StatelessWidget {
     required this.trainer,
   });
 
-  
+  static String getRandomColorForCard() {
+    const List<String> colors = [
+      "0xFF7C97FF",
+      "0xFF9496F4",
+      "0xFFF67791",
+      "0xFFE3945F",
+    ];
+    return colors[Random().nextInt(3)];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +37,8 @@ class TrainerCard extends StatelessWidget {
               16.sp,
             ),
             color: (trainer.color != null)
-                ? Color(int.parse(trainer.color!))
-                : colorForCardTrainerBlue,
+                ? Color(int.parse(trainer.color!)).withOpacity(0.85)
+                : Color(int.parse(getRandomColorForCard())).withOpacity(0.85),
           ),
           padding: EdgeInsets.only(
             top: 20.h,
@@ -53,8 +60,8 @@ class TrainerCard extends StatelessWidget {
                     child: Padding(
                       padding: EdgeInsets.only(right: 20.w),
                       child: Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 10.w, vertical: 5.h),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(
                             16.sp,
@@ -128,13 +135,6 @@ class TrainerCard extends StatelessWidget {
                   ),
                 ],
               ),
-              /*
-              Positioned(
-                bottom: 10.0.h,
-                right: 25.0.w,
-                child: pictureForTrainer,
-              ),
-              */
             ],
           ),
         );

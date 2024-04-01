@@ -38,7 +38,7 @@ class AddQustionScreen extends StatelessWidget {
                       ),
                       const QuestionAndRightAnswerWidget(),
                       SizedBox(
-                        height: 40.h,
+                        height: 20.h,
                       ),
                       Column(
                         children: List.generate(
