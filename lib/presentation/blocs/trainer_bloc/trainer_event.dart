@@ -48,3 +48,11 @@ class AddTrainer extends TrainerEvent {
   @override
   List<Object> get props => [trainer];
 }
+
+class DeleteTrainer extends TrainerEvent {
+  final Trainer trainer;
+  const DeleteTrainer({required this.trainer});
+
+  @override
+  List<Object> get props => [trainer];
+}

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:study_ready/presentation/pages/delete_trainer/delete_trainer_screen.dart';
 import 'package:study_ready/presentation/pages/home_page/home_screen.dart';
 import 'package:study_ready/presentation/pages/materials_page/materials_screen.dart';
 import 'package:study_ready/presentation/pages/trainer_page/add_question/add_question_screen/add_question_screen.dart';
@@ -93,6 +94,24 @@ class NavigatorDrawer extends StatelessWidget {
               ),
             ),
             divider,
+            // ListTile(
+            //   leading: addQuestionIcon,
+            //   title: addQuestionTitle,
+            //   trailing: trailingIcon,
+            //   onTap: () => Navigator.of(context).pushReplacement(
+            //     PageRouteBuilder(
+            //       transitionDuration: Duration.zero,
+            //       pageBuilder: (context, animation, secondaryAnimation) {
+            //         return const DeleteTrainerScreen();
+            //       },
+            //       transitionsBuilder:
+            //           (context, animation, secondaryAnimation, child) {
+            //         return child;
+            //       },
+            //     ),
+            //   ),
+            // ),
+            // divider,
           ],
         ),
       ),

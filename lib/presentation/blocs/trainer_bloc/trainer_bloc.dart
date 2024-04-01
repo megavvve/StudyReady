@@ -6,6 +6,7 @@ import 'package:study_ready/domain/entities/question.dart';
 import 'package:study_ready/domain/entities/subject.dart';
 import 'package:study_ready/domain/entities/theme.dart';
 import 'package:study_ready/domain/entities/trainer.dart';
+import 'package:study_ready/domain/usecases/trainer/delete_insert.dart';
 import 'package:study_ready/domain/usecases/trainer/get_question_full_info_by_id.dart';
 import 'package:study_ready/domain/usecases/trainer/get_trainer_full_info_by_id.dart';
 import 'package:study_ready/domain/usecases/trainer/get_trainers.dart';
@@ -23,19 +24,22 @@ class TrainerBloc extends Bloc<TrainerEvent, TrainerState> {
   final GetTrainers getTrainers;
   final GetTrainerFullInfoById getTrainerFullInfoById;
   final GetQuestionFullInfoById getQuestionFullInfoById;
+  final DeleteInsertUseCase deleteTrainer;
   TrainerBloc(
       this.insertTrainer,
       this.insertQuestion,
       this.updateTrainer,
       this.getTrainers,
       this.getTrainerFullInfoById,
-      this.getQuestionFullInfoById)
+      this.getQuestionFullInfoById,
+      this.deleteTrainer)
       : super(TrainerInitial()) {
     on<AddQuestion>(_onAddQuestion);
     on<InitLoad>(_onInitLoad);
     on<GenerateAnswersListEvent>(_onGenerateAnswers);
     on<ClearCurrentAnswersEvent>(_onCleanCurrentAnswers);
     on<AddTrainer>(_onAddTrainer);
+    on<DeleteTrainer>(_onDeleteTrainer);
   }
 
   void _onAddQuestion(AddQuestion event, Emitter<TrainerState> emit) async {
@@ -166,6 +170,21 @@ class TrainerBloc extends Bloc<TrainerEvent, TrainerState> {
     if (state is TrainerLoadSuccess) {
       final trainerList = state.trainerList;
       trainerList.add(trainer);
+      emit(
+        TrainerLoadSuccess(
+          trainerList: trainerList,
+        ),
+      );
+    }
+  }
+
+  void _onDeleteTrainer(DeleteTrainer event, Emitter<TrainerState> emit) async {
+    final trainer = event.trainer;
+    deleteTrainer.call(trainer);
+    final state = this.state;
+    if (state is TrainerLoadSuccess) {
+      final trainerList = state.trainerList;
+      trainerList.remove(trainer);
       emit(
         TrainerLoadSuccess(
           trainerList: trainerList,

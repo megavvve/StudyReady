@@ -140,9 +140,10 @@ class _CardForQuestionParamsState extends State<CardForQuestionParams> {
                         child: Text(
                           data,
                           style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 15.sp,
-                              fontWeight: FontWeight.w300),
+                            color: Colors.black,
+                            fontSize: 15.sp,
+                            fontWeight: FontWeight.w300,
+                          ),
                         ),
                       );
                     },
