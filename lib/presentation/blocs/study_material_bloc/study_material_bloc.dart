@@ -7,8 +7,6 @@ part 'study_material_event.dart';
 part 'study_material_state.dart';
 
 class StudyMaterialBloc extends Bloc<StudyMaterialEvent, StudyMaterialState> {
-  final _timeoutDuration = const Duration(seconds: 10);
-
   final GetStudyMaterials getStudyMaterials;
   StudyMaterialBloc(this.getStudyMaterials) : super(StudyMaterialInitial()) {
     on<AddMaterial>(_onAddQuestion);
@@ -23,13 +21,7 @@ class StudyMaterialBloc extends Bloc<StudyMaterialEvent, StudyMaterialState> {
 
       List<StudyMaterial> allMaterials = state.materials;
 
-      // Добавление нового материала к существующему списку
       allMaterials.add(material);
-
-      // В этом месте вы можете вызвать ваш репозиторий или другой сервис для сохранения материала
-      // Например, materialRepository.addMaterial(material);
-
-      // После добавления материала, мы должны обновить состояние, чтобы отразить изменения
       emit(
         StudyMaterialLoadSuccess(
           materials: allMaterials,
@@ -41,8 +33,7 @@ class StudyMaterialBloc extends Bloc<StudyMaterialEvent, StudyMaterialState> {
   void _onInitLoad(
       MaterialInitLoadEvent event, Emitter<StudyMaterialState> emit) async {
     try {
-      final allMaterials =
-          await getStudyMaterials.call().timeout(_timeoutDuration);
+      final allMaterials = await getStudyMaterials.call();
 
       if (allMaterials.isEmpty) {
         emit(const StudyMaterialError(message: "Ошибка инициализации"));
