@@ -120,83 +120,83 @@ class _MaterialScreenWidgetState extends State<MaterialScreenWidget> {
                       height: 2.h,
                     ),
                   ),
-                  SliverToBoxAdapter(
-                    child: Padding(
-                      padding: EdgeInsets.all(
-                        8.sp,
-                      ),
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: SizedBox(
-                          height: 32.h,
-                          width: 110.w,
-                          child: TextButton(
-                            style: TextButton.styleFrom(
-                              backgroundColor: trainerAppBarButtonsBackground,
-                              padding: EdgeInsets.symmetric(horizontal: 10.w),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                  10.sp,
-                                ),
-                              ),
-                            ),
-                            onPressed: () {
-                              showModalBottomSheet(
-                                backgroundColor: secondColor,
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: <Widget>[
-                                      Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            vertical: 10.h),
-                                        child: Text(
-                                          "Сортировать",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 20.sp,
-                                          ),
-                                        ),
-                                      ),
-                                      ListView.builder(
-                                        shrinkWrap: true,
-                                        itemCount: paramsOfSort.length,
-                                        itemBuilder:
-                                            (BuildContext context, int index) =>
-                                                ListTile(
-                                          title: Text(
-                                            paramsOfSort[index],
-                                          ),
-                                          onTap: () {
-                                            setState(() {
-                                              curParam = paramsOfSort[index];
-                                            });
+                  // SliverToBoxAdapter(
+                  //   child: Padding(
+                  //     padding: EdgeInsets.all(
+                  //       8.sp,
+                  //     ),
+                  //     child: Align(
+                  //       alignment: Alignment.center,
+                  //       child: SizedBox(
+                  //         height: 32.h,
+                  //         width: 110.w,
+                  //         child: TextButton(
+                  //           style: TextButton.styleFrom(
+                  //             backgroundColor: trainerAppBarButtonsBackground,
+                  //             padding: EdgeInsets.symmetric(horizontal: 10.w),
+                  //             shape: RoundedRectangleBorder(
+                  //               borderRadius: BorderRadius.circular(
+                  //                 10.sp,
+                  //               ),
+                  //             ),
+                  //           ),
+                  //           onPressed: () {
+                  //             showModalBottomSheet(
+                  //               backgroundColor: secondColor,
+                  //               context: context,
+                  //               builder: (BuildContext context) {
+                  //                 return Column(
+                  //                   mainAxisSize: MainAxisSize.min,
+                  //                   children: <Widget>[
+                  //                     Padding(
+                  //                       padding: EdgeInsets.symmetric(
+                  //                           vertical: 10.h),
+                  //                       child: Text(
+                  //                         "Сортировать",
+                  //                         style: TextStyle(
+                  //                           fontWeight: FontWeight.w400,
+                  //                           fontSize: 20.sp,
+                  //                         ),
+                  //                       ),
+                  //                     ),
+                  //                     ListView.builder(
+                  //                       shrinkWrap: true,
+                  //                       itemCount: paramsOfSort.length,
+                  //                       itemBuilder:
+                  //                           (BuildContext context, int index) =>
+                  //                               ListTile(
+                  //                         title: Text(
+                  //                           paramsOfSort[index],
+                  //                         ),
+                  //                         onTap: () {
+                  //                           setState(() {
+                  //                             curParam = paramsOfSort[index];
+                  //                           });
 
-                                            Navigator.pop(context);
+                  //                           Navigator.pop(context);
 
-                                            FocusScope.of(context).unfocus();
-                                          },
-                                        ),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                            },
-                            child: Text(
-                              "Сортировка",
-                              style: TextStyle(
-                                fontSize: 13.sp,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  //                           FocusScope.of(context).unfocus();
+                  //                         },
+                  //                       ),
+                  //                     ),
+                  //                   ],
+                  //                 );
+                  //               },
+                  //             );
+                  //           },
+                  //           child: Text(
+                  //             "Сортировка",
+                  //             style: TextStyle(
+                  //               fontSize: 13.sp,
+                  //               fontWeight: FontWeight.w400,
+                  //               color: Colors.black,
+                  //             ),
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                   SliverToBoxAdapter(
                     child: SizedBox(
                       height: 10.h,

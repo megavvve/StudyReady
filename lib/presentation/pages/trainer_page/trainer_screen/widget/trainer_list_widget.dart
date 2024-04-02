@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/domain/entities/trainer.dart';
+import 'package:study_ready/presentation/blocs/trainer_bloc/trainer_bloc.dart';
 import 'package:study_ready/presentation/navigation/burger_navigation_leading.dart';
 import 'package:study_ready/presentation/navigation/custom_page_router.dart';
 import 'package:study_ready/presentation/navigation/navigation_bar.dart';
 import 'package:study_ready/presentation/pages/trainer_page/add_question/add_question_screen/add_question_screen.dart';
-import 'package:study_ready/presentation/pages/trainer_page/trainer_screen/widget/sort_trainers_fun.dart';
-import 'package:study_ready/presentation/pages/trainer_page/trainer_screen/widget/trainer_card.dart';
+import 'package:study_ready/presentation/pages/trainer_page/trainer_screen/widget/widget_of_trainer_list_widget.dart/delete_last_trainer_button.dart';
+import 'package:study_ready/presentation/pages/trainer_page/trainer_screen/widget/widget_of_trainer_list_widget.dart/sort_trainers_fun.dart';
+import 'package:study_ready/presentation/pages/trainer_page/trainer_screen/widget/widget_of_trainer_list_widget.dart/trainer_card.dart';
 import 'package:study_ready/utils/app_colors.dart';
 
 class TrainerListWidget extends StatefulWidget {
@@ -23,11 +26,13 @@ class TrainerListWidget extends StatefulWidget {
 
 class _TrainerListWidgetState extends State<TrainerListWidget> {
   late List<Trainer> sortingList;
+  late List<Trainer> trainerList;
 
   @override
   void initState() {
     super.initState();
-    sortingList = List.from(widget.trainerList);
+    trainerList = widget.trainerList;
+    sortingList = List.from(trainerList);
   }
 
   @override
@@ -213,7 +218,37 @@ class _TrainerListWidgetState extends State<TrainerListWidget> {
                   child: SizedBox(
                     height: 30.h,
                   ),
-                )
+                ),
+                (trainerList.length != 1)
+                    ? SliverToBoxAdapter(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 50.w),
+                          child: DeleteLastTrainerButton(
+                            onPressed: () {
+                              setState(
+                                () {
+                                  if (trainerList.length != 1) {
+                                    BlocProvider.of<TrainerBloc>(context)
+                                        .add(DeleteTrainer(
+                                      trainer: widget.trainerList.last,
+                                    ));
+                                    trainerList.remove(trainerList.last);
+                                    sortingList = trainerList;
+                                  }
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                      )
+                    : const SliverToBoxAdapter(
+                        child: SizedBox(),
+                      ),
+                SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: 30.h,
+                  ),
+                ),
               ],
             ),
           ),
