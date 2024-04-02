@@ -28,6 +28,11 @@ final addQuestionIcon = Icon(
   size: 33.sp,
   color: Colors.black,
 );
+final deleteTrainerIcon = Icon(
+  Icons.delete,
+  size: 33.sp,
+  color: Colors.black,
+);
 
 //titles
 final mainTitle = Text(
@@ -53,6 +58,11 @@ final trainerTitle = Text(
 //titles
 final addQuestionTitle = Text(
   'Добавить вопрос',
+  style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w700),
+  textAlign: TextAlign.center,
+);
+final deleteTrainerText = Text(
+  'Удалить тренажер',
   style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w700),
   textAlign: TextAlign.center,
 );

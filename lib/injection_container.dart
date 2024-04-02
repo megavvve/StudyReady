@@ -11,7 +11,8 @@ import 'package:study_ready/domain/repositories/study_material_repository.dart';
 import 'package:study_ready/domain/repositories/trainer_repository/question_repository.dart';
 import 'package:study_ready/domain/repositories/trainer_repository/trainer_repository.dart';
 import 'package:study_ready/domain/usecases/study_material/get_study_materials.dart';
-import 'package:study_ready/domain/usecases/trainer/delete_insert.dart';
+import 'package:study_ready/domain/usecases/trainer/delete_question.dart';
+import 'package:study_ready/domain/usecases/trainer/delete_trainer.dart';
 import 'package:study_ready/domain/usecases/trainer/get_question_full_info_by_id.dart';
 import 'package:study_ready/domain/usecases/trainer/get_trainer_full_info_by_id.dart';
 import 'package:study_ready/domain/usecases/trainer/get_trainers.dart';
@@ -42,6 +43,7 @@ Future<void> setup() async {
 
   getIt.registerFactory(
     () => TrainerBloc(
+      getIt(),
       getIt(),
       getIt(),
       getIt(),
@@ -86,12 +88,15 @@ Future<void> setup() async {
     ),
   );
   getIt.registerLazySingleton(
-    () => DeleteInsertUseCase(
+    () => DeleteTrainerUseCase(
       trainerRepository: getIt(),
     ),
   );
   getIt.registerLazySingleton(
     () => GetStudyMaterials(studyMaterialRepository: getIt()),
+  );
+  getIt.registerLazySingleton(
+    () => DeleteQuestionUseCase(questionRepository: getIt()),
   );
 //Repositories
   getIt.registerLazySingleton<TrainerRepository>(

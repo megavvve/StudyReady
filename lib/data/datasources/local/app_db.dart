@@ -281,17 +281,8 @@ class AppDB extends _$AppDB {
     final deletedTrainersCount =
         await (delete(trainerTable)..where((tbl) => tbl.id.equals(id))).go();
 
-    // Check if the trainer was deleted successfully
-    if (deletedTrainersCount > 0) {
-      // If the trainer was deleted, also delete associated questions
-      await deleteQuestionsByTrainerId(id);
-
-      // Return the count of deleted trainers
-      return deletedTrainersCount;
-    } else {
-      // Return 0 if no trainers were deleted
-      return 0;
-    }
+    // Return the count of deleted trainers
+    return deletedTrainersCount;
   }
 
   Future<void> deleteQuestionsByTrainerId(int trainerId) async {

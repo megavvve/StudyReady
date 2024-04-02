@@ -1,9 +1,9 @@
 import 'package:study_ready/domain/entities/trainer.dart';
 import 'package:study_ready/domain/repositories/trainer_repository/trainer_repository.dart';
 
-class DeleteInsertUseCase {
+class DeleteTrainerUseCase {
   TrainerRepository trainerRepository;
-  DeleteInsertUseCase({
+  DeleteTrainerUseCase({
     required this.trainerRepository,
   });
   Future<int> call(Trainer trainer) async {

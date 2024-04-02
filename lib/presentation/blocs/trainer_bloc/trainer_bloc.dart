@@ -6,7 +6,8 @@ import 'package:study_ready/domain/entities/question.dart';
 import 'package:study_ready/domain/entities/subject.dart';
 import 'package:study_ready/domain/entities/theme.dart';
 import 'package:study_ready/domain/entities/trainer.dart';
-import 'package:study_ready/domain/usecases/trainer/delete_insert.dart';
+import 'package:study_ready/domain/usecases/trainer/delete_question.dart';
+import 'package:study_ready/domain/usecases/trainer/delete_trainer.dart';
 import 'package:study_ready/domain/usecases/trainer/get_question_full_info_by_id.dart';
 import 'package:study_ready/domain/usecases/trainer/get_trainer_full_info_by_id.dart';
 import 'package:study_ready/domain/usecases/trainer/get_trainers.dart';
@@ -24,7 +25,8 @@ class TrainerBloc extends Bloc<TrainerEvent, TrainerState> {
   final GetTrainers getTrainers;
   final GetTrainerFullInfoById getTrainerFullInfoById;
   final GetQuestionFullInfoById getQuestionFullInfoById;
-  final DeleteInsertUseCase deleteTrainer;
+  final DeleteTrainerUseCase deleteTrainer;
+  final DeleteQuestionUseCase deleteQuestion;
   TrainerBloc(
       this.insertTrainer,
       this.insertQuestion,
@@ -32,7 +34,8 @@ class TrainerBloc extends Bloc<TrainerEvent, TrainerState> {
       this.getTrainers,
       this.getTrainerFullInfoById,
       this.getQuestionFullInfoById,
-      this.deleteTrainer)
+      this.deleteTrainer,
+      this.deleteQuestion)
       : super(TrainerInitial()) {
     on<AddQuestion>(_onAddQuestion);
     on<InitLoad>(_onInitLoad);
@@ -180,11 +183,31 @@ class TrainerBloc extends Bloc<TrainerEvent, TrainerState> {
 
   void _onDeleteTrainer(DeleteTrainer event, Emitter<TrainerState> emit) async {
     final trainer = event.trainer;
+
     deleteTrainer.call(trainer);
     final state = this.state;
     if (state is TrainerLoadSuccess) {
       final trainerList = state.trainerList;
       trainerList.remove(trainer);
+
+      // for (var element in trainer.questions) {
+      //   print(element.id);
+      //   deleteQuestion.call(element);
+      // }
+      // insertTrainer.call(
+      //   Trainer(
+      //     id: 0,
+      //     trainerName: trainer.trainerName,
+      //     subjectName: trainer.subjectName,
+      //     description: trainer.description,
+      //     color: trainer.color,
+      //     image: trainer.image,
+      //     questions: trainer.questions,
+      //   ),
+      // );
+      // for (var element in trainer.questions) {
+      //   insertQuestion.call(element);
+      // }
       emit(
         TrainerLoadSuccess(
           trainerList: trainerList,

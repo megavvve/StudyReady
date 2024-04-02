@@ -94,24 +94,24 @@ class NavigatorDrawer extends StatelessWidget {
               ),
             ),
             divider,
-            // ListTile(
-            //   leading: addQuestionIcon,
-            //   title: addQuestionTitle,
-            //   trailing: trailingIcon,
-            //   onTap: () => Navigator.of(context).pushReplacement(
-            //     PageRouteBuilder(
-            //       transitionDuration: Duration.zero,
-            //       pageBuilder: (context, animation, secondaryAnimation) {
-            //         return const DeleteTrainerScreen();
-            //       },
-            //       transitionsBuilder:
-            //           (context, animation, secondaryAnimation, child) {
-            //         return child;
-            //       },
-            //     ),
-            //   ),
-            // ),
-            // divider,
+            ListTile(
+              leading: deleteTrainerIcon,
+              title: deleteTrainerText,
+              trailing: trailingIcon,
+              onTap: () => Navigator.of(context).pushReplacement(
+                PageRouteBuilder(
+                  transitionDuration: Duration.zero,
+                  pageBuilder: (context, animation, secondaryAnimation) {
+                    return const DeleteTrainerScreen();
+                  },
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) {
+                    return child;
+                  },
+                ),
+              ),
+            ),
+            divider,
           ],
         ),
       ),
