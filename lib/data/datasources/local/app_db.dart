@@ -277,7 +277,10 @@ class AppDB extends _$AppDB {
   }
 
   Future<int> deleteTrainer(int id) async {
-    // First, delete the trainer
+    // First, delete the questions associated with the trainer
+    await deleteQuestionsByTrainerId(id);
+
+    // Then, delete the trainer
     final deletedTrainersCount =
         await (delete(trainerTable)..where((tbl) => tbl.id.equals(id))).go();
 
@@ -286,8 +289,23 @@ class AppDB extends _$AppDB {
   }
 
   Future<void> deleteQuestionsByTrainerId(int trainerId) async {
-    await (delete(questionTable)..where((tbl) => tbl.id.equals(trainerId)))
-        .go();
+    // Get the list of questions associated with the trainerId
+
+    // Find the trainer by id
+    final trainer = await (select(trainerTable)
+          ..where((tbl) => tbl.id.equals(trainerId)))
+        .getSingle();
+
+    // Check if the trainer exists
+    // Get the list of question ids associated with the trainer
+    final questionIds = trainer.questions;
+
+    // Delete each question by its id
+    for (var questionId in questionIds) {
+      await (delete(questionTable)
+            ..where((tbl) => tbl.id.equals(int.parse(questionId))))
+          .go();
+    }
   }
 
   //Update trainer with new entity

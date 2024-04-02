@@ -9,6 +9,7 @@ import 'package:study_ready/domain/entities/trainer.dart';
 import 'package:study_ready/domain/usecases/trainer/delete_question.dart';
 import 'package:study_ready/domain/usecases/trainer/delete_trainer.dart';
 import 'package:study_ready/domain/usecases/trainer/get_question_full_info_by_id.dart';
+import 'package:study_ready/domain/usecases/trainer/get_questions.dart';
 import 'package:study_ready/domain/usecases/trainer/get_trainer_full_info_by_id.dart';
 import 'package:study_ready/domain/usecases/trainer/get_trainers.dart';
 import 'package:study_ready/domain/usecases/trainer/insert_question.dart';
@@ -27,6 +28,7 @@ class TrainerBloc extends Bloc<TrainerEvent, TrainerState> {
   final GetQuestionFullInfoById getQuestionFullInfoById;
   final DeleteTrainerUseCase deleteTrainer;
   final DeleteQuestionUseCase deleteQuestion;
+  final GetQuestions getQuestions;
   TrainerBloc(
       this.insertTrainer,
       this.insertQuestion,
@@ -35,7 +37,8 @@ class TrainerBloc extends Bloc<TrainerEvent, TrainerState> {
       this.getTrainerFullInfoById,
       this.getQuestionFullInfoById,
       this.deleteTrainer,
-      this.deleteQuestion)
+      this.deleteQuestion,
+      this.getQuestions)
       : super(TrainerInitial()) {
     on<AddQuestion>(_onAddQuestion);
     on<InitLoad>(_onInitLoad);
@@ -100,32 +103,33 @@ class TrainerBloc extends Bloc<TrainerEvent, TrainerState> {
 
   Future<void> _onInitLoad(InitLoad event, Emitter<TrainerState> emit) async {
     final trainersFromDB = await getTrainers.call();
-
     int c = 0;
     List<Trainer> allTrainer = [];
     for (var j = 0; j < trainersFromDB.length; j++) {
-      // Изменение условия цикла
-      Trainer trainerFromDb =
-          await getTrainerFullInfoById.call(j + 1); // Добавление 1 к индексу
-      List<Question> questionFromTrainer = [];
-      for (var i = 0; i < trainerFromDb.questions.length; i++) {
-        // Изменение условия цикла
-        Question question = await getQuestionFullInfoById.call(c + 1);
-
-        questionFromTrainer.add(question);
-        c++;
+      // Проверяем, существует ли тренажер с текущим индексом в базе данных
+      if (await _trainerExists(j + 1)) {
+        Trainer trainerFromDb =
+            await getTrainerFullInfoById.call(j + 1); // Добавление 1 к индексу
+        List<Question> questionFromTrainer = [];
+        for (var i = 0; i < trainerFromDb.questions.length; i++) {
+          // Проверяем, существует ли вопрос с текущим индексом в базе данных
+          if (await _questionExists(c + 1)) {
+            Question question = await getQuestionFullInfoById.call(c + 1);
+            questionFromTrainer.add(question);
+            c++;
+          }
+        }
+        Trainer trainer = Trainer(
+          id: trainerFromDb.id,
+          subjectName: trainerFromDb.subjectName,
+          color: trainerFromDb.color,
+          image: trainerFromDb.image,
+          questions: questionFromTrainer,
+          trainerName: trainerFromDb.trainerName,
+          description: trainerFromDb.description,
+        );
+        allTrainer.add(trainer);
       }
-      Trainer trainer = Trainer(
-        id: trainerFromDb.id,
-        subjectName: trainerFromDb.subjectName,
-        color: trainerFromDb.color,
-        image: trainerFromDb.image,
-        questions: questionFromTrainer,
-        trainerName: trainerFromDb.trainerName,
-        description: trainerFromDb.description,
-      );
-      allTrainer.add(trainer);
-      questionFromTrainer = [];
     }
     if (allTrainer.isEmpty) {
       emit(
@@ -133,12 +137,25 @@ class TrainerBloc extends Bloc<TrainerEvent, TrainerState> {
           errorMessage: "Ошибка инициализации",
         ),
       );
+    } else {
+      emit(
+        TrainerLoadSuccess(
+          trainerList: allTrainer,
+        ),
+      );
     }
-    emit(
-      TrainerLoadSuccess(
-        trainerList: allTrainer,
-      ),
-    );
+  }
+
+// Метод для проверки существования тренажера по id
+  Future<bool> _trainerExists(int id) async {
+    final trainers = await getTrainers.call();
+    return trainers.any((trainer) => trainer.id == id);
+  }
+
+// Метод для проверки существования вопроса по id
+  Future<bool> _questionExists(int id) async {
+    final questions = await getQuestions.call();
+    return questions.any((question) => question.id == id);
   }
 
   void _onGenerateAnswers(

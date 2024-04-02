@@ -14,6 +14,7 @@ import 'package:study_ready/domain/usecases/study_material/get_study_materials.d
 import 'package:study_ready/domain/usecases/trainer/delete_question.dart';
 import 'package:study_ready/domain/usecases/trainer/delete_trainer.dart';
 import 'package:study_ready/domain/usecases/trainer/get_question_full_info_by_id.dart';
+import 'package:study_ready/domain/usecases/trainer/get_questions.dart';
 import 'package:study_ready/domain/usecases/trainer/get_trainer_full_info_by_id.dart';
 import 'package:study_ready/domain/usecases/trainer/get_trainers.dart';
 import 'package:study_ready/domain/usecases/trainer/insert_question.dart';
@@ -43,6 +44,7 @@ Future<void> setup() async {
 
   getIt.registerFactory(
     () => TrainerBloc(
+      getIt(),
       getIt(),
       getIt(),
       getIt(),
@@ -84,6 +86,11 @@ Future<void> setup() async {
   );
   getIt.registerLazySingleton(
     () => GetTrainerFullInfoById(
+      trainerRepository: getIt(),
+    ),
+  );
+  getIt.registerLazySingleton(
+    () => GetQuestions(
       trainerRepository: getIt(),
     ),
   );

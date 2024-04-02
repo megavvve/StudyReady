@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:study_ready/domain/entities/trainer.dart';
 import 'package:study_ready/presentation/blocs/trainer_bloc/trainer_bloc.dart';
 
 import '../../navigation/navigation_bar.dart';
@@ -15,7 +14,8 @@ class DeleteTrainerScreen extends StatelessWidget {
       body: BlocBuilder<TrainerBloc, TrainerState>(
         builder: (context, state) {
           if (state is TrainerLoadSuccess) {
-            final listTrainers = state.trainerList;
+            final listTrainers =
+                state.trainerList.where((element) => element.id != 1).toList();
 
             return CustomScrollView(
               slivers: [
