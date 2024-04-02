@@ -219,7 +219,7 @@ class _TrainerListWidgetState extends State<TrainerListWidget> {
                     height: 30.h,
                   ),
                 ),
-                (trainerList.length != 1)
+                (trainerList.length != 2)
                     ? SliverToBoxAdapter(
                         child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 50.w),

@@ -117,7 +117,7 @@ class _MaterialScreenWidgetState extends State<MaterialScreenWidget> {
                   ),
                   SliverToBoxAdapter(
                     child: SizedBox(
-                      height: 2.h,
+                      height: 20.h,
                     ),
                   ),
                   // SliverToBoxAdapter(

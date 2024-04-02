@@ -19,10 +19,13 @@ class MaterialReader extends StatefulWidget {
 class _MaterialReaderState extends State<MaterialReader> {
   final Completer<PDFViewController> _controller =
       Completer<PDFViewController>();
+
   int? pages = 0;
   int? currentPage = 0;
   bool isReady = false;
   String errorMessage = '';
+  TextEditingController _pageController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -49,6 +52,47 @@ class _MaterialReaderState extends State<MaterialReader> {
     final material = widget.material;
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: const Text('Поиск по страницам'),
+                  content: TextField(
+                    controller: _pageController,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      labelText: 'Введите номер страницы',
+                    ),
+                  ),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text('Отмена'),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        final int? targetPage =
+                            int.tryParse(_pageController.text);
+                        if (targetPage != null) {
+                          final controller = _controller.future;
+                          controller
+                              .then((value) => value.setPage(targetPage - 1));
+                        }
+                        Navigator.of(context).pop();
+                      },
+                      child: Text('Перейти'),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ],
         title: TextButton(
           style: ButtonStyle(
             animationDuration: Duration.zero, // отключаем анимацию
@@ -83,9 +127,9 @@ class _MaterialReaderState extends State<MaterialReader> {
             defaultPage: currentPage!,
             fitPolicy: FitPolicy.BOTH,
             preventLinkNavigation: false,
-            onRender: (pages) {
+            onRender: (pages1) {
               setState(() {
-                pages = pages;
+                pages = pages1;
                 isReady = true;
               });
             },
@@ -97,6 +141,31 @@ class _MaterialReaderState extends State<MaterialReader> {
                 currentPage = page;
               });
             },
+          ),
+          Positioned(
+            bottom: 30.h,
+            left: 0,
+            right: 0,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 150.0.w),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.3),
+                  borderRadius: BorderRadius.circular(16.sp),
+                ),
+                padding: EdgeInsets.symmetric(
+                  vertical: 4.0.h,
+                ),
+                child: Center(
+                  child: Text(
+                    currentPage != null && pages != null
+                        ? '${currentPage! + 1} / $pages'
+                        : '',
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+            ),
           ),
           errorMessage.isEmpty
               ? !isReady
