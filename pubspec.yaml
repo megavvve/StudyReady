@@ -29,7 +29,7 @@ dependencies:
   path_provider: ^2.1.2
   path: ^1.9.0
   sqlite3: ^2.3.0
-
+  hydrated_bloc: ^9.1.5
   #
 
   # json converter
@@ -41,7 +41,7 @@ dependencies:
   # analyzer for pab get work
 
   
-  bloc: ^8.1.2
+ 
   firebase_core: ^2.27.0
   firebase_storage: ^11.6.10
   flutter_pdfview: ^1.3.2
