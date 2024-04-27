@@ -20,6 +20,9 @@ class _MaterialScreenState extends State<MaterialScreen> {
       builder: (context, state) {
         if (state is StudyMaterialLoadSuccess) {
           final listMaterial = state.materials;
+          for (var element in listMaterial) {
+            print(element.fileType);
+          }
           return MaterialScreenWidget(
             materialList: listMaterial,
           );

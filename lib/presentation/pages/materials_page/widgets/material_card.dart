@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/domain/entities/study_material.dart';
-import 'package:study_ready/presentation/pages/materials_page/widgets/material_reader.dart';
+import 'package:study_ready/presentation/pages/materials_page/widgets/material_reader_pick.dart';
 import 'package:study_ready/utils/app_colors.dart';
 
 class MaterialCard extends StatelessWidget {
@@ -19,7 +19,7 @@ class MaterialCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => MaterialReader(
+            builder: (context) => MaterialReaderPick(
               material: studyMaterial,
             ),
           ),

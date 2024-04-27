@@ -1,22 +1,26 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:study_ready/domain/entities/study_material.dart';
 import 'package:study_ready/utils/app_colors.dart';
 
-class MaterialReader extends StatefulWidget {
-  final StudyMaterial material;
-
-  const MaterialReader({Key? key, required this.material}) : super(key: key);
+class PDFReader extends StatefulWidget {
+  final StudyMaterial studyMaterial;
+  const PDFReader({
+    Key? key,
+    required this.studyMaterial,
+  }) : super(key: key);
 
   @override
-  State<MaterialReader> createState() => _MaterialReaderState();
+  State<PDFReader> createState() => _PDFReaderState();
 }
 
-class _MaterialReaderState extends State<MaterialReader> {
+class _PDFReaderState extends State<PDFReader> {
   final Completer<PDFViewController> _controller =
       Completer<PDFViewController>();
 
@@ -49,7 +53,7 @@ class _MaterialReaderState extends State<MaterialReader> {
 
   @override
   Widget build(BuildContext context) {
-    final material = widget.material;
+    final material = widget.studyMaterial;
     return Scaffold(
       appBar: AppBar(
         actions: [
