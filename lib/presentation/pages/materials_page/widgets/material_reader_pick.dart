@@ -10,12 +10,22 @@ class MaterialReaderPick extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (material.fileType == 'application/pdf') {
-      return PDFReader(
-        studyMaterial: material,
-      );
-    } else {
-      return SizedBox();
+    switch (material.fileType) {
+      case 'application/pdf':
+        return PDFReader(
+          studyMaterial: material,
+        );
+      case 'image/jpeg':
+      case 'image/png':
+      //   return ImageReader(
+      //     studyMaterial: material,
+      //   );
+      // case 'video/mp4':
+      //   return VideoPlayer(
+      //     studyMaterial: material,
+      //   );
+      default:
+        return SizedBox(); // Возвращаем пустой контейнер для остальных типов файлов
     }
   }
 }

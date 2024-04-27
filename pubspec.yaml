@@ -18,6 +18,7 @@ dependencies:
   equatable: ^2.0.5
   get_it: ^7.6.7
   analyzer: ^6.4.1
+  loading_animation_widget: ^1.2.1
   
 
 
@@ -51,6 +52,7 @@ dependencies:
   shared_preferences: ^2.2.2
   firebase_app_check: ^0.2.1+19
   fluttertoast: ^8.2.4
+  rive: ^0.13.2
   
   
 
@@ -79,6 +81,7 @@ flutter:
     - assets/images/trainer/background_for_app_bar_trainer.svg
     - assets/jsons/trainer1.json
     - assets/jsons/trainer2.json
+    - assets/rive/duck_walk.riv
 
   # To add assets to your application, add an assets section, like this:
   # assets:

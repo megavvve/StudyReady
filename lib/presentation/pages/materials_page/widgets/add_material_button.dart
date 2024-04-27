@@ -16,7 +16,7 @@ class AddMaterialButton extends StatelessWidget {
           onPressed: () async {
             await Navigator.of(context).push(
               customPageRoute(
-                AddMaterialScreen(),
+                AddFilesScreen(),
               ),
             );
           },

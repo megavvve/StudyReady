@@ -656,6 +656,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
+  loading_animation_widget:
+    dependency: "direct main"
+    description:
+      name: loading_animation_widget
+      sha256: ee3659035528d19145d50cf0107632bf647e7306c88b6a32f35f3bed63f6d728
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.1"
   logging:
     dependency: transitive
     description:
@@ -848,6 +856,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.1.0"
+  rive:
+    dependency: "direct main"
+    description:
+      name: rive
+      sha256: "95690a0fb4f6e195c53b217ab3cc0e0b0f443c670adbdee9d57d636a36b82b18"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.13.2"
+  rive_common:
+    dependency: transitive
+    description:
+      name: rive_common
+      sha256: "3eee68fcab3e0882090cea5a8cf7acea7967f469a34a2580322575603b094435"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.4.5"
   shared_preferences:
     dependency: "direct main"
     description:

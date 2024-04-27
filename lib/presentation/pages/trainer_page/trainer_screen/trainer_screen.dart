@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:study_ready/domain/entities/trainer.dart';
 import 'package:study_ready/presentation/blocs/trainer_bloc/trainer_bloc.dart';
 import 'package:study_ready/presentation/pages/trainer_page/trainer_screen/widget/trainer_list_widget.dart';
+import 'package:study_ready/utils/app_colors.dart';
 
 class TrainerScreen extends StatefulWidget {
   const TrainerScreen({
@@ -33,9 +36,12 @@ class _TrainerScreenState extends State<TrainerScreen> {
             ),
           );
         } else {
-          return const Scaffold(
+          return Scaffold(
             body: Center(
-              child: CircularProgressIndicator(),
+              child: LoadingAnimationWidget.inkDrop(
+                size: 40.sp,
+                color: mainColor,
+              ),
             ),
           );
         }
