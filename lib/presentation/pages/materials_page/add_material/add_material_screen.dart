@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rive/rive.dart';
+import 'package:study_ready/presentation/pages/materials_page/add_material/widgets/animated_button.dart';
 import 'package:study_ready/utils/app_colors.dart';
 
 class AddFilesScreen extends StatefulWidget {
@@ -14,8 +16,9 @@ class AddFilesScreen extends StatefulWidget {
 }
 
 class _AddFilesScreenState extends State<AddFilesScreen> {
-  List<File> _files = [];
+  List<File> files = [];
   bool _showButtons = false;
+  bool _isLoading = false;
 
   Future<void> _pickFile(String fileType) async {
     List<String> allowedExtensions = [];
@@ -37,29 +40,51 @@ class _AddFilesScreenState extends State<AddFilesScreen> {
       default:
         allowedExtensions = [];
     }
-
+    setState(() {
+      _isLoading =
+          true; // Устанавливаем флаг загрузки в true при начале загрузки
+    });
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: fileTypeParam,
       allowMultiple: false,
       allowedExtensions: allowedExtensions,
     );
-
+    setState(() {
+      _isLoading =
+          false; // Устанавливаем флаг загрузки в false после завершения загрузки
+    });
     if (result != null) {
-      setState(() {
-        _files.addAll(
-          result.files.map(
-            (file) => File(
-              file.path!,
+      File file = File(result.files.single.path!);
+      int fileSizeInBytes = await file.length();
+
+      // Проверяем размер файла (в байтах)
+      if (fileSizeInBytes <= 30 * 1024 * 1024) {
+        setState(() {
+          files.addAll(
+            result.files.map(
+              (file) => File(
+                file.path!,
+              ),
             ),
-          ),
-        );
-      });
-    } else {}
+          );
+        });
+        print('Выбранный файл меньше или равен 30 МБ');
+      } else {
+        // Файл слишком большой, предоставляем обратную связь пользователю
+        print('Выбранный файл больше 30 МБ');
+      }
+    } else {
+      // Пользователь не выбрал файл, предоставляем обратную связь
+      print('Файл не выбран');
+    }
+    setState(() {
+      _showButtons = false;
+    });
   }
 
   void _removeFile(int index) {
     setState(() {
-      _files.removeAt(index);
+      files.removeAt(index);
     });
   }
 
@@ -72,85 +97,128 @@ class _AddFilesScreenState extends State<AddFilesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          const RiveAnimation.asset(
-            'assets/rive/duck_walk.riv',
-            fit: BoxFit.cover,
-          ),
-          CustomScrollView(
-            slivers: [
-              const SliverAppBar(
-                title: Text('Добавить файлы'),
-                floating: true,
-              ),
-              SliverToBoxAdapter(
-                child: Column(
-                  children: [
-                    AnimatedContainer(
-                      duration: const Duration(milliseconds: 600),
-                      height: _showButtons ? 150.h : 300.h,
-                    ),
-                    SizedBox(
-                      width: 250.w,
-                      height: 50.h,
-                      child: ElevatedButton(
-                        onPressed: _toggleButtons,
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(mainColor),
-                        ),
-                        child: Text(
-                          'Добавить материал',
-                          style:
-                              TextStyle(color: Colors.white, fontSize: 18.sp),
+      backgroundColor: backgroundColor,
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 10.0.w),
+        child: Stack(
+          children: [
+            Positioned(
+              bottom: _showButtons ? 0.h : 195.h,
+              child: !_showButtons
+                  ? SizedBox(
+                      width: 450.w,
+                      height: 650.h,
+                      child: const RiveAnimation.asset(
+                        'assets/rive/pencil_dude_hello.riv',
+                        fit: BoxFit.cover,
+                      ),
+                    )
+                  : const SizedBox.shrink(),
+            ),
+            CustomScrollView(
+              slivers: [
+                SliverAppBar(
+                  backgroundColor: backgroundColor,
+                  title: const Text('Добавить файлы'),
+                  floating: true,
+                ),
+                SliverToBoxAdapter(
+                  child: Column(
+                    children: [
+                      AnimatedContainer(
+                        duration: const Duration(milliseconds: 600),
+                        height: _showButtons ? 150.h : 350.h,
+                      ),
+                      SizedBox(
+                        width: 250.w,
+                        height: 50.h,
+                        child: ElevatedButton(
+                          onPressed: _toggleButtons,
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: mainColor),
+                          child: Text(
+                            'Добавить материал',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18.sp,
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(height: 16.0.h),
-                    AnimatedOpacity(
-                      opacity: _showButtons ? 1.0 : 0.0,
-                      duration: const Duration(milliseconds: 500),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                      SizedBox(height: 16.0.h),
+                      AnimatedOpacity(
+                        opacity: _showButtons ? 1.0 : 0.0,
+                        duration: const Duration(
+                          milliseconds: 500,
+                        ),
+                        child: _showButtons
+                            ? Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  ElevatedButton(
+                                    onPressed: () => _pickFile('pdf'),
+                                    child: const Text('Добавить PDF'),
+                                  ),
+                                  SizedBox(
+                                    height: 8.0.h,
+                                  ),
+                                  ElevatedButton(
+                                    onPressed: () => _pickFile('image'),
+                                    child: const Text('Добавить изображение'),
+                                  ),
+                                  SizedBox(
+                                    height: 8.0.h,
+                                  ),
+                                  ElevatedButton(
+                                    onPressed: () => _pickFile('video'),
+                                    child: const Text('Добавить видео'),
+                                  ),
+                                ],
+                              )
+                            : const SizedBox
+                                .shrink(), // Если _showButtons == false, вернуть пустой контейнер
+                      ),
+                    ],
+                  ),
+                ),
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) {
+                      return ListTile(
+                        title: Text(files[index].path.split('/').last),
+                        trailing: IconButton(
+                          icon: const Icon(Icons.delete),
+                          onPressed: () => _removeFile(index),
+                        ),
+                      );
+                    },
+                    childCount: files.length,
+                  ),
+                ),
+                (files.isNotEmpty)
+                    ? SliverToBoxAdapter(
+                        child: Column(
                         children: [
-                          ElevatedButton(
-                            onPressed: () => _pickFile('pdf'),
-                            child: const Text('Добавить PDF'),
+                          SizedBox(
+                            height: 15.h,
                           ),
-                          SizedBox(height: 8.0.h),
-                          ElevatedButton(
-                            onPressed: () => _pickFile('image'),
-                            child: const Text('Добавить изображение'),
-                          ),
-                          SizedBox(height: 8.0.h),
-                          ElevatedButton(
-                            onPressed: () => _pickFile('video'),
-                            child: const Text('Добавить видео'),
-                          ),
+                          AnimatedPulseButton()
                         ],
+                      ))
+                    : const SliverToBoxAdapter(
+                        child: SizedBox.shrink(),
                       ),
-                    ),
-                  ],
+              ],
+            ),
+            if (_isLoading)
+              Container(
+                color: backgroundColor,
+                child: const Center(
+                  child: CircularProgressIndicator(),
                 ),
               ),
-              SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                    return ListTile(
-                      title: Text(_files[index].path.split('/').last),
-                      trailing: IconButton(
-                        icon: const Icon(Icons.delete),
-                        onPressed: () => _removeFile(index),
-                      ),
-                    );
-                  },
-                  childCount: _files.length,
-                ),
-              ),
-            ],
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

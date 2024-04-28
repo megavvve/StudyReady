@@ -3,9 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/presentation/navigation/custom_page_router.dart';
 import 'package:study_ready/presentation/pages/materials_page/add_material/add_material_screen.dart';
 
-class AddMaterialButton extends StatelessWidget {
+class AddMaterialButton extends StatefulWidget {
   const AddMaterialButton({super.key});
 
+  @override
+  State<AddMaterialButton> createState() => _AddMaterialButtonState();
+}
+
+class _AddMaterialButtonState extends State<AddMaterialButton> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -16,7 +21,7 @@ class AddMaterialButton extends StatelessWidget {
           onPressed: () async {
             await Navigator.of(context).push(
               customPageRoute(
-                AddFilesScreen(),
+                const AddFilesScreen(),
               ),
             );
           },
