@@ -9,10 +9,9 @@ class MMaterial {
 
   final String context;
 
-  MMaterial({
-    required this.id,
-    required this.name,
-    required this.subject,
-    required this.context
-  });
+  MMaterial(
+      {required this.id,
+      required this.name,
+      required this.subject,
+      required this.context});
 }

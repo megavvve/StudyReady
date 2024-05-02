@@ -1,4 +1,3 @@
-
 import 'package:study_ready/domain/entities/trainer.dart';
 
 abstract class TrainerRepository {
