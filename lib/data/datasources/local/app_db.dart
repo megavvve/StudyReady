@@ -373,4 +373,9 @@ class AppDB extends _$AppDB {
     return await (delete(materialsTable)..where((tbl) => tbl.id.equals(id)))
         .go();
   }
+
+  // Delete Material by id
+  Future<int> deleteAllMaterials() async {
+    return await (delete(materialsTable)).go();
+  }
 }

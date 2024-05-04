@@ -15,15 +15,15 @@ class MaterialInitLoadEvent extends StudyMaterialEvent {
 }
 
 class AddMaterial extends StudyMaterialEvent {
-  final StudyMaterial material;
+  final StudyMaterial studyMaterial;
 
-  const AddMaterial(this.material);
-
-  @override
-  List<Object> get props => [material];
+  const AddMaterial({required this.studyMaterial});
 
   @override
-  String toString() => 'AddMaterial { material: $material }';
+  List<Object> get props => [studyMaterial];
+
+  @override
+  String toString() => 'AddMaterial { material: $studyMaterial }';
 }
 
 class UpdateMaterial extends StudyMaterialEvent {

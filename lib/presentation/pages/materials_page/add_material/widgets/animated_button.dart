@@ -15,14 +15,12 @@ class AnimatedPulseButton extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _AnimatedPulseButtonState createState() => _AnimatedPulseButtonState();
+  AnimatedPulseButtonState createState() => AnimatedPulseButtonState();
 }
 
-class _AnimatedPulseButtonState extends State<AnimatedPulseButton>
+class AnimatedPulseButtonState extends State<AnimatedPulseButton>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
-  late final Animation<double> _outerFade;
-  late final Animation<double> _outerScale;
   late final Animation<double> _innerUpscale;
   late final Animation<double> _innerDownscale;
   bool _isAnimating = true;
@@ -31,18 +29,6 @@ class _AnimatedPulseButtonState extends State<AnimatedPulseButton>
   void initState() {
     super.initState();
     _controller = AnimationController(vsync: this, duration: widget.duration);
-    _outerFade = Tween<double>(begin: 1.0, end: 0.0).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: const Interval(0.0, 0.3, curve: Curves.ease),
-      ),
-    );
-    _outerScale = Tween<double>(begin: 1.0, end: 3.0).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: Interval(0.0, 0.3, curve: Curves.ease),
-      ),
-    );
     _innerUpscale = CurvedAnimation(
       parent: _controller,
       curve: const Interval(0.0, 0.3, curve: Curves.ease),
@@ -83,52 +69,33 @@ class _AnimatedPulseButtonState extends State<AnimatedPulseButton>
         builder: (context, child) {
           return SizedBox(
             width: 170,
-            child: Stack(
-              children: [
-                Opacity(
-                  opacity: _outerFade.value,
-                  child: Transform.scale(
-                    scale: _outerScale.value,
-                    child: Container(
-                      width: 170,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(14.sp),
-                        border: Border.all(color: thirdColor, width: 2.0),
-                      ),
+            child: Transform.scale(
+              scale: _innerUpscale.value * _innerDownscale.value,
+              child: Container(
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      offset: const Offset(0, 3),
+                      blurRadius: 6,
+                      spreadRadius: 1,
                     ),
+                  ],
+                  color: thirdColor,
+                  borderRadius: BorderRadius.circular(14.sp),
+                ),
+                width: 170.w,
+                height: 50.h,
+                alignment: Alignment.center,
+                child: Text(
+                  "Сохранить",
+                  style: TextStyle(
+                    fontSize: 20.0.sp,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                Transform.scale(
-                  scale: _innerUpscale.value * _innerDownscale.value,
-                  child: Container(
-                    //color: thirdColor,
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.2),
-                          offset: const Offset(0, 3),
-                          blurRadius: 6,
-                          spreadRadius: 1,
-                        ),
-                      ],
-                      color: thirdColor,
-                      borderRadius: BorderRadius.circular(14.sp),
-                    ),
-                    width: 170.w,
-                    height: 50.h,
-                    alignment: Alignment.center,
-                    child: Text(
-                      "Сохранить",
-                      style: TextStyle(
-                        fontSize: 20.0.sp,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
           );
         },

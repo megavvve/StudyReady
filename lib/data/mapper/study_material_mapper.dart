@@ -37,13 +37,28 @@ class StudyMaterialMapper {
         .toList();
   }
 
-  static MaterialsTableCompanion mapStudyMaterialToMaterialsTableCompanion(
-      StudyMaterial material) {
+  static MaterialsTableCompanion toLocal(StudyMaterial material) {
     return MaterialsTableCompanion(
       fileName: Value(material.fileName),
       filePath: Value(material.filePath),
       uploadDate: Value(material.uploadDate),
       fileType: Value(material.fileType),
     );
+  }
+
+  static StudyMaterial fromLocal(MaterialsTableData material) {
+    return StudyMaterial(
+      fileName: material.fileName,
+      filePath: material.filePath,
+      uploadDate: material.uploadDate,
+      fileType: material.fileType,
+      id: material.id,
+      subjectName: '',
+    );
+  }
+
+  // Static method to create a list of StudyMaterial objects from a list of MaterialsTableData objects
+  static List<StudyMaterial> fromLocalList(List<MaterialsTableData> materials) {
+    return materials.map((material) => fromLocal(material)).toList();
   }
 }

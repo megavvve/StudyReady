@@ -11,7 +11,7 @@ class MaterialReaderPick extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     switch (material.fileType) {
-      case 'application/pdf':
+      case 'pdf':
         return PDFReader(
           studyMaterial: material,
         );

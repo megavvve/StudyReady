@@ -3,13 +3,17 @@ import 'package:get_it/get_it.dart';
 import 'package:study_ready/data/datasources/local/app_db.dart';
 import 'package:study_ready/data/datasources/local/external/trainers/json_trainer_repository.dart';
 import 'package:study_ready/data/repositories/firebase_auth_repository.dart';
-import 'package:study_ready/data/repositories/firebase_study_material_repository.dart';
+import 'package:study_ready/data/repositories/study_material_repository/firebase_study_material_repository.dart';
+import 'package:study_ready/data/repositories/study_material_repository/local_study_material_repository.dart';
+import 'package:study_ready/data/repositories/study_material_repository/study_material_repository_impl.dart';
 import 'package:study_ready/data/repositories/trainer_repository/question_repository.dart';
 import 'package:study_ready/data/repositories/trainer_repository/trainer_repository.dart';
 import 'package:study_ready/domain/repositories/auth_repository.dart';
 import 'package:study_ready/domain/repositories/study_material_repository.dart';
 import 'package:study_ready/domain/repositories/trainer_repository/question_repository.dart';
 import 'package:study_ready/domain/repositories/trainer_repository/trainer_repository.dart';
+import 'package:study_ready/domain/usecases/study_material/add_study_material.dart';
+import 'package:study_ready/domain/usecases/study_material/get_study_material.dart';
 import 'package:study_ready/domain/usecases/study_material/get_study_materials.dart';
 import 'package:study_ready/domain/usecases/trainer/delete_question.dart';
 import 'package:study_ready/domain/usecases/trainer/delete_trainer.dart';
@@ -36,6 +40,8 @@ Future<void> setup() async {
 
   getIt.registerFactory(
     () => StudyMaterialBloc(
+      getIt(),
+      getIt(),
       getIt(),
     )..add(
         const MaterialInitLoadEvent(),
@@ -100,7 +106,16 @@ Future<void> setup() async {
     ),
   );
   getIt.registerLazySingleton(
-    () => GetStudyMaterials(studyMaterialRepository: getIt()),
+    () => GetStudyMaterials(
+      studyMaterialRepository: getIt(),
+    ),
+  );
+  getIt.registerLazySingleton(
+      () => GetStudyMaterial(studyMaterialRepository: getIt()));
+  getIt.registerLazySingleton(
+    () => AddStudyMaterial(
+      studyMaterialRepository: getIt(),
+    ),
   );
   getIt.registerLazySingleton(
     () => DeleteQuestionUseCase(questionRepository: getIt()),
@@ -113,8 +128,15 @@ Future<void> setup() async {
     () => QuestionRepositoryImpl(),
   );
   getIt.registerLazySingleton<StudyMaterialRepository>(
+    () => StudyMaterialRepositoryImpl(
+        localRepository: getIt(), remoteRepository: getIt()),
+  );
+
+  getIt.registerLazySingleton<FirebaseStudyMaterialRepository>(
     () => FirebaseStudyMaterialRepository(),
   );
+  getIt.registerLazySingleton<LocalStudyMaterialRepository>(
+      () => LocalStudyMaterialRepository());
   //Data sources
   if (!getIt.isRegistered<AppDB>()) {
     getIt.registerLazySingleton<AppDB>(() => AppDB());

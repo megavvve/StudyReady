@@ -1,14 +1,12 @@
 import 'package:study_ready/domain/entities/study_material.dart';
 import 'package:study_ready/domain/repositories/study_material_repository.dart';
 
-class GetStudyMaterials {
+class AddStudyMaterial {
   final StudyMaterialRepository studyMaterialRepository;
 
-  GetStudyMaterials({
-    required this.studyMaterialRepository,
-  });
+  AddStudyMaterial({required this.studyMaterialRepository});
 
-  Future<List<StudyMaterial>> call() async {
-    return studyMaterialRepository.getMaterials();
+  Future<void> call(StudyMaterial sm) async {
+    await studyMaterialRepository.addMaterial(sm);
   }
 }
