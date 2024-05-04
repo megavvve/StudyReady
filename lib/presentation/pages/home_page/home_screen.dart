@@ -18,12 +18,13 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final brightness = context.watch<ThemeCubit>().state.brightness;
     return Scaffold(
-      backgroundColor:
-          brightness == Brightness.dark ? backgroundColorDark : backgroundColor,
+      backgroundColor: brightness == Brightness.dark
+          ? backgroundColorDark
+          : backgroundColorLight,
       appBar: AppBar(
         backgroundColor: brightness == Brightness.dark
             ? backgroundColorDark
-            : backgroundColor,
+            : backgroundColorLight,
         leading: Builder(
           builder: (BuildContext context) {
             return BurgerNavigationLeading(context);

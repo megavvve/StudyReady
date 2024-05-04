@@ -11,13 +11,12 @@ class SwitchExample extends StatefulWidget {
 }
 
 class _SwitchExampleState extends State<SwitchExample> {
-
   @override
   Widget build(BuildContext context) {
     final brightness = context.watch<ThemeCubit>().state.brightness;
     return Switch(
       value: brightness == Brightness.dark,
-      activeColor: mainColor,
+      activeColor: mainColorLight,
       onChanged: (bool value) {
         context.read<ThemeCubit>().setThemeBrightness(
               value ? Brightness.dark : Brightness.light,

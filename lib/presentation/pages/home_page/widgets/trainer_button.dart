@@ -33,10 +33,13 @@ class TrainerButtonWidget extends StatelessWidget {
         child: Stack(
           children: [
             Positioned(
-              child: brightness == Brightness.dark ? sLetterBackDark : sLetterBack,
+              child:
+                  brightness == Brightness.dark ? sLetterBackDark : sLetterBack,
             ),
             Positioned(
-              child: brightness == Brightness.dark ? sLetterFrontDark : sLetterFront,
+              child: brightness == Brightness.dark
+                  ? sLetterFrontDark
+                  : sLetterFront,
             ),
             Positioned(
               left: 121.72.w,

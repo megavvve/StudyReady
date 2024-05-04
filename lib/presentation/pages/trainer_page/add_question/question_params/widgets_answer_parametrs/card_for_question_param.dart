@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:study_ready/domain/entities/trainer.dart';
+import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
 import 'package:study_ready/presentation/blocs/trainer_bloc/trainer_bloc.dart';
 import 'package:study_ready/presentation/pages/trainer_page/add_question/add_question_screen/widgets_add_question/add_trainer_dialog.dart';
 import 'package:study_ready/presentation/pages/trainer_page/add_question/question_params/widgets_answer_parametrs/add_text_dialog.dart';
@@ -52,6 +53,7 @@ class _CardForQuestionParamsState extends State<CardForQuestionParams> {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = context.watch<ThemeCubit>().state.brightness;
     return BlocBuilder<TrainerBloc, TrainerState>(builder: (context, state) {
       if (state is TrainerLoadSuccess) {
         trainers = state.trainerList;
@@ -88,7 +90,9 @@ class _CardForQuestionParamsState extends State<CardForQuestionParams> {
                     keyboardType: TextInputType.none,
                     controller: customTextEditingController,
                     suggestions: _buildPopupMenuItems(trainers),
-                    suggestionBackgroundColor: secondColor,
+                    suggestionBackgroundColor: brightness == Brightness.dark
+                        ? secondColorDark
+                        : secondColorLight,
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.symmetric(
                         vertical: 0,
@@ -115,7 +119,10 @@ class _CardForQuestionParamsState extends State<CardForQuestionParams> {
                             prefs.setString(widget.param, "");
                           });
                         },
-                        icon: const Icon(Icons.clear, color: Colors.black,),
+                        icon: const Icon(
+                          Icons.clear,
+                          color: Colors.black,
+                        ),
                       ),
                     ),
                     onChanged: (value) async {

@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
 import 'package:study_ready/presentation/blocs/trainer_bloc/trainer_bloc.dart';
 import 'package:study_ready/utils/app_colors.dart';
 
@@ -19,17 +20,25 @@ class TrainingResultScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = context.watch<ThemeCubit>().state.brightness;
     return Scaffold(
-      backgroundColor: backgroundColor,
+      backgroundColor: brightness == Brightness.dark
+          ? backgroundColorDark
+          : backgroundColorLight,
       appBar: AppBar(
-        backgroundColor: backgroundColor,
+        backgroundColor: brightness == Brightness.dark
+            ? backgroundColorDark
+            : backgroundColorLight,
         title: const Text(
           'Результат тренировки',
           style: TextStyle(color: Colors.black),
         ),
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.close, color: Colors.black,),
+          icon: const Icon(
+            Icons.close,
+            color: Colors.black,
+          ),
           onPressed: () {
             Navigator.pop(context);
             Navigator.pop(context);
@@ -88,7 +97,9 @@ class TrainingResultScreen extends StatelessWidget {
                 Center(
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: mainColor, // Цвет кнопки
+                      backgroundColor: brightness == Brightness.dark
+                          ? mainColorDark
+                          : mainColorLight, // Цвет кнопки
                       shape: RoundedRectangleBorder(
                         borderRadius:
                             BorderRadius.circular(16.sp), // Закругленные углы

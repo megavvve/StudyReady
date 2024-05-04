@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
 import 'package:study_ready/utils/app_colors.dart';
 
 class SliverAnsParsAppBarWidget extends StatelessWidget {
@@ -7,10 +9,13 @@ class SliverAnsParsAppBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = context.watch<ThemeCubit>().state.brightness;
     return SliverAppBar(
       pinned: true,
       surfaceTintColor: Colors.transparent,
-      backgroundColor: backgroundColor,
+      backgroundColor: brightness == Brightness.dark
+          ? backgroundColorDark
+          : backgroundColorLight,
       centerTitle: true,
       leading: Padding(
         padding: EdgeInsets.symmetric(horizontal: 5.w),

@@ -16,7 +16,6 @@ class Answers extends StatefulWidget {
 class _AnswersState extends State<Answers> {
   @override
   Widget build(BuildContext context) {
-   
     return Column(
       children: [
         for (int i = 0; i < widget.list.length; i++)
@@ -26,7 +25,9 @@ class _AnswersState extends State<Answers> {
                 width: 320.w,
                 child: ElevatedButton(
                   style: StyleForAnswer(
-                      i == SharedState.of(context).selectedIndex),
+                    i == SharedState.of(context).selectedIndex,
+                    context,
+                  ),
                   child: Padding(
                     padding: EdgeInsets.all(14.0.sp),
                     child: Text(

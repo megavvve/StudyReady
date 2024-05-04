@@ -19,7 +19,9 @@ class NavigatorDrawer extends StatelessWidget {
     final brightness = context.watch<ThemeCubit>().state.brightness;
     return Drawer(
       width: 240.w,
-      backgroundColor: brightness == Brightness.dark ? backgroundColorDark : burgerBackgroundLight,
+      backgroundColor: brightness == Brightness.dark
+          ? backgroundColorDark
+          : burgerBackgroundLight,
       child: Container(
         padding: EdgeInsets.only(
           top: 45.h,
@@ -28,7 +30,10 @@ class NavigatorDrawer extends StatelessWidget {
           children: [
             ListTile(
               leading: mainIcon,
-              title: Text('Главная', style: theme.textTheme.titleSmall,),
+              title: Text(
+                'Главная',
+                style: theme.textTheme.titleSmall,
+              ),
               trailing: trailingIcon,
               onTap: () => Navigator.of(context).pushReplacement(
                 PageRouteBuilder(
@@ -46,7 +51,10 @@ class NavigatorDrawer extends StatelessWidget {
             divider,
             ListTile(
               leading: materialIcon,
-              title: Text('Материалы', style: theme.textTheme.titleSmall,),
+              title: Text(
+                'Материалы',
+                style: theme.textTheme.titleSmall,
+              ),
               trailing: trailingIcon,
               onTap: () => Navigator.of(context).pushReplacement(
                 PageRouteBuilder(
@@ -64,7 +72,10 @@ class NavigatorDrawer extends StatelessWidget {
             divider,
             ListTile(
               leading: trainerIcon,
-              title: Text('Тренажер', style: theme.textTheme.titleSmall,),
+              title: Text(
+                'Тренажер',
+                style: theme.textTheme.titleSmall,
+              ),
               trailing: trailingIcon,
               onTap: () => Navigator.of(context).pushReplacement(
                 PageRouteBuilder(
@@ -82,7 +93,10 @@ class NavigatorDrawer extends StatelessWidget {
             divider,
             ListTile(
               leading: addQuestionIcon,
-              title: Text('Добавить вопрос', style: theme.textTheme.titleSmall,),
+              title: Text(
+                'Добавить вопрос',
+                style: theme.textTheme.titleSmall,
+              ),
               trailing: trailingIcon,
               onTap: () => Navigator.of(context).pushReplacement(
                 PageRouteBuilder(
@@ -98,9 +112,12 @@ class NavigatorDrawer extends StatelessWidget {
               ),
             ),
             divider,
-           ListTile(
+            ListTile(
               leading: const SwitchExample(),
-              title: Text('Темная тема', style: theme.textTheme.titleSmall,),
+              title: Text(
+                'Темная тема',
+                style: theme.textTheme.titleSmall,
+              ),
             ),
             divider,
             // ListTile(

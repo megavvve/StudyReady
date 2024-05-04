@@ -1,8 +1,10 @@
 // ignore_for_file: deprecated_member_use, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/domain/entities/trainer.dart';
+import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
 import 'package:study_ready/presentation/pages/trainer_page/train_process_screen/widget/answers_and_question.dart';
 import 'package:study_ready/presentation/pages/trainer_page/train_process_screen/widget/check_button.dart';
 import 'package:study_ready/presentation/pages/trainer_page/train_process_screen/widget/confirmation_dialog.dart';
@@ -38,11 +40,14 @@ class _TrainProcessScreenState extends State<TrainProcessScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = context.watch<ThemeCubit>().state.brightness;
     Trainer trainer = widget.trainer;
 
     int numberOfQuestions = trainer.questions.length;
     return Scaffold(
-      backgroundColor: backgroundColor,
+      backgroundColor: brightness == Brightness.dark
+          ? backgroundColorDark
+          : backgroundColorLight,
       body: WillPopScope(
         onWillPop: () async {
           final result = await showDialog(
@@ -74,9 +79,14 @@ class _TrainProcessScreenState extends State<TrainProcessScreen> {
                 floating: true,
                 surfaceTintColor: Colors.transparent,
                 collapsedHeight: 80.h,
-                backgroundColor: backgroundColor,
+                backgroundColor: brightness == Brightness.dark
+                    ? backgroundColorDark
+                    : backgroundColorLight,
                 leading: IconButton(
-                  icon: const Icon(Icons.close, color: Colors.black,),
+                  icon: const Icon(
+                    Icons.close,
+                    color: Colors.black,
+                  ),
                   onPressed: () async {
                     final result = await showDialog(
                       context: context,
@@ -110,7 +120,8 @@ class _TrainProcessScreenState extends State<TrainProcessScreen> {
                       child: LinearProgressIndicator(
                         value: (_selectedQuestion.toDouble() - 1) /
                             numberOfQuestions.toDouble(),
-                        valueColor: AlwaysStoppedAnimation<Color>(mainColor),
+                        valueColor:
+                            AlwaysStoppedAnimation<Color>(mainColorLight),
                       ),
                     ),
                   ),

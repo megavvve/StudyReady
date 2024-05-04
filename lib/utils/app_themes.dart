@@ -3,27 +3,27 @@ import 'package:study_ready/utils/app_colors.dart';
 
 final darkTheme = ThemeData(
   useMaterial3: true,
-  primaryColor: mainColor,
+  primaryColor: mainColorDark,
   scaffoldBackgroundColor: Colors.black,
-  textTheme: textTheme,
+  textTheme: textThemeDark,
   colorScheme: ColorScheme.fromSeed(
-    seedColor: mainColor,
+    seedColor: mainColorDark,
     brightness: Brightness.dark,
   ),
 );
 
 final lightTheme = ThemeData(
   useMaterial3: true,
-  primaryColor: mainColor,
+  primaryColor: mainColorLight,
   scaffoldBackgroundColor: Colors.white,
-  textTheme: textTheme,
+  textTheme: textThemeLight,
   colorScheme: ColorScheme.fromSeed(
-    seedColor: mainColor,
+    seedColor: mainColorLight,
     brightness: Brightness.light,
   ),
 );
 
-const textTheme = TextTheme(
+const textThemeLight = TextTheme(
   displayLarge: TextStyle(color: Colors.black),
   displayMedium: TextStyle(color: Colors.black),
   displaySmall: TextStyle(color: Colors.black),
@@ -39,4 +39,22 @@ const textTheme = TextTheme(
   labelLarge: TextStyle(color: Colors.black),
   labelMedium: TextStyle(color: Colors.black),
   labelSmall: TextStyle(color: Colors.black),
+);
+
+const textThemeDark = TextTheme(
+  displayLarge: TextStyle(color: Colors.white),
+  displayMedium: TextStyle(color: Colors.white),
+  displaySmall: TextStyle(color: Colors.white),
+  headlineLarge: TextStyle(color: Colors.white),
+  headlineMedium: TextStyle(color: Colors.white),
+  headlineSmall: TextStyle(color: Colors.white),
+  titleLarge: TextStyle(color: Colors.white),
+  titleMedium: TextStyle(color: Colors.white),
+  titleSmall: TextStyle(color: Colors.white),
+  bodyLarge: TextStyle(color: Colors.white),
+  bodyMedium: TextStyle(color: Colors.white),
+  bodySmall: TextStyle(color: Colors.white),
+  labelLarge: TextStyle(color: Colors.white),
+  labelMedium: TextStyle(color: Colors.white),
+  labelSmall: TextStyle(color: Colors.white),
 );

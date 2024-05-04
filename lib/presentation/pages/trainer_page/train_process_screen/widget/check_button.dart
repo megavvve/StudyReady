@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:study_ready/domain/entities/trainer.dart';
+import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
 import 'package:study_ready/presentation/blocs/trainer_bloc/trainer_bloc.dart';
 import 'package:study_ready/presentation/navigation/custom_page_router.dart';
 import 'package:study_ready/presentation/pages/trainer_page/train_process_screen/widget/train_result_screen.dart';
@@ -43,6 +44,7 @@ class CheckButtonState extends State<CheckButton> {
 
     return BlocBuilder<TrainerBloc, TrainerState>(
       builder: (context, state) {
+        final brightness = context.watch<ThemeCubit>().state.brightness;
         if (state is TrainerLoadSuccess) {
           return GestureDetector(
             onTap: () {
@@ -144,13 +146,17 @@ class CheckButtonState extends State<CheckButton> {
               ),
               decoration: (selectedIndex == -1)
                   ? BoxDecoration(
-                      color: secondColor,
+                      color: brightness == Brightness.dark
+                          ? secondColorDark
+                          : secondColorLight,
                       borderRadius: BorderRadius.circular(
                         16.sp,
                       ),
                     )
                   : BoxDecoration(
-                      color: mainColor,
+                      color: brightness == Brightness.dark
+                          ? mainColorDark
+                          : mainColorLight,
                       borderRadius: BorderRadius.circular(
                         16.sp,
                       ),

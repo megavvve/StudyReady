@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/domain/entities/study_material.dart';
+import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
 import 'package:study_ready/presentation/pages/materials_page/widgets/material_reader_pick.dart';
 import 'package:study_ready/utils/app_colors.dart';
 
@@ -14,6 +16,7 @@ class MaterialCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = context.watch<ThemeCubit>().state.brightness;
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -26,7 +29,9 @@ class MaterialCard extends StatelessWidget {
         );
       },
       child: Card(
-        color: Colors.white,
+        color: brightness == Brightness.dark
+            ? colorForMaterialCardDark
+            : Colors.white,
         elevation: 5,
         margin: EdgeInsets.symmetric(horizontal: 10.w),
         child: Padding(
@@ -57,7 +62,9 @@ class MaterialCard extends StatelessWidget {
                   Icon(
                     Icons.picture_as_pdf,
                     size: 30.sp,
-                    color: mainColor,
+                    color: brightness == Brightness.dark
+                        ? mainColorDark
+                        : mainColorLight,
                   ),
                 ],
               )

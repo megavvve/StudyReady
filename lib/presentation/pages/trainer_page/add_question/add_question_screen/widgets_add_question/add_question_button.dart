@@ -6,6 +6,7 @@ import 'package:study_ready/domain/entities/chapter.dart';
 import 'package:study_ready/domain/entities/question.dart';
 import 'package:study_ready/domain/entities/subject.dart';
 import 'package:study_ready/domain/entities/trainer.dart';
+import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
 import 'package:study_ready/presentation/blocs/trainer_bloc/trainer_bloc.dart';
 import 'package:study_ready/presentation/navigation/custom_page_router.dart';
 import 'package:study_ready/presentation/pages/trainer_page/add_question/add_question_screen/widgets_add_question/is_empty_text_field.dart';
@@ -22,13 +23,17 @@ class AddQuestionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = context.watch<ThemeCubit>().state.brightness;
     return BlocBuilder<TrainerBloc, TrainerState>(
       builder: (context, state) {
         if (state is TrainerLoadSuccess) {
           final trainerList = state.trainerList;
           return ElevatedButton(
             style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(mainColor),
+              backgroundColor: MaterialStateProperty.all<Color>(
+                  brightness == Brightness.dark
+                      ? mainColorDark
+                      : mainColorLight),
               fixedSize: MaterialStateProperty.all<Size>(
                 Size(
                   320.w,

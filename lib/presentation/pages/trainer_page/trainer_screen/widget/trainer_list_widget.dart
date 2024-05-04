@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/domain/entities/trainer.dart';
+import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
 import 'package:study_ready/presentation/blocs/trainer_bloc/trainer_bloc.dart';
 import 'package:study_ready/presentation/navigation/burger_navigation_leading.dart';
 import 'package:study_ready/presentation/navigation/custom_page_router.dart';
@@ -37,6 +38,7 @@ class _TrainerListWidgetState extends State<TrainerListWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = context.watch<ThemeCubit>().state.brightness;
     final List<String> paramsOfSort = [
       'По умолчанию',
       'По названию тренажера',
@@ -52,7 +54,9 @@ class _TrainerListWidgetState extends State<TrainerListWidget> {
 
     return Scaffold(
       drawer: const NavigatorDrawer(),
-      backgroundColor: backgroundColor,
+      backgroundColor: brightness == Brightness.dark
+          ? backgroundColorDark
+          : backgroundColorLight,
       body: Stack(
         children: [
           Positioned.fill(
@@ -64,11 +68,15 @@ class _TrainerListWidgetState extends State<TrainerListWidget> {
                       return BurgerNavigationLeading(context);
                     },
                   ),
-                  backgroundColor: backgroundColor,
+                  backgroundColor: brightness == Brightness.dark
+                      ? backgroundColorDark
+                      : backgroundColorLight,
                   pinned: true,
                   snap: false,
                   floating: true,
-                  surfaceTintColor: secondColor,
+                  surfaceTintColor: brightness == Brightness.dark
+                      ? secondColorDark
+                      : secondColorLight,
                   centerTitle: true,
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -108,7 +116,11 @@ class _TrainerListWidgetState extends State<TrainerListWidget> {
                                     ),
                                     for (String subject in subjectsList)
                                       ListTile(
-                                          title: Text(subject, style: const TextStyle(color: Colors.black),),
+                                          title: Text(
+                                            subject,
+                                            style: const TextStyle(
+                                                color: Colors.black),
+                                          ),
                                           onTap: () {
                                             setState(() {
                                               curSubj = subject;
@@ -178,7 +190,11 @@ class _TrainerListWidgetState extends State<TrainerListWidget> {
                                       itemBuilder:
                                           (BuildContext context, int index) =>
                                               ListTile(
-                                        title: Text(paramsOfSort[index], style: const TextStyle(color: Colors.black),),
+                                        title: Text(
+                                          paramsOfSort[index],
+                                          style: const TextStyle(
+                                              color: Colors.black),
+                                        ),
                                         onTap: () {
                                           setState(() {
                                             sortingList = sortTrainers(

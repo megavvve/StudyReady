@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
 import 'package:study_ready/presentation/navigation/navigation_bar.dart';
 import 'package:study_ready/presentation/pages/trainer_page/add_question/add_question_screen/widgets_add_question/add_question_button.dart';
 import 'package:study_ready/presentation/pages/trainer_page/add_question/add_question_screen/widgets_add_question/question_and_right_answer_widget.dart';
@@ -14,23 +16,30 @@ class AddQustionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = context.watch<ThemeCubit>().state.brightness;
     return Scaffold(
       drawer: const NavigatorDrawer(),
-      backgroundColor: backgroundColor,
+      backgroundColor: brightness == Brightness.dark
+          ? backgroundColorDark
+          : backgroundColorLight,
       body: CustomScrollView(
         slivers: [
           const AppBarAddingQuestion(),
           SliverToBoxAdapter(
             child: Container(
               height: 16.h,
-              color: backgroundColor,
+              color: brightness == Brightness.dark
+                  ? backgroundColorDark
+                  : backgroundColorLight,
             ),
           ),
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
                 return Container(
-                  color: backgroundColor,
+                  color: brightness == Brightness.dark
+                      ? backgroundColorDark
+                      : backgroundColorLight,
                   child: Column(
                     children: [
                       SizedBox(

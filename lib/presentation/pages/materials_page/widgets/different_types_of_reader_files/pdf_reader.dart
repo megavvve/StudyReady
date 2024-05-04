@@ -3,10 +3,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:study_ready/domain/entities/study_material.dart';
+import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
 import 'package:study_ready/utils/app_colors.dart';
 
 class PDFReader extends StatefulWidget {
@@ -53,12 +55,16 @@ class _PDFReaderState extends State<PDFReader> {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = context.watch<ThemeCubit>().state.brightness;
     final material = widget.studyMaterial;
     return Scaffold(
       appBar: AppBar(
         actions: [
           IconButton(
-            icon: const Icon(Icons.search, color: Colors.black,),
+            icon: const Icon(
+              Icons.search,
+              color: Colors.black,
+            ),
             onPressed: () {
               showDialog(
                 context: context,
@@ -117,7 +123,8 @@ class _PDFReaderState extends State<PDFReader> {
           },
         ),
         centerTitle: true,
-        backgroundColor: secondColor,
+        backgroundColor:
+            brightness == Brightness.dark ? secondColorDark : secondColorLight,
       ),
       body: Stack(
         children: <Widget>[
