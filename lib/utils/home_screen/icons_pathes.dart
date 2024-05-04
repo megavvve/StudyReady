@@ -1,3 +1,4 @@
+//light theme
 const sLetterBackPath = "assets/icons/home_screen/letter_s_back.svg";
 const sLetterFrontPath = "assets/icons/home_screen/letter_s_front.svg";
 

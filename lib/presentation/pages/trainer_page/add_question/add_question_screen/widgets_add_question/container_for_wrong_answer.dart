@@ -75,6 +75,7 @@ class _ContainerForWrongAnswerState extends State<ContainerForWrongAnswer> {
             child: Text(
               (widget.index + 2).toString(),
               style: TextStyle(
+                color: Colors.black,
                 fontSize: 18.sp,
               ),
             ),
@@ -99,9 +100,11 @@ class _ContainerForWrongAnswerState extends State<ContainerForWrongAnswer> {
                       hintText: 'Введите неправильный ответ...',
                       hintMaxLines: 2,
                       hintStyle: TextStyle(
+                        color: Colors.black,
                         fontSize: 18.sp,
                       )),
                   style: TextStyle(
+                    color: Colors.black,
                     fontSize: 18.sp,
                     fontWeight: FontWeight.w300,
                   ),

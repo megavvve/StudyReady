@@ -93,8 +93,13 @@ class _MaterialScreenWidgetState extends State<MaterialScreenWidget> {
                                 decoration: (searchTextController.text.isEmpty)
                                     ? InputDecoration(
                                         hintText: "Поиск...",
+                                        hintStyle:
+                                            const TextStyle(color: Colors.grey),
                                         contentPadding: EdgeInsets.all(8.sp),
-                                        prefixIcon: const Icon(Icons.search),
+                                        prefixIcon: const Icon(
+                                          Icons.search,
+                                          color: Colors.black,
+                                        ),
                                         filled: true,
                                         fillColor: secondColor,
                                         border: OutlineInputBorder(
@@ -110,7 +115,9 @@ class _MaterialScreenWidgetState extends State<MaterialScreenWidget> {
                                             FocusScope.of(context).unfocus();
                                           },
                                           icon: const Icon(
-                                              Icons.keyboard_arrow_left),
+                                            Icons.keyboard_arrow_left,
+                                            color: Colors.black,
+                                          ),
                                         ),
                                         suffixIcon: IconButton(
                                           onPressed: () {
@@ -119,6 +126,7 @@ class _MaterialScreenWidgetState extends State<MaterialScreenWidget> {
                                           },
                                           icon: const Icon(
                                             Icons.cancel_outlined,
+                                            color: Colors.black,
                                           ),
                                         ),
                                         filled: true,

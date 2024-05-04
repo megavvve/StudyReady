@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
 
 import 'package:study_ready/presentation/navigation/navigation_bar.dart';
 import 'package:study_ready/presentation/pages/home_page/widgets/materials_button.dart';
@@ -14,10 +16,14 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = context.watch<ThemeCubit>().state.brightness;
     return Scaffold(
-      backgroundColor: backgroundColor,
+      backgroundColor:
+          brightness == Brightness.dark ? backgroundColorDark : backgroundColor,
       appBar: AppBar(
-        backgroundColor: backgroundColor,
+        backgroundColor: brightness == Brightness.dark
+            ? backgroundColorDark
+            : backgroundColor,
         leading: Builder(
           builder: (BuildContext context) {
             return BurgerNavigationLeading(context);

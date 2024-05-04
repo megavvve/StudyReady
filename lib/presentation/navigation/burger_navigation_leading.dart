@@ -9,6 +9,7 @@ IconButton BurgerNavigationLeading(BuildContext context) {
       Icons.menu,
       size: 30.sp,
       weight: 10.w,
+      color: Colors.black,
     ),
     onPressed: () {
       Scaffold.of(context).openDrawer();

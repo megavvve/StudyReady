@@ -1,12 +1,15 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:study_ready/utils/home_screen/icons_pathes.dart';
 
+//light theme
 final eadyText = SvgPicture.asset(
   eadyTextPath,
   width: 195.w,
   height: 82.h,
 );
+
 final rLetterFront = SvgPicture.asset(
   rLetterFrontPath,
   width: 137.w,
@@ -48,11 +51,13 @@ final tudyText = SvgPicture.asset(
   width: 194.w,
   height: 82.h,
 );
+
 final rectangle = SvgPicture.asset(
   rectanglePath,
   height: 452.h,
   //fit: BoxFit.scaleDown, semanticsLabel: 'Image',
 );
+
 final backgrondForTrainerCard = SvgPicture.asset(
   'assets/images/trainer/backgroung_for_trainer.svg',
 );
@@ -80,4 +85,20 @@ final pictureForTrainer = SvgPicture.asset(
 
 final backgroundForAppBar = SvgPicture.asset(
   'assets/images/trainer/background_for_app_bar_trainer.svg',
+);
+
+//dark theme
+final sLetterBackDark = SvgPicture.asset(
+  sLetterBackPath,
+  width: 173.w,
+  height: 282.h,
+  color: const Color(0xFF000000),
+
+);
+
+final sLetterFrontDark = SvgPicture.asset(
+  sLetterFrontPath,
+  width: 173.w,
+  height: 282.h,
+  color: const Color(0xFF1C1A1A),
 );

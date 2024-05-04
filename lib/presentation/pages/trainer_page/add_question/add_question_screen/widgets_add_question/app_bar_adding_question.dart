@@ -33,6 +33,7 @@ class AppBarAddingQuestion extends StatelessWidget
             child: Text(
               'Новый вопрос',
               style: TextStyle(
+                color: Colors.black,
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w500,
               ),

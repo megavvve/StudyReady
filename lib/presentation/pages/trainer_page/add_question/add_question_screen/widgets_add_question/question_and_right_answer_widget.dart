@@ -57,6 +57,7 @@ class QuestionAndRightAnswerWidget extends StatelessWidget {
                     hintMaxLines: 4,
                     helperMaxLines: 2,
                     hintStyle: TextStyle(
+                      color: Colors.black,
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w300,
                     ),
@@ -96,6 +97,7 @@ class QuestionAndRightAnswerWidget extends StatelessWidget {
                       child: Text(
                         '1',
                         style: TextStyle(
+                          color: Colors.black,
                           fontSize: 18.sp,
                         ),
                       ),
@@ -120,6 +122,7 @@ class QuestionAndRightAnswerWidget extends StatelessWidget {
                               hintText: 'Введите правильный ответ...',
                               hintMaxLines: 2,
                               hintStyle: TextStyle(
+                                color: Colors.black,
                                 fontSize: 18.sp,
                                 fontWeight: FontWeight.w300,
                               )),

@@ -68,6 +68,7 @@ class _CardForQuestionParamsState extends State<CardForQuestionParams> {
                 child: Text(
                   widget.param,
                   style: TextStyle(
+                    color: Colors.black,
                     fontSize: 20.sp,
                     fontWeight: FontWeight.w300,
                   ),
@@ -114,7 +115,7 @@ class _CardForQuestionParamsState extends State<CardForQuestionParams> {
                             prefs.setString(widget.param, "");
                           });
                         },
-                        icon: const Icon(Icons.clear),
+                        icon: const Icon(Icons.clear, color: Colors.black,),
                       ),
                     ),
                     onChanged: (value) async {

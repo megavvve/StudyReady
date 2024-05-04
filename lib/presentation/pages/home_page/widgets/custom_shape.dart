@@ -1,26 +1,36 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
 
 class CustomShapeWidget extends StatelessWidget {
   const CustomShapeWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final brightness = context.watch<ThemeCubit>().state.brightness;
     return SizedBox(
       width: 375.w,
       height: 452.h,
       child: CustomPaint(
-        painter: CustomShapePainter(),
+        painter: CustomShapePainter(brightness),
       ),
     );
   }
 }
 
 class CustomShapePainter extends CustomPainter {
+  final Brightness brightness;
+
+  const CustomShapePainter(this.brightness);
+
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint = Paint()
-      ..color = const Color(0xFFD9D9D9)
+      ..color = brightness == Brightness.dark
+          ? const Color(0xFF6D84C8)
+          : const Color(0xFFd9d9d9)
       ..style = PaintingStyle.fill;
 
     final path = Path();

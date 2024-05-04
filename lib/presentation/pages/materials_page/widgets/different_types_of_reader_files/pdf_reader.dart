@@ -58,7 +58,7 @@ class _PDFReaderState extends State<PDFReader> {
       appBar: AppBar(
         actions: [
           IconButton(
-            icon: const Icon(Icons.search),
+            icon: const Icon(Icons.search, color: Colors.black,),
             onPressed: () {
               showDialog(
                 context: context,

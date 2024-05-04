@@ -119,7 +119,10 @@ class _AddFilesScreenState extends State<AddFilesScreen> {
               slivers: [
                 SliverAppBar(
                   backgroundColor: backgroundColor,
-                  title: const Text('Добавить файлы'),
+                  title: const Text(
+                    'Добавить файлы',
+                    style: TextStyle(color: Colors.black),
+                  ),
                   floating: true,
                 ),
                 SliverToBoxAdapter(

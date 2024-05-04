@@ -108,7 +108,7 @@ class _TrainerListWidgetState extends State<TrainerListWidget> {
                                     ),
                                     for (String subject in subjectsList)
                                       ListTile(
-                                          title: Text(subject),
+                                          title: Text(subject, style: const TextStyle(color: Colors.black),),
                                           onTap: () {
                                             setState(() {
                                               curSubj = subject;
@@ -178,7 +178,7 @@ class _TrainerListWidgetState extends State<TrainerListWidget> {
                                       itemBuilder:
                                           (BuildContext context, int index) =>
                                               ListTile(
-                                        title: Text(paramsOfSort[index]),
+                                        title: Text(paramsOfSort[index], style: const TextStyle(color: Colors.black),),
                                         onTap: () {
                                           setState(() {
                                             sortingList = sortTrainers(

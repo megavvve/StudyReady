@@ -61,8 +61,17 @@ final addQuestionTitle = Text(
   style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w700),
   textAlign: TextAlign.center,
 );
+
+//titles
 final deleteTrainerText = Text(
   'Удалить тренажер',
+  style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w700),
+  textAlign: TextAlign.center,
+);
+
+//titles
+final switchThemeTitle = Text(
+  "Темная тема",
   style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w700),
   textAlign: TextAlign.center,
 );

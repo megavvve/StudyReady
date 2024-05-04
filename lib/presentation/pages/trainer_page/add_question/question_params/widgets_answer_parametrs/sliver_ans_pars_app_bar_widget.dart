@@ -18,6 +18,7 @@ class SliverAnsParsAppBarWidget extends StatelessWidget {
           icon: Icon(
             Icons.arrow_back,
             size: 30.sp,
+            color: Colors.black,
           ),
           onPressed: () {
             Navigator.pop(context);
@@ -35,7 +36,11 @@ class SliverAnsParsAppBarWidget extends StatelessWidget {
         ),
         child: Text(
           'Параметры тренажера',
-          style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w400),
+          style: TextStyle(
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w400,
+            color: Colors.black,
+          ),
         ),
       ),
     );

@@ -25,11 +25,21 @@ class _AddTextDialogState extends State<AddTextDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Add Text'),
+      title: const Text(
+        'Add Text',
+        style: TextStyle(
+          color: Colors.black,
+        ),
+      ),
       content: TextField(
         controller: _textController,
         autofocus: true,
-        decoration: const InputDecoration(labelText: 'Enter text'),
+        decoration: const InputDecoration(
+          labelText: 'Enter text',
+          labelStyle: TextStyle(
+            color: Colors.black,
+          ),
+        ),
       ),
       actions: <Widget>[
         TextButton(
