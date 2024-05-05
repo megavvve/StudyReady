@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "665255913349",
+    "project_id": "studyready-df819",
+    "storage_bucket": "studyready-df819.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:665255913349:android:79650fd165976a25f5c6ec",
+        "android_client_info": {
+          "package_name": "com.example.study_ready"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnsEv2mcXSQ5vWpOxJclb3or0xU8LOyxc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

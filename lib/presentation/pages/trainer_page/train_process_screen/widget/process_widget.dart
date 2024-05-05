@@ -73,8 +73,6 @@ class ShowWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     ProcessWidgetState data = ProcessWidget.of(context);
 
-
-
     return Padding(
       padding: EdgeInsets.all(8.0.sp),
       child: Column(
