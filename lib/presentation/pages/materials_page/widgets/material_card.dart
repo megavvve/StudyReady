@@ -4,7 +4,7 @@ import 'package:study_ready/domain/entities/study_material.dart';
 import 'package:study_ready/presentation/pages/materials_page/widgets/material_reader_pick.dart';
 import 'package:study_ready/utils/app_colors.dart';
 
-class MaterialCard extends StatelessWidget {
+class MaterialCard extends StatefulWidget {
   final StudyMaterial studyMaterial;
 
   const MaterialCard({
@@ -13,6 +13,12 @@ class MaterialCard extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<MaterialCard> createState() => _MaterialCardState();
+}
+
+class _MaterialCardState extends State<MaterialCard> {
+  bool onLongPress = false;
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
@@ -20,13 +26,18 @@ class MaterialCard extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => MaterialReaderPick(
-              material: studyMaterial,
+              material: widget.studyMaterial,
             ),
           ),
         );
       },
+      onLongPress: () {
+        setState(() {
+          onLongPress = true;
+        });
+      },
       child: Card(
-        color: Colors.white,
+        color: onLongPress ? Colors.amber : Colors.white,
         elevation: 5,
         margin: EdgeInsets.symmetric(horizontal: 10.w),
         child: Padding(
@@ -36,7 +47,7 @@ class MaterialCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Text(
-                studyMaterial.fileName,
+                widget.studyMaterial.fileName,
                 style: TextStyle(
                   fontSize: 17.sp,
                   fontWeight: FontWeight.w400,
@@ -45,10 +56,10 @@ class MaterialCard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  (studyMaterial.uploadDate == '')
+                  (widget.studyMaterial.uploadDate == '')
                       ? const Text('')
                       : Text(
-                          '${DateTime.parse(studyMaterial.uploadDate).year}-${DateTime.parse(studyMaterial.uploadDate).month}-${DateTime.parse(studyMaterial.uploadDate).day}',
+                          '${DateTime.parse(widget.studyMaterial.uploadDate).year}-${DateTime.parse(widget.studyMaterial.uploadDate).month}-${DateTime.parse(widget.studyMaterial.uploadDate).day}',
                           style: TextStyle(
                               fontSize: 16.sp,
                               fontWeight: FontWeight.w300,

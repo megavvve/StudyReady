@@ -57,7 +57,8 @@ class MyApp extends StatelessWidget {
           create: (_) => getIt<TrainerBloc>(),
         ),
         BlocProvider<StudyMaterialBloc>(
-            create: (_) => getIt<StudyMaterialBloc>()),
+          create: (_) => getIt<StudyMaterialBloc>(),
+        ),
       ],
       child: ScreenUtilInit(
         designSize: const Size(375, 812),
