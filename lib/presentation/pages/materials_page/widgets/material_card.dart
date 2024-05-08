@@ -32,7 +32,7 @@ class MaterialCard extends StatelessWidget {
         color: brightness == Brightness.dark
             ? colorForMaterialCardDark
             : Colors.white,
-        elevation: 5,
+        elevation: 1,
         margin: EdgeInsets.symmetric(horizontal: 10.w),
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 1.h),

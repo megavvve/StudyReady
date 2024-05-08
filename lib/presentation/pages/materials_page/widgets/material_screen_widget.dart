@@ -8,6 +8,7 @@ import 'package:study_ready/presentation/navigation/custom_page_router.dart';
 import 'package:study_ready/presentation/navigation/navigation_bar.dart';
 import 'package:study_ready/presentation/pages/materials_page/add_material/add_files_screen.dart';
 import 'package:study_ready/presentation/pages/materials_page/widgets/cards_generator.dart';
+import 'package:study_ready/presentation/pages/materials_page/widgets/for_widget_of_material_screen/filter_materials_fun.dart';
 import 'package:study_ready/presentation/pages/materials_page/widgets/sort_materials_fun.dart';
 import 'package:study_ready/utils/app_colors.dart';
 
@@ -51,7 +52,7 @@ class _MaterialScreenWidgetState extends State<MaterialScreenWidget> {
     if (searchTextController.text.isEmpty) {
       _filteredMaterials = widget.materialList;
     } else {
-      _filteredMaterials = _filterMaterials(materials, _query);
+      _filteredMaterials = filterMaterials(materials, _query);
     }
 
     return Scaffold(
@@ -148,83 +149,6 @@ class _MaterialScreenWidgetState extends State<MaterialScreenWidget> {
                             height: 20.h,
                           ),
                         ),
-                        // SliverToBoxAdapter(
-                        //   child: Padding(
-                        //     padding: EdgeInsets.all(
-                        //       8.sp,
-                        //     ),
-                        //     child: Align(
-                        //       alignment: Alignment.center,
-                        //       child: SizedBox(
-                        //         height: 32.h,
-                        //         width: 110.w,
-                        //         child: TextButton(
-                        //           style: TextButton.styleFrom(
-                        //             backgroundColor: trainerAppBarButtonsBackground,
-                        //             padding: EdgeInsets.symmetric(horizontal: 10.w),
-                        //             shape: RoundedRectangleBorder(
-                        //               borderRadius: BorderRadius.circular(
-                        //                 10.sp,
-                        //               ),
-                        //             ),
-                        //           ),
-                        //           onPressed: () {
-                        //             showModalBottomSheet(
-                        //               backgroundColor: secondColor,
-                        //               context: context,
-                        //               builder: (BuildContext context) {
-                        //                 return Column(
-                        //                   mainAxisSize: MainAxisSize.min,
-                        //                   children: <Widget>[
-                        //                     Padding(
-                        //                       padding: EdgeInsets.symmetric(
-                        //                           vertical: 10.h),
-                        //                       child: Text(
-                        //                         "Сортировать",
-                        //                         style: TextStyle(
-                        //                           fontWeight: FontWeight.w400,
-                        //                           fontSize: 20.sp,
-                        //                         ),
-                        //                       ),
-                        //                     ),
-                        //                     ListView.builder(
-                        //                       shrinkWrap: true,
-                        //                       itemCount: paramsOfSort.length,
-                        //                       itemBuilder:
-                        //                           (BuildContext context, int index) =>
-                        //                               ListTile(
-                        //                         title: Text(
-                        //                           paramsOfSort[index],
-                        //                         ),
-                        //                         onTap: () {
-                        //                           setState(() {
-                        //                             curParam = paramsOfSort[index];
-                        //                           });
-
-                        //                           Navigator.pop(context);
-
-                        //                           FocusScope.of(context).unfocus();
-                        //                         },
-                        //                       ),
-                        //                     ),
-                        //                   ],
-                        //                 );
-                        //               },
-                        //             );
-                        //           },
-                        //           child: Text(
-                        //             "Сортировка",
-                        //             style: TextStyle(
-                        //               fontSize: 13.sp,
-                        //               fontWeight: FontWeight.w400,
-                        //               color: Colors.black,
-                        //             ),
-                        //           ),
-                        //         ),
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
                         SliverToBoxAdapter(
                           child: SizedBox(
                             height: 10.h,
@@ -279,20 +203,5 @@ class _MaterialScreenWidgetState extends State<MaterialScreenWidget> {
               ),
             ),
     );
-  }
-}
-
-List<StudyMaterial> _filterMaterials(
-    List<StudyMaterial> materials, String query) {
-  if (query.isEmpty) {
-    return List.from(materials);
-  } else {
-    return materials
-        .where(
-          (material) => material.fileName.toLowerCase().contains(
-                query.toLowerCase(),
-              ),
-        )
-        .toList();
   }
 }
