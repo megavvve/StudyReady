@@ -28,6 +28,15 @@ final addQuestionIcon = Icon(
   size: 33.sp,
   color: Colors.black,
 );
+
+//leading icons
+final settingsIcon = Icon(
+  Icons.settings,
+  size: 33.sp,
+  color: Colors.black,
+);
+
+//leading icons
 final deleteTrainerIcon = Icon(
   Icons.delete,
   size: 33.sp,
@@ -69,12 +78,6 @@ final deleteTrainerText = Text(
   textAlign: TextAlign.center,
 );
 
-//titles
-final switchThemeTitle = Text(
-  "Темная тема",
-  style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w700),
-  textAlign: TextAlign.center,
-);
 
 //trailing icon
 final trailingIcon = Icon(

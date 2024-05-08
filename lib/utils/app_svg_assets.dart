@@ -52,6 +52,31 @@ final tudyText = SvgPicture.asset(
   height: 82.h,
 );
 
+final duckBackground = SvgPicture.asset(
+  "assets/icons/home_screen/duck_background.svg",
+  width: 62.w,
+  height: 62.h,
+);
+
+final duck = SvgPicture.asset(
+  "assets/icons/home_screen/duck.svg",
+  width: 39.w,
+  height: 37.h,
+);
+
+final settingsBackgroundLight = SvgPicture.asset(
+  "assets/images/settings/settings_background.svg",
+  width: 347.w,
+  height: 630.h,
+);
+
+final settingsBackgroundDark = SvgPicture.asset(
+  "assets/images/settings/settings_background.svg",
+  width: 347.w,
+  height: 630.h,
+  color: Colors.white,
+);
+
 final rectangle = SvgPicture.asset(
   rectanglePath,
   height: 452.h,
@@ -93,7 +118,6 @@ final sLetterBackDark = SvgPicture.asset(
   width: 173.w,
   height: 282.h,
   color: const Color(0xFF000000),
-
 );
 
 final sLetterFrontDark = SvgPicture.asset(

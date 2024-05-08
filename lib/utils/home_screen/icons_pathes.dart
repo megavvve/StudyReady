@@ -13,3 +13,4 @@ const eadyTextPath = "assets/icons/home_screen/eady.svg";
 const materialTextPath = "assets/icons/home_screen/materials.svg";
 
 const rectanglePath = "assets/icons/home_screen/rectangle.svg";
+
