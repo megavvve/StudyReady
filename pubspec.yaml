@@ -67,5 +67,6 @@ flutter:
     - assets/jsons/trainer2.json
     - assets/rive/duck_walk.riv
     - assets/rive/pencil_dude_hello.riv
+    - assets/images/settings/settings_background.svg
 
   

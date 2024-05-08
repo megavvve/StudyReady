@@ -10,7 +10,7 @@ Color colorForCardTrainerBlue = const Color(0xFF7C97FF);
 Color burgerBackgroundLight = const Color(0xFFE4EEFF);
 Color trainerAppBarButtonsBackground = const Color(0xFFBFD3F3);
 Color trainerBottomSheetBackground = const Color(0xFFDCE9FF);
-
+Color settingsAppBar = const Color(0xFF86A1D1);
 //dark theme
 Color backgroundColorDark = const Color(0xFF2D355D); //#3c4279
 Color mainColorDark = const Color(0xFFb7d0f9);
