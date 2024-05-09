@@ -25,7 +25,7 @@ class MaterialReaderPick extends StatelessWidget {
       //     studyMaterial: material,
       //   );
       default:
-        return SizedBox(); // Возвращаем пустой контейнер для остальных типов файлов
+        return const SizedBox(); // Возвращаем пустой контейнер для остальных типов файлов
     }
   }
 }

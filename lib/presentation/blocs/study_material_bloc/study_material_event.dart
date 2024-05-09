@@ -26,6 +26,18 @@ class AddMaterial extends StudyMaterialEvent {
   String toString() => 'AddMaterial { material: $studyMaterial }';
 }
 
+class DeleteMaterial extends StudyMaterialEvent {
+  final StudyMaterial studyMaterial;
+
+  const DeleteMaterial({required this.studyMaterial});
+
+  @override
+  List<Object> get props => [studyMaterial];
+
+  @override
+  String toString() => 'AddMaterial { material: $studyMaterial }';
+}
+
 class UpdateMaterial extends StudyMaterialEvent {
   final StudyMaterial material;
 
@@ -36,18 +48,6 @@ class UpdateMaterial extends StudyMaterialEvent {
 
   @override
   String toString() => 'UpdateMaterial { material: $material }';
-}
-
-class DeleteMaterial extends StudyMaterialEvent {
-  final StudyMaterial material;
-
-  const DeleteMaterial(this.material);
-
-  @override
-  List<Object> get props => [material];
-
-  @override
-  String toString() => 'DeleteMaterial { material: $material }';
 }
 
 class MaterialLoadFailureEvent extends StudyMaterialEvent {

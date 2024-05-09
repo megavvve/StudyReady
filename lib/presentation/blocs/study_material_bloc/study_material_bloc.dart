@@ -54,6 +54,25 @@ class StudyMaterialBloc extends Bloc<StudyMaterialEvent, StudyMaterialState> {
     }
   }
 
+  void _onDeleteMaterial(
+      DeleteMaterial event, Emitter<StudyMaterialState> emit) async {
+    final state = this.state;
+
+    if (state is StudyMaterialLoadSuccess) {
+      final studyMaterial = event.studyMaterial;
+      final file = File(studyMaterial.filePath);
+
+      List<StudyMaterial> allMaterials = state.materials;
+      // addMaterial.call(newMaterial);
+      allMaterials.remove(studyMaterial);
+      emit(
+        StudyMaterialLoadSuccess(
+          materials: allMaterials,
+        ),
+      );
+    }
+  }
+
   void _onInitLoad(
       MaterialInitLoadEvent event, Emitter<StudyMaterialState> emit) async {
     try {

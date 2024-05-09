@@ -7,9 +7,10 @@ import 'package:study_ready/presentation/navigation/burger_navigation_leading.da
 import 'package:study_ready/presentation/navigation/custom_page_router.dart';
 import 'package:study_ready/presentation/navigation/navigation_bar.dart';
 import 'package:study_ready/presentation/pages/materials_page/add_material/add_files_screen.dart';
-import 'package:study_ready/presentation/pages/materials_page/widgets/cards_generator.dart';
+import 'package:study_ready/presentation/pages/materials_page/widgets/for_widget_of_material_screen/cards_generator.dart';
+import 'package:study_ready/presentation/pages/materials_page/widgets/for_widget_of_material_screen/delete_mode.dart';
 import 'package:study_ready/presentation/pages/materials_page/widgets/for_widget_of_material_screen/filter_materials_fun.dart';
-import 'package:study_ready/presentation/pages/materials_page/widgets/sort_materials_fun.dart';
+import 'package:study_ready/presentation/pages/materials_page/widgets/for_widget_of_material_screen/sort_materials_fun.dart';
 import 'package:study_ready/utils/app_colors.dart';
 
 class MaterialScreenWidget extends StatefulWidget {
@@ -47,6 +48,7 @@ class _MaterialScreenWidgetState extends State<MaterialScreenWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final deleteMode = DeleteMode();
     final brightness = context.watch<ThemeCubit>().state.brightness;
     materials = sortMaterials(curParam, widget.materialList);
     if (searchTextController.text.isEmpty) {
@@ -55,114 +57,133 @@ class _MaterialScreenWidgetState extends State<MaterialScreenWidget> {
       _filteredMaterials = filterMaterials(materials, _query);
     }
 
-    return Scaffold(
-      drawer: const NavigatorDrawer(),
-      backgroundColor: brightness == Brightness.dark
-          ? backgroundColorDark
-          : backgroundColorLight,
-      body: (!isLoading)
-          ? Center(
-              child: Text(
-                'Загрузка...',
-                style: TextStyle(
-                  fontSize: 22.0.sp, // Размер шрифта
-                  color: brightness == Brightness.dark
-                      ? mainColorDark
-                      : mainColorLight,
-                ),
-              ),
-            )
-          : Positioned.fill(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8.0.w),
-                child: Stack(
+    return ListenableBuilder(
+      listenable: deleteMode,
+      builder: (BuildContext context, Widget? child) {
+        return Scaffold(
+          drawer: const NavigatorDrawer(),
+          backgroundColor: brightness == Brightness.dark
+              ? backgroundColorDark
+              : backgroundColorLight,
+          body: (!isLoading)
+              ? Center(
+                  child: Text(
+                    'Загрузка...',
+                    style: TextStyle(
+                      fontSize: 22.0.sp, // Размер шрифта
+                      color: brightness == Brightness.dark
+                          ? mainColorDark
+                          : mainColorLight,
+                    ),
+                  ),
+                )
+              : Stack(
                   children: [
-                    CustomScrollView(
-                      slivers: [
-                        SliverAppBar(
-                          leading: Builder(
-                            builder: (BuildContext context) {
-                              return BurgerNavigationLeading(context);
-                            },
-                          ),
-                          surfaceTintColor: Colors.transparent,
-                          pinned: true,
-                          floating: true,
-                          backgroundColor: brightness == Brightness.dark
-                              ? backgroundColorDark
-                              : backgroundColorLight,
-                          centerTitle: true,
-                          title: TextField(
-                            onChanged: (value) {
-                              setState(() {
-                                _query = value;
-                              });
-                            },
-                            controller: searchTextController,
-                            decoration: (searchTextController.text.isEmpty)
-                                ? InputDecoration(
-                                    hintText: "Поиск...",
-                                    contentPadding: EdgeInsets.all(8.sp),
-                                    prefixIcon: const Icon(Icons.search),
-                                    filled: true,
-                                    fillColor: brightness == Brightness.dark
-                                        ? colorForFindTextDark
-                                        : secondColorLight,
-                                    border: OutlineInputBorder(
-                                      borderSide: BorderSide.none,
-                                      borderRadius:
-                                          BorderRadius.circular(50.sp),
-                                    ),
-                                  )
-                                : InputDecoration(
-                                    contentPadding: EdgeInsets.all(8.sp),
-                                    prefixIcon: IconButton(
-                                      onPressed: () {
-                                        FocusScope.of(context).unfocus();
-                                      },
-                                      icon:
-                                          const Icon(Icons.keyboard_arrow_left),
-                                    ),
-                                    suffixIcon: IconButton(
-                                      onPressed: () {
-                                        searchTextController.clear();
-                                        FocusScope.of(context).unfocus();
-                                      },
-                                      icon: const Icon(
-                                        Icons.cancel_outlined,
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8.0.w),
+                      child: CustomScrollView(
+                        slivers: [
+                          SliverAppBar(
+                            leading: Builder(
+                              builder: (BuildContext context) {
+                                return BurgerNavigationLeading(context);
+                              },
+                            ),
+                            surfaceTintColor: Colors.transparent,
+                            pinned: true,
+                            floating: true,
+                            backgroundColor: brightness == Brightness.dark
+                                ? backgroundColorDark
+                                : backgroundColorLight,
+                            centerTitle: true,
+                            title: TextField(
+                              onChanged: (value) {
+                                setState(() {
+                                  _query = value;
+                                });
+                              },
+                              controller: searchTextController,
+                              decoration: (searchTextController.text.isEmpty)
+                                  ? InputDecoration(
+                                      hintText: "Поиск...",
+                                      contentPadding: EdgeInsets.all(8.sp),
+                                      prefixIcon: const Icon(Icons.search),
+                                      filled: true,
+                                      fillColor: brightness == Brightness.dark
+                                          ? colorForFindTextDark
+                                          : secondColorLight,
+                                      border: OutlineInputBorder(
+                                        borderSide: BorderSide.none,
+                                        borderRadius:
+                                            BorderRadius.circular(50.sp),
+                                      ),
+                                    )
+                                  : InputDecoration(
+                                      contentPadding: EdgeInsets.all(8.sp),
+                                      prefixIcon: IconButton(
+                                        onPressed: () {
+                                          FocusScope.of(context).unfocus();
+                                        },
+                                        icon: const Icon(
+                                            Icons.keyboard_arrow_left),
+                                      ),
+                                      suffixIcon: IconButton(
+                                        onPressed: () {
+                                          searchTextController.clear();
+                                          FocusScope.of(context).unfocus();
+                                        },
+                                        icon: const Icon(
+                                          Icons.cancel_outlined,
+                                        ),
+                                      ),
+                                      filled: true,
+                                      fillColor: brightness == Brightness.dark
+                                          ? colorForFindTextDark
+                                          : secondColorLight,
+                                      border: OutlineInputBorder(
+                                        borderSide: BorderSide.none,
+                                        borderRadius:
+                                            BorderRadius.circular(50.sp),
                                       ),
                                     ),
-                                    filled: true,
-                                    fillColor: brightness == Brightness.dark
-                                        ? colorForFindTextDark
-                                        : secondColorLight,
-                                    border: OutlineInputBorder(
-                                      borderSide: BorderSide.none,
-                                      borderRadius:
-                                          BorderRadius.circular(50.sp),
-                                    ),
-                                  ),
+                            ),
                           ),
-                        ),
-                        SliverToBoxAdapter(
-                          child: SizedBox(
-                            height: 20.h,
+                          SliverToBoxAdapter(
+                            child: SizedBox(
+                              height: 20.h,
+                            ),
                           ),
-                        ),
-                        SliverToBoxAdapter(
-                          child: SizedBox(
-                            height: 10.h,
+                          SliverToBoxAdapter(
+                            child: Center(
+                              child: TextButton(
+                                onPressed: () {
+                                  deleteMode.isDeleting =
+                                      !deleteMode.isDeleting;
+                                },
+                                child: Text(
+                                  deleteMode.isDeleting == true
+                                      ? "Удалить"
+                                      : "Выбрать",
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
-                        CardsGenerator(
-                          itemsList: _filteredMaterials,
-                        ),
-                        SliverToBoxAdapter(
-                          child: SizedBox(
-                            height: 20.h,
+                          SliverToBoxAdapter(
+                            child: SizedBox(
+                              height: 10.h,
+                            ),
                           ),
-                        ),
-                      ],
+                          CardsGenerator(
+                            itemsList: _filteredMaterials,
+                            deleteMode: deleteMode,
+                          ),
+                          SliverToBoxAdapter(
+                            child: SizedBox(
+                              height: 20.h,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                     Positioned(
                       bottom: 56.h,
@@ -200,8 +221,8 @@ class _MaterialScreenWidgetState extends State<MaterialScreenWidget> {
                     ),
                   ],
                 ),
-              ),
-            ),
+        );
+      },
     );
   }
 }
