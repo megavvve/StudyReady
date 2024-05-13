@@ -65,9 +65,6 @@ class _MaterialScreenWidgetState extends State<MaterialScreenWidget> {
                 'Загрузка...',
                 style: TextStyle(
                   fontSize: 22.0.sp, // Размер шрифта
-                  color: brightness == Brightness.dark
-                      ? mainColorDark
-                      : mainColorLight,
                 ),
               ),
             )

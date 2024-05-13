@@ -189,7 +189,7 @@ class AddFilesScreenState extends State<AddFilesScreen> {
                         backgroundColor: brightness == Brightness.dark
                             ? backgroundColorDark
                             : backgroundColorLight,
-                        title: const Text('Добавить файлы'),
+                        title: const Text('Добавить материал'),
                         floating: true,
                       ),
                       SliverToBoxAdapter(

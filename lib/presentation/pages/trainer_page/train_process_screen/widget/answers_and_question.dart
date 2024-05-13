@@ -23,7 +23,6 @@ class _AnswersAndQuestionState extends State<AnswersAndQuestion> {
 
     Trainer trainer = widget.trainer;
     final List<Question> questionList = trainer.questions;
-
     return BlocBuilder<TrainerBloc, TrainerState>(
       builder: (context, state) {
         if (state is TrainerLoadSuccess) {

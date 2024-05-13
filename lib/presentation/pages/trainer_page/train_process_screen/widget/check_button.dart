@@ -69,7 +69,9 @@ class CheckButtonState extends State<CheckButton> {
                     builder: (BuildContext context) {
                       return Container(
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: brightness == Brightness.dark
+                              ? backgroundColorDark
+                              : Colors.white,
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(16.sp),
                             topRight: Radius.circular(16.sp),

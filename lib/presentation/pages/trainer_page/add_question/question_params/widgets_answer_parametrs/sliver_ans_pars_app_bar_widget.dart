@@ -23,7 +23,6 @@ class SliverAnsParsAppBarWidget extends StatelessWidget {
           icon: Icon(
             Icons.arrow_back,
             size: 30.sp,
-            color: Colors.black,
           ),
           onPressed: () {
             Navigator.pop(context);

@@ -70,7 +70,7 @@ class _CardForQuestionParamsState extends State<CardForQuestionParams> {
                 child: Text(
                   widget.param,
                   style: TextStyle(
-                    color: Colors.black,
+                    color: brightness == Brightness.dark ? Colors.white : Colors.black,
                     fontSize: 20.sp,
                     fontWeight: FontWeight.w300,
                   ),

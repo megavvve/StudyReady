@@ -85,7 +85,6 @@ class _TrainProcessScreenState extends State<TrainProcessScreen> {
                 leading: IconButton(
                   icon: const Icon(
                     Icons.close,
-                    color: Colors.black,
                   ),
                   onPressed: () async {
                     final result = await showDialog(
@@ -105,7 +104,9 @@ class _TrainProcessScreenState extends State<TrainProcessScreen> {
                   children: [
                     Text(
                       'Непрерывная математика',
-                      style: TextStyle(fontSize: 18.sp, color: Colors.black),
+                      style: TextStyle(
+                        fontSize: 18.sp,
+                      ),
                     ),
                   ],
                 ),
