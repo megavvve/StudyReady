@@ -12,7 +12,7 @@ ButtonStyle StyleForAnswer(bool f, BuildContext context) {
       ? ElevatedButton.styleFrom(
           foregroundColor: colorForCardTrainerBlue,
           backgroundColor: brightness == Brightness.dark
-              ? secondColorDark
+              ? colorForMaterialCardDark
               : secondColorLight, // Цвет текста при нормальном состоянии
           elevation: 1, // Высота поднятия кнопки
           // Отступы
@@ -27,12 +27,16 @@ ButtonStyle StyleForAnswer(bool f, BuildContext context) {
           ),
         )
       : ElevatedButton.styleFrom(
-          foregroundColor: Colors.white,
-          backgroundColor: Colors.white, // Цвет текста при нормальном состоянии
-          elevation: 0, // Высота поднятия кнопки
+          foregroundColor: brightness == Brightness.dark
+              ? colorForMaterialCardDark
+              : Colors.white,
+          backgroundColor: brightness == Brightness.dark
+              ? colorForMaterialCardDark
+              : Colors.white,
+          elevation: 0,
           // Отступы
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16.sp), // Закругленные углы
+            borderRadius: BorderRadius.circular(16.sp),
           ),
         );
 }

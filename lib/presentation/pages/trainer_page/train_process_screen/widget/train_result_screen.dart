@@ -96,7 +96,7 @@ class TrainingResultScreen extends StatelessWidget {
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: brightness == Brightness.dark
-                          ? mainColorDark
+                          ? colorForButton
                           : mainColorLight, // Цвет кнопки
                       shape: RoundedRectangleBorder(
                         borderRadius:

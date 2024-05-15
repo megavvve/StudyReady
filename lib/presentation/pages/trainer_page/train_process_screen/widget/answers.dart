@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
 import 'package:study_ready/presentation/pages/trainer_page/train_process_screen/widget/style_for_answer.dart';
 
 import 'inherited_widget_check.dart';
@@ -16,6 +18,7 @@ class Answers extends StatefulWidget {
 class _AnswersState extends State<Answers> {
   @override
   Widget build(BuildContext context) {
+    final brightness = context.watch<ThemeCubit>().state.brightness;
     return Column(
       children: [
         for (int i = 0; i < widget.list.length; i++)
@@ -34,7 +37,9 @@ class _AnswersState extends State<Answers> {
                       widget.list[i],
                       style: TextStyle(
                         fontSize: 16.sp, // Размер шрифта
-                        color: Colors.black, // Цвет текста
+                        color: brightness == Brightness.dark
+                            ? Colors.white
+                            : Colors.black, // Цвет текста
                         fontWeight: FontWeight.w400, // Жирный шрифт
                         fontStyle: FontStyle.normal, // Обычный стиль шрифта
                         letterSpacing: 0.5.sp, // Расстояние между буквами

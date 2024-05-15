@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/domain/entities/question.dart';
 import 'package:study_ready/domain/entities/trainer.dart';
+import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
 import 'package:study_ready/presentation/blocs/trainer_bloc/trainer_bloc.dart';
 import 'package:study_ready/presentation/pages/trainer_page/train_process_screen/widget/answers.dart';
+import 'package:study_ready/utils/app_colors.dart';
 
 import 'inherited_widget_check.dart';
 
@@ -20,7 +22,7 @@ class _AnswersAndQuestionState extends State<AnswersAndQuestion> {
   @override
   Widget build(BuildContext context) {
     int selectedQuestion = SharedState.of(context).selectedQuestion;
-
+    final brightness = context.watch<ThemeCubit>().state.brightness;
     Trainer trainer = widget.trainer;
     final List<Question> questionList = trainer.questions;
     return BlocBuilder<TrainerBloc, TrainerState>(
@@ -37,7 +39,9 @@ class _AnswersAndQuestionState extends State<AnswersAndQuestion> {
                 Container(
                   padding: EdgeInsets.all(16.sp),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: brightness == Brightness.dark
+                        ? colorForMaterialCardDark
+                        : Colors.white,
                     borderRadius: BorderRadius.all(
                       Radius.circular(14.sp),
                     ),
@@ -52,7 +56,9 @@ class _AnswersAndQuestionState extends State<AnswersAndQuestion> {
                       style: TextStyle(
                         fontSize: 18.sp,
                         fontWeight: FontWeight.w500,
-                        color: Colors.black,
+                        color: brightness == Brightness.dark
+                            ? Colors.white
+                            : Colors.black,
                         height: 1.5.h,
                       ),
                     ),

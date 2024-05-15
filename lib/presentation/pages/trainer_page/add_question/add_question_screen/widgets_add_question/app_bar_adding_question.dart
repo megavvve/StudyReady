@@ -33,14 +33,15 @@ class AppBarAddingQuestion extends StatelessWidget
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: brightness == Brightness.dark
-                  ? secondColorDark
+                  ? colorForButton
                   : secondColorLight,
               borderRadius: BorderRadius.circular(6.sp),
             ),
             child: Text(
               'Новый вопрос',
               style: TextStyle(
-                color: Colors.black,
+                color:
+                    brightness == Brightness.dark ? Colors.white : Colors.black,
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w500,
               ),

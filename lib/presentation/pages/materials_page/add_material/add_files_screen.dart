@@ -117,53 +117,15 @@ class AddFilesScreenState extends State<AddFilesScreen> {
           backgroundColor: brightness == Brightness.dark
               ? backgroundColorDark
               : backgroundColorLight,
-          body: WillPopScope(
-            onWillPop: () async {
-              bool result = true;
-              if (files.isNotEmpty) {
-                result = await showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text('Вы уверены?'),
-                      content: const Text(
-                        'Вы уверены, что хотите выйти? Ваши изменения не будут сохранены.',
-                      ),
-                      actions: <Widget>[
-                        TextButton(
-                          style: TextButton.styleFrom(
-                            textStyle: Theme.of(context).textTheme.labelLarge,
-                          ),
-                          child: const Text(
-                            'Да',
-                            style: TextStyle(color: Colors.red),
-                          ),
-                          onPressed: () {
-                            Navigator.pop(context);
-                            Navigator.pop(context);
-                          },
-                        ),
-                        TextButton(
-                          style: TextButton.styleFrom(
-                            textStyle: Theme.of(context).textTheme.labelLarge,
-                          ),
-                          child: const Text('Нет'),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                        ),
-                      ],
-                    );
-                  },
-                );
+          body: PopScope(
+            canPop: false,
+            onPopInvoked: (bool didPop) async {
+              if (didPop) {
+                return;
               }
-
-              if (result) {
-                // ignore: use_build_context_synchronously
+              final bool shouldPop = await _showBackDialog(context) ?? false;
+              if (context.mounted && shouldPop) {
                 Navigator.pop(context);
-                return true;
-              } else {
-                return false;
               }
             },
             child: Padding(
@@ -206,7 +168,7 @@ class AddFilesScreenState extends State<AddFilesScreen> {
                                 onPressed: _toggleButtons,
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: brightness == Brightness.dark
-                                      ? mainColorDark
+                                      ? colorForButton
                                       : mainColorLight,
                                 ),
                                 child: Text(
@@ -343,4 +305,41 @@ class AddFilesScreenState extends State<AddFilesScreen> {
       },
     );
   }
+}
+
+Future<bool?> _showBackDialog(BuildContext context) {
+  return showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text('Вы уверены?'),
+        content: const Text(
+          'Вы уверены, что хотите выйти? Ваши изменения не будут сохранены.',
+        ),
+        actions: <Widget>[
+          TextButton(
+            style: TextButton.styleFrom(
+              textStyle: Theme.of(context).textTheme.labelLarge,
+            ),
+            child: const Text(
+              'Да',
+              style: TextStyle(color: Colors.red),
+            ),
+            onPressed: () {
+              Navigator.pop(context, true);
+            },
+          ),
+          TextButton(
+            style: TextButton.styleFrom(
+              textStyle: Theme.of(context).textTheme.labelLarge,
+            ),
+            child: const Text('Нет'),
+            onPressed: () {
+              Navigator.pop(context, false);
+            },
+          ),
+        ],
+      );
+    },
+  );
 }

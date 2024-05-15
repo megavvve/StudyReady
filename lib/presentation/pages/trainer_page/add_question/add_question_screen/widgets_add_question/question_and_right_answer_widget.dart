@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
 
 class QuestionAndRightAnswerWidget extends StatelessWidget {
   const QuestionAndRightAnswerWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final brightness = context.watch<ThemeCubit>().state.brightness;
     return FutureBuilder(
         future: SharedPreferences.getInstance(),
         builder: (context, snapshot) {
@@ -37,7 +40,9 @@ class QuestionAndRightAnswerWidget extends StatelessWidget {
                 width: 320.w,
                 // height: 60.h,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: brightness == Brightness.dark
+                      ? Colors.black
+                      : Colors.white,
                   borderRadius: BorderRadius.circular(16.sp),
                 ),
                 child: TextField(
@@ -57,7 +62,9 @@ class QuestionAndRightAnswerWidget extends StatelessWidget {
                     hintMaxLines: 4,
                     helperMaxLines: 2,
                     hintStyle: TextStyle(
-                      color: Colors.black,
+                      color: brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w300,
                     ),
@@ -75,7 +82,9 @@ class QuestionAndRightAnswerWidget extends StatelessWidget {
                 alignment: Alignment.center,
                 width: 309.w,
                 decoration: BoxDecoration(
-                  color: const Color.fromRGBO(204, 245, 203, 1),
+                  color: brightness == Brightness.dark
+                      ? const Color.fromARGB(255, 135, 121, 243)
+                      : const Color.fromRGBO(204, 245, 203, 1),
                   borderRadius: BorderRadius.circular(
                     16.sp,
                   ),
@@ -87,7 +96,9 @@ class QuestionAndRightAnswerWidget extends StatelessWidget {
                       width: 30.w,
                       height: 30.h,
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: brightness == Brightness.dark
+                            ? Colors.black
+                            : Colors.white,
                         borderRadius: BorderRadius.circular(
                           8.sp,
                         ),
@@ -95,7 +106,9 @@ class QuestionAndRightAnswerWidget extends StatelessWidget {
                       child: Text(
                         '1',
                         style: TextStyle(
-                          color: Colors.black,
+                          color: brightness == Brightness.dark
+                              ? Colors.white
+                              : Colors.black,
                           fontSize: 18.sp,
                         ),
                       ),
@@ -120,7 +133,9 @@ class QuestionAndRightAnswerWidget extends StatelessWidget {
                               hintText: 'Введите правильный ответ...',
                               hintMaxLines: 2,
                               hintStyle: TextStyle(
-                                color: Colors.black,
+                                color: brightness == Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
                                 fontSize: 18.sp,
                                 fontWeight: FontWeight.w300,
                               )),
