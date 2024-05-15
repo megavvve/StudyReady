@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
+import 'package:study_ready/utils/app_colors.dart';
 
 class ContainerForWrongAnswer extends StatefulWidget {
   final int index;
@@ -32,6 +35,7 @@ class _ContainerForWrongAnswerState extends State<ContainerForWrongAnswer> {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = context.watch<ThemeCubit>().state.brightness;
     TextEditingController answerController2 = TextEditingController(
         text: (prefs?.getString("answer2") != null)
             ? prefs?.getString("answer2")
@@ -54,12 +58,19 @@ class _ContainerForWrongAnswerState extends State<ContainerForWrongAnswer> {
       padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 13.w),
       alignment: Alignment.centerLeft,
       width: 309.w,
-      decoration: BoxDecoration(
-        color: const Color.fromRGBO(198, 216, 245, 1),
-        borderRadius: BorderRadius.circular(
-          16.sp,
-        ),
-      ),
+      decoration: brightness == Brightness.dark
+          ? BoxDecoration(
+              color: colorForMaterialCardDark,
+              borderRadius: BorderRadius.circular(
+                16.sp,
+              ),
+            )
+          : BoxDecoration(
+              color: const Color.fromRGBO(198, 216, 245, 1),
+              borderRadius: BorderRadius.circular(
+                16.sp,
+              ),
+            ),
       child: Row(
         children: [
           Container(
@@ -67,7 +78,8 @@ class _ContainerForWrongAnswerState extends State<ContainerForWrongAnswer> {
             width: 30.w,
             height: 34.h,
             decoration: BoxDecoration(
-              color: Colors.white,
+              color:
+                  brightness == Brightness.dark ? Colors.black : Colors.white,
               borderRadius: BorderRadius.circular(
                 8.sp,
               ),
@@ -75,7 +87,8 @@ class _ContainerForWrongAnswerState extends State<ContainerForWrongAnswer> {
             child: Text(
               (widget.index + 2).toString(),
               style: TextStyle(
-                color: Colors.black,
+                color:
+                    brightness == Brightness.dark ? Colors.white : Colors.black,
                 fontSize: 18.sp,
               ),
             ),
@@ -100,11 +113,15 @@ class _ContainerForWrongAnswerState extends State<ContainerForWrongAnswer> {
                       hintText: 'Введите неправильный ответ...',
                       hintMaxLines: 2,
                       hintStyle: TextStyle(
-                        color: Colors.black,
+                        color: brightness == Brightness.dark
+                            ? Colors.white
+                            : Colors.black,
                         fontSize: 18.sp,
                       )),
                   style: TextStyle(
-                    color: Colors.black,
+                    color: brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black,
                     fontSize: 18.sp,
                     fontWeight: FontWeight.w300,
                   ),

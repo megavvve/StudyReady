@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
+import 'package:study_ready/utils/app_colors.dart';
 
 class ConfirmationDialog extends StatelessWidget {
   const ConfirmationDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final brightness = context.watch<ThemeCubit>().state.brightness;
     return AlertDialog(
-      backgroundColor: Colors.white,
+      backgroundColor: brightness == Brightness.dark
+          ? colorForMaterialCardDark
+          : secondColorLight,
       title: Text(
         'Вы точно хотите завершить тренажер?',
         style: TextStyle(

@@ -87,7 +87,9 @@ class _TrainerListWidgetState extends State<TrainerListWidget> {
                         width: 170.w,
                         child: TextButton(
                           style: TextButton.styleFrom(
-                            backgroundColor: trainerAppBarButtonsBackground,
+                            backgroundColor: brightness == Brightness.dark
+                                ? colorForButton
+                                : trainerAppBarButtonsBackground,
                             padding: EdgeInsets.symmetric(horizontal: 10.w),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(
@@ -97,7 +99,9 @@ class _TrainerListWidgetState extends State<TrainerListWidget> {
                           ),
                           onPressed: () {
                             showModalBottomSheet(
-                              backgroundColor: trainerBottomSheetBackground,
+                              backgroundColor: brightness == Brightness.dark
+                                  ? backgroundColorDark
+                                  : trainerBottomSheetBackground,
                               context: context,
                               builder: (BuildContext context) {
                                 return Column(
@@ -110,16 +114,15 @@ class _TrainerListWidgetState extends State<TrainerListWidget> {
                                       child: Text(
                                         "Выбрать предмет",
                                         style: TextStyle(
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 20.sp),
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 20.sp,
+                                        ),
                                       ),
                                     ),
                                     for (String subject in subjectsList)
                                       ListTile(
                                           title: Text(
                                             subject,
-                                            style: const TextStyle(
-                                                color: Colors.black),
                                           ),
                                           onTap: () {
                                             setState(() {
@@ -146,9 +149,12 @@ class _TrainerListWidgetState extends State<TrainerListWidget> {
                           child: Text(
                             "Выбрать предмет",
                             style: TextStyle(
-                                fontSize: 13.sp,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.black),
+                              fontSize: 13.sp,
+                              fontWeight: FontWeight.w400,
+                              color: brightness == Brightness.dark
+                                  ? Colors.white
+                                  : Colors.black,
+                            ),
                           ),
                         ),
                       ),
@@ -157,7 +163,9 @@ class _TrainerListWidgetState extends State<TrainerListWidget> {
                         width: 110.w,
                         child: TextButton(
                           style: TextButton.styleFrom(
-                            backgroundColor: trainerAppBarButtonsBackground,
+                            backgroundColor: brightness == Brightness.dark
+                                ? colorForButton
+                                : trainerAppBarButtonsBackground,
                             padding: EdgeInsets.symmetric(horizontal: 10.w),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(
@@ -167,7 +175,9 @@ class _TrainerListWidgetState extends State<TrainerListWidget> {
                           ),
                           onPressed: () {
                             showModalBottomSheet(
-                              backgroundColor: trainerBottomSheetBackground,
+                              backgroundColor: brightness == Brightness.dark
+                                  ? backgroundColorDark
+                                  : trainerBottomSheetBackground,
                               context: context,
                               builder: (BuildContext context) {
                                 return Column(
@@ -192,8 +202,6 @@ class _TrainerListWidgetState extends State<TrainerListWidget> {
                                               ListTile(
                                         title: Text(
                                           paramsOfSort[index],
-                                          style: const TextStyle(
-                                              color: Colors.black),
                                         ),
                                         onTap: () {
                                           setState(() {
@@ -216,7 +224,9 @@ class _TrainerListWidgetState extends State<TrainerListWidget> {
                             style: TextStyle(
                               fontSize: 13.sp,
                               fontWeight: FontWeight.w400,
-                              color: Colors.black,
+                              color: brightness == Brightness.dark
+                                  ? Colors.white
+                                  : Colors.black,
                             ),
                           ),
                         ),
@@ -283,10 +293,14 @@ class _TrainerListWidgetState extends State<TrainerListWidget> {
                       ),
                     );
                   },
-                  backgroundColor: Colors.white,
-                  child: const Icon(
+                  backgroundColor: brightness == Brightness.dark
+                      ? colorForButton
+                      : Colors.white,
+                  child: Icon(
                     Icons.add,
-                    color: Colors.blue,
+                    color: brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.blue,
                   ),
                 ),
               ),

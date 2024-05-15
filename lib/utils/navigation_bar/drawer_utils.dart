@@ -5,28 +5,24 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 final mainIcon = Icon(
   Icons.home_outlined,
   size: 33.sp,
-  color: Colors.black,
 );
 
 //leading icons
 final materialIcon = Icon(
   Icons.menu_book_outlined,
   size: 33.sp,
-  color: Colors.black,
 );
 
 //leading icons
 final trainerIcon = Icon(
   Icons.widgets_outlined,
   size: 33.sp,
-  color: Colors.black,
 );
 
 //leading icons
 final addQuestionIcon = Icon(
   Icons.add,
   size: 33.sp,
-  color: Colors.black,
 );
 
 //leading icons
@@ -83,7 +79,6 @@ final deleteTrainerText = Text(
 final trailingIcon = Icon(
   Icons.chevron_right_sharp,
   size: 35.sp,
-  color: Colors.black,
 );
 
 //divider

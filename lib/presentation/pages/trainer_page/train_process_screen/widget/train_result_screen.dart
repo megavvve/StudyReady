@@ -31,13 +31,11 @@ class TrainingResultScreen extends StatelessWidget {
             : backgroundColorLight,
         title: const Text(
           'Результат тренировки',
-          style: TextStyle(color: Colors.black),
         ),
         centerTitle: true,
         leading: IconButton(
           icon: const Icon(
             Icons.close,
-            color: Colors.black,
           ),
           onPressed: () {
             Navigator.pop(context);
@@ -98,7 +96,7 @@ class TrainingResultScreen extends StatelessWidget {
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: brightness == Brightness.dark
-                          ? mainColorDark
+                          ? colorForButton
                           : mainColorLight, // Цвет кнопки
                       shape: RoundedRectangleBorder(
                         borderRadius:

@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/domain/entities/trainer.dart';
+import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
 import 'package:study_ready/presentation/navigation/custom_page_router.dart';
 import 'package:study_ready/presentation/pages/trainer_page/train_process_screen/train_process_screen.dart';
-
+import 'package:study_ready/utils/app_colors.dart';
 
 void showLaunchingTrainer(BuildContext context, Trainer trainer) {
   showModalBottomSheet<void>(
     context: context,
     isScrollControlled: true,
     builder: (BuildContext context) {
+      final brightness = context.watch<ThemeCubit>().state.brightness;
       return Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.vertical(
             top: Radius.circular(16.sp),
           ),
-          color: const Color(0xFF5970CC),
+          color: brightness == Brightness.dark ? backgroundColorDark : const Color(0xFF5970CC),
         ),
         padding: EdgeInsets.symmetric(horizontal: 28.w),
         width: 360.w,

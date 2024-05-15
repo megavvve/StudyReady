@@ -35,7 +35,6 @@ class _MaterialScreenState extends State<MaterialScreen> {
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
                 child: const Text(
                   "Не удалось получить данные при первом входе в приложение.\nПожалуйста, проверьте подключение к интернету.",
-                  style: TextStyle(color: Colors.black),
                 ),
               ),
             ),

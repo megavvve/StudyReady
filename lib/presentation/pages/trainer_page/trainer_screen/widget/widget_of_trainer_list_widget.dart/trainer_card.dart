@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:study_ready/domain/entities/trainer.dart';
+import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
 import 'package:study_ready/presentation/blocs/trainer_bloc/trainer_bloc.dart';
 import 'package:study_ready/presentation/pages/trainer_page/trainer_screen/widget/widget_of_trainer_list_widget.dart/show_launching_trainer.dart';
 import 'package:study_ready/utils/app_svg_assets.dart';
@@ -28,6 +29,7 @@ class TrainerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = context.watch<ThemeCubit>().state.brightness;
     return BlocBuilder<TrainerBloc, TrainerState>(
       builder: (context, state) {
         return Container(
@@ -107,7 +109,9 @@ class TrainerCard extends StatelessWidget {
                           textStyle: TextStyle(
                             fontSize: 22.sp,
                           ),
-                          backgroundColor: Colors.white,
+                          backgroundColor: brightness == Brightness.dark
+                              ? const Color.fromRGBO(0, 0, 0, 0.2)
+                              : Colors.white,
                         ),
                         onPressed: () {
                           showLaunchingTrainer(context, trainer);
@@ -125,7 +129,9 @@ class TrainerCard extends StatelessWidget {
                           'Начнем',
                           style: TextStyle(
                             fontSize: 16.sp,
-                            color: Colors.black,
+                            color: brightness == Brightness.dark
+                                ? Colors.white
+                                : Colors.black,
                             fontWeight: FontWeight.w400,
                           ),
                         ),

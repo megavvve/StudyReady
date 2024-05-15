@@ -61,9 +61,10 @@ class _PDFReaderState extends State<PDFReader> {
       appBar: AppBar(
         actions: [
           IconButton(
-            icon: const Icon(
+            icon: Icon(
               Icons.search,
-              color: Colors.black,
+              color:
+                  brightness == Brightness.dark ? Colors.white : Colors.black,
             ),
             onPressed: () {
               showDialog(
@@ -82,7 +83,7 @@ class _PDFReaderState extends State<PDFReader> {
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
-                      child: Text('Отмена'),
+                      child: const Text('Отмена'),
                     ),
                     TextButton(
                       onPressed: () {
@@ -95,7 +96,7 @@ class _PDFReaderState extends State<PDFReader> {
                         }
                         Navigator.of(context).pop();
                       },
-                      child: Text('Перейти'),
+                      child: const Text('Перейти'),
                     ),
                   ],
                 ),
@@ -113,8 +114,9 @@ class _PDFReaderState extends State<PDFReader> {
             "Документ",
             style: TextStyle(
               fontSize: 20.sp,
-              color: Colors.black,
               fontWeight: FontWeight.w400,
+              color:
+                  brightness == Brightness.dark ? Colors.white : Colors.black,
             ),
           ),
           onPressed: () async {
@@ -123,8 +125,9 @@ class _PDFReaderState extends State<PDFReader> {
           },
         ),
         centerTitle: true,
-        backgroundColor:
-            brightness == Brightness.dark ? secondColorDark : secondColorLight,
+        backgroundColor: brightness == Brightness.dark
+            ? backgroundColorDark
+            : backgroundColorLight,
       ),
       body: Stack(
         children: <Widget>[

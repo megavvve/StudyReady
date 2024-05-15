@@ -69,7 +69,9 @@ class CheckButtonState extends State<CheckButton> {
                     builder: (BuildContext context) {
                       return Container(
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: brightness == Brightness.dark
+                              ? backgroundColorDark
+                              : Colors.white,
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(16.sp),
                             topRight: Radius.circular(16.sp),
@@ -147,7 +149,12 @@ class CheckButtonState extends State<CheckButton> {
               decoration: (selectedIndex == -1)
                   ? BoxDecoration(
                       color: brightness == Brightness.dark
-                          ? secondColorDark
+                          ? Color.fromRGBO(
+                              colorForButton.red,
+                              colorForButton.green,
+                              colorForButton.blue,
+                              1.0, // Максимальная прозрачность
+                            ).withAlpha((colorForButton.alpha * 1.5).toInt())
                           : secondColorLight,
                       borderRadius: BorderRadius.circular(
                         16.sp,
@@ -155,7 +162,7 @@ class CheckButtonState extends State<CheckButton> {
                     )
                   : BoxDecoration(
                       color: brightness == Brightness.dark
-                          ? mainColorDark
+                          ? colorForButton
                           : mainColorLight,
                       borderRadius: BorderRadius.circular(
                         16.sp,
