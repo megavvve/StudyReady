@@ -21,6 +21,7 @@ class StudyMaterialBloc extends Bloc<StudyMaterialEvent, StudyMaterialState> {
       : super(StudyMaterialInitial()) {
     on<AddMaterial>(_onAddMaterial);
     on<MaterialInitLoadEvent>(_onInitLoad);
+    on<DeleteMaterial>(_onDeleteMaterial);
   }
 
   void _onAddMaterial(
@@ -61,7 +62,7 @@ class StudyMaterialBloc extends Bloc<StudyMaterialEvent, StudyMaterialState> {
     if (state is StudyMaterialLoadSuccess) {
       final studyMaterial = event.studyMaterial;
       final file = File(studyMaterial.filePath);
-
+      file.delete();
       List<StudyMaterial> allMaterials = state.materials;
       // addMaterial.call(newMaterial);
       allMaterials.remove(studyMaterial);

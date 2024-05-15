@@ -10,6 +10,7 @@ import 'package:study_ready/presentation/pages/materials_page/add_material/add_f
 import 'package:study_ready/presentation/pages/materials_page/widgets/for_widget_of_material_screen/cards_generator.dart';
 import 'package:study_ready/presentation/pages/materials_page/widgets/for_widget_of_material_screen/delete_mode.dart';
 import 'package:study_ready/presentation/pages/materials_page/widgets/for_widget_of_material_screen/filter_materials_fun.dart';
+import 'package:study_ready/presentation/pages/materials_page/widgets/for_widget_of_material_screen/show_delete_confirmation.dart';
 import 'package:study_ready/presentation/pages/materials_page/widgets/for_widget_of_material_screen/sort_materials_fun.dart';
 import 'package:study_ready/utils/app_colors.dart';
 
@@ -159,6 +160,10 @@ class _MaterialScreenWidgetState extends State<MaterialScreenWidget> {
                                 onPressed: () {
                                   deleteMode.isDeleting =
                                       !deleteMode.isDeleting;
+                                  if (deleteMode.isDeleting == false &&
+                                      deleteMode.studyMaterials.isNotEmpty) {
+                                    showDeleteConfirmation(context);
+                                  }
                                 },
                                 child: Text(
                                   deleteMode.isDeleting == true
