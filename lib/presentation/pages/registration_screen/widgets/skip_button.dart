@@ -9,10 +9,10 @@ class SkipButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
+        Navigator.of(context).pop();
+        Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: ((context) => const HomeScreen()),
+            builder: (context) => const HomeScreen(),
           ),
         );
       },

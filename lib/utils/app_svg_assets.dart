@@ -51,7 +51,7 @@ final sLetterBackFr = SvgPicture.asset(
 
 final sLetterBackFrDark = SvgPicture.asset(
   "assets/icons/first_screen/letter_s_back_fr.svg",
-  color: const Color(0xFF1C1A1A),
+  color: const Color(0xFF000000),
 );
 
 final sLetterFront = SvgPicture.asset(

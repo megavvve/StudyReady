@@ -41,12 +41,12 @@ class MainForm extends StatelessWidget {
           Positioned(
             top: 100.h,
             left: 0.w,
-            child: brightness == Brightness.dark ? sLetterBackDark :  sLetterBackFr,
+            child: brightness == Brightness.dark ? sLetterBackFrDark :  sLetterBackFr,
           ),
           Positioned(
             top: 100.h,
             left: 0.w,
-            child: brightness == Brightness.dark ? sLetterFrontDark :  sLetterFrontFr,
+            child: brightness == Brightness.dark ? sLetterFrontFrDark :  sLetterFrontFr,
           ),
           Positioned(
             top: 173.h,
