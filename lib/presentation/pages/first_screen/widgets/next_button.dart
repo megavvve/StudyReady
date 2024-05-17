@@ -7,34 +7,31 @@ class NextButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(top: 16.sp),
-      child: GestureDetector(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: ((context) => const RegistrationScreen()),
-            ),
-          );
-        },
-        child: Container(
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: const Color(0xFF4575CD),
-            borderRadius: BorderRadius.all(
-              Radius.circular(16.sp),
-            ),
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: ((context) => const RegistrationScreen()),
           ),
-          width: 162.w,
-          height: 47.h,
-          child: Text(
-            "Далее",
-            style: TextStyle(
-                color: const Color(0xFFBFD3F3),
-                fontSize: 23.sp,
-                fontWeight: FontWeight.w400),
+        );
+      },
+      child: Container(
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: const Color(0xFF4575CD),
+          borderRadius: BorderRadius.all(
+            Radius.circular(16.sp),
           ),
+        ),
+        width: 162.w,
+        height: 47.h,
+        child: Text(
+          "Далее",
+          style: TextStyle(
+              color: const Color(0xFFBFD3F3),
+              fontSize: 23.sp,
+              fontWeight: FontWeight.w400),
         ),
       ),
     );
