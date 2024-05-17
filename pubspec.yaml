@@ -57,6 +57,9 @@ flutter:
   assets:
     - assets/icons/
     - assets/icons/home_screen/
+    - assets/icons/first_screen/
+    - assets/icons/settings_screen/
+    - assets/icons/registration_screen/
     - assets/images/trainer/background_for_trainer.svg
     - assets/images/trainer/background1_for_trainer.svg
     - assets/images/trainer/background2_for_trainer.svg

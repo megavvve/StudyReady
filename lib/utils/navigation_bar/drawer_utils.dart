@@ -21,15 +21,14 @@ final trainerIcon = Icon(
 
 //leading icons
 final addQuestionIcon = Icon(
-  Icons.add,
+  Icons.add_outlined,
   size: 33.sp,
 );
 
 //leading icons
 final settingsIcon = Icon(
-  Icons.settings,
+  Icons.settings_outlined,
   size: 33.sp,
-  color: Colors.black,
 );
 
 //leading icons

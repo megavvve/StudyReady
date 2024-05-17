@@ -12,7 +12,6 @@ import 'package:study_ready/presentation/navigation/custom_page_router.dart';
 import 'package:study_ready/presentation/pages/trainer_page/add_question/add_question_screen/widgets_add_question/is_empty_text_field.dart';
 import 'package:study_ready/presentation/pages/trainer_page/add_question/add_question_screen/widgets_add_question/show_validation_error_Snack_bar.dart';
 import 'package:study_ready/presentation/pages/trainer_page/trainer_screen/trainer_screen.dart';
-import 'package:study_ready/utils/app_colors.dart';
 
 import 'package:study_ready/domain/entities/theme.dart' as theme;
 
@@ -31,9 +30,10 @@ class AddQuestionButton extends StatelessWidget {
           return ElevatedButton(
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all<Color>(
-                  brightness == Brightness.dark
-                      ? mainColorDark
-                      : mainColorLight),
+                brightness == Brightness.dark
+                    ? const Color(0xFF458BFF)
+                    : const Color.fromRGBO(119, 165, 245, 1),
+              ),
               fixedSize: MaterialStateProperty.all<Size>(
                 Size(
                   320.w,

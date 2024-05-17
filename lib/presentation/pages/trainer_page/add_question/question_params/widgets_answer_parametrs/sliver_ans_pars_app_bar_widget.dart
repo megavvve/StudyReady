@@ -35,7 +35,9 @@ class SliverAnsParsAppBarWidget extends StatelessWidget {
         height: 32.h,
         padding: EdgeInsets.all(5.sp),
         decoration: BoxDecoration(
-          color: const Color(0xFFB8D3FF),
+          color: brightness == Brightness.dark
+              ? colorForButton
+              : trainerAppBarButtonsBackground,
           borderRadius: BorderRadius.circular(8.sp),
         ),
         child: Text(
@@ -43,7 +45,7 @@ class SliverAnsParsAppBarWidget extends StatelessWidget {
           style: TextStyle(
             fontSize: 16.sp,
             fontWeight: FontWeight.w400,
-            color: Colors.black,
+            color: brightness == Brightness.dark ? Colors.white : Colors.black,
           ),
         ),
       ),

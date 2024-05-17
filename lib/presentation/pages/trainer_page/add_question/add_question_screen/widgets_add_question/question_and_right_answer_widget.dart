@@ -69,7 +69,12 @@ class QuestionAndRightAnswerWidget extends StatelessWidget {
                       fontWeight: FontWeight.w300,
                     ),
                   ),
-                  style: TextStyle(fontSize: 18.sp, color: Colors.black),
+                  style: TextStyle(
+                    fontSize: 18.sp,
+                    color: brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black,
+                  ),
                 ),
               ),
               //белая карточка с названием вопроса
@@ -141,7 +146,9 @@ class QuestionAndRightAnswerWidget extends StatelessWidget {
                               )),
                           style: TextStyle(
                             fontSize: 18.sp,
-                            color: Colors.black,
+                            color: brightness == Brightness.dark
+                                ? Colors.white
+                                : Colors.black,
                           ),
                         ),
                       ),

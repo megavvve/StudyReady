@@ -106,18 +106,19 @@ class _ContainerForWrongAnswerState extends State<ContainerForWrongAnswer> {
                     prefs?.setString("answer${widget.index + 2}", value);
                   },
                   decoration: InputDecoration(
-                      contentPadding: EdgeInsetsDirectional.only(start: 5.w),
-                      isCollapsed: true,
-                      border: const UnderlineInputBorder(
-                          borderSide: BorderSide.none),
-                      hintText: 'Введите неправильный ответ...',
-                      hintMaxLines: 2,
-                      hintStyle: TextStyle(
-                        color: brightness == Brightness.dark
-                            ? Colors.white
-                            : Colors.black,
-                        fontSize: 18.sp,
-                      )),
+                    contentPadding: EdgeInsetsDirectional.only(start: 5.w),
+                    isCollapsed: true,
+                    border:
+                        const UnderlineInputBorder(borderSide: BorderSide.none),
+                    hintText: 'Введите неправильный ответ...',
+                    hintMaxLines: 2,
+                    hintStyle: TextStyle(
+                      color: brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                      fontSize: 18.sp,
+                    ),
+                  ),
                   style: TextStyle(
                     color: brightness == Brightness.dark
                         ? Colors.white

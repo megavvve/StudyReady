@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
 
 class PasswordForm extends StatelessWidget {
   const PasswordForm({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final brightness = context.watch<ThemeCubit>().state.brightness;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -15,7 +18,9 @@ class PasswordForm extends StatelessWidget {
           width: 127.w,
           height: 33.h,
           decoration: BoxDecoration(
-            color: const Color(0xFFD9D9D9),
+            color: brightness == Brightness.dark
+                ? const Color(0xFF656565)
+                : const Color(0xFFD9D9D9),
             borderRadius: BorderRadius.all(
               Radius.circular(16.sp),
             ),
@@ -26,10 +31,11 @@ class PasswordForm extends StatelessWidget {
               Icon(
                 Icons.lock_outlined,
                 size: 20.sp,
+                color: Colors.black,
               ),
               Text(
                 "Пароль:",
-                style: TextStyle(fontSize: 15.sp),
+                style: TextStyle(fontSize: 15.sp, color: Colors.black),
               ),
             ],
           ),
@@ -43,7 +49,9 @@ class PasswordForm extends StatelessWidget {
           width: 275.w,
           height: 64.h,
           decoration: BoxDecoration(
-            color: const Color(0xFFD8E2FF),
+            color: brightness == Brightness.dark
+                ? const Color(0xFF6D85C8)
+                : const Color(0xFFD8E2FF),
             borderRadius: BorderRadius.all(
               Radius.circular(16.sp),
             ),
@@ -63,11 +71,10 @@ class PasswordForm extends StatelessWidget {
               hintStyle: TextStyle(
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w300,
+                color: Colors.grey,
               ),
             ),
-            style: TextStyle(
-              fontSize: 18.sp,
-            ),
+            style: TextStyle(fontSize: 18.sp, color: Colors.black),
           ),
         ),
       ],

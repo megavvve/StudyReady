@@ -34,7 +34,7 @@ class AppBarAddingQuestion extends StatelessWidget
             decoration: BoxDecoration(
               color: brightness == Brightness.dark
                   ? colorForButton
-                  : secondColorLight,
+                  : trainerAppBarButtonsBackground,
               borderRadius: BorderRadius.circular(6.sp),
             ),
             child: Text(

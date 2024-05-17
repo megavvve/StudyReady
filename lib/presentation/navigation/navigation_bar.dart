@@ -132,15 +132,6 @@ class NavigatorDrawer extends StatelessWidget {
                 ),
               ),
             ),
-            /*
-            ListTile(
-              leading: const SwitchExample(),
-              title: Text(
-                'Темная тема',
-                style: theme.textTheme.titleSmall,
-              ),
-            ),
-            */
             divider,
             // ListTile(
             //   leading: deleteTrainerIcon,

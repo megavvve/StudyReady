@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
 import 'package:study_ready/utils/app_svg_assets.dart';
 
 import 'description_background_rectangle.dart';
@@ -12,6 +14,7 @@ class MainForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = context.watch<ThemeCubit>().state.brightness;
     return SizedBox(
       height: 725.h,
       child: Stack(
@@ -38,12 +41,12 @@ class MainForm extends StatelessWidget {
           Positioned(
             top: 100.h,
             left: 0.w,
-            child: sLetterBackFr,
+            child: brightness == Brightness.dark ? sLetterBackDark :  sLetterBackFr,
           ),
           Positioned(
             top: 100.h,
             left: 0.w,
-            child: sLetterFrontFr,
+            child: brightness == Brightness.dark ? sLetterFrontDark :  sLetterFrontFr,
           ),
           Positioned(
             top: 173.h,

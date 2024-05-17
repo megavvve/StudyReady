@@ -81,7 +81,7 @@ class _CardForQuestionParamsState extends State<CardForQuestionParams> {
               padding: EdgeInsets.symmetric(horizontal: 8.w),
               alignment: Alignment.centerLeft,
               decoration: BoxDecoration(
-                color: const Color(0xFFB8D3FF),
+                color: brightness == Brightness.dark ? const Color(0xFF5B94F1) : const Color(0xFFB8D3FF),
                 borderRadius: BorderRadius.circular(16.sp),
               ),
               child: Stack(

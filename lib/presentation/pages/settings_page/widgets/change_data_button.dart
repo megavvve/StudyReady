@@ -49,6 +49,7 @@ class ChangeDataButton extends StatelessWidget {
             Icon(
               Icons.arrow_right,
               size: 40.sp,
+              color: Colors.black,
             ),
           ],
         ),

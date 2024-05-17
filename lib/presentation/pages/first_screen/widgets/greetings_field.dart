@@ -12,7 +12,7 @@ class GreetingsField extends StatelessWidget {
       child: Text(
         "Добро\nпожаловать",
         textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 33.sp),
+        style: TextStyle(fontSize: 33.sp, color: Colors.black),
       ),
     );
   }

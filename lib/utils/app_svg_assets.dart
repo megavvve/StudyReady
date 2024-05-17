@@ -4,6 +4,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:study_ready/utils/home_screen/icons_pathes.dart';
 
 //light theme
+final regBackgroundTrepezoid = SvgPicture.asset(
+  "assets/icons/registration_screen/registration_trapezoid.svg",
+);
+
+final regBackgroundTrepezoidDark = SvgPicture.asset(
+  "assets/icons/registration_screen/registration_trapezoid.svg",
+  color: const Color(0xFF2A42B6),
+);
+
 final eadyText = SvgPicture.asset(
   eadyTextPath,
   width: 195.w,
@@ -17,7 +26,7 @@ final rLetterFront = SvgPicture.asset(
 );
 
 final rLetterFrontFr = SvgPicture.asset(
-  "assets/icons/home_screen/letter_r_front_fr.svg",
+  "assets/icons/first_screen/letter_r_front_fr.svg",
 );
 
 final rLetterBack = SvgPicture.asset(
@@ -27,7 +36,7 @@ final rLetterBack = SvgPicture.asset(
 );
 
 final rLetterBackFr = SvgPicture.asset(
-  "assets/icons/home_screen/letter_r_back_fr.svg",
+  "assets/icons/first_screen/letter_r_back_fr.svg",
 );
 
 final sLetterBack = SvgPicture.asset(
@@ -37,7 +46,12 @@ final sLetterBack = SvgPicture.asset(
 );
 
 final sLetterBackFr = SvgPicture.asset(
-  "assets/icons/home_screen/letter_s_back_fr.svg",
+  "assets/icons/first_screen/letter_s_back_fr.svg",
+);
+
+final sLetterBackFrDark = SvgPicture.asset(
+  "assets/icons/first_screen/letter_s_back_fr.svg",
+  color: const Color(0xFF1C1A1A),
 );
 
 final sLetterFront = SvgPicture.asset(
@@ -47,12 +61,14 @@ final sLetterFront = SvgPicture.asset(
 );
 
 final sLetterFrontFr = SvgPicture.asset(
-  "assets/icons/home_screen/letter_s_front_fr.svg",
+  "assets/icons/first_screen/letter_s_front_fr.svg",
 );
 
-final sLetterFrontFrPatch = SvgPicture.asset(
-  "assets/icons/home_screen/letter_s_front_fr_patch.svg",
+final sLetterFrontFrDark = SvgPicture.asset(
+  "assets/icons/first_screen/letter_s_front_fr.svg",
+  color: const Color(0xFF1C1A1A),
 );
+
 
 final materialsText = SvgPicture.asset(
   materialTextPath,
@@ -73,13 +89,13 @@ final tudyText = SvgPicture.asset(
 );
 
 final duckBackground = SvgPicture.asset(
-  "assets/icons/home_screen/duck_background.svg",
+  "assets/icons/settings_screen/duck_background.svg",
   width: 62.w,
   height: 62.h,
 );
 
 final duck = SvgPicture.asset(
-  "assets/icons/home_screen/duck.svg",
+  "assets/icons/settings_screen/duck.svg",
   width: 39.w,
   height: 37.h,
 );

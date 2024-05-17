@@ -16,7 +16,7 @@ import 'package:study_ready/presentation/blocs/study_material_bloc/study_materia
 import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
 import 'package:study_ready/presentation/blocs/theme_bloc/theme_state.dart';
 import 'package:study_ready/presentation/blocs/trainer_bloc/trainer_bloc.dart';
-import 'package:study_ready/presentation/pages/home_page/home_screen.dart';
+import 'package:study_ready/presentation/pages/first_screen/first_screen.dart';
 import 'package:study_ready/utils/app_themes.dart';
 
 Future<void> main() async {
@@ -91,7 +91,7 @@ class MyApp extends StatelessWidget {
               theme: state.isDark ? darkTheme : lightTheme,
               home: child,
             ),
-            child: const HomeScreen(), // start screen
+            child: const FirstScreen(), // start screen
           );
         },
       ),
