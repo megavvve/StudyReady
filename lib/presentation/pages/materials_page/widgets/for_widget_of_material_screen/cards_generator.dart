@@ -7,8 +7,11 @@ import 'package:study_ready/presentation/pages/materials_page/widgets/material_c
 class CardsGenerator extends StatelessWidget {
   final List<StudyMaterial> itemsList;
   final DeleteMode deleteMode;
-  const CardsGenerator(
-      {super.key, required this.itemsList, required this.deleteMode});
+  const CardsGenerator({
+    super.key,
+    required this.itemsList,
+    required this.deleteMode,
+  });
 
   @override
   Widget build(BuildContext context) {

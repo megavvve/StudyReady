@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:study_ready/presentation/pages/materials_page/widgets/for_widget_of_material_screen/delete_mode.dart';
 
-void showDeleteConfirmation(BuildContext context) {
+void showDeleteConfirmation(BuildContext context, DeleteMode deleteMode) {
   showModalBottomSheet(
     context: context,
     builder: (BuildContext context) {
@@ -23,16 +24,15 @@ void showDeleteConfirmation(BuildContext context) {
               children: <Widget>[
                 ElevatedButton(
                   onPressed: () {
-                    // Обработка нажатия кнопки "Удалить"
-                    Navigator.of(context).pop(); // закрыть диалоговое окно
-                    // Вызов метода удаления материалов
-                    //_deleteMaterials();
+                    deleteMode.deleteMaterials = true;
+                    Navigator.of(context).pop(); // Закрываем диалоговое окно
                   },
                   child: const Text('Удалить'),
                 ),
                 OutlinedButton(
                   onPressed: () {
-                    Navigator.of(context).pop(); // закрыть диалоговое окно
+                    deleteMode.deleteMaterials = false;
+                    Navigator.of(context).pop(); // Закрываем диалоговое окно
                   },
                   child: const Text('Отмена'),
                 ),

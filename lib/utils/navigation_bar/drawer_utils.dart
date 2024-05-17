@@ -29,7 +29,6 @@ final addQuestionIcon = Icon(
 final settingsIcon = Icon(
   Icons.settings,
   size: 33.sp,
-  color: Colors.black,
 );
 
 //leading icons
@@ -73,7 +72,6 @@ final deleteTrainerText = Text(
   style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w700),
   textAlign: TextAlign.center,
 );
-
 
 //trailing icon
 final trailingIcon = Icon(

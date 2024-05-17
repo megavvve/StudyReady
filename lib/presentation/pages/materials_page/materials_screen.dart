@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:study_ready/domain/entities/study_material.dart';
 import 'package:study_ready/presentation/blocs/study_material_bloc/study_material_bloc.dart';
 import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
+import 'package:study_ready/presentation/navigation/burger_navigation_leading.dart';
+import 'package:study_ready/presentation/navigation/custom_page_router.dart';
 import 'package:study_ready/presentation/navigation/navigation_bar.dart';
-import 'package:study_ready/presentation/pages/materials_page/widgets/material_screen_widget.dart';
+import 'package:study_ready/presentation/pages/materials_page/add_material/add_files_screen.dart';
+import 'package:study_ready/presentation/pages/materials_page/widgets/for_widget_of_material_screen/cards_generator.dart';
+import 'package:study_ready/presentation/pages/materials_page/widgets/for_widget_of_material_screen/delete_mode.dart';
+import 'package:study_ready/presentation/pages/materials_page/widgets/for_widget_of_material_screen/show_delete_confirmation.dart';
+
 import 'package:study_ready/utils/app_colors.dart';
 
 class MaterialScreen extends StatefulWidget {
@@ -15,18 +22,227 @@ class MaterialScreen extends StatefulWidget {
 }
 
 class _MaterialScreenState extends State<MaterialScreen> {
+  bool isLoading = true;
+  String _query = '';
+
+  TextEditingController searchTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final brightness = context.watch<ThemeCubit>().state.brightness;
     return BlocBuilder<StudyMaterialBloc, StudyMaterialState>(
-      builder: (context, state) {
+      builder: (contextBloc, state) {
         if (state is StudyMaterialLoadSuccess) {
-          final listMaterial = state.materials;
-          for (var element in listMaterial) {
-            print(element.fileType);
-          }
-          return MaterialScreenWidget(
-            materialList: listMaterial,
+          final bloc = contextBloc.read<StudyMaterialBloc>();
+          final deleteMode = DeleteMode();
+          (deleteMode.listOfStudyMaterials.isEmpty)
+              ? deleteMode.listOfStudyMaterials = state.materials
+              : deleteMode.listOfStudyMaterials;
+
+          return ListenableBuilder(
+            listenable: deleteMode,
+            builder: (BuildContext context, Widget? child) {
+              if (deleteMode.deleteMaterials) {
+                deleteMode.boolForClearAllIsPick = true;
+                for (StudyMaterial studyMaterial
+                    in deleteMode.listOfStudyMaterialsForDeleting) {
+                  bloc.add(
+                    DeleteMaterial(
+                      studyMaterial: studyMaterial,
+                    ),
+                  );
+                  deleteMode.listOfStudyMaterials.remove(studyMaterial);
+                }
+
+                deleteMode.listOfStudyMaterialsForDeleting.clear();
+
+                deleteMode.deleteMaterials = false;
+              }
+
+              return Scaffold(
+                drawer: const NavigatorDrawer(),
+                backgroundColor: brightness == Brightness.dark
+                    ? backgroundColorDark
+                    : backgroundColorLight,
+                body: (!isLoading)
+                    ? Center(
+                        child: Text(
+                          'Загрузка...',
+                          style: TextStyle(
+                            fontSize: 22.0.sp,
+                            color: brightness == Brightness.dark
+                                ? mainColorDark
+                                : mainColorLight,
+                          ),
+                        ),
+                      )
+                    : Stack(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 8.0.w),
+                            child: CustomScrollView(
+                              slivers: [
+                                SliverAppBar(
+                                  leading: Builder(
+                                    builder: (BuildContext context) {
+                                      return BurgerNavigationLeading(context);
+                                    },
+                                  ),
+                                  surfaceTintColor: Colors.transparent,
+                                  pinned: true,
+                                  floating: true,
+                                  backgroundColor: brightness == Brightness.dark
+                                      ? backgroundColorDark
+                                      : backgroundColorLight,
+                                  centerTitle: true,
+                                  title: TextField(
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _query = value;
+                                      });
+                                    },
+                                    controller: searchTextController,
+                                    decoration: (searchTextController
+                                            .text.isEmpty)
+                                        ? InputDecoration(
+                                            hintText: "Поиск...",
+                                            contentPadding:
+                                                EdgeInsets.all(8.sp),
+                                            prefixIcon:
+                                                const Icon(Icons.search),
+                                            filled: true,
+                                            fillColor:
+                                                brightness == Brightness.dark
+                                                    ? colorForFindTextDark
+                                                    : secondColorLight,
+                                            border: OutlineInputBorder(
+                                              borderSide: BorderSide.none,
+                                              borderRadius:
+                                                  BorderRadius.circular(50.sp),
+                                            ),
+                                          )
+                                        : InputDecoration(
+                                            contentPadding:
+                                                EdgeInsets.all(8.sp),
+                                            prefixIcon: IconButton(
+                                              onPressed: () {
+                                                FocusScope.of(context)
+                                                    .unfocus();
+                                              },
+                                              icon: const Icon(
+                                                  Icons.keyboard_arrow_left),
+                                            ),
+                                            suffixIcon: IconButton(
+                                              onPressed: () {
+                                                searchTextController.clear();
+                                                FocusScope.of(context)
+                                                    .unfocus();
+                                              },
+                                              icon: const Icon(
+                                                Icons.cancel_outlined,
+                                              ),
+                                            ),
+                                            filled: true,
+                                            fillColor:
+                                                brightness == Brightness.dark
+                                                    ? colorForFindTextDark
+                                                    : secondColorLight,
+                                            border: OutlineInputBorder(
+                                              borderSide: BorderSide.none,
+                                              borderRadius:
+                                                  BorderRadius.circular(50.sp),
+                                            ),
+                                          ),
+                                  ),
+                                ),
+                                SliverToBoxAdapter(
+                                  child: SizedBox(
+                                    height: 20.h,
+                                  ),
+                                ),
+                                SliverToBoxAdapter(
+                                  child: Center(
+                                    child: TextButton(
+                                      onPressed: () {
+                                        if (deleteMode
+                                            .listOfStudyMaterialsForDeleting
+                                            .isNotEmpty) {
+                                          showDeleteConfirmation(
+                                              context, deleteMode);
+                                        }
+                                        deleteMode.isDeleting =
+                                            !deleteMode.isDeleting;
+                                      },
+                                      child: Text(
+                                        deleteMode.isDeleting == true
+                                            ? "Удалить"
+                                            : "Выбрать",
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SliverToBoxAdapter(
+                                  child: SizedBox(
+                                    height: 10.h,
+                                  ),
+                                ),
+                                CardsGenerator(
+                                  itemsList: deleteMode.listOfStudyMaterials
+                                      .where(
+                                        (material) => material.fileName
+                                            .toLowerCase()
+                                            .contains(
+                                              _query.toLowerCase(),
+                                            ),
+                                      )
+                                      .toList(),
+                                  deleteMode: deleteMode,
+                                ),
+                                SliverToBoxAdapter(
+                                  child: SizedBox(
+                                    height: 20.h,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Positioned(
+                            bottom: 56.h,
+                            right: 38.w,
+                            child: SizedBox(
+                              width: 70.w,
+                              height: 70.h,
+                              child: FittedBox(
+                                child: FloatingActionButton(
+                                  onPressed: () async {
+                                    setState(() {
+                                      isLoading = false;
+                                    });
+                                    await Navigator.of(context).push(
+                                      customPageRoute(
+                                        const AddFilesScreen(),
+                                      ),
+                                    );
+                                    setState(() {
+                                      isLoading = true;
+                                    });
+                                  },
+                                  backgroundColor: brightness == Brightness.dark
+                                      ? colorForButton
+                                      : Colors.white,
+                                  child: Icon(
+                                    Icons.add,
+                                    color: brightness == Brightness.dark
+                                        ? Colors.white
+                                        : Colors.blue,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+              );
+            },
           );
         } else if (state is StudyMaterialError) {
           return Scaffold(
