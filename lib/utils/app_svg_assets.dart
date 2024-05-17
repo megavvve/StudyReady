@@ -1,13 +1,19 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:study_ready/utils/home_screen/icons_pathes.dart';
 
+//light theme
 final eadyText = SvgPicture.asset(
   eadyTextPath,
+  width: 195.w,
+  height: 82.h,
 );
 
 final rLetterFront = SvgPicture.asset(
   rLetterFrontPath,
+  width: 137.w,
+  height: 299.h,
 );
 
 final rLetterFrontFr = SvgPicture.asset(
@@ -16,6 +22,8 @@ final rLetterFrontFr = SvgPicture.asset(
 
 final rLetterBack = SvgPicture.asset(
   rLetterBackPath,
+  width: 137.w,
+  height: 299.h,
 );
 
 final rLetterBackFr = SvgPicture.asset(
@@ -24,6 +32,8 @@ final rLetterBackFr = SvgPicture.asset(
 
 final sLetterBack = SvgPicture.asset(
   sLetterBackPath,
+  width: 173.w,
+  height: 282.h,
 );
 
 final sLetterBackFr = SvgPicture.asset(
@@ -32,6 +42,8 @@ final sLetterBackFr = SvgPicture.asset(
 
 final sLetterFront = SvgPicture.asset(
   sLetterFrontPath,
+  width: 173.w,
+  height: 282.h,
 );
 
 final sLetterFrontFr = SvgPicture.asset(
@@ -44,29 +56,93 @@ final sLetterFrontFrPatch = SvgPicture.asset(
 
 final materialsText = SvgPicture.asset(
   materialTextPath,
+  width: 231.w,
+  height: 79.h,
 );
 
 final trainerText = SvgPicture.asset(
   trainerTextPath,
+  width: 244.w,
+  height: 76.h,
 );
 
 final tudyText = SvgPicture.asset(
   tudyTextPath,
+  width: 194.w,
+  height: 82.h,
+);
+
+final duckBackground = SvgPicture.asset(
+  "assets/icons/home_screen/duck_background.svg",
+  width: 62.w,
+  height: 62.h,
+);
+
+final duck = SvgPicture.asset(
+  "assets/icons/home_screen/duck.svg",
+  width: 39.w,
+  height: 37.h,
+);
+
+final settingsBackgroundLight = SvgPicture.asset(
+  "assets/images/settings/settings_background.svg",
+  width: 347.w,
+  height: 630.h,
+);
+
+final settingsBackgroundDark = SvgPicture.asset(
+  "assets/images/settings/settings_background.svg",
+  width: 347.w,
+  height: 630.h,
+  color: Colors.white,
 );
 
 final rectangle = SvgPicture.asset(
   rectanglePath,
-  width: 375.w,
+  height: 452.h,
+  //fit: BoxFit.scaleDown, semanticsLabel: 'Image',
 );
 
-final greetingsBackgroundRectangle = SvgPicture.asset(
-  "assets/icons/home_screen/greetings_rectangle.svg",
+final backgrondForTrainerCard = SvgPicture.asset(
+  'assets/images/trainer/backgroung_for_trainer.svg',
 );
 
-final descriptionBackgroundRectangle = SvgPicture.asset(
-  "assets/icons/home_screen/description_rectangle.svg",
+final backgrondsForTrainerCard = [
+  SvgPicture.asset(
+    'assets/images/trainer/background_for_trainer.svg',
+  ),
+  SvgPicture.asset(
+    'assets/images/trainer/background1_for_trainer.svg',
+  ),
+  SvgPicture.asset(
+    'assets/images/trainer/background2_for_trainer.svg',
+  ),
+  SvgPicture.asset(
+    'assets/images/trainer/background3_for_trainer.svg',
+  ),
+];
+
+final pictureForTrainer = SvgPicture.asset(
+  'assets/images/trainer/picture_for_trainer.svg',
+  width: 90.w,
+  height: 75.h,
 );
 
-final regBackgroundTrepezoid = SvgPicture.asset(
-  "assets/icons/home_screen/registration_trapezoid.svg",
+final backgroundForAppBar = SvgPicture.asset(
+  'assets/images/trainer/background_for_app_bar_trainer.svg',
+);
+
+//dark theme
+final sLetterBackDark = SvgPicture.asset(
+  sLetterBackPath,
+  width: 173.w,
+  height: 282.h,
+  color: const Color(0xFF000000),
+);
+
+final sLetterFrontDark = SvgPicture.asset(
+  sLetterFrontPath,
+  width: 173.w,
+  height: 282.h,
+  color: const Color(0xFF1C1A1A),
 );

@@ -1,3 +1,4 @@
+//light theme
 const sLetterBackPath = "assets/icons/home_screen/letter_s_back.svg";
 const sLetterFrontPath = "assets/icons/home_screen/letter_s_front.svg";
 
@@ -12,3 +13,4 @@ const eadyTextPath = "assets/icons/home_screen/eady.svg";
 const materialTextPath = "assets/icons/home_screen/materials.svg";
 
 const rectanglePath = "assets/icons/home_screen/rectangle.svg";
+
