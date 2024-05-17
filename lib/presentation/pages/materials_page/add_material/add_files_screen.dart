@@ -12,10 +12,12 @@ import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
 import 'package:study_ready/presentation/pages/materials_page/add_material/widgets/animated_button.dart';
 import 'package:study_ready/presentation/pages/materials_page/add_material/widgets/convert_file_to_study_material.dart';
 import 'package:study_ready/presentation/pages/materials_page/add_material/widgets/show_material_exists_toast.dart';
+import 'package:study_ready/presentation/pages/materials_page/widgets/for_widget_of_material_screen/delete_mode.dart';
 import 'package:study_ready/utils/app_colors.dart';
 
 class AddFilesScreen extends StatefulWidget {
-  const AddFilesScreen({super.key});
+  final DeleteMode deleteMode;
+  const AddFilesScreen({super.key, required this.deleteMode});
 
   @override
   AddFilesScreenState createState() => AddFilesScreenState();
@@ -110,9 +112,7 @@ class AddFilesScreenState extends State<AddFilesScreen> {
     return BlocBuilder<StudyMaterialBloc, StudyMaterialState>(
       builder: (context, state) {
         List<StudyMaterial> studyMaterials = [];
-        if (state is StudyMaterialLoadSuccess) {
-          studyMaterials = state.materials;
-        }
+
         return Scaffold(
           backgroundColor: brightness == Brightness.dark
               ? backgroundColorDark
@@ -257,6 +257,7 @@ class AddFilesScreenState extends State<AddFilesScreen> {
                                     for (var file in filesCopy) {
                                       containsFile = studyMaterialsPaths
                                           .contains(file.path.split('/').last);
+
                                       containsFile
                                           ? showMaterialExistsToast()
                                           : studyMaterialBloc.add(
@@ -269,7 +270,15 @@ class AddFilesScreenState extends State<AddFilesScreen> {
                                               ),
                                             );
                                       files.remove(file);
-
+                                      setState(() {
+                                        widget.deleteMode.listOfStudyMaterials
+                                            .add(
+                                          convertFileToStudyMaterial(
+                                            file,
+                                            studyMaterials,
+                                          ),
+                                        );
+                                      });
                                       setState(() {
                                         files.clear();
                                       });

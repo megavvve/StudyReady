@@ -13,6 +13,7 @@ import 'package:study_ready/domain/repositories/study_material_repository.dart';
 import 'package:study_ready/domain/repositories/trainer_repository/question_repository.dart';
 import 'package:study_ready/domain/repositories/trainer_repository/trainer_repository.dart';
 import 'package:study_ready/domain/usecases/study_material/add_study_material.dart';
+import 'package:study_ready/domain/usecases/study_material/delete_study_materials.dart';
 import 'package:study_ready/domain/usecases/study_material/get_study_material.dart';
 import 'package:study_ready/domain/usecases/study_material/get_study_materials.dart';
 import 'package:study_ready/domain/usecases/trainer/delete_question.dart';
@@ -40,6 +41,7 @@ Future<void> setup() async {
 
   getIt.registerFactory(
     () => StudyMaterialBloc(
+      getIt(),
       getIt(),
       getIt(),
       getIt(),
@@ -119,6 +121,11 @@ Future<void> setup() async {
   );
   getIt.registerLazySingleton(
     () => DeleteQuestionUseCase(questionRepository: getIt()),
+  );
+  getIt.registerLazySingleton(
+    () => DeleteStudyMaterials(
+      studyMaterialRepository: getIt(),
+    ),
   );
 //Repositories
   getIt.registerLazySingleton<TrainerRepository>(

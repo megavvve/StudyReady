@@ -28,12 +28,13 @@ class _MaterialScreenState extends State<MaterialScreen> {
   TextEditingController searchTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final deleteMode = DeleteMode();
     final brightness = context.watch<ThemeCubit>().state.brightness;
     return BlocBuilder<StudyMaterialBloc, StudyMaterialState>(
       builder: (contextBloc, state) {
         if (state is StudyMaterialLoadSuccess) {
           final bloc = contextBloc.read<StudyMaterialBloc>();
-          final deleteMode = DeleteMode();
+
           (deleteMode.listOfStudyMaterials.isEmpty)
               ? deleteMode.listOfStudyMaterials = state.materials
               : deleteMode.listOfStudyMaterials;
@@ -57,7 +58,9 @@ class _MaterialScreenState extends State<MaterialScreen> {
 
                 deleteMode.deleteMaterials = false;
               }
-
+              for (var i in deleteMode.listOfStudyMaterials) {
+                print(i.id);
+              }
               return Scaffold(
                 drawer: const NavigatorDrawer(),
                 backgroundColor: brightness == Brightness.dark
@@ -164,8 +167,9 @@ class _MaterialScreenState extends State<MaterialScreen> {
                                     child: TextButton(
                                       onPressed: () {
                                         if (deleteMode
-                                            .listOfStudyMaterialsForDeleting
-                                            .isNotEmpty) {
+                                                .listOfStudyMaterialsForDeleting
+                                                .isNotEmpty &&
+                                            deleteMode.isDeleting) {
                                           showDeleteConfirmation(
                                               context, deleteMode);
                                         }
@@ -219,7 +223,9 @@ class _MaterialScreenState extends State<MaterialScreen> {
                                     });
                                     await Navigator.of(context).push(
                                       customPageRoute(
-                                        const AddFilesScreen(),
+                                        AddFilesScreen(
+                                          deleteMode: deleteMode,
+                                        ),
                                       ),
                                     );
                                     setState(() {

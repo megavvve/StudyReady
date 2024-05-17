@@ -72,4 +72,30 @@ class FirebaseStudyMaterialRepository implements StudyMaterialRepository {
 
     return remoteMaterials;
   }
+
+  @override
+  Future<void> deleteMaterial(StudyMaterial material) async {
+    try {
+      String storagePath = material.fileName;
+      Reference reference = firebaseStorage.ref().child(storagePath);
+
+      try {
+        await reference.delete();
+      } catch (e) {
+        if (e is FirebaseException && e.code == 'object-not-found') {
+          print('Object not found in Firebase Storage: $storagePath');
+        } else {
+          rethrow; // Повторно выбрасываем исключение, если это не object-not-found
+        }
+      }
+
+      // Удаляем локальный файл, если он существует
+      File file = File(material.filePath);
+      if (await file.exists()) {
+        await file.delete();
+      }
+    } catch (e) {
+      throw DataStoreException('Failed to delete material: $e');
+    }
+  }
 }

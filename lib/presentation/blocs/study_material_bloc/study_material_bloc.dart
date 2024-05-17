@@ -6,6 +6,7 @@ import 'package:equatable/equatable.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:study_ready/domain/entities/study_material.dart';
 import 'package:study_ready/domain/usecases/study_material/add_study_material.dart';
+import 'package:study_ready/domain/usecases/study_material/delete_study_materials.dart';
 import 'package:study_ready/domain/usecases/study_material/get_study_material.dart';
 import 'package:study_ready/domain/usecases/study_material/get_study_materials.dart';
 
@@ -16,8 +17,9 @@ class StudyMaterialBloc extends Bloc<StudyMaterialEvent, StudyMaterialState> {
   final GetStudyMaterials getStudyMaterials;
   final GetStudyMaterial getStudyMaterial;
   final AddStudyMaterial addMaterial;
-  StudyMaterialBloc(
-      this.getStudyMaterials, this.getStudyMaterial, this.addMaterial)
+  final DeleteStudyMaterials deleteStudyMaterials;
+  StudyMaterialBloc(this.getStudyMaterials, this.getStudyMaterial,
+      this.addMaterial, this.deleteStudyMaterials)
       : super(StudyMaterialInitial()) {
     on<AddMaterial>(_onAddMaterial);
     on<MaterialInitLoadEvent>(_onInitLoad);
@@ -62,7 +64,7 @@ class StudyMaterialBloc extends Bloc<StudyMaterialEvent, StudyMaterialState> {
     final state = this.state;
     if (state is StudyMaterialLoadSuccess) {
       final allMaterials = state.materials;
-      // addMaterial.call(newMaterial);
+      deleteStudyMaterials.call(studyMaterial);
       allMaterials.remove(studyMaterial);
 
       emit(

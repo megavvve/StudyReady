@@ -15,12 +15,21 @@ class StudyMaterial {
     required this.fileType,
   });
   static int getNextId(List<StudyMaterial> materialList) {
-    int maxId = 0;
-    for (var material in materialList) {
-      if (material.id > maxId) {
-        maxId = material.id;
+    if (materialList.isEmpty) {
+      return 1;
+    }
+
+    // Сортируем список по id
+    materialList.sort((a, b) => a.id.compareTo(b.id));
+
+    // Проверяем наличие пропусков
+    for (int i = 0; i < materialList.length - 1; i++) {
+      if (materialList[i + 1].id > materialList[i].id + 1) {
+        return materialList[i].id + 1;
       }
     }
-    return maxId + 1;
+
+    // Если пропусков нет, возвращаем максимальный id + 1
+    return materialList.last.id + 1;
   }
 }
