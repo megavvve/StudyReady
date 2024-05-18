@@ -5,11 +5,13 @@ class ChangeNotifierForAuth extends ChangeNotifier {
   String _loginUser = '';
   String _passwordUser = '';
   bool _isNeedRegister = false;
+  String _errorMessage = '';
 
   String get emailUser => _emailUser;
+  String get errorMessage => _errorMessage;
   String get loginUser => _loginUser;
   String get passwordUser => _passwordUser;
-  bool get isNeedRegister => _isNeedRegister;
+  bool get isNeedRegistry => _isNeedRegister;
 
   set emailUser(String value) {
     _emailUser = value;
@@ -21,12 +23,17 @@ class ChangeNotifierForAuth extends ChangeNotifier {
     notifyListeners();
   }
 
+  set errorMessage(String value) {
+    _errorMessage = value;
+    notifyListeners();
+  }
+
   set passwordUser(String value) {
     _passwordUser = value;
     notifyListeners();
   }
 
-  set isNeedRegister(bool value) {
+  set isNeedRegistry(bool value) {
     _isNeedRegister = value;
     notifyListeners();
   }

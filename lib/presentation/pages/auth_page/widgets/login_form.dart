@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
-import 'package:study_ready/presentation/pages/auth/widgets/change_notifier_for_auth.dart';
+import 'package:study_ready/presentation/pages/auth_page/widgets/widget/change_notifier_for_auth.dart';
 
-class PasswordForm extends StatelessWidget {
+class LoginForm extends StatelessWidget {
   final ChangeNotifierForAuth changeNotifierForAuth;
-  const PasswordForm({super.key, required this.changeNotifierForAuth});
+  const LoginForm({super.key, required this.changeNotifierForAuth});
 
   @override
   Widget build(BuildContext context) {
@@ -31,12 +31,12 @@ class PasswordForm extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Icon(
-                Icons.lock_outlined,
+                Icons.person_2_outlined,
                 size: 20.sp,
                 color: Colors.black,
               ),
               Text(
-                "Пароль:",
+                "Логин:",
                 style: TextStyle(fontSize: 15.sp, color: Colors.black),
               ),
             ],
@@ -59,11 +59,11 @@ class PasswordForm extends StatelessWidget {
             ),
           ),
           child: TextField(
-            keyboardType: TextInputType.visiblePassword,
+            keyboardType: TextInputType.text,
             textInputAction: TextInputAction.done,
             maxLines: 1,
             onChanged: (value) {
-              changeNotifierForAuth.passwordUser = value;
+              changeNotifierForAuth.loginUser = value;
             },
             decoration: InputDecoration(
               contentPadding: EdgeInsetsDirectional.only(start: 1.w),
@@ -71,7 +71,7 @@ class PasswordForm extends StatelessWidget {
               border: const UnderlineInputBorder(
                 borderSide: BorderSide.none,
               ),
-              hintText: 'Введите пароль...',
+              hintText: 'Введите логин...',
               hintMaxLines: 1,
               hintStyle: TextStyle(
                 fontSize: 18.sp,
@@ -79,7 +79,10 @@ class PasswordForm extends StatelessWidget {
                 color: Colors.grey,
               ),
             ),
-            style: TextStyle(fontSize: 18.sp, color: Colors.black),
+            style: TextStyle(
+              fontSize: 18.sp,
+              color: Colors.black,
+            ),
           ),
         ),
       ],

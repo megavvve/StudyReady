@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:study_ready/presentation/pages/auth/widgets/change_notifier_for_auth.dart';
-import 'package:study_ready/presentation/pages/home_page/home_screen.dart';
+import 'package:study_ready/presentation/pages/auth_page/auth_screen.dart';
 
 class NextButton extends StatelessWidget {
-  final ChangeNotifierForAuth changeNotifierForAuth;
-  const NextButton({super.key, required this.changeNotifierForAuth});
+  const NextButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +12,7 @@ class NextButton extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: ((context) => const HomeScreen()),
+            builder: ((context) => const AuthScreen()),
           ),
         );
       },
@@ -31,10 +29,9 @@ class NextButton extends StatelessWidget {
         child: Text(
           "Далее",
           style: TextStyle(
-            color: Colors.white,
-            fontSize: 23.sp,
-            fontWeight: FontWeight.w400,
-          ),
+              color: const Color(0xFFBFD3F3),
+              fontSize: 23.sp,
+              fontWeight: FontWeight.w400),
         ),
       ),
     );

@@ -9,6 +9,7 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:study_ready/data/repositories/theme_repository/theme_repository.dart';
+import 'package:study_ready/domain/entities/auth.dart';
 
 import 'package:study_ready/firebase_options.dart';
 import 'package:study_ready/injection_container.dart';
@@ -16,7 +17,8 @@ import 'package:study_ready/presentation/blocs/study_material_bloc/study_materia
 import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
 import 'package:study_ready/presentation/blocs/theme_bloc/theme_state.dart';
 import 'package:study_ready/presentation/blocs/trainer_bloc/trainer_bloc.dart';
-import 'package:study_ready/presentation/pages/first_screen/first_screen.dart';
+import 'package:study_ready/presentation/pages/first_page/first_screen.dart';
+import 'package:study_ready/presentation/pages/home_page/home_screen.dart';
 import 'package:study_ready/utils/app_themes.dart';
 
 Future<void> main() async {
@@ -91,7 +93,15 @@ class MyApp extends StatelessWidget {
               theme: state.isDark ? darkTheme : lightTheme,
               home: child,
             ),
-            child: const FirstScreen(), // start screen
+            child: StreamBuilder(
+                stream: Auth().authStateChanges,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return const HomeScreen();
+                  } else {
+                    return const FirstScreen();
+                  }
+                }),
           );
         },
       ),
