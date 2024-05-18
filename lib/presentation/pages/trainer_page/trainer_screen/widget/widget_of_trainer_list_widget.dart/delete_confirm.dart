@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:study_ready/presentation/pages/materials_page/widgets/for_widget_of_material_screen/delete_mode_for_materials.dart';
+import 'package:study_ready/domain/entities/trainer.dart';
+import 'package:study_ready/presentation/pages/trainer_page/trainer_screen/widget/delete_mode_for_trainers.dart';
 
-void showDeleteConfirmation(
-    BuildContext context, DeleteModeForMaterials deleteMode) {
+void showDeleteConfirmirm(
+    BuildContext context, DeleteModeForTrainers deleteMode, Trainer trainer) {
   showModalBottomSheet(
     context: context,
     builder: (BuildContext context) {
@@ -13,7 +14,7 @@ void showDeleteConfirmation(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             const Text(
-              'Вы точно хотите удалить эти материалы?',
+              'Вы точно хотите удалить этот тренажер?',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -26,6 +27,7 @@ void showDeleteConfirmation(
                 ElevatedButton(
                   onPressed: () {
                     deleteMode.deleteMaterials = true;
+                    deleteMode.trainersForDelete = [trainer];
                     Navigator.of(context).pop(); // Закрываем диалоговое окно
                   },
                   child: const Text('Удалить'),

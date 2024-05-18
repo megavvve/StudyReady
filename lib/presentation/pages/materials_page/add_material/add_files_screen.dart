@@ -12,10 +12,12 @@ import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
 import 'package:study_ready/presentation/pages/materials_page/add_material/widgets/animated_button.dart';
 import 'package:study_ready/presentation/pages/materials_page/add_material/widgets/convert_file_to_study_material.dart';
 import 'package:study_ready/presentation/pages/materials_page/add_material/widgets/show_material_exists_toast.dart';
+import 'package:study_ready/presentation/pages/materials_page/widgets/for_widget_of_material_screen/delete_mode_for_materials.dart';
 import 'package:study_ready/utils/app_colors.dart';
 
 class AddFilesScreen extends StatefulWidget {
-  const AddFilesScreen({super.key});
+  final DeleteModeForMaterials deleteMode;
+  const AddFilesScreen({super.key, required this.deleteMode});
 
   @override
   AddFilesScreenState createState() => AddFilesScreenState();
@@ -109,16 +111,12 @@ class AddFilesScreenState extends State<AddFilesScreen> {
     final brightness = context.watch<ThemeCubit>().state.brightness;
     return BlocBuilder<StudyMaterialBloc, StudyMaterialState>(
       builder: (context, state) {
-        List<StudyMaterial> studyMaterials = [];
-        if (state is StudyMaterialLoadSuccess) {
-          studyMaterials = state.materials;
-        }
         return Scaffold(
           backgroundColor: brightness == Brightness.dark
               ? backgroundColorDark
               : backgroundColorLight,
           body: PopScope(
-            canPop: false,
+            canPop: (files.isNotEmpty) ? false : true,
             onPopInvoked: (bool didPop) async {
               if (didPop) {
                 return;
@@ -250,30 +248,39 @@ class AddFilesScreenState extends State<AddFilesScreen> {
                                         BlocProvider.of<StudyMaterialBloc>(
                                             context);
 
-                                    final studyMaterialsPaths = studyMaterials
+                                    final studyMaterialsPaths = widget
+                                        .deleteMode.listOfStudyMaterials
                                         .map((material) =>
                                             material.filePath.split('/').last)
                                         .toList();
                                     for (var file in filesCopy) {
                                       containsFile = studyMaterialsPaths
                                           .contains(file.path.split('/').last);
-                                      containsFile
-                                          ? showMaterialExistsToast()
-                                          : studyMaterialBloc.add(
-                                              AddMaterial(
-                                                studyMaterial:
-                                                    convertFileToStudyMaterial(
-                                                  file,
-                                                  studyMaterials,
-                                                ),
-                                              ),
-                                            );
-                                      files.remove(file);
-
-                                      setState(() {
-                                        files.clear();
-                                      });
+                                      if (containsFile) {
+                                        showMaterialExistsToast();
+                                      }
                                     }
+                                    if (!containsFile) {
+                                      for (var file in filesCopy) {
+                                        StudyMaterial sm =
+                                            convertFileToStudyMaterial(
+                                          file,
+                                          widget
+                                              .deleteMode.listOfStudyMaterials,
+                                        );
+                                        widget.deleteMode
+                                            .boolForBugWithBlocList = true;
+                                        studyMaterialBloc.add(
+                                          AddMaterial(studyMaterial: sm),
+                                        );
+                                        widget.deleteMode.listOfStudyMaterials
+                                            .add(sm);
+                                      }
+                                    }
+
+                                    setState(() {
+                                      files.clear();
+                                    });
                                     // Add the material to your Bloc
                                     if (!containsFile) {
                                       // Переходим на экран MaterialScreen

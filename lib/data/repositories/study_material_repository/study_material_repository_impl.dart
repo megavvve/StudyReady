@@ -70,4 +70,10 @@ class StudyMaterialRepositoryImpl implements StudyMaterialRepository {
   Future<StudyMaterial?> getMaterialById(String id) async {
     return localRepository.getMaterialById(id);
   }
+
+  @override
+  Future<void> deleteMaterial(StudyMaterial material) async {
+    remoteRepository.deleteMaterial(material);
+    localRepository.deleteMaterial(material);
+  }
 }

@@ -34,14 +34,24 @@ class Question {
     required this.incorrectAnswers,
   });
   static int getNextId(List<Trainer> trainerList) {
-    int maxId = 0;
+    List<int> listQuestionIDS = [];
+
     for (var trainer in trainerList) {
       for (var question in trainer.questions) {
-        if (question.id > maxId) {
-          maxId = question.id;
-        }
+        listQuestionIDS.add(question.id);
       }
     }
-    return maxId + 1;
+
+    if (listQuestionIDS.isEmpty) {
+      return 1;
+    }
+
+    for (int i = 1; i <= listQuestionIDS.last; i++) {
+      if (!listQuestionIDS.contains(i)) {
+        return i;
+      }
+    }
+
+    return listQuestionIDS.last + 1;
   }
 }

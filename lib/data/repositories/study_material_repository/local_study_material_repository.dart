@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:get_it/get_it.dart';
 import 'package:study_ready/data/datasources/local/app_db.dart';
 import 'package:study_ready/data/mapper/study_material_mapper.dart';
@@ -39,6 +41,19 @@ class LocalStudyMaterialRepository implements StudyMaterialRepository {
           .getMaterials()); // Assuming getMaterialById method exists in AppDB
     } catch (e) {
       throw Exception('Failed to get material by ID: $e');
+    }
+  }
+
+  @override
+  Future<void> deleteMaterial(StudyMaterial material) async {
+    try {
+      File(material.filePath).delete();
+
+      await appDB.deleteMaterial(
+        material.id,
+      );
+    } catch (e) {
+      throw Exception('Failed to delete material: $e');
     }
   }
 }

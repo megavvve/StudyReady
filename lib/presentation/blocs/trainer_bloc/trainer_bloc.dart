@@ -1,3 +1,4 @@
+// ignore: depend_on_referenced_packages
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:study_ready/domain/entities/chapter.dart';
@@ -70,8 +71,6 @@ class TrainerBloc extends Bloc<TrainerEvent, TrainerState> {
               trainerList: allTrainers,
             ),
           );
-        } else {
-          print('Trainer with id ${trainer.id} not found.');
         }
       } else {
         insertQuestion.call(question);
@@ -96,42 +95,34 @@ class TrainerBloc extends Bloc<TrainerEvent, TrainerState> {
           ),
         );
       }
-
-      //нужно добавить в базу данных вопрос
     }
   }
 
   Future<void> _onInitLoad(InitLoad event, Emitter<TrainerState> emit) async {
     final trainersFromDB = await getTrainers.call();
-    int c = 0;
+
     List<Trainer> allTrainer = [];
-    for (var j = 0; j < trainersFromDB.length; j++) {
-      // Проверяем, существует ли тренажер с текущим индексом в базе данных
-      if (await _trainerExists(j + 1)) {
-        Trainer trainerFromDb =
-            await getTrainerFullInfoById.call(j + 1); // Добавление 1 к индексу
-        List<Question> questionFromTrainer = [];
-        for (var i = 0; i < trainerFromDb.questions.length; i++) {
-          // Проверяем, существует ли вопрос с текущим индексом в базе данных
-          if (await _questionExists(c + 1)) {
-            Question question = await getQuestionFullInfoById.call(c + 1);
-            questionFromTrainer.add(question);
-            c++;
-          }
-        }
-        Trainer trainer = Trainer(
-          id: trainerFromDb.id,
-          subjectName: trainerFromDb.subjectName,
-          color: trainerFromDb.color,
-          image: trainerFromDb.image,
-          questions: questionFromTrainer,
-          trainerName: trainerFromDb.trainerName,
-          description: trainerFromDb.description,
-        );
-        allTrainer.add(trainer);
+    for (Trainer trainerFromDB in trainersFromDB) {
+      Trainer trainerFromDb =
+          await getTrainerFullInfoById.call(trainerFromDB.id);
+      List<Question> questionFromTrainer = [];
+      for (Question questionFromDb in trainerFromDb.questions) {
+        Question question =
+            await getQuestionFullInfoById.call(questionFromDb.id);
+        questionFromTrainer.add(question);
       }
+      Trainer trainer = Trainer(
+        id: trainerFromDb.id,
+        subjectName: trainerFromDb.subjectName,
+        color: trainerFromDb.color,
+        image: trainerFromDb.image,
+        questions: questionFromTrainer,
+        trainerName: trainerFromDb.trainerName,
+        description: trainerFromDb.description,
+      );
+      allTrainer.add(trainer);
     }
-    if (allTrainer.isEmpty) {
+    if (trainersFromDB.isEmpty) {
       emit(
         const TrainerLoadFailure(
           errorMessage: "Ошибка инициализации",
@@ -201,30 +192,12 @@ class TrainerBloc extends Bloc<TrainerEvent, TrainerState> {
   void _onDeleteTrainer(DeleteTrainer event, Emitter<TrainerState> emit) async {
     final trainer = event.trainer;
 
-    deleteTrainer.call(trainer);
     final state = this.state;
     if (state is TrainerLoadSuccess) {
       final trainerList = state.trainerList;
+      deleteTrainer.call(trainer);
       trainerList.remove(trainer);
 
-      // for (var element in trainer.questions) {
-      //   print(element.id);
-      //   deleteQuestion.call(element);
-      // }
-      // insertTrainer.call(
-      //   Trainer(
-      //     id: 0,
-      //     trainerName: trainer.trainerName,
-      //     subjectName: trainer.subjectName,
-      //     description: trainer.description,
-      //     color: trainer.color,
-      //     image: trainer.image,
-      //     questions: trainer.questions,
-      //   ),
-      // );
-      // for (var element in trainer.questions) {
-      //   insertQuestion.call(element);
-      // }
       emit(
         TrainerLoadSuccess(
           trainerList: trainerList,
