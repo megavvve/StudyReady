@@ -111,14 +111,12 @@ class AddFilesScreenState extends State<AddFilesScreen> {
     final brightness = context.watch<ThemeCubit>().state.brightness;
     return BlocBuilder<StudyMaterialBloc, StudyMaterialState>(
       builder: (context, state) {
-        List<StudyMaterial> studyMaterials = [];
-
         return Scaffold(
           backgroundColor: brightness == Brightness.dark
               ? backgroundColorDark
               : backgroundColorLight,
           body: PopScope(
-            canPop: false,
+            canPop: (files.isNotEmpty) ? false : true,
             onPopInvoked: (bool didPop) async {
               if (didPop) {
                 return;
@@ -250,39 +248,39 @@ class AddFilesScreenState extends State<AddFilesScreen> {
                                         BlocProvider.of<StudyMaterialBloc>(
                                             context);
 
-                                    final studyMaterialsPaths = studyMaterials
+                                    final studyMaterialsPaths = widget
+                                        .deleteMode.listOfStudyMaterials
                                         .map((material) =>
                                             material.filePath.split('/').last)
                                         .toList();
                                     for (var file in filesCopy) {
                                       containsFile = studyMaterialsPaths
                                           .contains(file.path.split('/').last);
-
-                                      containsFile
-                                          ? showMaterialExistsToast()
-                                          : studyMaterialBloc.add(
-                                              AddMaterial(
-                                                studyMaterial:
-                                                    convertFileToStudyMaterial(
-                                                  file,
-                                                  studyMaterials,
-                                                ),
-                                              ),
-                                            );
-                                      files.remove(file);
-                                      setState(() {
-                                        widget.deleteMode.listOfStudyMaterials
-                                            .add(
-                                          convertFileToStudyMaterial(
-                                            file,
-                                            studyMaterials,
-                                          ),
-                                        );
-                                      });
-                                      setState(() {
-                                        files.clear();
-                                      });
+                                      if (containsFile) {
+                                        showMaterialExistsToast();
+                                      }
                                     }
+                                    if (!containsFile) {
+                                      for (var file in filesCopy) {
+                                        StudyMaterial sm =
+                                            convertFileToStudyMaterial(
+                                          file,
+                                          widget
+                                              .deleteMode.listOfStudyMaterials,
+                                        );
+                                        widget.deleteMode
+                                            .boolForBugWithBlocList = true;
+                                        studyMaterialBloc.add(
+                                          AddMaterial(studyMaterial: sm),
+                                        );
+                                        widget.deleteMode.listOfStudyMaterials
+                                            .add(sm);
+                                      }
+                                    }
+
+                                    setState(() {
+                                      files.clear();
+                                    });
                                     // Add the material to your Bloc
                                     if (!containsFile) {
                                       // Переходим на экран MaterialScreen

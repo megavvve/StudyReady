@@ -5,16 +5,27 @@ import 'package:study_ready/presentation/pages/materials_page/widgets/for_widget
 import 'package:study_ready/presentation/pages/materials_page/widgets/material_card.dart';
 
 class CardsGenerator extends StatelessWidget {
-  final List<StudyMaterial> itemsList;
   final DeleteMode deleteMode;
+  final String query;
   const CardsGenerator({
     super.key,
-    required this.itemsList,
     required this.deleteMode,
+    required this.query,
   });
 
   @override
   Widget build(BuildContext context) {
+    // if (deleteMode.boolForBugWithBlocList) {
+    //   deleteMode.listOfStudyMaterials.removeLast();
+    //   deleteMode.boolForBugWithBlocList = false;
+    // }
+    List<StudyMaterial> itemsList = deleteMode.listOfStudyMaterials
+        .where(
+          (material) => material.fileName.toLowerCase().contains(
+                query.toLowerCase(),
+              ),
+        )
+        .toList();
     return SliverGrid.builder(
       itemCount: itemsList.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

@@ -7,12 +7,14 @@ class DeleteMode extends ChangeNotifier {
   bool _isDeleting = false;
   bool _deleteMaterials = false;
   bool _boolForClearAllIsPick = false;
+  bool _boolForBugWithBlocList = false;
   List<StudyMaterial> _listOfStudyMaterials = [];
   final List<StudyMaterial> _listOfStudyMaterialsForDeleting = [];
 
   bool get isDeleting => _isDeleting;
   bool get boolForClearAllIsPick => _boolForClearAllIsPick;
   bool get deleteMaterials => _deleteMaterials;
+  bool get boolForBugWithBlocList => _boolForBugWithBlocList;
 
   List<StudyMaterial> get listOfStudyMaterials => _listOfStudyMaterials;
   List<StudyMaterial> get listOfStudyMaterialsForDeleting =>
@@ -44,6 +46,11 @@ class DeleteMode extends ChangeNotifier {
   }
 
   set boolForClearAllIsPick(bool value) {
+    _boolForClearAllIsPick = value;
+    notifyListeners();
+  }
+
+  set boolForBugWithBlocList(bool value) {
     _boolForClearAllIsPick = value;
     notifyListeners();
   }

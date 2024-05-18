@@ -24,20 +24,28 @@ class MaterialScreen extends StatefulWidget {
 class _MaterialScreenState extends State<MaterialScreen> {
   bool isLoading = true;
   String _query = '';
+  late DeleteMode deleteMode;
+  late bool toogleForListOfMaterials;
+  @override
+  void initState() {
+    toogleForListOfMaterials = true;
+    deleteMode = DeleteMode();
+    super.initState();
+  }
 
   TextEditingController searchTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final deleteMode = DeleteMode();
     final brightness = context.watch<ThemeCubit>().state.brightness;
     return BlocBuilder<StudyMaterialBloc, StudyMaterialState>(
       builder: (contextBloc, state) {
         if (state is StudyMaterialLoadSuccess) {
           final bloc = contextBloc.read<StudyMaterialBloc>();
 
-          (deleteMode.listOfStudyMaterials.isEmpty)
-              ? deleteMode.listOfStudyMaterials = state.materials
-              : deleteMode.listOfStudyMaterials;
+          // if (toogleForListOfMaterials) {
+          //   deleteMode.listOfStudyMaterials = state.materials;
+          //   toogleForListOfMaterials = false;
+          // }
 
           return ListenableBuilder(
             listenable: deleteMode,
@@ -58,9 +66,8 @@ class _MaterialScreenState extends State<MaterialScreen> {
 
                 deleteMode.deleteMaterials = false;
               }
-              for (var i in deleteMode.listOfStudyMaterials) {
-                print(i.id);
-              }
+
+              deleteMode.listOfStudyMaterials = state.materials;
               return Scaffold(
                 drawer: const NavigatorDrawer(),
                 backgroundColor: brightness == Brightness.dark
@@ -159,30 +166,73 @@ class _MaterialScreenState extends State<MaterialScreen> {
                                 ),
                                 SliverToBoxAdapter(
                                   child: SizedBox(
-                                    height: 20.h,
+                                    height: 10.h,
                                   ),
                                 ),
                                 SliverToBoxAdapter(
-                                  child: Center(
-                                    child: TextButton(
-                                      onPressed: () {
-                                        if (deleteMode
-                                                .listOfStudyMaterialsForDeleting
-                                                .isNotEmpty &&
-                                            deleteMode.isDeleting) {
-                                          showDeleteConfirmation(
-                                              context, deleteMode);
-                                        }
-                                        deleteMode.isDeleting =
-                                            !deleteMode.isDeleting;
-                                      },
-                                      child: Text(
-                                        deleteMode.isDeleting == true
-                                            ? "Удалить"
-                                            : "Выбрать",
-                                      ),
-                                    ),
-                                  ),
+                                  child: (deleteMode.isDeleting)
+                                      ? Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            TextButton(
+                                              onPressed: () {
+                                                deleteMode
+                                                        .boolForClearAllIsPick =
+                                                    true;
+                                                deleteMode.isDeleting =
+                                                    !deleteMode.isDeleting;
+                                              },
+                                              child: Text(
+                                                "Отменить выбор ",
+                                                style: TextStyle(
+                                                  fontSize: 15.sp,
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                              ),
+                                            ),
+                                            TextButton(
+                                              onPressed: () {
+                                                if (deleteMode
+                                                        .listOfStudyMaterialsForDeleting
+                                                        .isNotEmpty &&
+                                                    deleteMode.isDeleting) {
+                                                  showDeleteConfirmation(
+                                                      context, deleteMode);
+                                                }
+                                                deleteMode.isDeleting = false;
+                                              },
+                                              child: Text(
+                                                "Удалить",
+                                                style: TextStyle(
+                                                    fontSize: 16.sp,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: Colors.red),
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      : Center(
+                                          child: TextButton(
+                                            onPressed: () {
+                                              if (deleteMode
+                                                      .listOfStudyMaterialsForDeleting
+                                                      .isNotEmpty &&
+                                                  deleteMode.isDeleting) {
+                                                showDeleteConfirmation(
+                                                    context, deleteMode);
+                                              }
+                                              deleteMode.isDeleting = true;
+                                            },
+                                            child: Text(
+                                              "Выбрать",
+                                              style: TextStyle(
+                                                fontSize: 16.sp,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
                                 ),
                                 SliverToBoxAdapter(
                                   child: SizedBox(
@@ -190,15 +240,7 @@ class _MaterialScreenState extends State<MaterialScreen> {
                                   ),
                                 ),
                                 CardsGenerator(
-                                  itemsList: deleteMode.listOfStudyMaterials
-                                      .where(
-                                        (material) => material.fileName
-                                            .toLowerCase()
-                                            .contains(
-                                              _query.toLowerCase(),
-                                            ),
-                                      )
-                                      .toList(),
+                                  query: _query,
                                   deleteMode: deleteMode,
                                 ),
                                 SliverToBoxAdapter(

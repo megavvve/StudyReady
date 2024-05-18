@@ -47,8 +47,8 @@ class StudyMaterialBloc extends Bloc<StudyMaterialEvent, StudyMaterialState> {
       );
 
       List<StudyMaterial> allMaterials = state.materials;
-      addMaterial.call(newMaterial);
-      allMaterials.add(newMaterial);
+      await addMaterial.call(newMaterial);
+      //allMaterials.add(newMaterial);
       emit(
         StudyMaterialLoadSuccess(
           materials: allMaterials,
@@ -64,7 +64,7 @@ class StudyMaterialBloc extends Bloc<StudyMaterialEvent, StudyMaterialState> {
     final state = this.state;
     if (state is StudyMaterialLoadSuccess) {
       final allMaterials = state.materials;
-      deleteStudyMaterials.call(studyMaterial);
+      await deleteStudyMaterials.call(studyMaterial);
       allMaterials.remove(studyMaterial);
 
       emit(

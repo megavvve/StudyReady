@@ -15,21 +15,20 @@ class StudyMaterial {
     required this.fileType,
   });
   static int getNextId(List<StudyMaterial> materialList) {
-    if (materialList.isEmpty) {
+    // Создать множество всех существующих ID
+    final existingIds = materialList.map((material) => material.id);
+    if (existingIds.isEmpty) {
       return 1;
     }
-
-    // Сортируем список по id
-    materialList.sort((a, b) => a.id.compareTo(b.id));
-
-    // Проверяем наличие пропусков
-    for (int i = 0; i < materialList.length - 1; i++) {
-      if (materialList[i + 1].id > materialList[i].id + 1) {
-        return materialList[i].id + 1;
+    // Итерировать от 1 до максимального ID + 1
+    for (int i = 1; i <= existingIds.last; i++) {
+      // Найти первое число, которое отсутствует в множестве
+      if (!existingIds.contains(i)) {
+        return i;
       }
     }
 
-    // Если пропусков нет, возвращаем максимальный id + 1
+    // Если все числа от 1 до максимального ID заняты, вернуть максимальный ID + 1
     return materialList.last.id + 1;
   }
 }
