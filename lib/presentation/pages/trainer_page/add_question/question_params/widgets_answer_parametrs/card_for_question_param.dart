@@ -70,7 +70,9 @@ class _CardForQuestionParamsState extends State<CardForQuestionParams> {
                 child: Text(
                   widget.param,
                   style: TextStyle(
-                    color: brightness == Brightness.dark ? Colors.white : Colors.black,
+                    color: brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black,
                     fontSize: 20.sp,
                     fontWeight: FontWeight.w300,
                   ),
@@ -81,7 +83,9 @@ class _CardForQuestionParamsState extends State<CardForQuestionParams> {
               padding: EdgeInsets.symmetric(horizontal: 8.w),
               alignment: Alignment.centerLeft,
               decoration: BoxDecoration(
-                color: brightness == Brightness.dark ? const Color(0xFF5B94F1) : const Color(0xFFB8D3FF),
+                color: brightness == Brightness.dark
+                    ? colorForButton
+                    : const Color(0xFFB8D3FF),
                 borderRadius: BorderRadius.circular(16.sp),
               ),
               child: Stack(
@@ -91,7 +95,7 @@ class _CardForQuestionParamsState extends State<CardForQuestionParams> {
                     controller: customTextEditingController,
                     suggestions: _buildPopupMenuItems(trainers),
                     suggestionBackgroundColor: brightness == Brightness.dark
-                        ? secondColorDark
+                        ? colorForMaterialCardDark
                         : secondColorLight,
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.symmetric(
@@ -119,9 +123,11 @@ class _CardForQuestionParamsState extends State<CardForQuestionParams> {
                             prefs.setString(widget.param, "");
                           });
                         },
-                        icon: const Icon(
+                        icon: Icon(
                           Icons.clear,
-                          color: Colors.black,
+                          color: brightness == Brightness.dark
+                              ? Colors.white
+                              : Colors.black,
                         ),
                       ),
                     ),
@@ -142,13 +148,17 @@ class _CardForQuestionParamsState extends State<CardForQuestionParams> {
                         margin: EdgeInsets.all(2.h),
                         padding: EdgeInsets.all(5.sp),
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: brightness == Brightness.dark
+                              ? colorForFindTextDark
+                              : Colors.white,
                           borderRadius: BorderRadius.circular(5.sp),
                         ),
                         child: Text(
                           data,
                           style: TextStyle(
-                            color: Colors.black,
+                            color: brightness == Brightness.dark
+                                ? Colors.white
+                                : Colors.black,
                             fontSize: 15.sp,
                             fontWeight: FontWeight.w300,
                           ),

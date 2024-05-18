@@ -14,6 +14,7 @@ import 'package:study_ready/presentation/pages/trainer_page/add_question/add_que
 import 'package:study_ready/presentation/pages/trainer_page/trainer_screen/trainer_screen.dart';
 
 import 'package:study_ready/domain/entities/theme.dart' as theme;
+import 'package:study_ready/utils/app_colors.dart';
 
 class AddQuestionButton extends StatelessWidget {
   const AddQuestionButton({
@@ -31,7 +32,7 @@ class AddQuestionButton extends StatelessWidget {
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all<Color>(
                 brightness == Brightness.dark
-                    ? const Color(0xFF458BFF)
+                    ? const Color.fromARGB(255, 90, 33, 203)
                     : const Color.fromRGBO(119, 165, 245, 1),
               ),
               fixedSize: MaterialStateProperty.all<Size>(
@@ -97,7 +98,11 @@ class AddQuestionButton extends StatelessWidget {
             },
             child: Text(
               'Добавить вопрос',
-              style: TextStyle(color: Colors.black, fontSize: 20.sp),
+              style: TextStyle(
+                  color: brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black,
+                  fontSize: 20.sp),
             ),
           );
         } else {
