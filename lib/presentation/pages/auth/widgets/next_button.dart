@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:study_ready/presentation/pages/auth/widgets/change_notifier_for_auth.dart';
 import 'package:study_ready/presentation/pages/home_page/home_screen.dart';
 
 class NextButton extends StatelessWidget {
-  const NextButton({super.key});
+  final ChangeNotifierForAuth changeNotifierForAuth;
+  const NextButton({super.key, required this.changeNotifierForAuth});
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +31,10 @@ class NextButton extends StatelessWidget {
         child: Text(
           "Далее",
           style: TextStyle(
-              color: const Color(0xFFBFD3F3),
-              fontSize: 23.sp,
-              fontWeight: FontWeight.w400),
+            color: Colors.white,
+            fontSize: 23.sp,
+            fontWeight: FontWeight.w400,
+          ),
         ),
       ),
     );

@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
+import 'package:study_ready/presentation/pages/auth/widgets/change_notifier_for_auth.dart';
 
-class LoginForm extends StatelessWidget {
-  const LoginForm({super.key});
+class PasswordForm extends StatelessWidget {
+  final ChangeNotifierForAuth changeNotifierForAuth;
+  const PasswordForm({super.key, required this.changeNotifierForAuth});
 
   @override
   Widget build(BuildContext context) {
@@ -29,12 +31,12 @@ class LoginForm extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Icon(
-                Icons.person_2_outlined,
+                Icons.lock_outlined,
                 size: 20.sp,
                 color: Colors.black,
               ),
               Text(
-                "Логин:",
+                "Пароль:",
                 style: TextStyle(fontSize: 15.sp, color: Colors.black),
               ),
             ],
@@ -57,16 +59,19 @@ class LoginForm extends StatelessWidget {
             ),
           ),
           child: TextField(
-            keyboardType: TextInputType.text,
+            keyboardType: TextInputType.visiblePassword,
             textInputAction: TextInputAction.done,
             maxLines: 1,
+            onChanged: (value) {
+              changeNotifierForAuth.passwordUser = value;
+            },
             decoration: InputDecoration(
               contentPadding: EdgeInsetsDirectional.only(start: 1.w),
               isCollapsed: true,
               border: const UnderlineInputBorder(
                 borderSide: BorderSide.none,
               ),
-              hintText: 'Введите логин...',
+              hintText: 'Введите пароль...',
               hintMaxLines: 1,
               hintStyle: TextStyle(
                 fontSize: 18.sp,
@@ -74,10 +79,7 @@ class LoginForm extends StatelessWidget {
                 color: Colors.grey,
               ),
             ),
-            style: TextStyle(
-              fontSize: 18.sp,
-              color: Colors.black,
-            ),
+            style: TextStyle(fontSize: 18.sp, color: Colors.black),
           ),
         ),
       ],

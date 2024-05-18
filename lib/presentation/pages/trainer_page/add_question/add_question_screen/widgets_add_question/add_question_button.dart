@@ -14,7 +14,6 @@ import 'package:study_ready/presentation/pages/trainer_page/add_question/add_que
 import 'package:study_ready/presentation/pages/trainer_page/trainer_screen/trainer_screen.dart';
 
 import 'package:study_ready/domain/entities/theme.dart' as theme;
-import 'package:study_ready/utils/app_colors.dart';
 
 class AddQuestionButton extends StatelessWidget {
   const AddQuestionButton({

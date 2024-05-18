@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:study_ready/presentation/pages/registration_screen/registration_screen.dart';
+import 'package:study_ready/presentation/pages/auth/auth_screen.dart';
 
 class NextButton extends StatelessWidget {
   const NextButton({super.key});
@@ -12,7 +12,7 @@ class NextButton extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: ((context) => const RegistrationScreen()),
+            builder: ((context) => const AuthScreen()),
           ),
         );
       },

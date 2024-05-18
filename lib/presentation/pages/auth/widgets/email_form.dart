@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
+import 'package:study_ready/presentation/pages/auth/widgets/change_notifier_for_auth.dart';
 
 class EmailForm extends StatelessWidget {
-  const EmailForm({super.key});
+  final ChangeNotifierForAuth changeNotifierForAuth;
+  const EmailForm({super.key, required this.changeNotifierForAuth});
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +62,9 @@ class EmailForm extends StatelessWidget {
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.done,
             maxLines: 1,
+            onChanged: (value) {
+              changeNotifierForAuth.emailUser = value;
+            },
             decoration: InputDecoration(
               contentPadding: EdgeInsetsDirectional.only(start: 1.w),
               isCollapsed: true,
