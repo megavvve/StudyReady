@@ -5,8 +5,8 @@ import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
 import 'package:study_ready/presentation/navigation/burger_navigation_leading.dart';
 import 'package:study_ready/presentation/navigation/navigation_bar.dart';
 import 'package:study_ready/presentation/pages/settings_page/widgets/bottom_button.dart';
-import 'package:study_ready/presentation/pages/settings_page/widgets/call_support_button.dart';
 import 'package:study_ready/presentation/pages/settings_page/widgets/change_data_button.dart';
+import 'package:study_ready/presentation/pages/settings_page/widgets/helper_switch_button.dart';
 import 'package:study_ready/presentation/pages/settings_page/widgets/theme_switch_button.dart';
 import 'package:study_ready/utils/app_colors.dart';
 import 'package:study_ready/utils/app_svg_assets.dart';
@@ -54,14 +54,33 @@ class SettingsScreen extends StatelessWidget {
                       brightness == Brightness.dark
                           ? settingsBackgroundDark
                           : settingsBackgroundLight,
-                      const Positioned(
-                        child: ChangeDataButton(),
+                      Positioned(
+                        child: Column(
+                          children: [
+                            const ChangeDataButton(),
+                            SizedBox(
+                              height: 20.h,
+                            ),
+                            const ThemeSwitchButton(),
+                            SizedBox(
+                              height: 20.h,
+                            ),
+                            const HelperSwitchButton(),
+                          ],
+                        ),
                       ),
+                      /*
                       Positioned(
                         top: 90.h,
                         left: 0.w,
                         right: 0.w,
-                        child: const ThemeSwitchButton(),
+                        child: const Column(
+                          children: [
+                            ThemeSwitchButton(),
+
+                            HelperSwitchButton(),
+                          ],
+                        ),
                       ),
                       Positioned(
                         top: 379.h,
@@ -69,6 +88,7 @@ class SettingsScreen extends StatelessWidget {
                         right: 0.w,
                         child: const CallSupportButton(),
                       ),
+                      */
                     ],
                   ),
                 ),

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:overlay_tooltip/overlay_tooltip.dart';
 import 'package:study_ready/domain/entities/study_material.dart';
+import 'package:study_ready/presentation/blocs/helper_bloc/helper_cubit.dart';
 import 'package:study_ready/presentation/blocs/study_material_bloc/study_material_bloc.dart';
 import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
 import 'package:study_ready/presentation/navigation/burger_navigation_leading.dart';
@@ -13,6 +15,7 @@ import 'package:study_ready/presentation/pages/materials_page/widgets/for_widget
 import 'package:study_ready/presentation/pages/materials_page/widgets/for_widget_of_material_screen/show_delete_confirmation.dart';
 
 import 'package:study_ready/utils/app_colors.dart';
+import 'package:study_ready/utils/custom_tooltip.dart';
 
 class MaterialScreen extends StatefulWidget {
   const MaterialScreen({Key? key}) : super(key: key);
@@ -33,10 +36,12 @@ class _MaterialScreenState extends State<MaterialScreen> {
     super.initState();
   }
 
-  TextEditingController searchTextController = TextEditingController();
+  final TextEditingController searchTextController = TextEditingController();
+  final TooltipController _tooltipController = TooltipController();
   @override
   Widget build(BuildContext context) {
     final brightness = context.watch<ThemeCubit>().state.brightness;
+    final helperDisabled = context.watch<HelperCubit>().state.disabled;
     return BlocBuilder<StudyMaterialBloc, StudyMaterialState>(
       builder: (contextBloc, state) {
         if (state is StudyMaterialLoadSuccess) {
@@ -68,226 +73,275 @@ class _MaterialScreenState extends State<MaterialScreen> {
               }
 
               deleteMode.listOfStudyMaterials = state.materials;
-              return Scaffold(
-                drawer: const NavigatorDrawer(),
-                backgroundColor: brightness == Brightness.dark
-                    ? backgroundColorDark
-                    : backgroundColorLight,
-                body: (!isLoading)
-                    ? Center(
-                        child: Text(
-                          'Загрузка...',
-                          style: TextStyle(
-                            fontSize: 22.0.sp,
-                            color: brightness == Brightness.dark
-                                ? mainColorDark
-                                : mainColorLight,
+              return OverlayTooltipScaffold(
+                tooltipAnimationCurve: Curves.linear,
+                tooltipAnimationDuration: const Duration(milliseconds: 500),
+                controller: _tooltipController,
+                startWhen: (initializedWidgetLength) async {
+                  await Future.delayed(
+                    const Duration(milliseconds: 100),
+                  );
+                  return helperDisabled;
+                },
+                preferredOverlay: GestureDetector(
+                  onTap: () {
+                    _tooltipController.dismiss();
+                  },
+                  child: Container(
+                    height: double.infinity.h,
+                    width: double.infinity.w,
+                    color: const Color.fromARGB(195, 0, 0, 0),
+                  ),
+                ),
+                builder: (BuildContext context) => Scaffold(
+                  drawer: const NavigatorDrawer(),
+                  backgroundColor: brightness == Brightness.dark
+                      ? backgroundColorDark
+                      : backgroundColorLight,
+                  body: (!isLoading)
+                      ? Center(
+                          child: Text(
+                            'Загрузка...',
+                            style: TextStyle(
+                              fontSize: 22.0.sp,
+                              color: brightness == Brightness.dark
+                                  ? mainColorDark
+                                  : mainColorLight,
+                            ),
                           ),
-                        ),
-                      )
-                    : Stack(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 8.0.w),
-                            child: CustomScrollView(
-                              slivers: [
-                                SliverAppBar(
-                                  leading: Builder(
-                                    builder: (BuildContext context) {
-                                      return BurgerNavigationLeading(context);
-                                    },
-                                  ),
-                                  surfaceTintColor: Colors.transparent,
-                                  pinned: true,
-                                  floating: true,
-                                  backgroundColor: brightness == Brightness.dark
-                                      ? backgroundColorDark
-                                      : backgroundColorLight,
-                                  centerTitle: true,
-                                  title: TextField(
-                                    onChanged: (value) {
-                                      setState(() {
-                                        _query = value;
-                                      });
-                                    },
-                                    controller: searchTextController,
-                                    decoration: (searchTextController
-                                            .text.isEmpty)
-                                        ? InputDecoration(
-                                            hintText: "Поиск...",
-                                            contentPadding:
-                                                EdgeInsets.all(8.sp),
-                                            prefixIcon:
-                                                const Icon(Icons.search),
-                                            filled: true,
-                                            fillColor:
-                                                brightness == Brightness.dark
-                                                    ? colorForFindTextDark
-                                                    : secondColorLight,
-                                            border: OutlineInputBorder(
-                                              borderSide: BorderSide.none,
-                                              borderRadius:
-                                                  BorderRadius.circular(50.sp),
-                                            ),
-                                          )
-                                        : InputDecoration(
-                                            contentPadding:
-                                                EdgeInsets.all(8.sp),
-                                            prefixIcon: IconButton(
-                                              onPressed: () {
-                                                FocusScope.of(context)
-                                                    .unfocus();
-                                              },
-                                              icon: const Icon(
-                                                  Icons.keyboard_arrow_left),
-                                            ),
-                                            suffixIcon: IconButton(
-                                              onPressed: () {
-                                                searchTextController.clear();
-                                                FocusScope.of(context)
-                                                    .unfocus();
-                                              },
-                                              icon: const Icon(
-                                                Icons.cancel_outlined,
+                        )
+                      : Stack(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 8.0.w),
+                              child: CustomScrollView(
+                                slivers: [
+                                  SliverAppBar(
+                                    leading: Builder(
+                                      builder: (BuildContext context) {
+                                        return BurgerNavigationLeading(context);
+                                      },
+                                    ),
+                                    surfaceTintColor: Colors.transparent,
+                                    pinned: true,
+                                    floating: true,
+                                    backgroundColor:
+                                        brightness == Brightness.dark
+                                            ? backgroundColorDark
+                                            : backgroundColorLight,
+                                    centerTitle: true,
+                                    title: TextField(
+                                      onChanged: (value) {
+                                        setState(() {
+                                          _query = value;
+                                        });
+                                      },
+                                      controller: searchTextController,
+                                      decoration: (searchTextController
+                                              .text.isEmpty)
+                                          ? InputDecoration(
+                                              hintText: "Поиск...",
+                                              contentPadding:
+                                                  EdgeInsets.all(8.sp),
+                                              prefixIcon:
+                                                  const Icon(Icons.search),
+                                              filled: true,
+                                              fillColor:
+                                                  brightness == Brightness.dark
+                                                      ? colorForFindTextDark
+                                                      : secondColorLight,
+                                              border: OutlineInputBorder(
+                                                borderSide: BorderSide.none,
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        50.sp),
+                                              ),
+                                            )
+                                          : InputDecoration(
+                                              contentPadding:
+                                                  EdgeInsets.all(8.sp),
+                                              prefixIcon: IconButton(
+                                                onPressed: () {
+                                                  FocusScope.of(context)
+                                                      .unfocus();
+                                                },
+                                                icon: const Icon(
+                                                    Icons.keyboard_arrow_left),
+                                              ),
+                                              suffixIcon: IconButton(
+                                                onPressed: () {
+                                                  searchTextController.clear();
+                                                  FocusScope.of(context)
+                                                      .unfocus();
+                                                },
+                                                icon: const Icon(
+                                                  Icons.cancel_outlined,
+                                                ),
+                                              ),
+                                              filled: true,
+                                              fillColor:
+                                                  brightness == Brightness.dark
+                                                      ? colorForFindTextDark
+                                                      : secondColorLight,
+                                              border: OutlineInputBorder(
+                                                borderSide: BorderSide.none,
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        50.sp),
                                               ),
                                             ),
-                                            filled: true,
-                                            fillColor:
-                                                brightness == Brightness.dark
-                                                    ? colorForFindTextDark
-                                                    : secondColorLight,
-                                            border: OutlineInputBorder(
-                                              borderSide: BorderSide.none,
-                                              borderRadius:
-                                                  BorderRadius.circular(50.sp),
-                                            ),
-                                          ),
+                                    ),
                                   ),
-                                ),
-                                SliverToBoxAdapter(
-                                  child: SizedBox(
-                                    height: 10.h,
+                                  SliverToBoxAdapter(
+                                    child: SizedBox(
+                                      height: 10.h,
+                                    ),
                                   ),
-                                ),
-                                SliverToBoxAdapter(
-                                  child: (deleteMode.isDeleting)
-                                      ? Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            TextButton(
-                                              onPressed: () {
-                                                deleteMode
-                                                        .boolForClearAllIsPick =
-                                                    true;
-                                                deleteMode.isDeleting = false;
-                                              },
-                                              child: Text(
-                                                "Отменить выбор ",
-                                                style: TextStyle(
-                                                  fontSize: 15.sp,
-                                                  fontWeight: FontWeight.w400,
+                                  SliverToBoxAdapter(
+                                    child: (deleteMode.isDeleting)
+                                        ? Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              TextButton(
+                                                onPressed: () {
+                                                  deleteMode
+                                                          .boolForClearAllIsPick =
+                                                      true;
+                                                  deleteMode.isDeleting = false;
+                                                },
+                                                child: Text(
+                                                  "Отменить выбор ",
+                                                  style: TextStyle(
+                                                    fontSize: 15.sp,
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                ),
+                                              ),
+                                              TextButton(
+                                                onPressed: () {
+                                                  if (deleteMode
+                                                          .listOfStudyMaterialsForDeleting
+                                                          .isNotEmpty &&
+                                                      deleteMode.isDeleting) {
+                                                    showDeleteConfirmation(
+                                                        context, deleteMode);
+                                                  }
+                                                  deleteMode.isDeleting = false;
+                                                },
+                                                child: Text(
+                                                  "Удалить",
+                                                  style: TextStyle(
+                                                      fontSize: 16.sp,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: Colors.red),
+                                                ),
+                                              ),
+                                            ],
+                                          )
+                                        : OverlayTooltipItem(
+                                            displayIndex: 0,
+                                            tooltip: (controller) {
+                                              return MTooltip(
+                                                title: 'Кнопка "Выбрать"',
+                                                description:
+                                                    "Нажмите, чтобы выбрать материал для удаления.",
+                                                controller: controller,
+                                              );
+                                            },
+                                            child: Center(
+                                              child: TextButton(
+                                                onPressed: () {
+                                                  if (deleteMode
+                                                          .listOfStudyMaterialsForDeleting
+                                                          .isNotEmpty &&
+                                                      deleteMode.isDeleting) {
+                                                    showDeleteConfirmation(
+                                                        context, deleteMode);
+                                                  }
+                                                  deleteMode.isDeleting = true;
+                                                },
+                                                child: Text(
+                                                  "Выбрать",
+                                                  style: TextStyle(
+                                                    fontSize: 16.sp,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
                                                 ),
                                               ),
                                             ),
-                                            TextButton(
-                                              onPressed: () {
-                                                if (deleteMode
-                                                        .listOfStudyMaterialsForDeleting
-                                                        .isNotEmpty &&
-                                                    deleteMode.isDeleting) {
-                                                  showDeleteConfirmation(
-                                                      context, deleteMode);
-                                                }
-                                                deleteMode.isDeleting = false;
-                                              },
-                                              child: Text(
-                                                "Удалить",
-                                                style: TextStyle(
-                                                    fontSize: 16.sp,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Colors.red),
-                                              ),
-                                            ),
-                                          ],
-                                        )
-                                      : Center(
-                                          child: TextButton(
-                                            onPressed: () {
-                                              if (deleteMode
-                                                      .listOfStudyMaterialsForDeleting
-                                                      .isNotEmpty &&
-                                                  deleteMode.isDeleting) {
-                                                showDeleteConfirmation(
-                                                    context, deleteMode);
-                                              }
-                                              deleteMode.isDeleting = true;
-                                            },
-                                            child: Text(
-                                              "Выбрать",
-                                              style: TextStyle(
-                                                fontSize: 16.sp,
-                                                fontWeight: FontWeight.w500,
-                                              ),
+                                          ),
+                                  ),
+                                  SliverToBoxAdapter(
+                                    child: SizedBox(
+                                      height: 10.h,
+                                    ),
+                                  ),
+                                  CardsGenerator(
+                                    query: _query,
+                                    deleteMode: deleteMode,
+                                  ),
+                                  SliverToBoxAdapter(
+                                    child: SizedBox(
+                                      height: 20.h,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Positioned(
+                              bottom: 56.h,
+                              right: 38.w,
+                              child: OverlayTooltipItem(
+                                tooltipVerticalPosition: TooltipVerticalPosition.TOP,
+                                displayIndex: 1,
+                                tooltip: (controller) {
+                                  return MTooltip(
+                                    title: 'Кнопка "Добавить материал"',
+                                    description:
+                                        "Нажмите, чтобы перейти к добавлению материала.",
+                                    controller: controller,
+                                  );
+                                },
+                                child: SizedBox(
+                                  width: 70.w,
+                                  height: 70.h,
+                                  child: FittedBox(
+                                    child: FloatingActionButton(
+                                      onPressed: () async {
+                                        setState(() {
+                                          isLoading = false;
+                                        });
+                                        await Navigator.of(context).push(
+                                          customPageRoute(
+                                            AddFilesScreen(
+                                              deleteMode: deleteMode,
                                             ),
                                           ),
-                                        ),
-                                ),
-                                SliverToBoxAdapter(
-                                  child: SizedBox(
-                                    height: 10.h,
-                                  ),
-                                ),
-                                CardsGenerator(
-                                  query: _query,
-                                  deleteMode: deleteMode,
-                                ),
-                                SliverToBoxAdapter(
-                                  child: SizedBox(
-                                    height: 20.h,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Positioned(
-                            bottom: 56.h,
-                            right: 38.w,
-                            child: SizedBox(
-                              width: 70.w,
-                              height: 70.h,
-                              child: FittedBox(
-                                child: FloatingActionButton(
-                                  onPressed: () async {
-                                    setState(() {
-                                      isLoading = false;
-                                    });
-                                    await Navigator.of(context).push(
-                                      customPageRoute(
-                                        AddFilesScreen(
-                                          deleteMode: deleteMode,
-                                        ),
+                                        );
+                                        setState(() {
+                                          isLoading = true;
+                                        });
+                                      },
+                                      backgroundColor:
+                                          brightness == Brightness.dark
+                                              ? colorForButton
+                                              : Colors.white,
+                                      child: Icon(
+                                        Icons.add,
+                                        color: brightness == Brightness.dark
+                                            ? Colors.white
+                                            : Colors.blue,
                                       ),
-                                    );
-                                    setState(() {
-                                      isLoading = true;
-                                    });
-                                  },
-                                  backgroundColor: brightness == Brightness.dark
-                                      ? colorForButton
-                                      : Colors.white,
-                                  child: Icon(
-                                    Icons.add,
-                                    color: brightness == Brightness.dark
-                                        ? Colors.white
-                                        : Colors.blue,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
+                          ],
+                        ),
+                ),
               );
             },
           );

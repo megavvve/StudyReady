@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:study_ready/data/repositories/helper_repository/helper_repository.dart';
 import 'package:study_ready/data/repositories/theme_repository/theme_repository.dart';
 
 import 'package:study_ready/firebase_options.dart';
@@ -18,6 +19,8 @@ import 'package:study_ready/presentation/blocs/theme_bloc/theme_state.dart';
 import 'package:study_ready/presentation/blocs/trainer_bloc/trainer_bloc.dart';
 import 'package:study_ready/presentation/pages/first_screen/first_screen.dart';
 import 'package:study_ready/utils/app_themes.dart';
+
+import 'presentation/blocs/helper_bloc/helper_cubit.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -57,6 +60,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeRepository = ThemeRepository(preferences: preferences);
+    final helperRepository = HelperRepository(preferences: preferences);
 
     SystemChrome.setPreferredOrientations(
       [
@@ -75,6 +79,11 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => ThemeCubit(
             themeRepository: themeRepository,
+          ),
+        ),
+        BlocProvider(
+          create: (context) => HelperCubit(
+            helperRepository: helperRepository,
           ),
         ),
       ],

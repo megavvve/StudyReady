@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
 
-class CustomShapeWidget extends StatelessWidget {
-  const CustomShapeWidget({super.key});
+class MaterialsCustomShapeWidget extends StatelessWidget {
+  const MaterialsCustomShapeWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,15 +35,12 @@ class CustomShapePainter extends CustomPainter {
 
     final path = Path();
 
-    path.moveTo(0.w, size.height); // начинаем с левого нижнего угла
-    path.lineTo(0.w, size.height); // линия вверх на 40 пикселей
-    path.lineTo(0.w, 90.h); // линия вправо на 40 пикселей
-    path.lineTo(size.width.w + 150.h, 0.h); // линия вверх на 40 пикселей
-    path.lineTo(size.width.w + 150.h,
-        size.height - 10.h); // линия вправо на 40 пикселей
-    path.lineTo(size.width.w + 150.h,
-        size.height); // линия вниз до правого нижнего угла
-    path.close(); // закрываем контур
+    path.moveTo(0.w, size.height.h);
+    path.lineTo(0.w, 85.h);
+    path.lineTo(size.width.w + 20.h, 0.h);
+    path.lineTo(size.width.w + 150.h, size.height.h);
+    path.lineTo(size.width.w + 150.h, size.height.h);
+    path.close();
 
     canvas.drawPath(path, paint);
   }
