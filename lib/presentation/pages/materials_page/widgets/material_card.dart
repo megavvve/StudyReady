@@ -4,14 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/domain/entities/study_material.dart';
 import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
 import 'package:study_ready/presentation/pages/materials_page/widgets/for_widget_of_material_screen/check_button.dart';
-import 'package:study_ready/presentation/pages/materials_page/widgets/for_widget_of_material_screen/delete_mode.dart';
+import 'package:study_ready/presentation/pages/materials_page/widgets/for_widget_of_material_screen/delete_mode_for_materials.dart';
 import 'package:study_ready/presentation/pages/materials_page/widgets/material_reader_pick.dart';
-import 'package:study_ready/presentation/pages/materials_page/widgets/shaking_animation.dart';
+import 'package:study_ready/presentation/widgets/shaking_animation.dart';
 import 'package:study_ready/utils/app_colors.dart';
 
 class MaterialCard extends StatefulWidget {
   final StudyMaterial studyMaterial;
-  final DeleteMode deleteMode;
+  final DeleteModeForMaterials deleteMode;
   const MaterialCard({
     required this.studyMaterial,
     Key? key,

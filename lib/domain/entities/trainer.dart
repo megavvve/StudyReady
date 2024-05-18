@@ -38,13 +38,19 @@ class Trainer {
   }
 
   static int getNextTrainerId(List<Trainer> trainers) {
-    if (trainers.isEmpty) {
-      return 1; // Если список пуст, начинаем с id = 1
-    } else {
-      return trainers
-              .map((trainer) => trainer.id)
-              .reduce((a, b) => a > b ? a : b) +
-          1;
+    final existingIds = trainers.map((material) => material.id);
+    if (existingIds.isEmpty) {
+      return 1;
     }
+    // Итерировать от 1 до максимального ID + 1
+    for (int i = 1; i <= existingIds.last; i++) {
+      // Найти первое число, которое отсутствует в множестве
+      if (!existingIds.contains(i)) {
+        return i;
+      }
+    }
+
+    // Если все числа от 1 до максимального ID заняты, вернуть максимальный ID + 1
+    return trainers.last.id + 1;
   }
 }

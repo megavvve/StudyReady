@@ -12,11 +12,11 @@ import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
 import 'package:study_ready/presentation/pages/materials_page/add_material/widgets/animated_button.dart';
 import 'package:study_ready/presentation/pages/materials_page/add_material/widgets/convert_file_to_study_material.dart';
 import 'package:study_ready/presentation/pages/materials_page/add_material/widgets/show_material_exists_toast.dart';
-import 'package:study_ready/presentation/pages/materials_page/widgets/for_widget_of_material_screen/delete_mode.dart';
+import 'package:study_ready/presentation/pages/materials_page/widgets/for_widget_of_material_screen/delete_mode_for_materials.dart';
 import 'package:study_ready/utils/app_colors.dart';
 
 class AddFilesScreen extends StatefulWidget {
-  final DeleteMode deleteMode;
+  final DeleteModeForMaterials deleteMode;
   const AddFilesScreen({super.key, required this.deleteMode});
 
   @override

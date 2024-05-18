@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:study_ready/domain/entities/study_material.dart';
 
-class DeleteMode extends ChangeNotifier {
+class DeleteModeForMaterials extends ChangeNotifier {
   bool _isDeleting = false;
   bool _deleteMaterials = false;
   bool _boolForClearAllIsPick = false;

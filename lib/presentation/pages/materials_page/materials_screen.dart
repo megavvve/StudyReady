@@ -9,7 +9,7 @@ import 'package:study_ready/presentation/navigation/custom_page_router.dart';
 import 'package:study_ready/presentation/navigation/navigation_bar.dart';
 import 'package:study_ready/presentation/pages/materials_page/add_material/add_files_screen.dart';
 import 'package:study_ready/presentation/pages/materials_page/widgets/for_widget_of_material_screen/cards_generator.dart';
-import 'package:study_ready/presentation/pages/materials_page/widgets/for_widget_of_material_screen/delete_mode.dart';
+import 'package:study_ready/presentation/pages/materials_page/widgets/for_widget_of_material_screen/delete_mode_for_materials.dart';
 import 'package:study_ready/presentation/pages/materials_page/widgets/for_widget_of_material_screen/show_delete_confirmation.dart';
 
 import 'package:study_ready/utils/app_colors.dart';
@@ -24,12 +24,12 @@ class MaterialScreen extends StatefulWidget {
 class _MaterialScreenState extends State<MaterialScreen> {
   bool isLoading = true;
   String _query = '';
-  late DeleteMode deleteMode;
+  late DeleteModeForMaterials deleteMode;
   late bool toogleForListOfMaterials;
   @override
   void initState() {
     toogleForListOfMaterials = true;
-    deleteMode = DeleteMode();
+    deleteMode = DeleteModeForMaterials();
     super.initState();
   }
 
@@ -180,8 +180,7 @@ class _MaterialScreenState extends State<MaterialScreen> {
                                                 deleteMode
                                                         .boolForClearAllIsPick =
                                                     true;
-                                                deleteMode.isDeleting =
-                                                    !deleteMode.isDeleting;
+                                                deleteMode.isDeleting = false;
                                               },
                                               child: Text(
                                                 "Отменить выбор ",

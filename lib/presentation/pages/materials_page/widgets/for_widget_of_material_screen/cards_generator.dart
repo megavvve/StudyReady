@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/domain/entities/study_material.dart';
-import 'package:study_ready/presentation/pages/materials_page/widgets/for_widget_of_material_screen/delete_mode.dart';
+import 'package:study_ready/presentation/pages/materials_page/widgets/for_widget_of_material_screen/delete_mode_for_materials.dart';
 import 'package:study_ready/presentation/pages/materials_page/widgets/material_card.dart';
 
 class CardsGenerator extends StatelessWidget {
-  final DeleteMode deleteMode;
+  final DeleteModeForMaterials deleteMode;
   final String query;
   const CardsGenerator({
     super.key,
