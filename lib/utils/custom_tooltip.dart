@@ -69,7 +69,7 @@ class _MTooltipState extends State<MTooltip> {
                       text: widget.title,
                       style: TextStyle(
                           color: Colors.black,
-                          fontSize: 16.sp,
+                          fontSize: 14.sp,
                           fontWeight: FontWeight.w600),
                     ),
                   ],

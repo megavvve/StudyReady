@@ -69,6 +69,9 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       builder: (BuildContext context) => Scaffold(
+        backgroundColor: brightness == Brightness.dark
+            ? const Color(0xFF6D84C8)
+            : const Color(0xFFd9d9d9),
         appBar: AppBar(
           backgroundColor: brightness == Brightness.dark
               ? backgroundColorDark

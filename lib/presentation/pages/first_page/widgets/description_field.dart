@@ -11,7 +11,7 @@ class DescriptionField extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 200.w,
-      height: 170.h,
+      height: 200.h,
       child: Text(
         "StudyReady - ваш надежный спутник в подготовке к экзаменам.",
         textAlign: TextAlign.center,
