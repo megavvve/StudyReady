@@ -29,22 +29,8 @@ class _SignOutButtonState extends State<SignOutButton> {
       List<StudyMaterial> materialList) async {
     try {
       if (!await checkInternetConnection()) {
-        // Perform sign out logic here
         showNoInternetDialog(context);
       }
-
-      // FirebaseStudyMaterialRepository firebaseStudyMaterialRepository =
-      //     FirebaseStudyMaterialRepository();
-      // List<StudyMaterial> listFromFb =
-      //     await firebaseStudyMaterialRepository.getMaterials();
-      // for (StudyMaterial material in materialList) {
-      //   if (!listFromFb.contains(material.fileName)) {
-      //     context
-      //         .read<StudyMaterialBloc>()
-      //         .add(AddMaterial(studyMaterial: material));
-      //   }
-      // }
-
       await AppDB().deleteAllMaterials();
       GetIt.instance.reset();
       SharedPreferences sharedPreferences =
@@ -55,7 +41,6 @@ class _SignOutButtonState extends State<SignOutButton> {
       await Auth().signout();
       await main();
       Navigator.pushReplacement(
-        // ignore: use_build_context_synchronously
         context,
         customPageRoute(
           MyApp(
@@ -64,8 +49,6 @@ class _SignOutButtonState extends State<SignOutButton> {
         ),
       );
     } catch (e) {
-      print(e);
-      // Обработка ошибок
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Ошибка при выходе: $e'),

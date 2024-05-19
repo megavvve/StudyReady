@@ -111,7 +111,7 @@ class MyApp extends StatelessWidget {
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     context.read<UserCubit>().setUserModel(userModel);
-                    return HomeScreen();
+                    return const HomeScreen();
                   } else {
                     return const FirstScreen();
                   }

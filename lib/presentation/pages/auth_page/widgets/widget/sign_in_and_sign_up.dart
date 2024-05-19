@@ -54,9 +54,10 @@ Future<void> signInWithEmailAndPassword(
       await FirestoreService().initializeTrainersCollection(user.uid);
     }
     Navigator.pushReplacement(
+      // ignore: use_build_context_synchronously
       context,
       MaterialPageRoute(
-        builder: (context) => HomeScreen(),
+        builder: (context) => const HomeScreen(),
       ),
     );
   } on FirebaseAuthException catch (e) {
@@ -132,7 +133,7 @@ Future<void> createUserWithEmailAndPassword(
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => HomeScreen(),
+        builder: (context) => const HomeScreen(),
       ),
     );
   } on FirebaseAuthException catch (e) {

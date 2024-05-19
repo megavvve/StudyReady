@@ -60,10 +60,9 @@ class TrainerBloc extends Bloc<TrainerEvent, TrainerState> {
         int index =
             allTrainers.indexWhere((element) => element.id == trainer.id);
         if (index != -1) {
-          trainer.questions
-              .add(question); // Добавляем вопрос в список вопросов тренажера
+          trainer.questions.add(question);
           insertQuestion.call(question);
-          updateTrainer.call(trainer); // Обновляем тренажера в хранилище данных
+          updateTrainer.call(trainer);
 
           emit(
             TrainerLoadSuccess(
@@ -129,28 +128,12 @@ class TrainerBloc extends Bloc<TrainerEvent, TrainerState> {
         ),
       );
     } else {
-      // for (var element in allTrainer) {
-      //   FirestoreService().insertTrainerWithQuestions(element);
-      // }
-
       emit(
         TrainerLoadSuccess(
           trainerList: allTrainer,
         ),
       );
     }
-  }
-
-// Метод для проверки существования тренажера по id
-  Future<bool> _trainerExists(int id) async {
-    final trainers = await getTrainers.call();
-    return trainers.any((trainer) => trainer.id == id);
-  }
-
-// Метод для проверки существования вопроса по id
-  Future<bool> _questionExists(int id) async {
-    final questions = await getQuestions.call();
-    return questions.any((question) => question.id == id);
   }
 
   void _onGenerateAnswers(
