@@ -10,12 +10,12 @@ class DescriptionField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 162.w,
-      height: 107.h,
+      width: 200.w,
+      height: 170.h,
       child: Text(
-        "Лютое\nописание",
+        "StudyReady - ваш надежный спутник в подготовке к экзаменам.",
         textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 33.sp, color: Colors.black),
+        style: TextStyle(fontSize: 25.sp, color: Colors.black, fontWeight: FontWeight.w500),
       ),
     );
   }
