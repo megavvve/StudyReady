@@ -1,3 +1,4 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:study_ready/data/datasources/local/app_db.dart';
 import 'package:study_ready/data/datasources/local/models/local_trainer_db.dart';
@@ -7,10 +8,16 @@ import 'package:study_ready/domain/repositories/trainer_repository/trainer_repos
 
 class TrainerRepositoryImpl implements TrainerRepository {
   AppDB appDB = GetIt.instance.get<AppDB>();
+  final FirebaseStorage firebaseStorage =
+      FirebaseStorage.instanceFor(bucket: "gs://studyready-df819.appspot.com");
+
   @override
   Future<int> insertTrainer(Trainer trainer) async {
-    return await appDB
-        .insertTrainer(TrainerMapper.toTrainerTableCompanion(trainer));
+    return await appDB.insertTrainer(
+      TrainerMapper.toTrainerTableCompanion(
+        trainer,
+      ),
+    );
   }
 
   @override
@@ -22,7 +29,9 @@ class TrainerRepositoryImpl implements TrainerRepository {
   @override
   Future<List<Trainer>> getTrainers() async {
     List<TrainerTableData> trainersTableData = await appDB.getTrainers();
-    return TrainerMapper.fromTrainersTableData(trainersTableData, appDB);
+    List<Trainer> localList =
+        await TrainerMapper.fromTrainersTableData(trainersTableData, appDB);
+    return localList;
   }
 
   @override

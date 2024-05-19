@@ -20,4 +20,19 @@ class Subject {
 
     return Subject(id: 1, name: '');
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+    };
+  }
+
+  // Метод fromMap для преобразования данных из Map в объект Subject
+  factory Subject.fromMap(Map<String, dynamic> map) {
+    return Subject(
+      id: map['id'],
+      name: map['name'],
+    );
+  }
 }

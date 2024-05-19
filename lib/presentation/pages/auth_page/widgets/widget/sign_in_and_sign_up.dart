@@ -46,6 +46,7 @@ Future<void> signInWithEmailAndPassword(
       sharedPreferences.setString("password", oldUser.password ?? "");
       // ignore: use_build_context_synchronously
       context.read<UserCubit>().setUserModel(oldUser);
+      await FirestoreService().initializeTrainersCollection(user.uid);
     }
     Navigator.pushReplacement(
       context,
@@ -100,8 +101,10 @@ Future<void> createUserWithEmailAndPassword(
           displayName: changeNotifierForAuth.loginUser,
           password: changeNotifierForAuth.passwordUser);
       await FirestoreService().createUser(newUser);
+      await FirestoreService().initializeTrainersCollection(user.uid);
       // ignore: use_build_context_synchronously
       context.read<UserCubit>().setUserModel(newUser);
+
       SharedPreferences sharedPreferences =
           await SharedPreferences.getInstance();
       sharedPreferences.setString("uid", newUser.uid ?? "");

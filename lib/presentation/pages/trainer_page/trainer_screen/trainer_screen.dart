@@ -19,7 +19,9 @@ class _TrainerScreenState extends State<TrainerScreen> {
     return BlocBuilder<TrainerBloc, TrainerState>(
       builder: (context, state) {
         if (state is TrainerLoading) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
         } else if (state is TrainerLoadSuccess) {
           // Обновляем список тренеров при успешной загрузке
           List<Trainer> trainerList = state.trainerList

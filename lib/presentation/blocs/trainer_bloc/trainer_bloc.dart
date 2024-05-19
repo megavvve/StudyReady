@@ -2,7 +2,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:study_ready/domain/entities/chapter.dart';
-
 import 'package:study_ready/domain/entities/question.dart';
 import 'package:study_ready/domain/entities/subject.dart';
 import 'package:study_ready/domain/entities/theme.dart';
@@ -122,6 +121,7 @@ class TrainerBloc extends Bloc<TrainerEvent, TrainerState> {
       );
       allTrainer.add(trainer);
     }
+
     if (trainersFromDB.isEmpty) {
       emit(
         const TrainerLoadFailure(
@@ -129,6 +129,10 @@ class TrainerBloc extends Bloc<TrainerEvent, TrainerState> {
         ),
       );
     } else {
+      // for (var element in allTrainer) {
+      //   FirestoreService().insertTrainerWithQuestions(element);
+      // }
+
       emit(
         TrainerLoadSuccess(
           trainerList: allTrainer,

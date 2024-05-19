@@ -33,6 +33,35 @@ class Question {
     required this.rightAnswer,
     required this.incorrectAnswers,
   });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'courseNumber': courseNumber,
+      'subject': subject.toMap(),
+      'chapter': chapter.toMap(),
+      'theme': theme.toMap(),
+      'difficultly': difficultly,
+      'questionContext': questionContext,
+      'rightAnswer': rightAnswer,
+      'incorrectAnswers': incorrectAnswers,
+    };
+  }
+
+// Метод fromMap для преобразования данных из Map в объект Question
+  factory Question.fromMap(Map<String, dynamic> map) {
+    return Question(
+      id: map['id'],
+      courseNumber: map['courseNumber'],
+      subject: Subject.fromMap(map['subject'] as Map<String, dynamic>),
+      chapter: Chapter.fromMap(map['chapter'] as Map<String, dynamic>),
+      theme: Theme.fromMap(map['theme'] as Map<String, dynamic>),
+      difficultly: map['difficultly'],
+      questionContext: map['questionContext'],
+      rightAnswer: map['rightAnswer'],
+      incorrectAnswers: List<String>.from(map['incorrectAnswers']),
+    );
+  }
   static int getNextId(List<Trainer> trainerList) {
     List<int> listQuestionIDS = [];
 

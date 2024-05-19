@@ -33,7 +33,7 @@ class QuestionRepositoryImpl implements QuestionRepository {
   }
 
   @override
-  Future<int> insertQuestion(Question question) {
+  Future<int> insertQuestion(Question question) async {
     return appDB.insertQuestion(
       QuestionMapper.toQuestionTableCompanion(
         question,

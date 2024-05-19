@@ -27,4 +27,21 @@ class Chapter {
 
     return Chapter(id: 1, subjectId: 1, name: '');
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'subjectId': subjectId,
+      'name': name,
+    };
+  }
+
+  // Метод fromMap для преобразования данных из Map в объект Chapter
+  factory Chapter.fromMap(Map<String, dynamic> map) {
+    return Chapter(
+      id: map['id'],
+      subjectId: map['subjectId'],
+      name: map['name'],
+    );
+  }
 }

@@ -22,6 +22,35 @@ class Trainer {
     required this.image,
     required this.questions,
   });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'trainerName': trainerName,
+      'subjectName': subjectName,
+      'description': description,
+      'color': color,
+      'image': image,
+      //'questions': questions.map((question) => question.toMap()).toList(),
+    };
+  }
+
+  // Метод fromMap для преобразования данных из Map в объект Trainer
+  factory Trainer.fromMap(Map<String, dynamic> map) {
+    return Trainer(
+      id: map['id'],
+      trainerName: map['trainerName'],
+      subjectName: map['subjectName'],
+      description: map['description'],
+      color: map['color'],
+      image: map['image'],
+      questions: (map['questions'] as List<dynamic>)
+          .map((questionMap) =>
+              Question.fromMap(questionMap as Map<String, dynamic>))
+          .toList(),
+    );
+  }
+
   static Trainer? getTrainerFromMyText(String? text, List<Trainer> trainers) {
     if (text != null && trainers.isNotEmpty) {
       List<String> parts = text.split(", ");
