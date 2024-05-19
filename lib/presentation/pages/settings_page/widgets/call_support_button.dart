@@ -20,7 +20,7 @@ class CallSupportButton extends StatelessWidget {
             );
           },
         );
-        
+
       },
       child: Container(
         alignment: Alignment.center,
@@ -37,7 +37,7 @@ class CallSupportButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Обратиться в поддержку",
+              "Обучение",
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 20.sp,
