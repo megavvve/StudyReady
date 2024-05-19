@@ -139,6 +139,7 @@ class _TrainerCardState extends State<TrainerCard> {
                                   displayIndex: 4,
                                   tooltip: (controller) {
                                     return MTooltip(
+                                      tooltipKey: 'materials_helper_disabled',
                                       title: 'Кнопка "Начнем"',
                                       description:
                                           "Нажмите, чтобы запустить тренажер.",

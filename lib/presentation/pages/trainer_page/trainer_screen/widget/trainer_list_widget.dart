@@ -35,18 +35,22 @@ class _TrainerListWidgetState extends State<TrainerListWidget> {
   final TooltipController _tooltipController = TooltipController();
 
   @override
-  void initState() async {
+  void initState() {
     super.initState();
 
     trainerList = widget.trainerList;
 
     sortingList = List.from(trainerList);
+    initializePreferences();
+  }
 
+  Future<void> initializePreferences() async {
     prefs = await SharedPreferences.getInstance();
+    setState(() {});
   }
 
   bool get trainerHelperDisabled =>
-      prefs.getBool('trainer_helper_disabled') ?? false;
+      prefs.getBool('trainer_helper_disabled') ?? true;
 
   void setHelperDisabled(bool value) {
     prefs.setBool('trainer_helper_disabled', value);
@@ -77,11 +81,11 @@ class _TrainerListWidgetState extends State<TrainerListWidget> {
         await Future.delayed(
           const Duration(milliseconds: 100),
         );
-        return !trainerHelperDisabled && !deleteMode.isDeleting;
+        return trainerHelperDisabled;
       },
       preferredOverlay: GestureDetector(
         onTap: () {
-          setHelperDisabled(true);
+          setHelperDisabled(false);
           _tooltipController.dismiss();
         },
         child: Container(
@@ -142,6 +146,7 @@ class _TrainerListWidgetState extends State<TrainerListWidget> {
                                 displayIndex: 0,
                                 tooltip: (controller) {
                                   return MTooltip(
+                                    tooltipKey: 'trainer_helper_disabled',
                                     title: 'Кнопка "Выбрать предмет"',
                                     description:
                                         "Нажмите, чтобы перейти к выбору предмета тренажеров.",
@@ -236,6 +241,7 @@ class _TrainerListWidgetState extends State<TrainerListWidget> {
                                 displayIndex: 1,
                                 tooltip: (controller) {
                                   return MTooltip(
+                                    tooltipKey: 'trainer_helper_disabled',
                                     title: 'Кнопка "Сортировка"',
                                     description:
                                         "Нажмите, чтобы перейти к сортировке тренажеров.",
@@ -336,6 +342,7 @@ class _TrainerListWidgetState extends State<TrainerListWidget> {
                               return Padding(
                                 padding: EdgeInsets.only(top: 40.h),
                                 child: MTooltip(
+                                  tooltipKey: 'trainer_helper_disabled',
                                   title: 'Функция "Удаление тренажера"',
                                   description:
                                       "Удерживайте карточку, чтобы перейти к удалению тренажеров.",
@@ -376,6 +383,7 @@ class _TrainerListWidgetState extends State<TrainerListWidget> {
                     displayIndex: 2,
                     tooltip: (controller) {
                       return MTooltip(
+                        tooltipKey: 'trainer_helper_disabled',
                         title: 'Кнопка "Добавить вопрос"',
                         description:
                             "Нажмите, чтобы перейти к добавлению вопроса.",

@@ -31,18 +31,23 @@ class _MaterialScreenState extends State<MaterialScreen> {
   late bool toogleForListOfMaterials;
   late SharedPreferences prefs;
   @override
-  void initState() async {
+  void initState() {
     toogleForListOfMaterials = true;
     deleteMode = DeleteModeForMaterials();
-    prefs = await SharedPreferences.getInstance();
     super.initState();
+    initializePreferences();
+  }
+
+  Future<void> initializePreferences() async {
+    prefs = await SharedPreferences.getInstance();
+    setState(() {});
   }
 
   final TextEditingController searchTextController = TextEditingController();
   final TooltipController _tooltipController = TooltipController();
 
   bool get materialsHelperDisabled =>
-      prefs.getBool('materials_helper_disabled') ?? false;
+      prefs.getBool('materials_helper_disabled') ?? true;
 
   void setHelperDisabled(bool value) {
     prefs.setBool('materials_helper_disabled', value);
@@ -90,11 +95,11 @@ class _MaterialScreenState extends State<MaterialScreen> {
                   await Future.delayed(
                     const Duration(milliseconds: 100),
                   );
-                  return !materialsHelperDisabled;
+                  return materialsHelperDisabled;
                 },
                 preferredOverlay: GestureDetector(
                   onTap: () {
-                    setHelperDisabled(true);
+                    setHelperDisabled(false);
                     _tooltipController.dismiss();
                   },
                   child: Container(
@@ -254,6 +259,8 @@ class _MaterialScreenState extends State<MaterialScreen> {
                                             displayIndex: 0,
                                             tooltip: (controller) {
                                               return MTooltip(
+                                                tooltipKey:
+                                                    'materials_helper_disabled',
                                                 title: 'Кнопка "Выбрать"',
                                                 description:
                                                     "Нажмите, чтобы выбрать материал для удаления.",
@@ -309,6 +316,7 @@ class _MaterialScreenState extends State<MaterialScreen> {
                                 displayIndex: 1,
                                 tooltip: (controller) {
                                   return MTooltip(
+                                    tooltipKey: 'materials_helper_disabled',
                                     title: 'Кнопка "Добавить материал"',
                                     description:
                                         "Нажмите, чтобы перейти к добавлению материала.",
