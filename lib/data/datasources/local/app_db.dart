@@ -56,6 +56,18 @@ class AppDB extends _$AppDB {
   @override
   int get schemaVersion => 1;
 
+// Method to clear all data from all tables
+  Future<void> clearAllDatabase() async {
+    await transaction(() async {
+      await delete(subjectTable).go();
+      await delete(chapterTable).go();
+      await delete(themeTable).go();
+      await delete(questionTable).go();
+      await delete(trainerTable).go();
+      await delete(materialsTable).go();
+    });
+  }
+
   Future<void> deleteAndRegenerateDatabase() async {
     // Close the existing database connection
     await close();
@@ -200,17 +212,6 @@ class AppDB extends _$AppDB {
           incorrectAnswers:
               resultRow.single.readTable(questionTable).incorrectAnswers);
     }).first;
-  }
-
-  // Clear all data from the database
-  Future<void> clearDatabase() async {
-    await transaction(() async {
-      await delete(subjectTable).go();
-      await delete(chapterTable).go();
-      await delete(themeTable).go();
-      await delete(questionTable).go();
-      await delete(trainerTable).go();
-    });
   }
 
   // Get question by id

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
+import 'package:study_ready/presentation/blocs/theme_cubit/theme_cubit.dart';
 import 'package:study_ready/utils/app_svg_assets.dart';
 
 import 'description_background_rectangle.dart';
@@ -41,12 +41,16 @@ class MainForm extends StatelessWidget {
           Positioned(
             top: 100.h,
             left: 0.w,
-            child: brightness == Brightness.dark ? sLetterBackFrDark :  sLetterBackFr,
+            child: brightness == Brightness.dark
+                ? sLetterBackFrDark
+                : sLetterBackFr,
           ),
           Positioned(
             top: 100.h,
             left: 0.w,
-            child: brightness == Brightness.dark ? sLetterFrontFrDark :  sLetterFrontFr,
+            child: brightness == Brightness.dark
+                ? sLetterFrontFrDark
+                : sLetterFrontFr,
           ),
           Positioned(
             top: 173.h,

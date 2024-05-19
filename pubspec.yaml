@@ -71,5 +71,6 @@ flutter:
     - assets/rive/duck_walk.riv
     - assets/rive/pencil_dude_hello.riv
     - assets/images/settings/settings_background.svg
+    - assets/images/splash/logo1.png
 
   

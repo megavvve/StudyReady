@@ -8,7 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rive/rive.dart';
 import 'package:study_ready/domain/entities/study_material.dart';
 import 'package:study_ready/presentation/blocs/study_material_bloc/study_material_bloc.dart';
-import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
+import 'package:study_ready/presentation/blocs/theme_cubit/theme_cubit.dart';
 import 'package:study_ready/presentation/pages/materials_page/add_material/widgets/animated_button.dart';
 import 'package:study_ready/presentation/pages/materials_page/add_material/widgets/convert_file_to_study_material.dart';
 import 'package:study_ready/presentation/pages/materials_page/add_material/widgets/show_material_exists_toast.dart';

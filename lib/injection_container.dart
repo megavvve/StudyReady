@@ -24,6 +24,7 @@ import 'package:study_ready/domain/usecases/trainer/insert_trainer.dart';
 import 'package:study_ready/domain/usecases/trainer/update_trainer.dart';
 import 'package:study_ready/presentation/blocs/study_material_bloc/study_material_bloc.dart';
 import 'package:study_ready/presentation/blocs/trainer_bloc/trainer_bloc.dart';
+import 'package:study_ready/presentation/blocs/user_cubit/user_cubit.dart';
 
 final getIt = GetIt.instance;
 
@@ -61,6 +62,9 @@ Future<void> setup() async {
     )..add(
         const InitLoad(),
       ),
+  );
+  getIt.registerFactory(
+    () => UserCubit(),
   );
 
   //Use cases
