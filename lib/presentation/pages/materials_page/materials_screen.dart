@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:overlay_tooltip/overlay_tooltip.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:study_ready/domain/entities/study_material.dart';
-import 'package:study_ready/presentation/blocs/helper_bloc/helper_cubit.dart';
 import 'package:study_ready/presentation/blocs/study_material_bloc/study_material_bloc.dart';
 import 'package:study_ready/presentation/blocs/theme_cubit/theme_cubit.dart';
 import 'package:study_ready/presentation/navigation/burger_navigation_leading.dart';
@@ -29,19 +29,28 @@ class _MaterialScreenState extends State<MaterialScreen> {
   String _query = '';
   late DeleteModeForMaterials deleteMode;
   late bool toogleForListOfMaterials;
+  late SharedPreferences prefs;
   @override
-  void initState() {
+  void initState() async {
     toogleForListOfMaterials = true;
     deleteMode = DeleteModeForMaterials();
+    prefs = await SharedPreferences.getInstance();
     super.initState();
   }
 
   final TextEditingController searchTextController = TextEditingController();
   final TooltipController _tooltipController = TooltipController();
+
+  bool get materialsHelperDisabled =>
+      prefs.getBool('materials_helper_disabled') ?? false;
+
+  void setHelperDisabled(bool value) {
+    prefs.setBool('materials_helper_disabled', value);
+  }
+
   @override
   Widget build(BuildContext context) {
     final brightness = context.watch<ThemeCubit>().state.brightness;
-    final helperDisabled = context.watch<HelperCubit>().state.disabled;
     return BlocBuilder<StudyMaterialBloc, StudyMaterialState>(
       builder: (contextBloc, state) {
         if (state is StudyMaterialLoadSuccess) {
@@ -81,10 +90,11 @@ class _MaterialScreenState extends State<MaterialScreen> {
                   await Future.delayed(
                     const Duration(milliseconds: 100),
                   );
-                  return helperDisabled;
+                  return !materialsHelperDisabled;
                 },
                 preferredOverlay: GestureDetector(
                   onTap: () {
+                    setHelperDisabled(true);
                     _tooltipController.dismiss();
                   },
                   child: Container(
@@ -294,7 +304,8 @@ class _MaterialScreenState extends State<MaterialScreen> {
                               bottom: 56.h,
                               right: 38.w,
                               child: OverlayTooltipItem(
-                                tooltipVerticalPosition: TooltipVerticalPosition.TOP,
+                                tooltipVerticalPosition:
+                                    TooltipVerticalPosition.TOP,
                                 displayIndex: 1,
                                 tooltip: (controller) {
                                   return MTooltip(

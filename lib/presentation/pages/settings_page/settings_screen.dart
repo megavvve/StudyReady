@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:study_ready/presentation/blocs/theme_cubit/theme_cubit.dart';
 import 'package:study_ready/presentation/blocs/user_cubit/user_cubit.dart';
 import 'package:study_ready/presentation/navigation/burger_navigation_leading.dart';
 import 'package:study_ready/presentation/navigation/navigation_bar.dart';
-import 'package:study_ready/presentation/pages/settings_page/widgets/call_support_button.dart';
 import 'package:study_ready/presentation/pages/settings_page/widgets/sign_out.dart';
 import 'package:study_ready/presentation/pages/settings_page/widgets/theme_switch_button.dart';
 import 'package:study_ready/presentation/pages/settings_page/widgets/user_profile_widget.dart';
@@ -87,7 +85,6 @@ class SettingsScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      */
                     ],
                   ),
                 ),

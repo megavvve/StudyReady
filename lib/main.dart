@@ -8,7 +8,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:study_ready/data/repositories/helper_repository/helper_repository.dart';
 import 'package:study_ready/data/repositories/theme_repository/theme_repository.dart';
 import 'package:study_ready/domain/entities/auth.dart';
 import 'package:study_ready/domain/entities/user_model.dart';
@@ -23,8 +22,6 @@ import 'package:study_ready/presentation/blocs/user_cubit/user_cubit.dart';
 import 'package:study_ready/presentation/pages/first_page/first_screen.dart';
 import 'package:study_ready/presentation/pages/home_page/home_screen.dart';
 import 'package:study_ready/utils/app_themes.dart';
-
-import 'presentation/blocs/helper_bloc/helper_cubit.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -114,7 +111,7 @@ class MyApp extends StatelessWidget {
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     context.read<UserCubit>().setUserModel(userModel);
-                    return const HomeScreen();
+                    return HomeScreen();
                   } else {
                     return const FirstScreen();
                   }

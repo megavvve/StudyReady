@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:study_ready/presentation/blocs/helper_bloc/helper_cubit.dart';
-import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:study_ready/presentation/blocs/theme_cubit/theme_cubit.dart';
 
 import 'package:study_ready/presentation/navigation/navigation_bar.dart';
@@ -14,17 +13,36 @@ import 'package:overlay_tooltip/overlay_tooltip.dart';
 
 import '../../../utils/custom_tooltip.dart';
 
-class HomeScreen extends StatelessWidget {
-  HomeScreen({
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({
     super.key,
   });
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   final TooltipController _tooltipController = TooltipController();
+
+  late SharedPreferences prefs;
+
+  @override
+  void initState() async {
+    super.initState();
+    prefs = await SharedPreferences.getInstance();
+    setState(() {});
+  }
+
+  bool get homeHelperDisabled => prefs.getBool('home_helper_disabled') ?? false;
+
+  void setHelperDisabled(bool value) {
+    prefs.setBool('home_helper_disabled', value);
+  }
 
   @override
   Widget build(BuildContext context) {
     final brightness = context.watch<ThemeCubit>().state.brightness;
-    final helperDisabled = context.watch<HelperCubit>().state.disabled;
     return OverlayTooltipScaffold(
       tooltipAnimationCurve: Curves.linear,
       tooltipAnimationDuration: const Duration(milliseconds: 500),
@@ -33,10 +51,11 @@ class HomeScreen extends StatelessWidget {
         await Future.delayed(
           const Duration(milliseconds: 100),
         );
-        return helperDisabled;
+        return !homeHelperDisabled;
       },
       preferredOverlay: GestureDetector(
         onTap: () {
+          setHelperDisabled(true);
           _tooltipController.dismiss();
         },
         child: Container(

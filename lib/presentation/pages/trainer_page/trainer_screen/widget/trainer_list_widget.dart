@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:overlay_tooltip/overlay_tooltip.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:study_ready/domain/entities/trainer.dart';
-import 'package:study_ready/presentation/blocs/helper_bloc/helper_cubit.dart';
-import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
+import 'package:study_ready/presentation/blocs/theme_cubit/theme_cubit.dart';
 import 'package:study_ready/presentation/blocs/trainer_bloc/trainer_bloc.dart';
 import 'package:study_ready/presentation/navigation/burger_navigation_leading.dart';
 import 'package:study_ready/presentation/navigation/custom_page_router.dart';
@@ -32,23 +31,31 @@ class TrainerListWidget extends StatefulWidget {
 class _TrainerListWidgetState extends State<TrainerListWidget> {
   late List<Trainer> sortingList;
   late List<Trainer> trainerList;
-
+  late SharedPreferences prefs;
   final TooltipController _tooltipController = TooltipController();
 
   @override
-  void initState() {
+  void initState() async {
     super.initState();
 
     trainerList = widget.trainerList;
 
     sortingList = List.from(trainerList);
+
+    prefs = await SharedPreferences.getInstance();
+  }
+
+  bool get trainerHelperDisabled =>
+      prefs.getBool('trainer_helper_disabled') ?? false;
+
+  void setHelperDisabled(bool value) {
+    prefs.setBool('trainer_helper_disabled', value);
   }
 
   @override
   Widget build(BuildContext context) {
     DeleteModeForTrainers deleteMode = DeleteModeForTrainers();
     final brightness = context.watch<ThemeCubit>().state.brightness;
-    final helperDisabled = context.watch<HelperCubit>().state.disabled;
     final List<String> paramsOfSort = [
       'По умолчанию',
       'По названию тренажера',
@@ -70,11 +77,11 @@ class _TrainerListWidgetState extends State<TrainerListWidget> {
         await Future.delayed(
           const Duration(milliseconds: 100),
         );
-        return (helperDisabled && !deleteMode.isDeleting) ||
-            deleteMode.deleteMaterials;
+        return !trainerHelperDisabled && !deleteMode.isDeleting;
       },
       preferredOverlay: GestureDetector(
         onTap: () {
+          setHelperDisabled(true);
           _tooltipController.dismiss();
         },
         child: Container(
