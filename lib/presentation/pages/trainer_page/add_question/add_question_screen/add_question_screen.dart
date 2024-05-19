@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
+import 'package:study_ready/presentation/blocs/theme_cubit/theme_cubit.dart';
 import 'package:study_ready/presentation/navigation/navigation_bar.dart';
 import 'package:study_ready/presentation/pages/trainer_page/add_question/add_question_screen/widgets_add_question/add_question_button.dart';
 import 'package:study_ready/presentation/pages/trainer_page/add_question/add_question_screen/widgets_add_question/question_and_right_answer_widget.dart';

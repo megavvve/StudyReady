@@ -352,6 +352,11 @@ class _TrainerListWidgetState extends State<TrainerListWidget> {
                             height: 30.h,
                           ),
                         ),
+                        SliverToBoxAdapter(
+                          child: SizedBox(
+                            height: 30.h,
+                          ),
+                        ),
                       ],
                     ),
                   ),

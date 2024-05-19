@@ -1,16 +1,26 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:study_ready/domain/repositories/auth_repository.dart';
 import 'package:study_ready/utils/exceptions.dart';
 
-class FirebaseAuthRepository implements AuthRepository {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+class Auth {
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  User? get currentUser => _firebaseAuth.currentUser;
+  Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
 
-  @override
+  Future<UserCredential?> signInWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
+    return await _firebaseAuth.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+  }
+
   Future<User?> signInAnonymously() async {
     try {
-      UserCredential userCredential = await _auth.signInAnonymously();
+      UserCredential userCredential = await _firebaseAuth.signInAnonymously();
       return userCredential.user;
     } catch (e) {
       Fluttertoast.showToast(
@@ -26,12 +36,17 @@ class FirebaseAuthRepository implements AuthRepository {
     }
   }
 
-  @override
-  Future<void> signOut() async {
-    try {
-      await _auth.signOut();
-    } catch (e) {
-      throw AuthException('Failed to sign out: $e');
-    }
+  Future<UserCredential?> createUserWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
+    return await _firebaseAuth.createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+  }
+
+  Future<void> signout() async {
+    await _firebaseAuth.signOut();
   }
 }

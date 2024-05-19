@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/domain/entities/study_material.dart';
-import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
+import 'package:study_ready/presentation/blocs/theme_cubit/theme_cubit.dart';
 import 'package:study_ready/presentation/pages/materials_page/widgets/for_widget_of_material_screen/check_button.dart';
 import 'package:study_ready/presentation/pages/materials_page/widgets/for_widget_of_material_screen/delete_mode_for_materials.dart';
 import 'package:study_ready/presentation/pages/materials_page/widgets/material_reader_pick.dart';

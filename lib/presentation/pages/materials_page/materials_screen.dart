@@ -5,7 +5,7 @@ import 'package:overlay_tooltip/overlay_tooltip.dart';
 import 'package:study_ready/domain/entities/study_material.dart';
 import 'package:study_ready/presentation/blocs/helper_bloc/helper_cubit.dart';
 import 'package:study_ready/presentation/blocs/study_material_bloc/study_material_bloc.dart';
-import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
+import 'package:study_ready/presentation/blocs/theme_cubit/theme_cubit.dart';
 import 'package:study_ready/presentation/navigation/burger_navigation_leading.dart';
 import 'package:study_ready/presentation/navigation/custom_page_router.dart';
 import 'package:study_ready/presentation/navigation/navigation_bar.dart';

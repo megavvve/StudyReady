@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
+import 'package:study_ready/presentation/blocs/theme_cubit/theme_cubit.dart';
 import 'package:study_ready/presentation/pages/trainer_page/add_question/question_params/widgets_answer_parametrs/card_for_question_param.dart';
 import 'package:study_ready/presentation/pages/trainer_page/add_question/question_params/widgets_answer_parametrs/save_button.dart';
 import 'package:study_ready/presentation/pages/trainer_page/add_question/question_params/widgets_answer_parametrs/sliver_ans_pars_app_bar_widget.dart';

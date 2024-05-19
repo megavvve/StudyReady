@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:study_ready/domain/entities/trainer.dart';
-import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
+import 'package:study_ready/presentation/blocs/theme_cubit/theme_cubit.dart';
 import 'package:study_ready/presentation/blocs/trainer_bloc/trainer_bloc.dart';
 import 'package:study_ready/presentation/pages/trainer_page/add_question/add_question_screen/widgets_add_question/add_trainer_dialog.dart';
 import 'package:study_ready/presentation/pages/trainer_page/add_question/question_params/widgets_answer_parametrs/add_text_dialog.dart';

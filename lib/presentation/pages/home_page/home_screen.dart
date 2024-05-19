@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/presentation/blocs/helper_bloc/helper_cubit.dart';
 import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
+import 'package:study_ready/presentation/blocs/theme_cubit/theme_cubit.dart';
 
 import 'package:study_ready/presentation/navigation/navigation_bar.dart';
 import 'package:study_ready/presentation/pages/home_page/widgets/materials_button.dart';

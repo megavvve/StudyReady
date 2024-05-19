@@ -1,14 +1,11 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:study_ready/data/datasources/local/app_db.dart';
 import 'package:study_ready/data/datasources/local/external/trainers/json_trainer_repository.dart';
-import 'package:study_ready/data/repositories/firebase_auth_repository.dart';
 import 'package:study_ready/data/repositories/study_material_repository/firebase_study_material_repository.dart';
 import 'package:study_ready/data/repositories/study_material_repository/local_study_material_repository.dart';
 import 'package:study_ready/data/repositories/study_material_repository/study_material_repository_impl.dart';
 import 'package:study_ready/data/repositories/trainer_repository/question_repository.dart';
 import 'package:study_ready/data/repositories/trainer_repository/trainer_repository.dart';
-import 'package:study_ready/domain/repositories/auth_repository.dart';
 import 'package:study_ready/domain/repositories/study_material_repository.dart';
 import 'package:study_ready/domain/repositories/trainer_repository/question_repository.dart';
 import 'package:study_ready/domain/repositories/trainer_repository/trainer_repository.dart';
@@ -27,16 +24,17 @@ import 'package:study_ready/domain/usecases/trainer/insert_trainer.dart';
 import 'package:study_ready/domain/usecases/trainer/update_trainer.dart';
 import 'package:study_ready/presentation/blocs/study_material_bloc/study_material_bloc.dart';
 import 'package:study_ready/presentation/blocs/trainer_bloc/trainer_bloc.dart';
+import 'package:study_ready/presentation/blocs/user_cubit/user_cubit.dart';
 
 final getIt = GetIt.instance;
 
 //Dependency injection
 Future<void> setup() async {
-  final AuthRepository authRepository = FirebaseAuthRepository();
+  //final AuthRepository authRepository = FirebaseAuthRepository();
 
 // Sign in anonymously
-  User? user = await authRepository.signInAnonymously();
-  print(user?.email);
+  // User? user = await authRepository.signInAnonymously();
+  // print(user?.email);
   //blocs
 
   getIt.registerFactory(
@@ -64,6 +62,9 @@ Future<void> setup() async {
     )..add(
         const InitLoad(),
       ),
+  );
+  getIt.registerFactory(
+    () => UserCubit(),
   );
 
   //Use cases

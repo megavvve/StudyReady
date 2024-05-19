@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
+import 'package:study_ready/presentation/blocs/theme_cubit/theme_cubit.dart';
 
 import 'package:study_ready/presentation/navigation/custom_page_router.dart';
 import 'package:study_ready/presentation/pages/home_page/widgets/custom_shape_trainer.dart';

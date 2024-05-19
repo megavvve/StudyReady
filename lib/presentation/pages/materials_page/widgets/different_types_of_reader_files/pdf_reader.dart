@@ -8,7 +8,7 @@ import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:study_ready/domain/entities/study_material.dart';
-import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
+import 'package:study_ready/presentation/blocs/theme_cubit/theme_cubit.dart';
 import 'package:study_ready/utils/app_colors.dart';
 
 class PDFReader extends StatefulWidget {

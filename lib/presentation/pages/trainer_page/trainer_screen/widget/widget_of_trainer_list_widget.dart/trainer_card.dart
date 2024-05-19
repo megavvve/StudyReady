@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:overlay_tooltip/overlay_tooltip.dart';
 
 import 'package:study_ready/domain/entities/trainer.dart';
-import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
+import 'package:study_ready/presentation/blocs/theme_cubit/theme_cubit.dart';
 import 'package:study_ready/presentation/blocs/trainer_bloc/trainer_bloc.dart';
 import 'package:study_ready/presentation/pages/trainer_page/trainer_screen/widget/delete_mode_for_trainers.dart';
 import 'package:study_ready/presentation/pages/trainer_page/trainer_screen/widget/widget_of_trainer_list_widget.dart/delete_confirm.dart';

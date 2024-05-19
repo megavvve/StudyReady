@@ -10,14 +10,18 @@ import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:study_ready/data/repositories/helper_repository/helper_repository.dart';
 import 'package:study_ready/data/repositories/theme_repository/theme_repository.dart';
+import 'package:study_ready/domain/entities/auth.dart';
+import 'package:study_ready/domain/entities/user_model.dart';
 
 import 'package:study_ready/firebase_options.dart';
 import 'package:study_ready/injection_container.dart';
 import 'package:study_ready/presentation/blocs/study_material_bloc/study_material_bloc.dart';
-import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
-import 'package:study_ready/presentation/blocs/theme_bloc/theme_state.dart';
+import 'package:study_ready/presentation/blocs/theme_cubit/theme_cubit.dart';
+import 'package:study_ready/presentation/blocs/theme_cubit/theme_state.dart';
 import 'package:study_ready/presentation/blocs/trainer_bloc/trainer_bloc.dart';
-import 'package:study_ready/presentation/pages/first_screen/first_screen.dart';
+import 'package:study_ready/presentation/blocs/user_cubit/user_cubit.dart';
+import 'package:study_ready/presentation/pages/first_page/first_screen.dart';
+import 'package:study_ready/presentation/pages/home_page/home_screen.dart';
 import 'package:study_ready/utils/app_themes.dart';
 
 import 'presentation/blocs/helper_bloc/helper_cubit.dart';
@@ -42,6 +46,7 @@ Future<void> main() async {
   await ScreenUtil.ensureScreenSize();
 
   final prefs = await SharedPreferences.getInstance();
+
   runApp(
     MyApp(
       preferences: prefs,
@@ -60,8 +65,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeRepository = ThemeRepository(preferences: preferences);
-    final helperRepository = HelperRepository(preferences: preferences);
-
+    UserModel userModel = UserModel(
+      uid: preferences.getString("uid"),
+      displayName: preferences.getString("displayName"),
+      email: preferences.getString("email"),
+      password: preferences.getString(
+        "password",
+      ),
+    );
     SystemChrome.setPreferredOrientations(
       [
         DeviceOrientation.portraitUp,
@@ -81,10 +92,8 @@ class MyApp extends StatelessWidget {
             themeRepository: themeRepository,
           ),
         ),
-        BlocProvider(
-          create: (context) => HelperCubit(
-            helperRepository: helperRepository,
-          ),
+        BlocProvider<UserCubit>(
+          create: (context) => getIt<UserCubit>(),
         ),
       ],
       child: BlocBuilder<ThemeCubit, ThemeState>(
@@ -100,7 +109,16 @@ class MyApp extends StatelessWidget {
               theme: state.isDark ? darkTheme : lightTheme,
               home: child,
             ),
-            child: const FirstScreen(), // start screen
+            child: StreamBuilder(
+                stream: Auth().authStateChanges,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    context.read<UserCubit>().setUserModel(userModel);
+                    return const HomeScreen();
+                  } else {
+                    return const FirstScreen();
+                  }
+                }),
           );
         },
       ),

@@ -3,11 +3,12 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:study_ready/presentation/blocs/theme_bloc/theme_cubit.dart';
+import 'package:study_ready/presentation/blocs/theme_cubit/theme_cubit.dart';
 import 'package:study_ready/utils/app_svg_assets.dart';
 
 class Headline extends StatelessWidget {
-  const Headline({super.key});
+  final String textForHeadline;
+  const Headline({super.key, required this.textForHeadline});
 
   @override
   Widget build(BuildContext context) {
@@ -20,21 +21,23 @@ class Headline extends StatelessWidget {
         children: [
           Positioned(
             left: -1.w,
-            child: brightness == Brightness.dark ? regBackgroundTrepezoidDark : regBackgroundTrepezoid,
+            child: brightness == Brightness.dark
+                ? regBackgroundTrepezoidDark
+                : regBackgroundTrepezoid,
           ),
           Positioned(
-            top: 65.h,
+            top: 40.h,
             left: 10.w,
             child: Transform.rotate(
-              angle: -(20 * pi) / 360,
+              angle: -(15 * pi) / 360,
               child: SizedBox(
                 width: 316.91.w,
-                height: 58.h,
+                //height: 58.h,
                 child: Text(
-                  "ВВЕДИТЕ ДАННЫЕ:",
+                  "ВВЕДИТЕ ДАННЫЕ\n${textForHeadline.toUpperCase()}:",
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 29.sp,
+                    fontSize: 27.sp,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
