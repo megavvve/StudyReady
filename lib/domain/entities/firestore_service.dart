@@ -9,19 +9,15 @@ class FirestoreService {
 
   Future<void> createUser(UserModel user) async {
     await _db.collection('users').doc(user.uid).set(user.toMap());
-    // _db.collection('users').doc(user.uid).collection("trainers");
   }
 
   Future<void> initializeTrainersCollection(String uid) async {
     try {
-      // Создаем ссылку на коллекцию тренажеров с использованием uid пользователя
       final trainersCollection =
           FirebaseFirestore.instance.collection('trainers').doc(uid);
 
-      // Проверяем существование документа по указанному uid
       final docSnapshot = await trainersCollection.get();
       if (!docSnapshot.exists) {
-        // Если документ не существует, добавляем его
         await trainersCollection.set({});
 
         print(
@@ -47,11 +43,9 @@ class FirestoreService {
               .doc(uid)
               .collection('trainers');
 
-      // Добавляем тренажер в коллекцию
       DocumentReference trainerDocRef =
           await trainersCollection.add(trainer.toMap());
 
-      // Получаем список вопросов из тренажера
       List<Question> questions = trainer.questions;
 
       if (questions.isNotEmpty) {
@@ -87,32 +81,26 @@ class FirestoreService {
               .doc(uid)
               .collection('trainers');
 
-      // Получаем все документы из коллекции "trainers"
       QuerySnapshot<Map<String, dynamic>> trainersSnapshot =
           await trainersCollection.get();
 
       for (QueryDocumentSnapshot<Map<String, dynamic>> trainerDoc
           in trainersSnapshot.docs) {
-        // Преобразуем данные тренажера из документа в объект Trainer
         Trainer trainer = Trainer.fromMap(trainerDoc.data());
 
-        // Получаем ссылку на коллекцию "questions" для данного тренажера
         CollectionReference<Map<String, dynamic>> questionsCollection =
             trainerDoc.reference.collection('questions');
 
-        // Получаем все документы из коллекции "questions"
         QuerySnapshot<Map<String, dynamic>> questionsSnapshot =
             await questionsCollection.get();
 
         List<Question> questions = [];
         for (QueryDocumentSnapshot<Map<String, dynamic>> questionDoc
             in questionsSnapshot.docs) {
-          // Преобразуем данные вопроса из документа в объект Question
           Question question = Question.fromMap(questionDoc.data());
           questions.add(question);
         }
 
-        // Добавляем вопросы к тренажеру
         trainer.questions.addAll(questions);
         trainers.add(trainer);
       }

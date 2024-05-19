@@ -53,8 +53,7 @@ class AddFilesScreenState extends State<AddFilesScreen> {
         allowedExtensions = [];
     }
     setState(() {
-      _isLoading =
-          true; // Устанавливаем флаг загрузки в true при начале загрузки
+      _isLoading = true;
     });
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: fileTypeParam,
@@ -62,8 +61,7 @@ class AddFilesScreenState extends State<AddFilesScreen> {
       allowedExtensions: allowedExtensions,
     );
     setState(() {
-      _isLoading =
-          false; // Устанавливаем флаг загрузки в false после завершения загрузки
+      _isLoading = false;
     });
     if (result != null) {
       File file = File(result.files.single.path!);
@@ -84,6 +82,7 @@ class AddFilesScreenState extends State<AddFilesScreen> {
       } else {
         // Файл слишком большой, предоставляем обратную связь пользователю
         print('Выбранный файл больше 30 МБ');
+        showFeedbackDialog(context, "Выбранный файл больше 30 МБ");
       }
     } else {
       // Пользователь не выбрал файл, предоставляем обратную связь
@@ -344,6 +343,26 @@ Future<bool?> _showBackDialog(BuildContext context) {
             onPressed: () {
               Navigator.pop(context, false);
             },
+          ),
+        ],
+      );
+    },
+  );
+}
+
+void showFeedbackDialog(BuildContext context, String message) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text('Ошибка'),
+        content: Text(message),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text('OK'),
           ),
         ],
       );

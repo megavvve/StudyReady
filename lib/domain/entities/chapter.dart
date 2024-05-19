@@ -36,7 +36,6 @@ class Chapter {
     };
   }
 
-  // Метод fromMap для преобразования данных из Map в объект Chapter
   factory Chapter.fromMap(Map<String, dynamic> map) {
     return Chapter(
       id: map['id'],
