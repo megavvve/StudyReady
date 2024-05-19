@@ -81,7 +81,7 @@ class _PDFReaderState extends State<PDFReader> {
                         TextFormField(
                           validator: (value) {
                             final int currentPage = int.tryParse(value!)!;
-                            if (currentPage > pages!) {
+                            if (currentPage > pages! && currentPage > 0) {
                               return 'Введите допустимый номер страницы.';
                             }
                             return null;
