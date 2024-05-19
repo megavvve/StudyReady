@@ -28,7 +28,6 @@ class UserProfileWidget extends StatelessWidget {
         ),
       ),
       child: Row(
-        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Stack(
             children: [
@@ -59,12 +58,6 @@ class UserProfileWidget extends StatelessWidget {
               ),
             ],
           ),
-          // IconButton(
-          //   icon: Icon(Icons.edit),
-          //   onPressed: () {
-          //     // Действие при нажатии на кнопку редактирования
-          //   },
-          // ),
         ],
       ),
     );

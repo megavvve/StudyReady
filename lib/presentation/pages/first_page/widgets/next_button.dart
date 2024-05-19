@@ -19,7 +19,9 @@ class NextButton extends StatelessWidget {
       child: Container(
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: const Color(0xFF4575CD),
+          color: const Color(
+            0xFF4575CD,
+          ),
           borderRadius: BorderRadius.all(
             Radius.circular(16.sp),
           ),
@@ -29,9 +31,10 @@ class NextButton extends StatelessWidget {
         child: Text(
           "Далее",
           style: TextStyle(
-              color: const Color(0xFFBFD3F3),
-              fontSize: 23.sp,
-              fontWeight: FontWeight.w400),
+            color: const Color(0xFFBFD3F3),
+            fontSize: 23.sp,
+            fontWeight: FontWeight.w400,
+          ),
         ),
       ),
     );

@@ -13,6 +13,11 @@ import 'package:study_ready/presentation/pages/home_page/home_screen.dart';
 Future<void> signInWithEmailAndPassword(
     BuildContext context, ChangeNotifierForAuth changeNotifierForAuth) async {
   try {
+    if (changeNotifierForAuth.emailUser == "" ||
+        changeNotifierForAuth.emailUser.isEmpty) {
+      changeNotifierForAuth.errorMessage = "Введите email";
+      return;
+    }
     if (!validateEmail(changeNotifierForAuth.emailUser)) {
       changeNotifierForAuth.errorMessage = "Неправильный формат email";
       return;
@@ -72,6 +77,11 @@ Future<void> signInWithEmailAndPassword(
 Future<void> createUserWithEmailAndPassword(
     BuildContext context, ChangeNotifierForAuth changeNotifierForAuth) async {
   try {
+    if (changeNotifierForAuth.emailUser == "" ||
+        changeNotifierForAuth.emailUser.isEmpty) {
+      changeNotifierForAuth.errorMessage = "Введите email";
+      return;
+    }
     // Validate email format before attempting to create a user
     if (!validateEmail(changeNotifierForAuth.emailUser)) {
       changeNotifierForAuth.errorMessage = "Неправильный формат email";
