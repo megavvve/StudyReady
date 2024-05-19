@@ -31,6 +31,7 @@ class _PDFReaderState extends State<PDFReader> {
   bool isReady = false;
   String errorMessage = '';
   TextEditingController _pageController = TextEditingController();
+  GlobalKey<FormState> _searchKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -71,11 +72,28 @@ class _PDFReaderState extends State<PDFReader> {
                 context: context,
                 builder: (context) => AlertDialog(
                   title: const Text('Поиск по страницам'),
-                  content: TextField(
-                    controller: _pageController,
-                    keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                      labelText: 'Введите номер страницы',
+                  content: Form(
+                    key: _searchKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        TextFormField(
+                          validator: (value) {
+                            final int currentPage = int.tryParse(value!)!;
+                            if (currentPage > pages! && currentPage > 0) {
+                              return 'Введите допустимый номер страницы.';
+                            }
+                            return null;
+                          },
+                          controller: _pageController,
+                          keyboardType: TextInputType.number,
+                          decoration: const InputDecoration(
+                            labelText: 'Введите номер страницы',
+                          ),
+                        ),
+                        Text("${1 + currentPage!}/$pages"),
+                      ],
                     ),
                   ),
                   actions: <Widget>[
@@ -89,12 +107,14 @@ class _PDFReaderState extends State<PDFReader> {
                       onPressed: () {
                         final int? targetPage =
                             int.tryParse(_pageController.text);
-                        if (targetPage != null) {
+                        if (targetPage != null &&
+                            _searchKey.currentState!.validate()) {
                           final controller = _controller.future;
                           controller
                               .then((value) => value.setPage(targetPage - 1));
+                          currentPage = targetPage - 1;
+                          Navigator.of(context).pop();
                         }
-                        Navigator.of(context).pop();
                       },
                       child: const Text('Перейти'),
                     ),
