@@ -2,24 +2,49 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:overlay_tooltip/overlay_tooltip.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class MTooltip extends StatelessWidget {
+class MTooltip extends StatefulWidget {
   final TooltipController controller;
   final String title;
   final String description;
+  final String tooltipKey;
 
   const MTooltip({
     Key? key,
+    required this.tooltipKey,
     required this.controller,
     required this.title,
     required this.description,
   }) : super(key: key);
 
   @override
+  State<MTooltip> createState() => _MTooltipState();
+}
+
+class _MTooltipState extends State<MTooltip> {
+  late SharedPreferences prefs;
+
+  @override
+  void initState() {
+    super.initState();
+    initializePreferences();
+  }
+
+  Future<void> initializePreferences() async {
+    prefs = await SharedPreferences.getInstance();
+    setState(() {});
+  }
+
+  void setHelperDisabled(bool value, String key) {
+    prefs.setBool(key, value);
+  }
+
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final currentDisplayIndex = controller.nextPlayIndex + 1;
-    final totalLength = controller.playWidgetLength;
+    final currentDisplayIndex = widget.controller.nextPlayIndex + 1;
+    final totalLength = widget.controller.playWidgetLength;
     final hasNextItem = currentDisplayIndex < totalLength;
     final hasPreviousItem = currentDisplayIndex != 1;
 
@@ -41,7 +66,7 @@ class MTooltip extends StatelessWidget {
                 TextSpan(
                   children: [
                     TextSpan(
-                      text: title,
+                      text: widget.title,
                       style: TextStyle(
                           color: Colors.black,
                           fontSize: 16.sp,
@@ -53,7 +78,7 @@ class MTooltip extends StatelessWidget {
             ],
           ),
           Text(
-            description,
+            widget.description,
             style: TextStyle(
                 color: Colors.black87,
                 fontSize: 12.sp,
@@ -78,7 +103,7 @@ class MTooltip extends StatelessWidget {
                 opacity: hasPreviousItem ? 1 : 0,
                 child: TextButton(
                   onPressed: () {
-                    controller.previous();
+                    widget.controller.previous();
                   },
                   style: TextButton.styleFrom(
                       backgroundColor: Colors.blueGrey,
@@ -95,24 +120,44 @@ class MTooltip extends StatelessWidget {
                   ),
                 ),
               ),
-              TextButton(
-                onPressed: () {
-                  controller.next();
-                },
-                style: TextButton.styleFrom(
-                    backgroundColor: Colors.greenAccent,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5.sp))),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10.h),
-                  child: Text(
-                    hasNextItem ? 'След.' : 'ОК',
-                    style: const TextStyle(
-                      color: Colors.white,
+              hasNextItem
+                  ? TextButton(
+                      onPressed: () {
+                        widget.controller.next();
+                      },
+                      style: TextButton.styleFrom(
+                          backgroundColor: Colors.greenAccent,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5.sp))),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10.h),
+                        child: const Text(
+                          'След.',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    )
+                  : TextButton(
+                      onPressed: () {
+                        setHelperDisabled(false, widget.tooltipKey);
+                        widget.controller.next();
+                      },
+                      style: TextButton.styleFrom(
+                          backgroundColor: Colors.greenAccent,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5.sp))),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10.h),
+                        child: const Text(
+                          'ОК',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              ),
             ],
           )
         ],

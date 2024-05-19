@@ -28,13 +28,17 @@ class _HomeScreenState extends State<HomeScreen> {
   late SharedPreferences prefs;
 
   @override
-  void initState() async {
+  void initState() {
     super.initState();
+    initializePreferences();
+  }
+
+  Future<void> initializePreferences() async {
     prefs = await SharedPreferences.getInstance();
     setState(() {});
   }
 
-  bool get homeHelperDisabled => prefs.getBool('home_helper_disabled') ?? false;
+  bool get homeHelperDisabled => prefs.getBool('home_helper_disabled') ?? true;
 
   void setHelperDisabled(bool value) {
     prefs.setBool('home_helper_disabled', value);
@@ -51,11 +55,11 @@ class _HomeScreenState extends State<HomeScreen> {
         await Future.delayed(
           const Duration(milliseconds: 100),
         );
-        return !homeHelperDisabled;
+        return homeHelperDisabled;
       },
       preferredOverlay: GestureDetector(
         onTap: () {
-          setHelperDisabled(true);
+          setHelperDisabled(false);
           _tooltipController.dismiss();
         },
         child: Container(
@@ -84,6 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 displayIndex: 1,
                 tooltip: (controller) {
                   return MTooltip(
+                    tooltipKey: 'home_helper_disabled',
                     title: 'Кнопка "Тренажер"',
                     description: "Нажмите, чтобы перейти в тренажеры.",
                     controller: controller,
@@ -99,6 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 displayIndex: 2,
                 tooltip: (controller) {
                   return MTooltip(
+                    tooltipKey: 'home_helper_disabled',
                     title: 'Кнопка "Материалы"',
                     description: "Нажмите, чтобы перейти в материалы.",
                     controller: controller,
