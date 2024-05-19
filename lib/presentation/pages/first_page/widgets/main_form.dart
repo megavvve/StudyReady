@@ -58,8 +58,8 @@ class MainForm extends StatelessWidget {
             child: const GreetingsField(),
           ),
           Positioned(
-            top: 470.h,
-            left: 40.w,
+            top: 430.h,
+            left: 20.w,
             child: const DescriptionField(),
           ),
         ],
