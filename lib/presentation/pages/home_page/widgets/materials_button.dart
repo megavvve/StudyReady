@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/presentation/navigation/custom_page_router.dart';
-import 'package:study_ready/presentation/pages/home_page/widgets/custom_shape.dart';
+import 'package:study_ready/presentation/pages/home_page/widgets/custom_shape_materials.dart';
 import 'package:study_ready/presentation/pages/materials_page/materials_screen.dart';
 import 'package:study_ready/utils/app_svg_assets.dart';
 
@@ -23,7 +23,7 @@ class MaterialsButton extends StatelessWidget {
       highlightColor: Colors.transparent,
       icon: Stack(
         children: [
-          const CustomShapeWidget(),
+          const MaterialsCustomShapeWidget(),
           Positioned(
             left: 39.w,
             bottom: 50.h,

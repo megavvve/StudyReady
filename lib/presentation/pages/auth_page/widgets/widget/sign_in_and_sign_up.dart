@@ -51,7 +51,7 @@ Future<void> signInWithEmailAndPassword(
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => const HomeScreen(),
+        builder: (context) => HomeScreen(),
       ),
     );
   } on FirebaseAuthException catch (e) {
@@ -112,17 +112,17 @@ Future<void> createUserWithEmailAndPassword(
       sharedPreferences.setString("displayName", newUser.displayName ?? "");
       sharedPreferences.setString("password", newUser.password ?? "");
 
-      // await Auth().signInWithEmailAndPassword(
-      //   email: newUser.email ?? "",
-      //   password: newUser.password ?? "",
-      // );
+      await Auth().signInWithEmailAndPassword(
+        email: newUser.email ?? "",
+        password: newUser.password ?? "",
+      );
     }
 
     // Navigate to HomeScreen on successful user creation
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const HomeScreen(),
+        builder: (context) => HomeScreen(),
       ),
     );
   } on FirebaseAuthException catch (e) {

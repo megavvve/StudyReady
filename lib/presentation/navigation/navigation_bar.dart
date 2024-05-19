@@ -39,7 +39,7 @@ class NavigatorDrawer extends StatelessWidget {
                 PageRouteBuilder(
                   transitionDuration: Duration.zero,
                   pageBuilder: (context, animation, secondaryAnimation) {
-                    return const HomeScreen();
+                    return HomeScreen();
                   },
                   transitionsBuilder:
                       (context, animation, secondaryAnimation, child) {

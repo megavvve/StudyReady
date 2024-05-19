@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/presentation/blocs/theme_cubit/theme_cubit.dart';
 
 import 'package:study_ready/presentation/navigation/custom_page_router.dart';
+import 'package:study_ready/presentation/pages/home_page/widgets/custom_shape_trainer.dart';
 import 'package:study_ready/presentation/pages/trainer_page/trainer_screen/trainer_screen.dart';
 import 'package:study_ready/utils/app_svg_assets.dart';
 
@@ -28,31 +29,33 @@ class TrainerButtonWidget extends StatelessWidget {
       highlightColor: Colors.transparent,
       hoverColor: Colors.transparent,
       padding: EdgeInsets.all(0.sp),
-      icon: SizedBox(
-        width: 375.w,
-        child: Stack(
-          children: [
-            Positioned(
-              child:
-                  brightness == Brightness.dark ? sLetterBackDark : sLetterBack,
-            ),
-            Positioned(
-              child: brightness == Brightness.dark
-                  ? sLetterFrontDark
-                  : sLetterFront,
-            ),
-            Positioned(
-              left: 121.72.w,
-              bottom: 187.91.h,
-              child: trainerText,
-            ),
-            Positioned(
-              left: 160.87.w,
-              bottom: 143.2.h,
-              child: tudyText,
-            ),
-          ],
-        ),
+      icon: Stack(
+        children: [
+          const TrainerCustomShapeWidget(),
+          Positioned(
+            top: 70.h,
+            left: 0.62.w,
+            child:
+                brightness == Brightness.dark ? sLetterBackDark : sLetterBack,
+          ),
+          Positioned(
+            top: 70.h,
+            left: 5.62.w,
+            child: brightness == Brightness.dark
+                ? sLetterFrontDark
+                : sLetterFront,
+          ),
+          Positioned(
+            left: 121.72.w,
+            top: 103.99.h,
+            child: trainerText,
+          ),
+          Positioned(
+            left: 165.87.w,
+            top: 143.11.h,
+            child: tudyText,
+          ),
+        ],
       ),
     );
   }

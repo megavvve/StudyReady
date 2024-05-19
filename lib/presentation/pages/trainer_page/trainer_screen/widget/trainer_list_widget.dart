@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:overlay_tooltip/overlay_tooltip.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:study_ready/domain/entities/trainer.dart';
 import 'package:study_ready/presentation/blocs/theme_cubit/theme_cubit.dart';
 import 'package:study_ready/presentation/blocs/trainer_bloc/trainer_bloc.dart';
@@ -13,6 +14,7 @@ import 'package:study_ready/presentation/pages/trainer_page/trainer_screen/widge
 import 'package:study_ready/presentation/pages/trainer_page/trainer_screen/widget/widget_of_trainer_list_widget.dart/sort_trainers_fun.dart';
 import 'package:study_ready/presentation/pages/trainer_page/trainer_screen/widget/widget_of_trainer_list_widget.dart/trainer_card.dart';
 import 'package:study_ready/utils/app_colors.dart';
+import 'package:study_ready/utils/custom_tooltip.dart';
 
 class TrainerListWidget extends StatefulWidget {
   final List<Trainer> trainerList;
@@ -29,6 +31,8 @@ class TrainerListWidget extends StatefulWidget {
 class _TrainerListWidgetState extends State<TrainerListWidget> {
   late List<Trainer> sortingList;
   late List<Trainer> trainerList;
+  late SharedPreferences prefs;
+  final TooltipController _tooltipController = TooltipController();
 
   @override
   void initState() {
@@ -37,6 +41,19 @@ class _TrainerListWidgetState extends State<TrainerListWidget> {
     trainerList = widget.trainerList;
 
     sortingList = List.from(trainerList);
+    initializePreferences();
+  }
+
+  Future<void> initializePreferences() async {
+    prefs = await SharedPreferences.getInstance();
+    setState(() {});
+  }
+
+  bool get trainerHelperDisabled =>
+      prefs.getBool('trainer_helper_disabled') ?? true;
+
+  void setHelperDisabled(bool value) {
+    prefs.setBool('trainer_helper_disabled', value);
   }
 
   @override
@@ -56,8 +73,28 @@ class _TrainerListWidgetState extends State<TrainerListWidget> {
     }
     List<String> subjectsList = subjectsSet.toList();
 
-    return PopScope(
-      child: ListenableBuilder(
+    return OverlayTooltipScaffold(
+      tooltipAnimationCurve: Curves.linear,
+      tooltipAnimationDuration: const Duration(milliseconds: 500),
+      controller: _tooltipController,
+      startWhen: (initializedWidgetLength) async {
+        await Future.delayed(
+          const Duration(milliseconds: 100),
+        );
+        return trainerHelperDisabled;
+      },
+      preferredOverlay: GestureDetector(
+        onTap: () {
+          setHelperDisabled(false);
+          _tooltipController.dismiss();
+        },
+        child: Container(
+          height: double.infinity.h,
+          width: double.infinity.w,
+          color: const Color.fromARGB(195, 0, 0, 0),
+        ),
+      ),
+      builder: (BuildContext context) => ListenableBuilder(
         listenable: deleteMode,
         builder: (context, state) {
           if (deleteMode.deleteMaterials &&
@@ -105,161 +142,188 @@ class _TrainerListWidgetState extends State<TrainerListWidget> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              SizedBox(
-                                height: 32.h,
-                                width: 170.w,
-                                child: TextButton(
-                                  style: TextButton.styleFrom(
-                                    backgroundColor:
-                                        brightness == Brightness.dark
-                                            ? colorForButton
-                                            : trainerAppBarButtonsBackground,
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 10.w),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(
-                                        10.sp,
-                                      ),
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                    showModalBottomSheet(
+                              OverlayTooltipItem(
+                                displayIndex: 0,
+                                tooltip: (controller) {
+                                  return MTooltip(
+                                    tooltipKey: 'trainer_helper_disabled',
+                                    title: 'Кнопка "Выбрать предмет"',
+                                    description:
+                                        "Нажмите, чтобы перейти к выбору предмета тренажеров.",
+                                    controller: controller,
+                                  );
+                                },
+                                child: SizedBox(
+                                  height: 32.h,
+                                  width: 170.w,
+                                  child: TextButton(
+                                    style: TextButton.styleFrom(
                                       backgroundColor:
                                           brightness == Brightness.dark
-                                              ? backgroundColorDark
-                                              : trainerBottomSheetBackground,
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: <Widget>[
-                                            Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                vertical: 10.h,
-                                              ),
-                                              child: Text(
-                                                "Выбрать предмет",
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w400,
-                                                  fontSize: 20.sp,
+                                              ? colorForButton
+                                              : trainerAppBarButtonsBackground,
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 10.w),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          10.sp,
+                                        ),
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      showModalBottomSheet(
+                                        backgroundColor:
+                                            brightness == Brightness.dark
+                                                ? backgroundColorDark
+                                                : trainerBottomSheetBackground,
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: <Widget>[
+                                              Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                  vertical: 10.h,
+                                                ),
+                                                child: Text(
+                                                  "Выбрать предмет",
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: 20.sp,
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                            for (String subject in subjectsList)
-                                              ListTile(
-                                                  title: Text(
-                                                    subject,
-                                                  ),
-                                                  onTap: () {
-                                                    setState(() {
-                                                      curSubj = subject;
+                                              for (String subject
+                                                  in subjectsList)
+                                                ListTile(
+                                                    title: Text(
+                                                      subject,
+                                                    ),
+                                                    onTap: () {
+                                                      setState(() {
+                                                        curSubj = subject;
 
-                                                      if (curSubj !=
-                                                          "По умолчанию") {
-                                                        sortingList = widget
-                                                            .trainerList
-                                                            .where((element) =>
-                                                                element
-                                                                    .subjectName ==
-                                                                curSubj)
-                                                            .toList();
-                                                      } else {
-                                                        sortingList =
-                                                            widget.trainerList;
-                                                      }
-                                                    });
-                                                    Navigator.pop(context);
-                                                  }),
-                                          ],
-                                        );
-                                      },
-                                    );
-                                  },
-                                  child: Text(
-                                    "Выбрать предмет",
-                                    style: TextStyle(
-                                      fontSize: 13.sp,
-                                      fontWeight: FontWeight.w400,
-                                      color: brightness == Brightness.dark
-                                          ? Colors.white
-                                          : Colors.black,
+                                                        if (curSubj !=
+                                                            "По умолчанию") {
+                                                          sortingList = widget
+                                                              .trainerList
+                                                              .where((element) =>
+                                                                  element
+                                                                      .subjectName ==
+                                                                  curSubj)
+                                                              .toList();
+                                                        } else {
+                                                          sortingList = widget
+                                                              .trainerList;
+                                                        }
+                                                      });
+                                                      Navigator.pop(context);
+                                                    }),
+                                            ],
+                                          );
+                                        },
+                                      );
+                                    },
+                                    child: Text(
+                                      "Выбрать предмет",
+                                      style: TextStyle(
+                                        fontSize: 13.sp,
+                                        fontWeight: FontWeight.w400,
+                                        color: brightness == Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                              SizedBox(
-                                height: 32.h,
-                                width: 110.w,
-                                child: TextButton(
-                                  style: TextButton.styleFrom(
-                                    backgroundColor:
-                                        brightness == Brightness.dark
-                                            ? colorForButton
-                                            : trainerAppBarButtonsBackground,
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 10.w),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(
-                                        10.sp,
-                                      ),
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                    showModalBottomSheet(
+                              OverlayTooltipItem(
+                                displayIndex: 1,
+                                tooltip: (controller) {
+                                  return MTooltip(
+                                    tooltipKey: 'trainer_helper_disabled',
+                                    title: 'Кнопка "Сортировка"',
+                                    description:
+                                        "Нажмите, чтобы перейти к сортировке тренажеров.",
+                                    controller: controller,
+                                  );
+                                },
+                                child: SizedBox(
+                                  height: 32.h,
+                                  width: 110.w,
+                                  child: TextButton(
+                                    style: TextButton.styleFrom(
                                       backgroundColor:
                                           brightness == Brightness.dark
-                                              ? backgroundColorDark
-                                              : trainerBottomSheetBackground,
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: <Widget>[
-                                            Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                  vertical: 10.h),
-                                              child: Text(
-                                                "Сортировать",
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w400,
-                                                  fontSize: 20.sp,
+                                              ? colorForButton
+                                              : trainerAppBarButtonsBackground,
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 10.w),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          10.sp,
+                                        ),
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      showModalBottomSheet(
+                                        backgroundColor:
+                                            brightness == Brightness.dark
+                                                ? backgroundColorDark
+                                                : trainerBottomSheetBackground,
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: <Widget>[
+                                              Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    vertical: 10.h),
+                                                child: Text(
+                                                  "Сортировать",
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: 20.sp,
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                            ListView.builder(
-                                              shrinkWrap: true,
-                                              itemCount: paramsOfSort.length,
-                                              itemBuilder:
-                                                  (BuildContext context,
-                                                          int index) =>
-                                                      ListTile(
-                                                title: Text(
-                                                  paramsOfSort[index],
-                                                ),
-                                                onTap: () {
-                                                  setState(() {
-                                                    sortingList = sortTrainers(
-                                                        paramsOfSort[index],
-                                                        sortingList);
-                                                  });
+                                              ListView.builder(
+                                                shrinkWrap: true,
+                                                itemCount: paramsOfSort.length,
+                                                itemBuilder:
+                                                    (BuildContext context,
+                                                            int index) =>
+                                                        ListTile(
+                                                  title: Text(
+                                                    paramsOfSort[index],
+                                                  ),
+                                                  onTap: () {
+                                                    setState(() {
+                                                      sortingList =
+                                                          sortTrainers(
+                                                              paramsOfSort[
+                                                                  index],
+                                                              sortingList);
+                                                    });
 
-                                                  Navigator.pop(context);
-                                                },
+                                                    Navigator.pop(context);
+                                                  },
+                                                ),
                                               ),
-                                            ),
-                                          ],
-                                        );
-                                      },
-                                    );
-                                  },
-                                  child: Text(
-                                    "Сортировка",
-                                    style: TextStyle(
-                                      fontSize: 13.sp,
-                                      fontWeight: FontWeight.w400,
-                                      color: brightness == Brightness.dark
-                                          ? Colors.white
-                                          : Colors.black,
+                                            ],
+                                          );
+                                        },
+                                      );
+                                    },
+                                    child: Text(
+                                      "Сортировка",
+                                      style: TextStyle(
+                                        fontSize: 13.sp,
+                                        fontWeight: FontWeight.w400,
+                                        color: brightness == Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -270,9 +334,31 @@ class _TrainerListWidgetState extends State<TrainerListWidget> {
                         SliverList.builder(
                           itemCount: sortingList.length,
                           itemBuilder: (BuildContext context, int index) =>
-                              TrainerCard(
-                            deleteMode: deleteMode,
-                            trainer: sortingList[index],
+                              OverlayTooltipItem(
+                            tooltipVerticalPosition:
+                                TooltipVerticalPosition.BOTTOM,
+                            displayIndex: 3,
+                            tooltip: (controller) {
+                              return Padding(
+                                padding: EdgeInsets.only(top: 40.h),
+                                child: MTooltip(
+                                  tooltipKey: 'trainer_helper_disabled',
+                                  title: 'Функция "Удаление тренажера"',
+                                  description:
+                                      "Удерживайте карточку, чтобы перейти к удалению тренажеров.",
+                                  controller: controller,
+                                ),
+                              );
+                            },
+                            child: TrainerCard(
+                              deleteMode: deleteMode,
+                              trainer: sortingList[index],
+                            ),
+                          ),
+                        ),
+                        SliverToBoxAdapter(
+                          child: SizedBox(
+                            height: 30.h,
                           ),
                         ),
                         SliverToBoxAdapter(
@@ -292,26 +378,39 @@ class _TrainerListWidgetState extends State<TrainerListWidget> {
                 Positioned(
                   bottom: 56.h,
                   right: 38.w,
-                  child: SizedBox(
-                    width: 70.w,
-                    height: 70.h,
-                    child: FittedBox(
-                      child: FloatingActionButton(
-                        onPressed: () async {
-                          await Navigator.of(context).pushReplacement(
-                            customPageRoute(
-                              const AddQustionScreen(),
-                            ),
-                          );
-                        },
-                        backgroundColor: brightness == Brightness.dark
-                            ? colorForButton
-                            : Colors.white,
-                        child: Icon(
-                          Icons.add,
-                          color: brightness == Brightness.dark
-                              ? Colors.white
-                              : Colors.blue,
+                  child: OverlayTooltipItem(
+                    tooltipVerticalPosition: TooltipVerticalPosition.TOP,
+                    displayIndex: 2,
+                    tooltip: (controller) {
+                      return MTooltip(
+                        tooltipKey: 'trainer_helper_disabled',
+                        title: 'Кнопка "Добавить вопрос"',
+                        description:
+                            "Нажмите, чтобы перейти к добавлению вопроса.",
+                        controller: controller,
+                      );
+                    },
+                    child: SizedBox(
+                      width: 70.w,
+                      height: 70.h,
+                      child: FittedBox(
+                        child: FloatingActionButton(
+                          onPressed: () async {
+                            await Navigator.of(context).pushReplacement(
+                              customPageRoute(
+                                const AddQustionScreen(),
+                              ),
+                            );
+                          },
+                          backgroundColor: brightness == Brightness.dark
+                              ? colorForButton
+                              : Colors.white,
+                          child: Icon(
+                            Icons.add,
+                            color: brightness == Brightness.dark
+                                ? Colors.white
+                                : Colors.blue,
+                          ),
                         ),
                       ),
                     ),
