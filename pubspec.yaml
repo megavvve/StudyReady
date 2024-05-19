@@ -37,6 +37,7 @@ dependencies:
   firebase_app_check: ^0.2.1+19
   fluttertoast: ^8.2.4
   rive: ^0.13.2
+  connectivity_plus: ^6.0.3
   
   
 

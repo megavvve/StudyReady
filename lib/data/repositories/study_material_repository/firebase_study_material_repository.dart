@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:study_ready/domain/entities/study_material.dart';
 import 'package:study_ready/domain/repositories/study_material_repository.dart';
 import 'package:study_ready/utils/exceptions.dart';
@@ -12,11 +13,14 @@ class FirebaseStudyMaterialRepository implements StudyMaterialRepository {
   @override
   Future<void> addMaterial(StudyMaterial material) async {
     try {
+      SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
       File file = File(material.filePath);
       // Указываем путь к месту загрузки файла в хранилище
       String storagePath = material.fileName;
+      String? uid = sharedPreferences.getString("uid");
       // Получаем ссылку на место загрузки
-      Reference reference = firebaseStorage.ref().child(storagePath);
+      Reference reference = firebaseStorage.ref().child('$uid/$storagePath');
       // Загружаем файл по указанному пути
       await reference.putFile(file);
     } catch (e) {
@@ -44,9 +48,15 @@ class FirebaseStudyMaterialRepository implements StudyMaterialRepository {
   Future<List<StudyMaterial>> getMaterials() async {
     List<StudyMaterial> remoteMaterials = [];
     try {
-      final storageRef = firebaseStorage.ref();
-      final ListResult result = await storageRef.listAll();
-
+      SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
+      String? uid = sharedPreferences.getString("uid");
+      final storageRefWithUid = firebaseStorage.ref().child('$uid/');
+      ListResult result = await storageRefWithUid.listAll();
+      if (result.items.isEmpty) {
+        final storageRef = firebaseStorage.ref().child('general_files/');
+        result = await storageRef.listAll();
+      }
       for (Reference item in result.items) {
         final metadata = await item.getMetadata();
         final String fileName = metadata.name;

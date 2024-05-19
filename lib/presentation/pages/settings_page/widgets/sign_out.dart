@@ -7,11 +7,15 @@ import 'package:study_ready/data/datasources/local/app_db.dart';
 import 'package:study_ready/domain/entities/auth.dart';
 import 'package:study_ready/domain/entities/study_material.dart';
 import 'package:study_ready/domain/entities/trainer.dart';
-import 'package:study_ready/injection_container.dart';
+
 import 'package:study_ready/main.dart';
 import 'package:study_ready/presentation/blocs/study_material_bloc/study_material_bloc.dart';
+import 'package:study_ready/presentation/blocs/theme_cubit/theme_cubit.dart';
 import 'package:study_ready/presentation/blocs/trainer_bloc/trainer_bloc.dart';
-import 'package:study_ready/presentation/navigation/router_wihout_animation.dart';
+import 'package:study_ready/presentation/navigation/custom_page_router.dart';
+
+import 'package:study_ready/presentation/pages/settings_page/widgets/check_intener_connection.dart';
+import 'package:study_ready/utils/app_colors.dart';
 
 class SignOutButton extends StatefulWidget {
   const SignOutButton({super.key});
@@ -24,7 +28,23 @@ class _SignOutButtonState extends State<SignOutButton> {
   Future<void> _signOut(BuildContext context, List<Trainer> trainerList,
       List<StudyMaterial> materialList) async {
     try {
-      await Auth().signout();
+      if (!await checkInternetConnection()) {
+        // Perform sign out logic here
+        showNoInternetDialog(context);
+      }
+
+      // FirebaseStudyMaterialRepository firebaseStudyMaterialRepository =
+      //     FirebaseStudyMaterialRepository();
+      // List<StudyMaterial> listFromFb =
+      //     await firebaseStudyMaterialRepository.getMaterials();
+      // for (StudyMaterial material in materialList) {
+      //   if (!listFromFb.contains(material.fileName)) {
+      //     context
+      //         .read<StudyMaterialBloc>()
+      //         .add(AddMaterial(studyMaterial: material));
+      //   }
+      // }
+
       await AppDB().deleteAllMaterials();
       GetIt.instance.reset();
       SharedPreferences sharedPreferences =
@@ -32,17 +52,19 @@ class _SignOutButtonState extends State<SignOutButton> {
       await sharedPreferences.clear();
       SharedPreferences sharedPreferencesd =
           await SharedPreferences.getInstance();
+      await Auth().signout();
       await main();
       Navigator.pushReplacement(
         // ignore: use_build_context_synchronously
         context,
-        routerWithoutAnimation(
+        customPageRoute(
           MyApp(
             preferences: sharedPreferencesd,
           ),
         ),
       );
     } catch (e) {
+      print(e);
       // Обработка ошибок
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -58,6 +80,7 @@ class _SignOutButtonState extends State<SignOutButton> {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = context.watch<ThemeCubit>().state.brightness;
     return BlocBuilder<TrainerBloc, TrainerState>(
       builder: (context, state) {
         if (state is TrainerLoadSuccess) {
@@ -70,25 +93,38 @@ class _SignOutButtonState extends State<SignOutButton> {
             }
             return Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-              child: SizedBox(
-                width: 362.w,
-                height: 70.h,
-                child: ElevatedButton(
-                  onPressed: () => _signOut(context, trainerList, materialList),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16.sp),
-                    ),
+              //width: 30.w,
+              // color: mainColorDark,
+              // height: 70.h,
+              child: TextButton(
+                onPressed: () => _signOut(context, trainerList, materialList),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: brightness == Brightness.dark
+                      ? colorForButton
+                      : mainColorLight,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16.sp),
                   ),
-                  child: Text(
-                    'Выйти',
-                    style: TextStyle(
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(
+                      Icons.exit_to_app,
                       color: Colors.white,
-                      fontSize: 23.sp,
-                      fontWeight: FontWeight.w400,
                     ),
-                  ),
+                    SizedBox(
+                      width: 10.w,
+                    ),
+                    Text(
+                      'Выйти',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 23.sp,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             );

@@ -21,7 +21,9 @@ class _ThemeSwitchButtonState extends State<ThemeSwitchButton> {
       width: 362.w,
       height: 70.h,
       decoration: BoxDecoration(
-        color: const Color(0xFFAEC6FF),
+        color: brightness == Brightness.dark
+            ? colorForMaterialCardDark
+            : const Color(0xFFAEC6FF),
         borderRadius: BorderRadius.all(
           Radius.circular(16.sp),
         ),
@@ -32,7 +34,6 @@ class _ThemeSwitchButtonState extends State<ThemeSwitchButton> {
           Text(
             "Темная тема",
             style: TextStyle(
-              color: Colors.black,
               fontSize: 20.sp,
             ),
           ),

@@ -5,13 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:study_ready/data/repositories/theme_repository/theme_repository.dart';
 import 'package:study_ready/domain/entities/auth.dart';
-import 'package:study_ready/domain/entities/firestore_service.dart';
 import 'package:study_ready/domain/entities/user_model.dart';
 
 import 'package:study_ready/firebase_options.dart';

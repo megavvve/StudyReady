@@ -67,13 +67,13 @@ class SettingsScreen extends StatelessWidget {
                                 //sharedPreferences.getString("uid") ?? ""),
                                 ),
                             Positioned(
-                              top: 90.h,
+                              top: 120.h,
                               left: 0.w,
                               right: 0.w,
                               child: const ThemeSwitchButton(),
                             ),
                             Positioned(
-                              top: 379.h,
+                              top: 450.h,
                               left: 0.w,
                               right: 0.w,
                               child: const SignOutButton(),
