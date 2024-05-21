@@ -3,8 +3,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:overlay_tooltip/overlay_tooltip.dart';
-
 import 'package:study_ready/domain/entities/trainer.dart';
 import 'package:study_ready/presentation/blocs/theme_cubit/theme_cubit.dart';
 import 'package:study_ready/presentation/blocs/trainer_bloc/trainer_bloc.dart';
@@ -13,7 +11,6 @@ import 'package:study_ready/presentation/pages/trainer_page/trainer_screen/widge
 import 'package:study_ready/presentation/pages/trainer_page/trainer_screen/widget/widget_of_trainer_list_widget.dart/show_launching_trainer.dart';
 import 'package:study_ready/presentation/widgets/shaking_animation.dart';
 import 'package:study_ready/utils/app_svg_assets.dart';
-import 'package:study_ready/utils/custom_tooltip.dart';
 
 class TrainerCard extends StatefulWidget {
   final Trainer trainer;
@@ -135,54 +132,43 @@ class _TrainerCardState extends State<TrainerCard> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                OverlayTooltipItem(
-                                  displayIndex: 4,
-                                  tooltip: (controller) {
-                                    return MTooltip(
-                                      tooltipKey: 'materials_helper_disabled',
-                                      title: 'Кнопка "Начнем"',
-                                      description:
-                                          "Нажмите, чтобы запустить тренажер.",
-                                      controller: controller,
+                                TextButton(
+                                  style: TextButton.styleFrom(
+                                    textStyle: TextStyle(
+                                      fontSize: 22.sp,
+                                    ),
+                                    backgroundColor:
+                                        brightness == Brightness.dark
+                                            ? const Color.fromRGBO(0, 0, 0, 0.2)
+                                            : Colors.white,
+                                  ),
+                                  onPressed: () {
+                                    showLaunchingTrainer(
+                                        context, widget.trainer);
+                                    final bloc = context.read<TrainerBloc>();
+                                    bloc.add(
+                                      GenerateAnswersListEvent(
+                                        trainerList:
+                                            (state is TrainerLoadSuccess)
+                                                ? state.trainerList
+                                                : [],
+                                        trainer: widget.trainer,
+                                      ),
                                     );
                                   },
-                                  child: TextButton(
-                                    style: TextButton.styleFrom(
-                                      textStyle: TextStyle(
-                                        fontSize: 22.sp,
-                                      ),
-                                      backgroundColor: brightness ==
-                                              Brightness.dark
-                                          ? const Color.fromRGBO(0, 0, 0, 0.2)
-                                          : Colors.white,
-                                    ),
-                                    onPressed: () {
-                                      showLaunchingTrainer(
-                                          context, widget.trainer);
-                                      final bloc = context.read<TrainerBloc>();
-                                      bloc.add(
-                                        GenerateAnswersListEvent(
-                                          trainerList:
-                                              (state is TrainerLoadSuccess)
-                                                  ? state.trainerList
-                                                  : [],
-                                          trainer: widget.trainer,
-                                        ),
-                                      );
-                                    },
-                                    child: Text(
-                                      'Начнем',
-                                      style: TextStyle(
-                                        fontSize: 16.sp,
-                                        color: brightness == Brightness.dark
-                                            ? Colors.white
-                                            : Colors.black,
-                                        fontWeight: FontWeight.w400,
-                                      ),
+                                  child: Text(
+                                    'Начнем',
+                                    style: TextStyle(
+                                      fontSize: 16.sp,
+                                      color: brightness == Brightness.dark
+                                          ? Colors.white
+                                          : Colors.black,
+                                      fontWeight: FontWeight.w400,
                                     ),
                                   ),
                                 ),
                                 backgrondsForTrainerCard[Random().nextInt(3)],
+                                //Random().nextInt(2)
                               ],
                             ),
                           ],
