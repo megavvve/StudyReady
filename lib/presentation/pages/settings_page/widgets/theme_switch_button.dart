@@ -15,41 +15,41 @@ class _ThemeSwitchButtonState extends State<ThemeSwitchButton> {
   @override
   Widget build(BuildContext context) {
     final brightness = context.watch<ThemeCubit>().state.brightness;
-    return Container(
-      alignment: Alignment.center,
-      padding: EdgeInsets.all(16.sp),
-      width: 362.w,
-      height: 70.h,
-      decoration: BoxDecoration(
-        color: brightness == Brightness.dark
-            ? colorForMaterialCardDark
-            : const Color(0xFFAEC6FF),
-        borderRadius: BorderRadius.all(
-          Radius.circular(16.sp),
+    return Center(
+      child: Container(
+        padding: EdgeInsets.all(16.sp),
+        height: 70.h,
+        width: 315.w,
+        decoration: BoxDecoration(
+          color: brightness == Brightness.dark
+              ? colorForMaterialCardDark
+              : const Color(0xFFAEC6FF),
+          borderRadius: BorderRadius.all(
+            Radius.circular(16.sp),
+          ),
         ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            "Темная тема",
-            style: TextStyle(
-              fontSize: 20.sp,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: Text(
+                "Темная тема",
+                style: TextStyle(
+                  fontSize: 20.sp,
+                ),
+              ),
             ),
-          ),
-          SizedBox(
-            width: 40.w,
-          ),
-          Switch(
-            value: brightness == Brightness.dark,
-            activeColor: mainColorLight,
-            onChanged: (bool value) {
-              context.read<ThemeCubit>().setThemeBrightness(
-                    value ? Brightness.dark : Brightness.light,
-                  );
-            },
-          ),
-        ],
+            Switch(
+              value: brightness == Brightness.dark,
+              activeColor: mainColorLight,
+              onChanged: (bool value) {
+                context.read<ThemeCubit>().setThemeBrightness(
+                      value ? Brightness.dark : Brightness.light,
+                    );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -69,7 +69,6 @@ final sLetterFrontFrDark = SvgPicture.asset(
   color: const Color(0xFF1C1A1A),
 );
 
-
 final materialsText = SvgPicture.asset(
   materialTextPath,
   width: 231.w,
@@ -127,12 +126,15 @@ final backgrondsForTrainerCard = [
   SvgPicture.asset(
     'assets/images/trainer/background_for_trainer.svg',
   ),
+  
   SvgPicture.asset(
     'assets/images/trainer/background1_for_trainer.svg',
   ),
+  /*
   SvgPicture.asset(
     'assets/images/trainer/background2_for_trainer.svg',
   ),
+  */
   SvgPicture.asset(
     'assets/images/trainer/background3_for_trainer.svg',
   ),
