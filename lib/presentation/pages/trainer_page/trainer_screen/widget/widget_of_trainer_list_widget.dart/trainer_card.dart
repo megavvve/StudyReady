@@ -45,7 +45,11 @@ class _TrainerCardState extends State<TrainerCard> {
           isActive: widget.deleteMode.isDeleting,
           child: GestureDetector(
               onLongPress: () {
-                widget.deleteMode.isDeleting = true;
+                if (state is TrainerLoadSuccess) {
+                  (state.trainerList.length > 1)
+                      ? widget.deleteMode.isDeleting = true
+                      : widget.deleteMode.isDeleting = false;
+                }
               },
               onTap: () {
                 if (widget.deleteMode.isDeleting) {

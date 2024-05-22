@@ -32,9 +32,10 @@ class _MaterialScreenState extends State<MaterialScreen> {
   late SharedPreferences prefs;
   @override
   void initState() {
+    super.initState();
     toogleForListOfMaterials = true;
     deleteMode = DeleteModeForMaterials();
-    super.initState();
+
     initializePreferences();
   }
 
@@ -60,12 +61,6 @@ class _MaterialScreenState extends State<MaterialScreen> {
       builder: (contextBloc, state) {
         if (state is StudyMaterialLoadSuccess) {
           final bloc = contextBloc.read<StudyMaterialBloc>();
-
-          // if (toogleForListOfMaterials) {
-          //   deleteMode.listOfStudyMaterials = state.materials;
-          //   toogleForListOfMaterials = false;
-          // }
-
           return ListenableBuilder(
             listenable: deleteMode,
             builder: (BuildContext context, Widget? child) {

@@ -4,9 +4,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:study_ready/presentation/blocs/theme_cubit/theme_cubit.dart';
 import 'package:study_ready/presentation/pages/auth_page/widgets/widget/change_notifier_for_auth.dart';
 
-class PasswordForm extends StatelessWidget {
+class PasswordForm extends StatefulWidget {
   final ChangeNotifierForAuth changeNotifierForAuth;
   const PasswordForm({super.key, required this.changeNotifierForAuth});
+
+  @override
+  _PasswordFormState createState() => _PasswordFormState();
+}
+
+class _PasswordFormState extends State<PasswordForm> {
+  bool _isPasswordVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -59,11 +66,12 @@ class PasswordForm extends StatelessWidget {
             ),
           ),
           child: TextField(
+            obscureText: !_isPasswordVisible,
             keyboardType: TextInputType.visiblePassword,
             textInputAction: TextInputAction.done,
             maxLines: 1,
             onChanged: (value) {
-              changeNotifierForAuth.passwordUser = value;
+              widget.changeNotifierForAuth.passwordUser = value;
             },
             decoration: InputDecoration(
               contentPadding: EdgeInsetsDirectional.only(start: 1.w),
@@ -77,6 +85,17 @@ class PasswordForm extends StatelessWidget {
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w300,
                 color: Colors.grey,
+              ),
+              suffixIcon: IconButton(
+                icon: Icon(
+                  _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                  color: Colors.black,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _isPasswordVisible = !_isPasswordVisible;
+                  });
+                },
               ),
             ),
             style: TextStyle(fontSize: 18.sp, color: Colors.black),
