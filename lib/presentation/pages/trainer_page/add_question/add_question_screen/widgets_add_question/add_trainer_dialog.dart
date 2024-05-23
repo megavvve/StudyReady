@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:study_ready/domain/entities/trainer.dart';
 import 'package:study_ready/presentation/blocs/trainer_bloc/trainer_bloc.dart';
@@ -36,10 +37,13 @@ class _AddTrainerDialogState extends State<AddTrainerDialog> {
   final TextEditingController trainerNameController = TextEditingController();
   final TextEditingController subjectNameController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
+  SharedPreferences prefs = GetIt.instance.get<SharedPreferences>();
   @override
   void initState() {
+    trainerNameController.text = prefs.getString('trainerNameController') ?? '';
+    subjectNameController.text = prefs.getString('subjectNameController') ?? '';
+    descriptionController.text = prefs.getString('descriptionController') ?? '';
     super.initState();
-    loadSharedPreferences();
   }
 
   @override
@@ -48,20 +52,6 @@ class _AddTrainerDialogState extends State<AddTrainerDialog> {
     subjectNameController.dispose();
     descriptionController.dispose();
     super.dispose();
-  }
-
-  Future<void> loadSharedPreferences() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(
-      () {
-        trainerNameController.text =
-            prefs.getString('trainerNameController') ?? '';
-        subjectNameController.text =
-            prefs.getString('subjectNameController') ?? '';
-        descriptionController.text =
-            prefs.getString('descriptionController') ?? '';
-      },
-    );
   }
 
   @override
@@ -93,7 +83,6 @@ class _AddTrainerDialogState extends State<AddTrainerDialog> {
                       ),
                     ),
                     onChanged: (value) async {
-                      final prefs = await SharedPreferences.getInstance();
                       prefs.setString("trainerNameController", value);
                     },
                   ),
@@ -113,8 +102,7 @@ class _AddTrainerDialogState extends State<AddTrainerDialog> {
                         ),
                       ),
                     ),
-                    onChanged: (value) async {
-                      final prefs = await SharedPreferences.getInstance();
+                    onChanged: (value) {
                       prefs.setString("subjectNameController", value);
                     },
                   ),
@@ -143,8 +131,7 @@ class _AddTrainerDialogState extends State<AddTrainerDialog> {
           ),
           actions: <Widget>[
             TextButton(
-              onPressed: () async {
-                SharedPreferences prefs = await SharedPreferences.getInstance();
+              onPressed: () {
                 prefs.setString("Добавить в тренажер:", "");
                 Navigator.of(context).pop();
               },
@@ -154,7 +141,7 @@ class _AddTrainerDialogState extends State<AddTrainerDialog> {
               ),
             ),
             TextButton(
-              onPressed: () async {
+              onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   final newTrainer = Trainer(
                     id: Trainer.getNextTrainerId(widget.trainers),
@@ -171,7 +158,7 @@ class _AddTrainerDialogState extends State<AddTrainerDialog> {
                     ),
                   );
                   SharedPreferences prefs =
-                      await SharedPreferences.getInstance();
+                      GetIt.instance.get<SharedPreferences>();
                   prefs.setString("trainerNameController", '');
                   prefs.setString("subjectNameController", '');
                   prefs.setString("descriptionController", '');

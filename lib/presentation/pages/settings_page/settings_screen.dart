@@ -85,8 +85,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   child: Container(
                                     alignment: Alignment.center,
                                     padding: EdgeInsets.all(13.sp),
-                                    width: 315.w,
-                                    height: 90.h,
+                                    //width: 315.w,
+                                    //height: 90.h,
                                     decoration: BoxDecoration(
                                       color: brightness == Brightness.dark
                                           ? colorForMaterialCardDark

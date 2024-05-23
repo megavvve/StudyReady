@@ -19,7 +19,7 @@ class _ThemeSwitchButtonState extends State<ThemeSwitchButton> {
       child: Container(
         padding: EdgeInsets.all(16.sp),
         height: 70.h,
-        width: 315.w,
+        //width: 315.w,
         decoration: BoxDecoration(
           color: brightness == Brightness.dark
               ? colorForMaterialCardDark

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:study_ready/presentation/blocs/theme_cubit/theme_cubit.dart';
 import 'package:study_ready/utils/app_colors.dart';
@@ -16,37 +17,23 @@ class ContainerForWrongAnswer extends StatefulWidget {
 }
 
 class _ContainerForWrongAnswerState extends State<ContainerForWrongAnswer> {
-  SharedPreferences? prefs;
+  SharedPreferences prefs = GetIt.instance.get<SharedPreferences>();
   late List<TextEditingController> listOfWrongAnswerControllers;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadPrefs();
-  }
-
-  Future<void> _loadPrefs() async {
-    prefs = await SharedPreferences.getInstance();
-
-    // Здесь вы можете выполнять другие асинхронные операции, связанные с SharedPreferences
-    setState(
-        () {}); // вызов setState, чтобы перестроить виджет с учетом полученных данных
-  }
 
   @override
   Widget build(BuildContext context) {
     final brightness = context.watch<ThemeCubit>().state.brightness;
     TextEditingController answerController2 = TextEditingController(
-        text: (prefs?.getString("answer2") != null)
-            ? prefs?.getString("answer2")
+        text: (prefs.getString("answer2") != null)
+            ? prefs.getString("answer2")
             : "");
     TextEditingController answerController3 = TextEditingController(
-        text: (prefs?.getString("answer3") != null)
-            ? prefs?.getString("answer3")
+        text: (prefs.getString("answer3") != null)
+            ? prefs.getString("answer3")
             : "");
     TextEditingController answerController4 = TextEditingController(
-        text: (prefs?.getString("answer4") != null)
-            ? prefs?.getString("answer4")
+        text: (prefs.getString("answer4") != null)
+            ? prefs.getString("answer4")
             : "");
     List<TextEditingController> listOfWrongAnswerControllers = [
       answerController2,
@@ -103,7 +90,7 @@ class _ContainerForWrongAnswerState extends State<ContainerForWrongAnswer> {
                   maxLines: null,
                   textCapitalization: TextCapitalization.sentences,
                   onChanged: (value) {
-                    prefs?.setString("answer${widget.index + 2}", value);
+                    prefs.setString("answer${widget.index + 2}", value);
                   },
                   decoration: InputDecoration(
                     contentPadding: EdgeInsetsDirectional.only(start: 5.w),

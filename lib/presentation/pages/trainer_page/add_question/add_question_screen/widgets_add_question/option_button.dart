@@ -34,7 +34,6 @@ class OptionsButton extends StatelessWidget {
             const AnsParsScreen(),
           ),
         );
-        //messAboutFeatureImprovements(context);
       },
       clipBehavior: Clip.none,
       child: Row(
