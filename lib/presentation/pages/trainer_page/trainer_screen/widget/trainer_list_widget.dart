@@ -8,15 +8,11 @@ import 'package:study_ready/presentation/blocs/trainer_bloc/trainer_bloc.dart';
 import 'package:study_ready/presentation/navigation/burger_navigation_leading.dart';
 import 'package:study_ready/presentation/navigation/custom_page_router.dart';
 import 'package:study_ready/presentation/navigation/navigation_bar.dart';
-import 'package:study_ready/presentation/pages/auth_page/widgets/widget/change_notifier_for_auth.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:overlay_tooltip/overlay_tooltip.dart';
 import 'package:study_ready/presentation/pages/trainer_page/add_question/add_question_screen/add_question_screen.dart';
 import 'package:study_ready/presentation/pages/trainer_page/trainer_screen/widget/delete_mode_for_trainers.dart';
 import 'package:study_ready/presentation/pages/trainer_page/trainer_screen/widget/widget_of_trainer_list_widget.dart/sort_trainers_fun.dart';
 import 'package:study_ready/presentation/pages/trainer_page/trainer_screen/widget/widget_of_trainer_list_widget.dart/trainer_card.dart';
 import 'package:study_ready/utils/app_colors.dart';
-import 'package:study_ready/utils/custom_tooltip.dart';
 
 class TrainerListWidget extends StatefulWidget {
   final List<Trainer> trainerList;
@@ -188,91 +184,77 @@ class _TrainerListWidgetState extends State<TrainerListWidget> {
                                 ),
                               ),
                             ),
-                            OverlayTooltipItem(
-                              displayIndex: 1,
-                              tooltip: (controller) {
-                                return MTooltip(
-                                  tooltipKey: 'trainer_helper_disabled',
-                                  title: 'Кнопка "Сортировка"',
-                                  description:
-                                      "Нажмите, чтобы перейти к сортировке тренажеров.",
-                                  controller: controller,
-                                );
-                              },
-                              child: SizedBox(
-                                height: 32.h,
-                                width: 110.w,
-                                child: TextButton(
-                                  style: TextButton.styleFrom(
-                                    backgroundColor:
-                                        brightness == Brightness.dark
-                                            ? colorForButton
-                                            : trainerAppBarButtonsBackground,
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 10.w),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(
-                                        10.sp,
-                                      ),
+                            SizedBox(
+                              height: 32.h,
+                              width: 110.w,
+                              child: TextButton(
+                                style: TextButton.styleFrom(
+                                  backgroundColor: brightness == Brightness.dark
+                                      ? colorForButton
+                                      : trainerAppBarButtonsBackground,
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 10.w),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                      10.sp,
                                     ),
                                   ),
-                                  onPressed: () {
-                                    showModalBottomSheet(
-                                      backgroundColor:
-                                          brightness == Brightness.dark
-                                              ? backgroundColorDark
-                                              : trainerBottomSheetBackground,
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: <Widget>[
-                                            Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                  vertical: 10.h),
-                                              child: Text(
-                                                "Сортировать",
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w400,
-                                                  fontSize: 20.sp,
-                                                ),
+                                ),
+                                onPressed: () {
+                                  showModalBottomSheet(
+                                    backgroundColor:
+                                        brightness == Brightness.dark
+                                            ? backgroundColorDark
+                                            : trainerBottomSheetBackground,
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: <Widget>[
+                                          Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 10.h),
+                                            child: Text(
+                                              "Сортировать",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 20.sp,
                                               ),
                                             ),
-                                            ListView.builder(
-                                              shrinkWrap: true,
-                                              itemCount: paramsOfSort.length,
-                                              itemBuilder:
-                                                  (BuildContext context,
-                                                          int index) =>
-                                                      ListTile(
-                                                title: Text(
-                                                  paramsOfSort[index],
-                                                ),
-                                                onTap: () {
-                                                  setState(() {
-                                                    sortingList = sortTrainers(
-                                                        paramsOfSort[index],
-                                                        sortingList);
-                                                  });
+                                          ),
+                                          ListView.builder(
+                                            shrinkWrap: true,
+                                            itemCount: paramsOfSort.length,
+                                            itemBuilder: (BuildContext context,
+                                                    int index) =>
+                                                ListTile(
+                                              title: Text(
+                                                paramsOfSort[index],
+                                              ),
+                                              onTap: () {
+                                                setState(() {
+                                                  sortingList = sortTrainers(
+                                                      paramsOfSort[index],
+                                                      sortingList);
+                                                });
 
-                                                  Navigator.pop(context);
-                                                },
-                                              ),
+                                                Navigator.pop(context);
+                                              },
                                             ),
-                                          ],
-                                        );
-                                      },
-                                    );
-                                  },
-                                  child: Text(
-                                    "Сортировка",
-                                    style: TextStyle(
-                                      fontSize: 13.sp,
-                                      fontWeight: FontWeight.w400,
-                                      color: brightness == Brightness.dark
-                                          ? Colors.white
-                                          : Colors.black,
-                                    ),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                },
+                                child: Text(
+                                  "Сортировка",
+                                  style: TextStyle(
+                                    fontSize: 13.sp,
+                                    fontWeight: FontWeight.w400,
+                                    color: brightness == Brightness.dark
+                                        ? Colors.white
+                                        : Colors.black,
                                   ),
                                 ),
                               ),

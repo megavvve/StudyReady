@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:study_ready/domain/entities/chapter.dart';
 import 'package:study_ready/domain/entities/question.dart';
@@ -41,12 +42,13 @@ class AddQuestionButton extends StatelessWidget {
                 ),
               ),
             ),
-            onPressed: () async {
-              if (await isEmptyTextField()) {
+            onPressed: () {
+              if (isEmptyTextField()) {
                 showValidationErrorSnackBar(context);
               } else {
                 final bloc = context.read<TrainerBloc>();
-                SharedPreferences prefs = await SharedPreferences.getInstance();
+                SharedPreferences prefs =
+                    GetIt.instance.get<SharedPreferences>();
                 String? courseNumText = prefs.getString("Номер курса");
                 String courseNum = courseNumText ?? "1";
 
@@ -85,9 +87,17 @@ class AddQuestionButton extends StatelessWidget {
                     ),
                   ),
                 );
+                prefs.setString("question", "");
+                prefs.setString("answer1", "");
+                prefs.setString("answer2", "");
+                prefs.setString("answer3", "");
+                prefs.setString("answer4", "");
+                prefs.setString("Тема", "");
+                prefs.setString("Номер модуля", "");
+                prefs.setString("Сложность", "");
+                prefs.setString("Номер модуля", "");
+                prefs.setString("Добавить в тренажер:", "");
 
-                prefs.clear();
-                // ignore: use_build_context_synchronously
                 Navigator.of(context).pushReplacement(
                   customPageRoute(
                     const TrainerScreen(),

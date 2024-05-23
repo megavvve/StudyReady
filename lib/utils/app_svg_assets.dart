@@ -102,13 +102,13 @@ final duck = SvgPicture.asset(
 final settingsBackgroundLight = SvgPicture.asset(
   "assets/images/settings/settings_background.svg",
   width: 347.w,
-  height: 630.h,
+  height: 695.h,
 );
 
 final settingsBackgroundDark = SvgPicture.asset(
   "assets/images/settings/settings_background.svg",
   width: 347.w,
-  height: 630.h,
+  height: 695.h,
   color: Colors.white,
 );
 
@@ -126,7 +126,6 @@ final backgrondsForTrainerCard = [
   SvgPicture.asset(
     'assets/images/trainer/background_for_trainer.svg',
   ),
-  
   SvgPicture.asset(
     'assets/images/trainer/background1_for_trainer.svg',
   ),

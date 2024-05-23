@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get_it/get_it.dart';
 import 'package:overlay_tooltip/overlay_tooltip.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:study_ready/domain/entities/study_material.dart';
@@ -29,19 +30,12 @@ class _MaterialScreenState extends State<MaterialScreen> {
   String _query = '';
   late DeleteModeForMaterials deleteMode;
   late bool toogleForListOfMaterials;
-  late SharedPreferences prefs;
+  SharedPreferences prefs = GetIt.instance.get<SharedPreferences>();
   @override
   void initState() {
     super.initState();
     toogleForListOfMaterials = true;
     deleteMode = DeleteModeForMaterials();
-
-    initializePreferences();
-  }
-
-  Future<void> initializePreferences() async {
-    prefs = await SharedPreferences.getInstance();
-    setState(() {});
   }
 
   final TextEditingController searchTextController = TextEditingController();

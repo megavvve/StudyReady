@@ -76,84 +76,80 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   ? settingsBackgroundDark
                                   : settingsBackgroundLight,
                               Center(
-                                child: Positioned(
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        showDuck = !showDuck;
-                                      });
-                                    },
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      padding: EdgeInsets.all(13.sp),
-                                      width: 315.w,
-                                      height: 90.h,
-                                      decoration: BoxDecoration(
-                                        color: brightness == Brightness.dark
-                                            ? colorForMaterialCardDark
-                                            : const Color(0xFFAEC6FF),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: brightness == Brightness.dark
-                                                ? colorForMaterialCardDark
-                                                : const Color(0xFFAEC6FF),
-                                            offset: const Offset(
-                                              5.0,
-                                              5.0,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      showDuck = !showDuck;
+                                    });
+                                  },
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    padding: EdgeInsets.all(13.sp),
+                                    width: 315.w,
+                                    height: 90.h,
+                                    decoration: BoxDecoration(
+                                      color: brightness == Brightness.dark
+                                          ? colorForMaterialCardDark
+                                          : const Color(0xFFAEC6FF),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: brightness == Brightness.dark
+                                              ? colorForMaterialCardDark
+                                              : const Color(0xFFAEC6FF),
+                                          offset: const Offset(
+                                            5.0,
+                                            5.0,
+                                          ),
+                                          blurRadius: 10.0,
+                                          spreadRadius: 2.0,
+                                        ), //BoxShadow
+                                        const BoxShadow(
+                                          color: Colors.white,
+                                          offset: Offset(0.0, 0.0),
+                                          blurRadius: 0.0,
+                                          spreadRadius: 0.0,
+                                        ), //BoxShadow
+                                      ],
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(16.sp),
+                                      ),
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        Stack(
+                                          children: [
+                                            Positioned(
+                                              child: duckBackground,
                                             ),
-                                            blurRadius: 10.0,
-                                            spreadRadius: 2.0,
-                                          ), //BoxShadow
-                                          const BoxShadow(
-                                            color: Colors.white,
-                                            offset: Offset(0.0, 0.0),
-                                            blurRadius: 0.0,
-                                            spreadRadius: 0.0,
-                                          ), //BoxShadow
-                                        ],
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(16.sp),
+                                            Positioned(
+                                              top: 10,
+                                              left: 10,
+                                              child: duck,
+                                            ),
+                                          ],
                                         ),
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          Stack(
-                                            children: [
-                                              Positioned(
-                                                child: duckBackground,
-                                              ),
-                                              Positioned(
-                                                top: 10,
-                                                left: 10,
-                                                child: duck,
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            width: 15.w,
-                                          ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                '${state.userModel.displayName}',
-                                                style: TextStyle(
-                                                    fontSize: 16.sp,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                              Text(
-                                                'почта: ${state.userModel.email}',
-                                                style:
-                                                    TextStyle(fontSize: 14.sp),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
+                                        SizedBox(
+                                          width: 15.w,
+                                        ),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              '${state.userModel.displayName}',
+                                              style: TextStyle(
+                                                  fontSize: 16.sp,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            Text(
+                                              'почта: ${state.userModel.email}',
+                                              style: TextStyle(fontSize: 14.sp),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),

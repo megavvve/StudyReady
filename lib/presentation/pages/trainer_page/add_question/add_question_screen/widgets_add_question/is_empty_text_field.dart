@@ -1,7 +1,8 @@
+import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-Future<bool> isEmptyTextField() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
+bool isEmptyTextField() {
+  SharedPreferences prefs = GetIt.instance.get<SharedPreferences>();
 
   String question = prefs.getString("question") ?? "";
   String answer1 = prefs.getString("answer1") ?? "";

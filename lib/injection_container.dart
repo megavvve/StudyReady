@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:study_ready/data/datasources/local/app_db.dart';
 import 'package:study_ready/data/datasources/local/external/trainers/json_trainer_repository.dart';
 import 'package:study_ready/data/repositories/study_material_repository/firebase_study_material_repository.dart';
@@ -30,12 +31,8 @@ final getIt = GetIt.instance;
 
 //Dependency injection
 Future<void> setup() async {
-  //final AuthRepository authRepository = FirebaseAuthRepository();
-
-// Sign in anonymously
-  // User? user = await authRepository.signInAnonymously();
-  // print(user?.email);
-  //blocs
+  final sharedPreferences = await SharedPreferences.getInstance();
+  getIt.registerSingleton<SharedPreferences>(sharedPreferences);
 
   getIt.registerFactory(
     () => StudyMaterialBloc(
