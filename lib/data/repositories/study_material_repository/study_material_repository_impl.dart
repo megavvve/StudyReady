@@ -20,6 +20,7 @@ class StudyMaterialRepositoryImpl implements StudyMaterialRepository {
       if (localMaterials.isEmpty) {
         List<StudyMaterial> remoteMaterials =
             await remoteRepository.getMaterials();
+
         await _updateLocalRepository(remoteMaterials);
         return remoteMaterials;
       }

@@ -55,26 +55,49 @@ class FirebaseStudyMaterialRepository implements StudyMaterialRepository {
       ListResult result = await storageRefWithUid.listAll();
       if (result.items.isEmpty) {
         final storageRef = firebaseStorage.ref().child('general_files/');
-        result = await storageRef.listAll();
-      }
-      for (Reference item in result.items) {
-        final metadata = await item.getMetadata();
-        final String fileName = metadata.name;
-        final String type = metadata.contentType ?? '';
-        final appDocDir = await getApplicationDocumentsDirectory();
-        final String filePath = "${appDocDir.path}/$fileName";
-        final File file = File(filePath);
-        await item.writeToFile(file);
 
-        final StudyMaterial material = StudyMaterial(
-          id: remoteMaterials.length + 1,
-          fileName: fileName.split('.').first,
-          filePath: filePath,
-          subjectName: '',
-          uploadDate: metadata.timeCreated.toString(),
-          fileType: type.split('/').last,
-        );
-        remoteMaterials.add(material);
+        result = await storageRef.listAll();
+        for (Reference item in result.items) {
+          final metadata = await item.getMetadata();
+          final String fileName = metadata.name;
+          final String type = metadata.contentType ?? '';
+          final appDocDir = await getApplicationDocumentsDirectory();
+          final String filePath = "${appDocDir.path}/$fileName";
+          final File file = File(filePath);
+          await item.writeToFile(file);
+
+          final StudyMaterial material = StudyMaterial(
+            id: remoteMaterials.length + 1,
+            fileName: fileName.split('.').first,
+            filePath: filePath,
+            subjectName: '',
+            uploadDate: metadata.timeCreated.toString(),
+            fileType: type.split('/').last,
+          );
+          addMaterial(material);
+          remoteMaterials.add(material);
+        }
+      } else {
+        for (Reference item in result.items) {
+          final metadata = await item.getMetadata();
+          final String fileName = metadata.name;
+          final String type = metadata.contentType ?? '';
+          final appDocDir = await getApplicationDocumentsDirectory();
+          final String filePath = "${appDocDir.path}/$fileName";
+          final File file = File(filePath);
+          await item.writeToFile(file);
+
+          final StudyMaterial material = StudyMaterial(
+            id: remoteMaterials.length + 1,
+            fileName: fileName.split('.').first,
+            filePath: filePath,
+            subjectName: '',
+            uploadDate: metadata.timeCreated.toString(),
+            fileType: type.split('/').last,
+          );
+
+          remoteMaterials.add(material);
+        }
       }
     } catch (e) {
       print('Error fetching materials: $e');
@@ -86,8 +109,14 @@ class FirebaseStudyMaterialRepository implements StudyMaterialRepository {
   @override
   Future<void> deleteMaterial(StudyMaterial material) async {
     try {
+      SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
+
+      String? uid = sharedPreferences.getString("uid");
+      print("*******************");
+      print("uid");
       String storagePath = material.fileName;
-      Reference reference = firebaseStorage.ref().child(storagePath);
+      Reference reference = firebaseStorage.ref().child('$uid/$storagePath');
 
       try {
         await reference.delete();

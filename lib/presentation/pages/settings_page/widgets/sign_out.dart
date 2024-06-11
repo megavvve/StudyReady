@@ -33,9 +33,8 @@ class _SignOutButtonState extends State<SignOutButton> {
       }
       await AppDB().deleteAllMaterials();
       GetIt.instance.reset();
-      SharedPreferences sharedPreferences =
-          await SharedPreferences.getInstance();
-      await sharedPreferences.clear();
+      SharedPreferences prefs = GetIt.instance.get<SharedPreferences>();
+      prefs.clear();
       SharedPreferences sharedPreferencesd =
           await SharedPreferences.getInstance();
       await Auth().signout();
